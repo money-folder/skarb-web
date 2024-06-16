@@ -11,9 +11,9 @@ interface WalletsTableProps {
   wallets: ClientWalletDto[];
 }
 
-export function WalletsTable({ wallets }: WalletsTableProps) {
+export default function WalletsTable({ wallets }: WalletsTableProps) {
   return (
-    <table className="mt-5 w-2/3">
+    <table className="w-full">
       <thead>
         <tr>
           <th className="p-1 text-sm border-2 border-black">Name</th>
