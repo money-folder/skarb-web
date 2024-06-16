@@ -20,3 +20,17 @@ export const generatePseudoUUID = () => {
     uuid.slice(20)
   );
 };
+
+const formatMonthIndex = (monthIndex: number) => {
+  const month = monthIndex + 1;
+  if (month >= 10) {
+    return `${month}`;
+  }
+
+  return `0${month}`;
+};
+
+export const getLocalISOString = (date: Date) =>
+  `${date.getFullYear()}-${formatMonthIndex(
+    date.getMonth()
+  )}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;

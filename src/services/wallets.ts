@@ -1,10 +1,6 @@
 import { auth } from "@/auth";
 import * as walletsRepository from "@/repositories/wallets";
-import {
-  ClientWalletDto,
-  CreateWalletDto,
-  CreateWalletRequestDto,
-} from "@/types/wallets";
+import { ClientWalletDto, CreateWalletRequestDto } from "@/types/wallets";
 
 export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   const session = await auth();
@@ -15,8 +11,8 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   const wallets = await walletsRepository.findByUser(session.user.id);
   return wallets.map((w) => ({
     ...w,
-    latestBalanceTs: new Date().toLocaleString(),
-    latestBalance: 0,
+    latestBalanceTs: w.history[0]?.date?.toLocaleString() || null,
+    latestBalance: w.history[0]?.moneyAmount || null,
   }));
 };
 
