@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import {} from "next-auth";
 
 import { auth } from "@/auth";
-import * as walletsRepository from "@/app/repositories/wallets";
+import * as walletsRepository from "@/repositories/wallets";
 
 import { createWalletSchema } from "./validation";
 

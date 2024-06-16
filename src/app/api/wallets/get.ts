@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
-import * as walletsRepository from "@/app/repositories/wallets";
+import * as walletsRepository from "@/repositories/wallets";
 
 export const GET = async () => {
   try {

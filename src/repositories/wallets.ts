@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma";
-import { CreateWalletDto } from "@/app/types/wallets";
+import { CreateWalletDto } from "@/types/wallets";
 
 export const listAll = async () => {
   const wallets = await prisma.wallet.findMany({});
