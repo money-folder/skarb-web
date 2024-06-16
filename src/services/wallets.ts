@@ -11,8 +11,8 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   const wallets = await walletsRepository.findByUser(session.user.id);
   return wallets.map((w) => ({
     ...w,
-    latestBalanceTs: new Date().toLocaleString(),
-    latestBalance: 0,
+    latestBalanceTs: w.history[0]?.date?.toLocaleString() || null,
+    latestBalance: w.history[0]?.moneyAmount || null,
   }));
 };
 

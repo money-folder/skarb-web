@@ -9,6 +9,14 @@ export const listAll = async () => {
 export const findByUser = async (userId: string) => {
   const userWallets = await prisma.wallet.findMany({
     where: { ownerId: userId },
+    include: {
+      history: {
+        orderBy: {
+          date: "desc",
+        },
+        take: 1,
+      },
+    },
   });
 
   return userWallets;
