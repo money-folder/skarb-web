@@ -9,3 +9,13 @@ export type CreateWhistoryDto = {
   moneyAmount: number;
   date: Date;
 };
+
+export type ClientWHistoryDto = {
+  id: string;
+  walletId: string;
+  moneyAmount: number;
+  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+};

@@ -9,7 +9,7 @@ export default async function Wallets() {
   const wallets = await getCurrentUserWallets();
 
   return (
-    <main>
+    <main className="w-full">
       <h1 className="w-full text-center font-extrabold text-lg">Wallets</h1>
 
       <div className="mt-10 w-full flex flex-col items-center">

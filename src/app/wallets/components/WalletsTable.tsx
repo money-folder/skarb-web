@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { ClientWalletDto } from "@/types/wallets";
 
@@ -59,9 +60,12 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
               <CreateWalletWhistoryButton walletId={wallet.id} />
 
-              <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                <Image src={OpenIcon} alt="open" />
-              </button>
+              <Link
+                className="inline-block cursor-pointer opacity-70 hover:opacity-100"
+                href={`/wallets/${wallet.id}`}
+              >
+                <Image src={OpenIcon} width={16} height={16} alt="open" />
+              </Link>
 
               {wallet.deletedAt ? (
                 <>
@@ -69,13 +73,13 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
                     <Image src={RestoreIcon} alt="restore" />
                   </button>
                   <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                    <Image src={TrashIcon} alt="trash" />
+                    <Image src={TrashIcon} width={16} height={16} alt="trash" />
                   </button>
                 </>
               ) : (
                 <>
                   <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                    <Image src={CrossIcon} alt="cross" />
+                    <Image src={CrossIcon} width={16} height={16} alt="cross" />
                   </button>
                 </>
               )}
