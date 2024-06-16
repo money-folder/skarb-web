@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { getCurrentUserWallets } from "@/services/wallets";
 
 import WalletsTable from "./components/WalletsTable";
-import CreateWallet from "./components/CreateWallet";
+import CreateWalletButton from "./components/create-wallet/CreateWalletButton";
 
 export default async function Wallets() {
   const wallets = await getCurrentUserWallets();
@@ -14,7 +14,7 @@ export default async function Wallets() {
 
       <div className="mt-10 w-full flex flex-col items-center">
         <div className="w-2/3">
-          <CreateWallet />
+          <CreateWalletButton />
         </div>
 
         <div className="mt-5 w-2/3">

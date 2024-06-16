@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import OverlayProvider from "@/components/overlay/OverlayProvider";
 
 import "./globals.css";
 
@@ -23,12 +24,14 @@ export default function RootLayout({
       <body
         className={`${inter.className} h-screen overflow-hidden flex flex-col`}
       >
-        <Header />
+        <OverlayProvider>
+          <Header />
 
-        <div className="flex flex-grow">
-          <Sidebar />
-          <div className="flex-grow">{children}</div>
-        </div>
+          <div className="flex flex-grow">
+            <Sidebar />
+            <div className="flex-grow">{children}</div>
+          </div>
+        </OverlayProvider>
       </body>
     </html>
   );
