@@ -1,6 +1,10 @@
 import { auth } from "@/auth";
 import * as walletsRepository from "@/repositories/wallets";
-import { ClientWalletDto, CreateWalletDto } from "@/types/wallets";
+import {
+  ClientWalletDto,
+  CreateWalletDto,
+  CreateWalletRequestDto,
+} from "@/types/wallets";
 
 export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   const session = await auth();
@@ -16,9 +20,7 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   }));
 };
 
-export const createCurrentUserWallet = async (
-  dto: Omit<CreateWalletDto, "ownerId">
-) => {
+export const createCurrentUserWallet = async (dto: CreateWalletRequestDto) => {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Non Authorized!");

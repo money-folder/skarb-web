@@ -9,7 +9,7 @@ interface Props {
 
 const CreateWalletModal = ({ close }: Props) => {
   const createWallet = async (name: string, currency: string) => {
-    await create(name, currency);
+    await create({ name, currency });
   };
 
   return (
