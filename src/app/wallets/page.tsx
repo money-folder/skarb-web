@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 
 import { getCurrentUserWallets } from "@/services/wallets";
+import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
-import WalletsTable from "./components/WalletsTable";
-import CreateWalletButton from "./components/create-wallet/CreateWalletButton";
+import WalletsTable from "./WalletsTable";
 
 export default async function Wallets() {
   const wallets = await getCurrentUserWallets();
