@@ -22,15 +22,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} h-screen overflow-hidden flex flex-col`}
+        className={`${inter.className} w-full h-screen overflow-hidden grid grid-cols-[auto,_1fr,_1fr] grid-rows-[auto,_1fr,_1fr]`}
       >
         <OverlayProvider>
-          <Header />
-
-          <div className="flex flex-grow">
-            <Sidebar />
-            <div className="flex-grow">{children}</div>
+          <div className="col-span-3 row-span-1">
+            <Header />
           </div>
+
+          <div className="col-span-1 row-span-3">
+            <Sidebar />
+          </div>
+
+          <div className="p-5 col-span-2 row-span-2">{children}</div>
         </OverlayProvider>
       </body>
     </html>
