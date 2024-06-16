@@ -1,10 +1,6 @@
 import { auth } from "@/auth";
 import * as walletsRepository from "@/repositories/wallets";
-import {
-  ClientWalletDto,
-  CreateWalletDto,
-  CreateWalletRequestDto,
-} from "@/types/wallets";
+import { ClientWalletDto, CreateWalletRequestDto } from "@/types/wallets";
 
 export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   const session = await auth();

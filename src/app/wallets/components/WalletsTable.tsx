@@ -2,6 +2,8 @@ import Image from "next/image";
 
 import { ClientWalletDto } from "@/types/wallets";
 
+import CreateWalletWhistoryButton from "./CreateWalletWhistoryButton";
+
 import CrossIcon from "@/assets/cross.svg";
 import OpenIcon from "@/assets/open.svg";
 import RestoreIcon from "@/assets/restore.svg";
@@ -55,9 +57,12 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
               {wallet.latestBalanceTs || "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
+              <CreateWalletWhistoryButton walletId={wallet.id} />
+
               <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
                 <Image src={OpenIcon} alt="open" />
               </button>
+
               {wallet.deletedAt ? (
                 <>
                   <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">

@@ -8,9 +8,9 @@ import { CreateWalletRequestDto } from "@/types/wallets";
 import { createWalletRequestSchema } from "./validation";
 
 export async function create(dto: CreateWalletRequestDto) {
-  const result = createWalletRequestSchema.safeParse(dto);
-  if (result.error) {
-    throw new Error("Create wallet validation failed!", result.error);
+  const validationResult = createWalletRequestSchema.safeParse(dto);
+  if (validationResult.error) {
+    throw new Error("Create wallet validation failed!", validationResult.error);
   }
 
   await createCurrentUserWallet(dto);
