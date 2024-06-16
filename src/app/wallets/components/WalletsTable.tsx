@@ -1,4 +1,11 @@
+import Image from "next/image";
+
 import { ClientWalletDto } from "@/types/wallets";
+
+import CrossIcon from "@/assets/cross.svg";
+import OpenIcon from "@/assets/open.svg";
+import RestoreIcon from "@/assets/restore.svg";
+import TrashIcon from "@/assets/trash.svg";
 
 interface WalletsTableProps {
   wallets: ClientWalletDto[];
@@ -48,40 +55,25 @@ export function WalletsTable({ wallets }: WalletsTableProps) {
               {wallet.latestBalanceTs || "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
-              IN PROGRESS
-              {/* <Link to={`/wallets/${wallet.id}`}>
-                <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                  <img src={OpenIcon} alt="open" />
-                </button>
-              </Link>
-
-              <AddWhistoryButton walletId={`${wallet.id}`} />
-
+              <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
+                <Image src={OpenIcon} alt="open" />
+              </button>
               {wallet.deletedAt ? (
                 <>
-                  <button
-                    className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
-                    onClick={() => onRestoreClick(`${wallet.id}`)}
-                  >
-                    <img src={RestoreIcon} alt="restore" />
+                  <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
+                    <Image src={RestoreIcon} alt="restore" />
                   </button>
-                  <button
-                    className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
-                    onClick={() => onHardDeleteClick(`${wallet.id}`)}
-                  >
-                    <img src={TrashIcon} alt="restore" />
+                  <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
+                    <Image src={TrashIcon} alt="trash" />
                   </button>
                 </>
               ) : (
                 <>
-                  <button
-                    className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
-                    onClick={() => onDeleteClick(`${wallet.id}`)}
-                  >
-                    <img src={CrossIcon} alt="cross" />
+                  <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
+                    <Image src={CrossIcon} alt="cross" />
                   </button>
                 </>
-              )} */}
+              )}
             </td>
           </tr>
         ))}
