@@ -6,7 +6,7 @@ export default async function Header() {
   const session = await auth();
 
   return (
-    <header className="px-5 flex justify-end">
+    <header className="px-5 flex justify-end border-b-2 border-b-black">
       <div className="flex gap-5">
         {session ? session.user?.name : null}
         {session ? <SignOut /> : <SignIn />}
