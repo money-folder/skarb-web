@@ -34,3 +34,17 @@ export const getLocalISOString = (date: Date) =>
   `${date.getFullYear()}-${formatMonthIndex(
     date.getMonth()
   )}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+export const generateNumberArray = (min: number, max: number, step: number) => {
+  let result = [];
+
+  for (let i = min; i <= max; i += step) {
+    result.push(i);
+  }
+
+  if (!result.includes(max)) {
+    result.push(max);
+  }
+
+  return result;
+};

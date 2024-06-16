@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-import { ClientWHistoryDto } from "@/types/wallets-history";
+import { ClientWhistoryDto } from "@/types/wallets-history";
 
 import CrossIcon from "@/assets/cross.svg";
 import RestoreIcon from "@/assets/restore.svg";
 import TrashIcon from "@/assets/trash.svg";
 
 interface Props {
-  walletHistory: ClientWHistoryDto[];
+  walletHistory: ClientWhistoryDto[];
 }
 
 export default function WalletHistoryTable({ walletHistory }: Props) {

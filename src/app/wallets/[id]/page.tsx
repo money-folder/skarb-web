@@ -1,4 +1,6 @@
 import { getWalletHistory } from "@/services/wallets-history";
+import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
+
 import WalletHistoryTable from "./WalletHistoryTable";
 
 interface Props {
@@ -19,7 +21,11 @@ export default async function WalletHistory({ params: { id } }: Props) {
           <WalletHistoryTable walletHistory={walletHistory} />
         </div>
 
-        <div className="w-full h-full">The Chart</div>
+        <div className="h-full w-full">
+          <div className="w-full flex justify-center">
+            <WalletHistoryChart width={600} height={300} list={walletHistory} />
+          </div>
+        </div>
       </div>
     </main>
   );

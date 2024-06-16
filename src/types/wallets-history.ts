@@ -10,7 +10,7 @@ export type CreateWhistoryDto = {
   date: Date;
 };
 
-export type ClientWHistoryDto = {
+export type ClientWhistoryDto = {
   id: string;
   walletId: string;
   moneyAmount: number;
