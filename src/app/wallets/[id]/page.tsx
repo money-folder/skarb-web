@@ -34,7 +34,7 @@ export default async function WalletHistory({ params: { id } }: Props) {
                 list={walletHistory}
               />
             ) : (
-              <p>Not enough data for building a chart :'(</p>
+              <p>Not enough data for building a chart 😢</p>
             )}
           </div>
         </div>
