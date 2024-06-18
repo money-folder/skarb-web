@@ -1,9 +1,9 @@
-import { getCurrentUserWallets } from "@/services/wallets";
+import { fetchCurrentUserWallets } from "@/fetchers/wallets";
 
 import NavLink from "./Navlink";
 
 export default async function Sidebar() {
-  const wallets = await getCurrentUserWallets();
+  const result = await fetchCurrentUserWallets();
 
   return (
     <div className="w-[200px] h-full border-r-2 border-r-black">
@@ -14,9 +14,9 @@ export default async function Sidebar() {
           </NavLink>
         </li>
 
-        {wallets ? (
+        {result.data ? (
           <ul className="pl-5">
-            {wallets.map((w) => (
+            {result.data.map((w) => (
               <li key={w.id}>
                 <NavLink
                   activeClassName="text-white bg-black"

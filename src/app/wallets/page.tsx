@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 
-import { getCurrentUserWallets } from "@/services/wallets";
+import { fetchCurrentUserWallets } from "@/fetchers/wallets";
 import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
 import WalletsTable from "./components/WalletsTable";
 
 export default async function Wallets() {
-  const wallets = await getCurrentUserWallets();
+  const result = await fetchCurrentUserWallets();
 
   return (
     <main className="w-full">
@@ -19,7 +19,7 @@ export default async function Wallets() {
 
         <div className="mt-5 w-2/3">
           <Suspense fallback={<div>Loading...</div>}>
-            <WalletsTable wallets={wallets} />
+            {result.data ? <WalletsTable wallets={result.data} /> : null}
           </Suspense>
         </div>
       </div>
