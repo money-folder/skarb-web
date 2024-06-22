@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
@@ -35,6 +37,9 @@ export default function RootLayout({
 
           <div className="p-5 col-span-2 row-span-2">{children}</div>
         </OverlayProvider>
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
