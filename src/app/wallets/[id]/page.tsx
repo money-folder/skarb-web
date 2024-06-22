@@ -4,6 +4,7 @@ import { fetchWalletHistory } from "@/fetchers/wallet-history";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
 
 import WalletHistoryTable from "./WalletHistoryTable";
+import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
 
 interface Props {
   params: { id: string };
@@ -23,11 +24,17 @@ export default async function WalletHistory({ params: { id } }: Props) {
           {walletHistory ? (
             <>
               <div className="w-full h-full max-w-[400px] overflow-auto">
-                {walletHistory.length ? (
-                  <WalletHistoryTable walletHistory={walletHistory} />
-                ) : (
-                  <p>No Data</p>
-                )}
+                <div>
+                  <CreateWhistoryButton walletId={id} text="Create" />
+                </div>
+
+                <div className="mt-5">
+                  {walletHistory.length ? (
+                    <WalletHistoryTable walletHistory={walletHistory} />
+                  ) : (
+                    <p>No Data</p>
+                  )}
+                </div>
               </div>
 
               <div className="h-full w-full">
