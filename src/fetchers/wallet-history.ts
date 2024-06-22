@@ -1,8 +1,8 @@
-import { getWalletHistory } from "@/services/wallets-history";
+import { getCurrentUserWalletHistory } from "@/services/wallets-history";
 
 export const fetchWalletHistory = async (walletId: string) => {
   try {
-    const walletHistory = await getWalletHistory(walletId);
+    const walletHistory = await getCurrentUserWalletHistory(walletId);
     return { success: true, data: walletHistory };
   } catch (error: any) {
     console.error(error);
