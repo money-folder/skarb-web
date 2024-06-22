@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { fetchCurrentUserWallets } from "@/fetchers/wallets";
+import { fetchCurrentUserWallets } from "@/actions/wallets";
 import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
 import WalletsTable from "./components/WalletsTable";

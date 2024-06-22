@@ -1,6 +1,6 @@
 import React from "react";
 
-import { create } from "@/app/wallets/[id]/actions";
+import { create } from "@/actions/wallet-history";
 import Overlay from "@/components/overlay/Overlay";
 
 import AddWhistoryForm from "./CreateWhistoryForm";

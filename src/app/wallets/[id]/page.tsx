@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { fetchWalletHistory } from "@/fetchers/wallet-history";
+import { fetchWalletHistory } from "@/actions/wallet-history";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
 
 import WalletHistoryTable from "./WalletHistoryTable";

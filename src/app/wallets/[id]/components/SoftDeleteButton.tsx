@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { archive } from "../actions";
+import { archive } from "@/actions/wallet-history";
 
 import CrossIcon from "@/assets/cross.svg";
 

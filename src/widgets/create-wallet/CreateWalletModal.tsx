@@ -1,5 +1,6 @@
 import Overlay from "@/components/overlay/Overlay";
-import { create } from "@/app/wallets/actions";
+
+import { create } from "@/actions/wallets";
 
 import CreateWalletForm from "./CreateWalletForm";
 
