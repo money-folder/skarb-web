@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { destroy } from "../actions";
+import { destroy } from "@/actions/wallet-history";
 
 import TrashIcon from "@/assets/trash.svg";
 

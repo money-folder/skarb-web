@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { unarchive } from "../actions";
+import { unarchive } from "@/actions/wallet-history";
 
 import RestoreIcon from "@/assets/restore.svg";
 

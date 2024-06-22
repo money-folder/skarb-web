@@ -10,7 +10,7 @@ import {
 } from "@/services/wallets";
 import { CreateWalletRequestDto } from "@/types/wallets";
 
-import { createWalletRequestSchema } from "./validation";
+import { createWalletRequestSchema } from "../app/wallets/validation";
 
 export async function create(dto: CreateWalletRequestDto) {
   const validationResult = createWalletRequestSchema.safeParse(dto);

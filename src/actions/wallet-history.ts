@@ -10,7 +10,7 @@ import {
   unarchiveSelfWhistory,
 } from "@/services/wallets-history";
 
-import { createWhistoryRequstSchema } from "./validation";
+import { createWhistoryRequstSchema } from "../app/wallets/[id]/validation";
 
 export async function create(dto: CreateWhistoryRequestDto) {
   try {
