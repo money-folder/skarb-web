@@ -55,3 +55,7 @@ export const unarchive = async (id: string) => {
     },
   });
 };
+
+export const destroy = async (id: string) => {
+  return await prisma.walletHistory.delete({ where: { id } });
+};
