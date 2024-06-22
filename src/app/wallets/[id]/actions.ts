@@ -3,7 +3,11 @@
 import { revalidatePath } from "next/cache";
 
 import { CreateWhistoryRequestDto } from "@/types/wallets-history";
-import { createWalletHistory } from "@/services/wallets-history";
+import {
+  archiveSelfWalletHistory,
+  createWalletHistory,
+  unarchiveSelfWalletHistory,
+} from "@/services/wallets-history";
 
 import { createWhistoryRequstSchema } from "./validation";
 
@@ -20,3 +24,23 @@ export async function create(dto: CreateWhistoryRequestDto) {
   await createWalletHistory(dto);
   await revalidatePath(`/wallets/${dto.walletId}`);
 }
+
+export const archive = async (id: string) => {
+  try {
+    await archiveSelfWalletHistory(id);
+    await revalidatePath(`/wallets/${id}`);
+  } catch (error: any) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
+
+export const unarchive = async (id: string) => {
+  try {
+    await unarchiveSelfWalletHistory(id);
+    await revalidatePath(`/wallets/${id}`);
+  } catch (error: any) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
