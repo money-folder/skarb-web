@@ -7,10 +7,21 @@ import {
   archiveSelfWhistory,
   createWhistory,
   destroySelfWhistory,
+  getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
 } from "@/services/wallets-history";
 
 import { createWhistoryRequstSchema } from "../app/wallets/[id]/validation";
+
+export const fetchWalletHistory = async (walletId: string) => {
+  try {
+    const walletHistory = await getCurrentUserWalletHistory(walletId);
+    return { success: true, data: walletHistory };
+  } catch (error: any) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
 
 export async function create(dto: CreateWhistoryRequestDto) {
   try {

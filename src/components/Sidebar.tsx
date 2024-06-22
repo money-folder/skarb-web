@@ -1,4 +1,4 @@
-import { fetchCurrentUserWallets } from "@/fetchers/wallets";
+import { fetchCurrentUserWallets } from "@/actions/wallets";
 
 import NavLink from "./Navlink";
 

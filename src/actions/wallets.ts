@@ -6,11 +6,22 @@ import {
   archiveSelfWallet,
   createCurrentUserWallet,
   destroySelfWallet,
+  getCurrentUserWallets,
   unarchiveSelfWallet,
 } from "@/services/wallets";
 import { CreateWalletRequestDto } from "@/types/wallets";
 
 import { createWalletRequestSchema } from "../app/wallets/validation";
+
+export const fetchCurrentUserWallets = async () => {
+  try {
+    const wallets = await getCurrentUserWallets();
+    return { success: true, data: wallets };
+  } catch (error: any) {
+    console.error(error, error.cause);
+    return { success: false, data: null, error };
+  }
+};
 
 export async function create(dto: CreateWalletRequestDto) {
   const validationResult = createWalletRequestSchema.safeParse(dto);
