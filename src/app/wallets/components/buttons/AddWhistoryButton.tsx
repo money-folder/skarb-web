@@ -12,7 +12,7 @@ interface Props {
   walletId: string;
 }
 
-export default function CreateWalletWhistoryButton({ walletId }: Props) {
+export default function AddWhistoryButton({ walletId }: Props) {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {

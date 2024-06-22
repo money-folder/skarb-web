@@ -3,11 +3,11 @@ import Link from "next/link";
 
 import { ClientWalletDto } from "@/types/wallets";
 
-import CreateWalletWhistoryButton from "./CreateWalletWhistoryButton";
+import AddWhistoryButton from "./buttons/AddWhistoryButton";
+import SoftDeleteButton from "./buttons/SoftDeleteButton";
+import RestoreButton from "./buttons/RestoreButton";
 
-import CrossIcon from "@/assets/cross.svg";
 import OpenIcon from "@/assets/open.svg";
-import RestoreIcon from "@/assets/restore.svg";
 import TrashIcon from "@/assets/trash.svg";
 
 interface WalletsTableProps {
@@ -58,7 +58,7 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
               {wallet.latestBalanceTs || "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
-              <CreateWalletWhistoryButton walletId={wallet.id} />
+              <AddWhistoryButton walletId={wallet.id} />
 
               <Link
                 className="inline-block cursor-pointer opacity-70 hover:opacity-100"
@@ -69,19 +69,13 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
 
               {wallet.deletedAt ? (
                 <>
-                  <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                    <Image src={RestoreIcon} alt="restore" />
-                  </button>
+                  <RestoreButton id={wallet.id} />
                   <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
                     <Image src={TrashIcon} width={16} height={16} alt="trash" />
                   </button>
                 </>
               ) : (
-                <>
-                  <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                    <Image src={CrossIcon} width={16} height={16} alt="cross" />
-                  </button>
-                </>
+                <SoftDeleteButton id={wallet.id} />
               )}
             </td>
           </tr>

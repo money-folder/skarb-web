@@ -6,6 +6,10 @@ export const listAll = async () => {
   return wallets;
 };
 
+export const findById = async (id: string) => {
+  return await prisma.wallet.findUnique({ where: { id } });
+};
+
 export const findByUser = async (userId: string) => {
   const userWallets = await prisma.wallet.findMany({
     where: { ownerId: userId },
@@ -25,5 +29,21 @@ export const findByUser = async (userId: string) => {
 export const create = async (dto: CreateWalletDto) => {
   return await prisma.wallet.create({
     data: dto,
+  });
+};
+
+export const archive = async (id: string) => {
+  return await prisma.wallet.update({
+    where: { id },
+    data: { deletedAt: new Date() },
+  });
+};
+
+export const unarchive = async (id: string) => {
+  return await prisma.wallet.update({
+    where: { id },
+    data: {
+      deletedAt: null,
+    },
   });
 };

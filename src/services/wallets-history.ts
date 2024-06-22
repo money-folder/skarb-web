@@ -3,10 +3,7 @@ import { CreateWhistoryRequestDto } from "@/types/wallets-history";
 import * as whistoryRepository from "@/repositories/wallets-history";
 import { ErrorCauses } from "@/types/errors";
 
-export const verifyWalletOwnership = async (
-  userId: string,
-  whistoryId: string
-) => {
+const verifyWalletOwnership = async (userId: string, whistoryId: string) => {
   const wallet = await whistoryRepository.findWallet(whistoryId);
   return !!wallet && wallet.ownerId === userId;
 };
