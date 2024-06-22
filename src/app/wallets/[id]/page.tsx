@@ -18,12 +18,24 @@ export default async function WalletHistory({ params: { id } }: Props) {
 
       <div className="h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
         <div className="w-full h-full max-w-[400px] overflow-auto">
-          <WalletHistoryTable walletHistory={walletHistory} />
+          {walletHistory.length ? (
+            <WalletHistoryTable walletHistory={walletHistory} />
+          ) : (
+            <p>No Data</p>
+          )}
         </div>
 
         <div className="h-full w-full">
           <div className="w-full flex justify-center">
-            <WalletHistoryChart width={600} height={300} list={walletHistory} />
+            {walletHistory.length > 1 ? (
+              <WalletHistoryChart
+                width={600}
+                height={300}
+                list={walletHistory}
+              />
+            ) : (
+              <p>Not enough data for building a chart 😢</p>
+            )}
           </div>
         </div>
       </div>
