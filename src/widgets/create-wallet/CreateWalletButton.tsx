@@ -14,5 +14,5 @@ export default function CreateWalletButton() {
     addOverlay(({ removeSelf }) => <CreateWalletModal close={removeSelf} />);
   };
 
-  return <CreateButton text="Create Wallet" onClick={onClick} />;
+  return <CreateButton text="Create" onClick={onClick} />;
 }

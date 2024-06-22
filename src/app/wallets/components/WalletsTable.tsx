@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { ClientWalletDto } from "@/types/wallets";
 
-import CreateWalletWhistoryButton from "./CreateWalletWhistoryButton";
+import AddWhistoryButton from "./buttons/AddWhistoryButton";
 
 import CrossIcon from "@/assets/cross.svg";
 import OpenIcon from "@/assets/open.svg";
@@ -58,7 +58,7 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
               {wallet.latestBalanceTs || "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
-              <CreateWalletWhistoryButton walletId={wallet.id} />
+              <AddWhistoryButton walletId={wallet.id} />
 
               <Link
                 className="inline-block cursor-pointer opacity-70 hover:opacity-100"
