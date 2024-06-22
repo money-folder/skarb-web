@@ -1,11 +1,8 @@
-import Image from "next/image";
-
 import { ClientWhistoryDto } from "@/types/wallets-history";
 
 import SoftDeleteButton from "./components/SoftDeleteButton";
 import RestoreButton from "./components/RestoreButton";
-
-import TrashIcon from "@/assets/trash.svg";
+import DestroyButton from "./components/DestroyButton";
 
 interface Props {
   walletHistory: ClientWhistoryDto[];
@@ -45,10 +42,7 @@ export default function WalletHistoryTable({ walletHistory }: Props) {
                 {whistory.deletedAt ? (
                   <>
                     <RestoreButton id={whistory.id} />
-
-                    <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                      <Image src={TrashIcon} alt="restore" />
-                    </button>
+                    <DestroyButton id={whistory.id} />
                   </>
                 ) : (
                   <SoftDeleteButton id={whistory.id} />

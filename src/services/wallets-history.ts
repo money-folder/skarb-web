@@ -24,14 +24,14 @@ export const getCurrentUserWalletHistory = async (walletId: string) => {
   return await whistoryRepository.findUserWallet(session.user.id, walletId);
 };
 
-export const createWalletHistory = async (dto: CreateWhistoryRequestDto) => {
+export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
   return await whistoryRepository.create({
     ...dto,
     date: new Date(dto.date),
   });
 };
 
-export const archiveSelfWalletHistory = async (id: string) => {
+export const archiveSelfWhistory = async (id: string) => {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
@@ -45,7 +45,7 @@ export const archiveSelfWalletHistory = async (id: string) => {
   return await whistoryRepository.archive(id);
 };
 
-export const unarchiveSelfWalletHistory = async (id: string) => {
+export const unarchiveSelfWhistory = async (id: string) => {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
@@ -57,4 +57,18 @@ export const unarchiveSelfWalletHistory = async (id: string) => {
   }
 
   return await whistoryRepository.unarchive(id);
+};
+
+export const destroySelfWhistory = async (id: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const allowedToDelete = await verifyWalletOwnership(session.user.id, id);
+  if (!allowedToDelete) {
+    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+  }
+
+  return await whistoryRepository.destroy(id);
 };
