@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   archiveSelfWallet,
   createCurrentUserWallet,
+  destroySelfWallet,
   unarchiveSelfWallet,
 } from "@/services/wallets";
 import { CreateWalletRequestDto } from "@/types/wallets";
@@ -35,6 +36,17 @@ export async function archive(id: string) {
 export async function unrchive(id: string) {
   try {
     await unarchiveSelfWallet(id);
+    await revalidatePath("/wallets");
+    return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+}
+
+export async function destroy(id: string) {
+  try {
+    await destroySelfWallet(id);
     await revalidatePath("/wallets");
     return { success: true };
   } catch (error: any) {

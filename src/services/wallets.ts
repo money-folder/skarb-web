@@ -63,3 +63,17 @@ export const unarchiveSelfWallet = async (id: string) => {
 
   return await walletsRepository.unarchive(id);
 };
+
+export const destroySelfWallet = async (id: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const allowedToDelete = await verifyWalletOwnership(session.user.id, id);
+  if (!allowedToDelete) {
+    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+  }
+
+  return await walletsRepository.destroy(id);
+};

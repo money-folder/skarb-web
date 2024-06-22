@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { destroy } from "../actions";
+import { destroy } from "../../actions";
 
 import TrashIcon from "@/assets/trash.svg";
 
@@ -16,7 +16,7 @@ const DestroyButton = ({ id }: DestroyButtonProps) => {
       className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => destroy(id)}
     >
-      <Image src={TrashIcon} alt="trash" />
+      <Image src={TrashIcon} width={16} height={16} alt="trash" />
     </button>
   );
 };

@@ -6,9 +6,9 @@ import { ClientWalletDto } from "@/types/wallets";
 import AddWhistoryButton from "./buttons/AddWhistoryButton";
 import SoftDeleteButton from "./buttons/SoftDeleteButton";
 import RestoreButton from "./buttons/RestoreButton";
+import DestroyButton from "./buttons/DestroyButton";
 
 import OpenIcon from "@/assets/open.svg";
-import TrashIcon from "@/assets/trash.svg";
 
 interface WalletsTableProps {
   wallets: ClientWalletDto[];
@@ -70,9 +70,7 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
               {wallet.deletedAt ? (
                 <>
                   <RestoreButton id={wallet.id} />
-                  <button className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100">
-                    <Image src={TrashIcon} width={16} height={16} alt="trash" />
-                  </button>
+                  <DestroyButton id={wallet.id} />
                 </>
               ) : (
                 <SoftDeleteButton id={wallet.id} />
