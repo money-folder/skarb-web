@@ -18,7 +18,7 @@ export const findByUser = async (userId: string) => {
         orderBy: {
           date: "desc",
         },
-        take: 1,
+        take: 2,
       },
     },
   });
