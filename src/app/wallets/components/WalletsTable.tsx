@@ -57,7 +57,7 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
-              <Changes percents={+wallet.changes.toFixed(3)} />
+              <Changes percents={+(wallet.changes * 100).toFixed(3)} />
             </td>
             <td
               className={`p-1 text-sm text-center border-2 border-black ${
