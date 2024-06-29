@@ -13,16 +13,10 @@ import { CreateWalletRequestDto } from "@/types/wallets";
 
 import { createWalletRequestSchema } from "../app/wallets/validation";
 
-// @ts-ignore
-export const fetchCurrentUserWallets = async (): any => {
+export const fetchCurrentUserWallets = async () => {
   try {
     const wallets = await getCurrentUserWallets();
-    // return { success: true, data: wallets };
-    return new Promise((res) => {
-      setTimeout(() => {
-        res({ success: true, data: wallets });
-      }, 3000);
-    });
+    return { success: true, data: wallets };
   } catch (error: any) {
     console.error(error, error.cause);
     return { success: false, data: null, error };
