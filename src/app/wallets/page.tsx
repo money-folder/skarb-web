@@ -2,10 +2,10 @@ import { Suspense } from "react";
 
 import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
-import WalletsTableContainer from "./components/wallets-table/WalletsTableContainer";
+import WalletsContainer from "./components/wallets-table/WalletsContainer";
 import Loading from "./components/wallets-table/Loading";
 
-export default async function Wallets() {
+export default function Wallets() {
   return (
     <main className="w-full">
       <h1 className="w-full text-center font-extrabold text-lg">Wallets</h1>
@@ -16,7 +16,7 @@ export default async function Wallets() {
             <CreateWalletButton />
 
             <div className="mt-5">
-              <WalletsTableContainer />
+              <WalletsContainer />
             </div>
           </Suspense>
         </div>
