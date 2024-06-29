@@ -1,9 +1,9 @@
 import { ClientWhistoryDto } from "@/types/wallets-history";
 
-import Changes from "../components/Changes";
-import SoftDeleteButton from "./components/SoftDeleteButton";
-import RestoreButton from "./components/RestoreButton";
-import DestroyButton from "./components/DestroyButton";
+import Changes from "../../../components/Changes";
+import SoftDeleteButton from "../buttons/SoftDeleteButton";
+import RestoreButton from "../buttons/RestoreButton";
+import DestroyButton from "../buttons/DestroyButton";
 
 interface Props {
   walletHistory: ClientWhistoryDto[];
@@ -15,10 +15,14 @@ export default function WalletHistoryTable({ walletHistory }: Props) {
       <table className="w-full">
         <thead>
           <tr>
-            <th className="p-1 text-sm border-2 border-black">Amount</th>
-            <th className="p-1 text-sm border-2 border-black">Date</th>
-            <th className="p-1 text-sm border-2 border-black">Changes</th>
-            <th className="p-1 text-sm border-2 border-black">Actions</th>
+            <th className="p-1 w-3/12 text-sm border-2 border-black">Amount</th>
+            <th className="p-1 w-5/12 text-sm border-2 border-black">Date</th>
+            <th className="p-1 w-3/12 text-sm border-2 border-black">
+              Changes
+            </th>
+            <th className="p-1 w-1/12 text-sm border-2 border-black">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
