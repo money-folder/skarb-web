@@ -3,11 +3,11 @@ import Link from "next/link";
 
 import { ClientWalletDto } from "@/types/wallets";
 
-import Changes from "./Changes";
-import AddWhistoryButton from "./buttons/AddWhistoryButton";
-import SoftDeleteButton from "./buttons/SoftDeleteButton";
-import RestoreButton from "./buttons/RestoreButton";
-import DestroyButton from "./buttons/DestroyButton";
+import Changes from "../Changes";
+import AddWhistoryButton from "../buttons/AddWhistoryButton";
+import SoftDeleteButton from "../buttons/SoftDeleteButton";
+import RestoreButton from "../buttons/RestoreButton";
+import DestroyButton from "../buttons/DestroyButton";
 
 import OpenIcon from "@/assets/open.svg";
 

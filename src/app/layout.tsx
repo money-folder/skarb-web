@@ -1,11 +1,13 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 import OverlayProvider from "@/components/overlay/OverlayProvider";
+import SidebarLoading from "@/components/sidebar/SidebarLoading";
 
 import "./globals.css";
 
@@ -32,7 +34,9 @@ export default function RootLayout({
           </div>
 
           <div className="col-span-1 row-span-3">
-            <Sidebar />
+            <Suspense fallback={<SidebarLoading />}>
+              <Sidebar />
+            </Suspense>
           </div>
 
           <div className="p-5 col-span-2 row-span-2">{children}</div>
