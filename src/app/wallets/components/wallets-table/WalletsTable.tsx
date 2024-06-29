@@ -20,12 +20,16 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
     <table className="w-full">
       <thead>
         <tr>
-          <th className="p-1 text-sm border-2 border-black">Name</th>
-          <th className="p-1 text-sm border-2 border-black">Latest Balance</th>
-          <th className="p-1 text-sm border-2 border-black">Currency</th>
-          <th className="p-1 text-sm border-2 border-black">Changes</th>
-          <th className="p-1 text-sm border-2 border-black">Latest Report</th>
-          <th className="p-1 text-sm border-2 border-black">Actions</th>
+          <th className="p-1 w-2/12 text-sm border-2 border-black">Name</th>
+          <th className="p-1 w-2/12 text-sm border-2 border-black">
+            Latest Balance
+          </th>
+          <th className="p-1 w-1/12 text-sm border-2 border-black">Currency</th>
+          <th className="p-1 w-2/12 text-sm border-2 border-black">Changes</th>
+          <th className="p-1 w-3/12 text-sm border-2 border-black">
+            Latest Report
+          </th>
+          <th className="p-1 w-2/12 text-sm border-2 border-black">Actions</th>
         </tr>
       </thead>
       <tbody>

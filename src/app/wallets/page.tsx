@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
 import WalletsTableContainer from "./components/wallets-table/WalletsTableContainer";
-import WalletsTableLoading from "./components/wallets-table/WalletsTableLoading";
+import Loading from "./components/wallets-table/Loading";
 
 export default async function Wallets() {
   return (
@@ -12,12 +12,12 @@ export default async function Wallets() {
 
       <div className="mt-10 w-full flex flex-col items-center">
         <div className="w-2/3">
-          <CreateWalletButton />
-        </div>
+          <Suspense fallback={<Loading />}>
+            <CreateWalletButton />
 
-        <div className="mt-5 w-2/3">
-          <Suspense fallback={<WalletsTableLoading />}>
-            <WalletsTableContainer />
+            <div className="mt-5">
+              <WalletsTableContainer />
+            </div>
           </Suspense>
         </div>
       </div>
