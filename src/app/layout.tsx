@@ -7,7 +7,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
 import OverlayProvider from "@/components/overlay/OverlayProvider";
-import SidebarLoading from "@/components/sidebar/SidebarLoading";
+import Loading from "@/components/sidebar/Loading";
 
 import "./globals.css";
 
@@ -34,7 +34,7 @@ export default function RootLayout({
           </div>
 
           <div className="col-span-1 row-span-3">
-            <Suspense fallback={<SidebarLoading />}>
+            <Suspense fallback={<Loading />}>
               <Sidebar />
             </Suspense>
           </div>

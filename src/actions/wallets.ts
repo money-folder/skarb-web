@@ -17,12 +17,12 @@ import { createWalletRequestSchema } from "../app/wallets/validation";
 export const fetchCurrentUserWallets = async (): any => {
   try {
     const wallets = await getCurrentUserWallets();
-    return { success: true, data: wallets };
-    // return new Promise((res) => {
-    //   setTimeout(() => {
-    //     res({ success: true, data: wallets });
-    //   }, 3000);
-    // });
+    // return { success: true, data: wallets };
+    return new Promise((res) => {
+      setTimeout(() => {
+        res({ success: true, data: wallets });
+      }, 3000);
+    });
   } catch (error: any) {
     console.error(error, error.cause);
     return { success: false, data: null, error };
