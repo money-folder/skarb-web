@@ -1,5 +1,6 @@
 import { ClientWhistoryDto } from "@/types/wallets-history";
 
+import Changes from "../components/Changes";
 import SoftDeleteButton from "./components/SoftDeleteButton";
 import RestoreButton from "./components/RestoreButton";
 import DestroyButton from "./components/DestroyButton";
@@ -16,6 +17,7 @@ export default function WalletHistoryTable({ walletHistory }: Props) {
           <tr>
             <th className="p-1 text-sm border-2 border-black">Amount</th>
             <th className="p-1 text-sm border-2 border-black">Date</th>
+            <th className="p-1 text-sm border-2 border-black">Changes</th>
             <th className="p-1 text-sm border-2 border-black">Actions</th>
           </tr>
         </thead>
@@ -35,6 +37,15 @@ export default function WalletHistoryTable({ walletHistory }: Props) {
                 }`}
               >
                 {whistory.date.toLocaleString()}
+              </td>
+              <td
+                className={`p-1 text-sm text-center border-2 border-black ${
+                  whistory.deletedAt ? "opacity-30" : ""
+                }`}
+              >
+                <Changes
+                  percents={+((whistory.changes || 0) * 100).toFixed(2)}
+                />
               </td>
               <td
                 className={`p-1 space-x-2 text-sm text-center border-2 border-black`}

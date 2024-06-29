@@ -18,7 +18,18 @@ export const getCurrentUserWalletHistory = async (walletId: string) => {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  return await whistoryRepository.findUserWallet(session.user.id, walletId);
+  const walletHistory = await whistoryRepository.findUserWallet(
+    session.user.id,
+    walletId
+  );
+
+  return walletHistory.map((wh, i, array) => ({
+    ...wh,
+    changes: array[i + 1]
+      ? (array[i].moneyAmount - array[i + 1].moneyAmount) /
+        array[i + 1].moneyAmount
+      : null,
+  }));
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {

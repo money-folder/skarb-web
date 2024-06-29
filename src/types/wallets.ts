@@ -10,7 +10,7 @@ export type ClientWalletDto = {
   id: string;
   name: string;
   currency: string;
-  changes: number;
+  changes: number | null;
   latestBalanceTs: string | null;
   latestBalance: number | null;
   createdAt: Date;
