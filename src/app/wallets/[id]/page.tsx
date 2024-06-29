@@ -23,7 +23,7 @@ export default async function WalletHistory({ params: { id } }: Props) {
         <Suspense fallback={<div>Loading...</div>}>
           {walletHistory ? (
             <>
-              <div className="w-full h-full max-w-[400px] overflow-auto">
+              <div className="w-full h-full max-w-[450px] overflow-auto">
                 <div>
                   <CreateWhistoryButton walletId={id} text="Create" />
                 </div>

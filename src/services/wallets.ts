@@ -19,8 +19,10 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   return wallets.map((w) => ({
     ...w,
     changes:
-      (w.history[0]?.moneyAmount - w.history[1]?.moneyAmount) /
-      w.history[1]?.moneyAmount,
+      w.history[0] && w.history[1]
+        ? (w.history[0].moneyAmount - w.history[1].moneyAmount) /
+          w.history[1].moneyAmount
+        : null,
     latestBalanceTs: w.history[0]?.date?.toLocaleString() || null,
     latestBalance: w.history[0]?.moneyAmount || null,
   }));

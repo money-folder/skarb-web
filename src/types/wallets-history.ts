@@ -14,6 +14,7 @@ export type ClientWhistoryDto = {
   id: string;
   walletId: string;
   moneyAmount: number;
+  changes: number | null;
   date: Date;
   createdAt: Date;
   updatedAt: Date;
