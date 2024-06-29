@@ -2,9 +2,9 @@ import { Suspense } from "react";
 
 import { fetchWalletHistory } from "@/actions/wallet-history";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
+import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
 
 import WalletHistoryTable from "./WalletHistoryTable";
-import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
 
 interface Props {
   params: { id: string };
@@ -23,12 +23,12 @@ export default async function WalletHistory({ params: { id } }: Props) {
         <Suspense fallback={<div>Loading...</div>}>
           {walletHistory ? (
             <>
-              <div className="w-full h-full max-w-[450px] overflow-auto">
+              <div className="w-full h-full max-w-[450px] flex flex-col">
                 <div>
                   <CreateWhistoryButton walletId={id} text="Create" />
                 </div>
 
-                <div className="mt-5">
+                <div className="mt-5 flex-1 overflow-auto">
                   {walletHistory.length ? (
                     <WalletHistoryTable walletHistory={walletHistory} />
                   ) : (
