@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ClientWalletDto } from "@/types/wallets";
+import { formatDateDifference } from "@/utils/time-utils";
 
 import Changes from "../Changes";
 import AddWhistoryButton from "../buttons/AddWhistoryButton";
@@ -21,13 +22,11 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
       <thead>
         <tr>
           <th className="p-1 w-2/12 text-sm border-2 border-black">Name</th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
-            Latest Balance
-          </th>
+          <th className="p-1 w-2/12 text-sm border-2 border-black">Balance</th>
           <th className="p-1 w-1/12 text-sm border-2 border-black">Currency</th>
           <th className="p-1 w-2/12 text-sm border-2 border-black">Changes</th>
           <th className="p-1 w-3/12 text-sm border-2 border-black">
-            Latest Report
+            Since Latest Report
           </th>
           <th className="p-1 w-2/12 text-sm border-2 border-black">Actions</th>
         </tr>
@@ -68,7 +67,13 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
-              {wallet.latestBalanceTs || "-"}
+              {wallet.sinceLatestBallanceTs
+                ? formatDateDifference({
+                    days: wallet.sinceLatestBallanceTs.days,
+                    hours: wallet.sinceLatestBallanceTs.hours,
+                    minutes: wallet.sinceLatestBallanceTs.minutes,
+                  })
+                : "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
               <AddWhistoryButton walletId={wallet.id} />

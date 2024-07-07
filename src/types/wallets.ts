@@ -1,3 +1,5 @@
+import { DateDifference } from "@/utils/time-utils";
+
 export type CreateWalletDto = {
   name: string;
   ownerId: string;
@@ -11,6 +13,7 @@ export type ClientWalletDto = {
   name: string;
   currency: string;
   changes: number | null;
+  sinceLatestBallanceTs: DateDifference | null;
   latestBalanceTs: string | null;
   latestBalance: number | null;
   createdAt: Date;

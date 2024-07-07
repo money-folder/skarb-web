@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import * as walletsRepository from "@/repositories/wallets";
 import { ErrorCauses } from "@/types/errors";
 import { ClientWalletDto, CreateWalletRequestDto } from "@/types/wallets";
+import { calculateDateDifference } from "@/utils/time-utils";
 
 const verifyWalletOwnership = async (userId: string, walletId: string) => {
   const wallet = await walletsRepository.findById(walletId);
@@ -25,6 +26,9 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
         : null,
     latestBalanceTs: w.history[0]?.date?.toLocaleString() || null,
     latestBalance: w.history[0]?.moneyAmount || null,
+    sinceLatestBallanceTs: w.history[0]?.date
+      ? calculateDateDifference(w.history[0].date, new Date())
+      : null,
   }));
 };
 
