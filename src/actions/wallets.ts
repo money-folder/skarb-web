@@ -17,8 +17,8 @@ export const fetchCurrentUserWallets = async () => {
   try {
     const wallets = await getCurrentUserWallets();
     return { success: true, data: wallets };
-  } catch (error: any) {
-    console.error(error, error.cause);
+  } catch (error) {
+    console.error(error);
     return { success: false, data: null, error };
   }
 };
@@ -38,7 +38,7 @@ export async function archive(id: string) {
     await archiveSelfWallet(id);
     await revalidatePath("/wallets");
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, data: null, error };
   }
@@ -49,7 +49,7 @@ export async function unrchive(id: string) {
     await unarchiveSelfWallet(id);
     await revalidatePath("/wallets");
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, data: null, error };
   }
@@ -60,7 +60,7 @@ export async function destroy(id: string) {
     await destroySelfWallet(id);
     await revalidatePath("/wallets");
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, data: null, error };
   }
