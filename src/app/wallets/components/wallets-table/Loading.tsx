@@ -22,7 +22,7 @@ export default async function WalletsTableLoading() {
               Changes
             </th>
             <th className="p-1 w-3/12 text-sm border-2 border-black">
-              Latest Report
+              Since Latest Report
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
               Actions
