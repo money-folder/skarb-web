@@ -19,9 +19,7 @@ interface Props {
 }
 
 const WalletHistoryChart = ({ width, height, list }: Props) => {
-  const formattedList = list
-    .map((i) => ({ ...i, dateTs: i.date.getTime() }))
-    .sort((a, b) => a.date.valueOf() - b.date.valueOf());
+  const formattedList = list.map((i) => ({ ...i, dateTs: i.date.getTime() }));
 
   return (
     <LineChart width={width} height={height} data={formattedList}>
