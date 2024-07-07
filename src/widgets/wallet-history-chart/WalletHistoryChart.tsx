@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { LineChart, Line, XAxis, YAxis } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
 
 import { ClientWhistoryDto } from "@/types/wallets-history";
 
@@ -18,13 +25,28 @@ const WalletHistoryChart = ({ width, height, list }: Props) => {
 
   return (
     <LineChart width={width} height={height} data={formattedList}>
-      <Line type="monotone" dataKey="moneyAmount" stroke="#8884d8" />
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <Line
+        isAnimationActive={false}
+        type="monotone"
+        dataKey="moneyAmount"
+        stroke="black"
+      />
+
+      <Tooltip
+        separator=": "
+        contentStyle={{ fontSize: "12px" }}
+        labelFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
+        formatter={(value) => [value, "Money Amount"]}
+      />
 
       <XAxis
+        style={{ fontSize: "12px" }}
         dataKey="dateTs"
         tickFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
       />
-      <YAxis dataKey="moneyAmount" />
+      <YAxis style={{ fontSize: "12px" }} dataKey="moneyAmount" />
     </LineChart>
   );
 };
