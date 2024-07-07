@@ -5,7 +5,7 @@ export const generatePseudoUUID = () => {
   const uuid = array.reduce((acc, item) => {
     let hex = item.toString(16);
     hex = hex.padStart(8, "0");
-    return `${acc}item`;
+    return acc + hex;
   }, "");
 
   return (
@@ -36,7 +36,7 @@ export const getLocalISOString = (date: Date) =>
   )}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
 export const generateNumberArray = (min: number, max: number, step: number) => {
-  let result = [];
+  const result = [];
 
   for (let i = min; i <= max; i += step) {
     result.push(i);

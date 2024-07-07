@@ -17,7 +17,7 @@ export const fetchWalletHistory = async (walletId: string) => {
   try {
     const walletHistory = await getCurrentUserWalletHistory(walletId);
     return { success: true, data: walletHistory };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, data: null, error };
   }
@@ -38,7 +38,7 @@ export async function create(dto: CreateWhistoryRequestDto) {
     await revalidatePath(`/wallets/${dto.walletId}`);
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, error };
   }
@@ -49,7 +49,7 @@ export const archive = async (id: string) => {
     await archiveSelfWhistory(id);
     await revalidatePath(`/wallets/${id}`);
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, error };
   }
@@ -60,7 +60,7 @@ export const unarchive = async (id: string) => {
     await unarchiveSelfWhistory(id);
     await revalidatePath(`/wallets/${id}`);
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, error };
   }
@@ -71,7 +71,7 @@ export const destroy = async (id: string) => {
     await destroySelfWhistory(id);
     await revalidatePath(`/wallets/${id}`);
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return { success: false, error };
   }
