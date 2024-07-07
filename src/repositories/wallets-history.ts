@@ -5,7 +5,7 @@ export const findByWallet = async (walletId: string) => {
   return await prisma.walletHistory.findMany({
     where: { walletId },
     orderBy: {
-      createdAt: "desc",
+      date: "desc",
     },
   });
 };
@@ -27,7 +27,7 @@ export const findUserWallet = async (userId: string, walletId: string) => {
     where: { walletId, wallet: { ownerId: userId } },
     include: { wallet: true },
     orderBy: {
-      createdAt: "desc",
+      date: "asc",
     },
   });
 };

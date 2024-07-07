@@ -26,7 +26,7 @@ export default function WalletHistoryTable({ walletHistory }: Props) {
           </tr>
         </thead>
         <tbody>
-          {walletHistory.map((whistory) => (
+          {[...walletHistory].reverse().map((whistory) => (
             <tr key={whistory.id}>
               <td
                 className={`p-1 text-sm text-center border-2 border-black ${
