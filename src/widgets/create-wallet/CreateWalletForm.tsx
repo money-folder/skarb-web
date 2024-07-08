@@ -24,15 +24,16 @@ const CreateWalletForm = ({ create, close }: Props) => {
         <label className="mt-2 w-full flex flex-col items-start">
           <span>Name: </span>
           <input
-            {...register("name", { required: true })}
+            {...register("name", { required: true, maxLength: 255 })}
             className="px-2 border-[1px] border-black rounded-sm"
+            autoFocus
           />
         </label>
 
         <label className="mt-2 w-full flex flex-col items-start">
           <span>Currency: </span>
           <input
-            {...register("currency", { required: true })}
+            {...register("currency", { required: true, maxLength: 63 })}
             className="px-2 border-[1px] border-black rounded-sm"
           />
         </label>

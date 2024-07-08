@@ -10,7 +10,12 @@ interface Props {
   activeClassName: string;
 }
 
-const NavLink = ({ href, children, activeClassName, className }: Props) => {
+const NavLink = ({
+  href,
+  children,
+  activeClassName,
+  className = "",
+}: Props) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 

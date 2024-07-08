@@ -7,10 +7,11 @@ import AddWhistoryForm from "./CreateWhistoryForm";
 
 interface Props {
   walletId: string;
+  walletName: string;
   close: () => void;
 }
 
-const CreateWhistoryModal = ({ walletId, close }: Props) => {
+const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
   const createWhistory = async (moneyAmount: number, date: number) => {
     await create({ walletId, moneyAmount, date });
   };
@@ -22,8 +23,9 @@ const CreateWhistoryModal = ({ walletId, close }: Props) => {
           className="p-5 w-96 bg-white rounded-xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <h3 className="text-left font-bold text-lg">New Wallet Entry</h3>
-          {/* TODO: maybe just remove the form component and put its content here? */}
+          <h3 className="text-left font-bold text-lg">
+            New {`"${walletName}"`} Entry
+          </h3>
           <AddWhistoryForm create={createWhistory} close={close} />
         </div>
       </Overlay>

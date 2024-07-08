@@ -1,5 +1,4 @@
 import { fetchWalletHistory } from "@/actions/wallet-history";
-import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
 import { WithMounted } from "@/components/WithMounted";
 
@@ -17,17 +16,11 @@ export default async function WalletHistoryContainer({
   return walletHistory ? (
     <>
       <div className="w-full h-full max-w-[475px] flex flex-col">
-        <div>
-          <CreateWhistoryButton walletId={walletId} text="Create" />
-        </div>
-
-        <div className="mt-5 flex-1 overflow-auto">
-          {walletHistory.length ? (
-            <WalletHistoryTable walletHistory={walletHistory} />
-          ) : (
-            <p>No Data</p>
-          )}
-        </div>
+        {walletHistory.length ? (
+          <WalletHistoryTable walletHistory={walletHistory} />
+        ) : (
+          <p>No Data</p>
+        )}
       </div>
 
       <div className="h-full w-full">

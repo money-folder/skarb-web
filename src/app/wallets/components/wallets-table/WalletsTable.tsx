@@ -76,7 +76,10 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
                 : "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
-              <AddWhistoryButton walletId={wallet.id} />
+              <AddWhistoryButton
+                walletId={wallet.id}
+                walletName={wallet.name}
+              />
 
               <Link
                 className="inline-block cursor-pointer opacity-70 hover:opacity-100"
