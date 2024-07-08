@@ -7,13 +7,17 @@ import { OverlayContext } from "@/components/overlay/OverlayProvider";
 
 import AddWhistoryModal from "./CreateWhistoryModal";
 
-interface Props {
+interface CreateWhistoryButtonProps {
   walletId: string;
   walletName: string;
   text?: string;
 }
 
-const CreateWhistoryButton = ({ walletId, walletName, text }: Props) => {
+const CreateWhistoryButton = ({
+  walletId,
+  walletName,
+  text = "",
+}: CreateWhistoryButtonProps) => {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {

@@ -7,12 +7,18 @@ import { OverlayContext } from "@/components/overlay/OverlayProvider";
 
 import CreateWalletModal from "./CreateWalletModal";
 
-export default function CreateWalletButton() {
+interface CreateWalletButtonProps {
+  text?: string;
+}
+
+export default function CreateWalletButton({
+  text = "",
+}: CreateWalletButtonProps) {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {
     addOverlay(({ removeSelf }) => <CreateWalletModal close={removeSelf} />);
   };
 
-  return <CreateButton text="Create" onClick={onClick} />;
+  return <CreateButton text={text} onClick={onClick} />;
 }
