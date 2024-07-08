@@ -29,7 +29,7 @@ export default async function Sidebar() {
               >
                 <NavLink
                   className="overflow-hidden text-ellipsis"
-                  activeClassName="flex-grow"
+                  activeClassName="text-white bg-black"
                   href={`/wallets/${w.id}`}
                 >
                   {w.name}
