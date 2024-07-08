@@ -9,15 +9,20 @@ import AddWhistoryModal from "./CreateWhistoryModal";
 
 interface Props {
   walletId: string;
+  walletName: string;
   text?: string;
 }
 
-const CreateWhistoryButton = ({ walletId, text }: Props) => {
+const CreateWhistoryButton = ({ walletId, walletName, text }: Props) => {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {
     addOverlay(({ removeSelf }) => (
-      <AddWhistoryModal walletId={walletId} close={removeSelf} />
+      <AddWhistoryModal
+        walletId={walletId}
+        walletName={walletName}
+        close={removeSelf}
+      />
     ));
   };
 

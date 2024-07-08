@@ -10,14 +10,19 @@ import PlusIcon from "@/assets/plus.svg";
 
 interface Props {
   walletId: string;
+  walletName: string;
 }
 
-export default function AddWhistoryButton({ walletId }: Props) {
+export default function AddWhistoryButton({ walletId, walletName }: Props) {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {
     addOverlay(({ removeSelf }) => (
-      <CreateWhistoryModal walletId={walletId} close={removeSelf} />
+      <CreateWhistoryModal
+        walletId={walletId}
+        walletName={walletName}
+        close={removeSelf}
+      />
     ));
   };
 
