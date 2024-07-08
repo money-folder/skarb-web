@@ -39,6 +39,7 @@ const AddWhistoryForm = ({ create, close }: Props) => {
             className="px-2 border-[1px] border-black rounded-sm"
             type="number"
             step={0.01}
+            autoFocus
           />
         </label>
       </div>
