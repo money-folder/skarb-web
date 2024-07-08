@@ -25,9 +25,9 @@ export const getCurrentUserWalletHistory = async (walletId: string) => {
 
   return walletHistory.map((wh, i, array) => ({
     ...wh,
-    changes: array[i + 1]
-      ? (array[i].moneyAmount - array[i + 1].moneyAmount) /
-        array[i + 1].moneyAmount
+    changes: array[i - 1]
+      ? (array[i].moneyAmount - array[i - 1].moneyAmount) /
+        array[i - 1].moneyAmount
       : null,
   }));
 };
