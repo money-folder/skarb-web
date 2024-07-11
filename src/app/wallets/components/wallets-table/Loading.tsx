@@ -1,14 +1,9 @@
-import SkeletonBar from "@/components/SkeletonBar";
 import LoadingRow from "./LoadingRow";
 
 export default async function WalletsTableLoading() {
   return (
     <div className="w-full">
-      <div className="h-[25px] w-[75px] animate-pulse">
-        <SkeletonBar />
-      </div>
-
-      <table className="mt-5 w-full border-collapse animate-pulse">
+      <table className="w-full border-collapse animate-pulse">
         <thead>
           <tr>
             <th className="p-1 w-2/12 text-sm border-2 border-black">Name</th>

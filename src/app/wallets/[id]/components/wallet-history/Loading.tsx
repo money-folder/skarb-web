@@ -1,15 +1,10 @@
-import SkeletonBar from "@/components/SkeletonBar";
 import LoadingRow from "./LoadingRow";
 
 export default function Loading() {
   return (
     <>
       <div className="w-full h-full max-w-[450px]">
-        <div className="h-[25px] w-[75px] animate-pulse">
-          <SkeletonBar />
-        </div>
-
-        <table className="mt-5 w-full border-collapse animate-pulse">
+        <table className="w-full border-collapse animate-pulse">
           <thead>
             <tr>
               <th className="p-1 w-3/12 text-sm border-2 border-black">
