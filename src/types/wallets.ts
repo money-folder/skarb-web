@@ -19,3 +19,8 @@ export type ClientWalletDto = {
   createdAt: Date;
   deletedAt: Date | null;
 };
+
+export type WalletsSummary = {
+  currency: string;
+  moneyAmount: number;
+};
