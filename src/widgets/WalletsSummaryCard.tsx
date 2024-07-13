@@ -3,8 +3,6 @@ interface Props {
 }
 
 const WalletsSummaryCard = ({ summaryList }: Props) => {
-  console.log("asd");
-
   return (
     <ul className="p-5 text-sm rounded-md border-2 border-black">
       {summaryList.map((sl) => (

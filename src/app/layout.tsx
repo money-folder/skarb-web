@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 
-import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
 import OverlayProvider from "@/components/overlay/OverlayProvider";
 import Loading from "@/components/sidebar/Loading";
@@ -26,13 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} w-full h-screen overflow-hidden grid grid-cols-[auto,_1fr,_1fr] grid-rows-[auto,_1fr,_1fr]`}
+        className={`${inter.className} w-full h-screen overflow-hidden grid grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr]`}
       >
         <OverlayProvider>
-          <div className="col-span-3 row-span-1">
-            <Header />
-          </div>
-
           <div className="col-span-1 row-span-3">
             <Suspense fallback={<Loading />}>
               <Sidebar />

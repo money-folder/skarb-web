@@ -7,7 +7,7 @@ import WalletsSummaryCard from "@/widgets/WalletsSummaryCard";
 export default async function WalletsContainer() {
   const result = await fetchCurrentUserWallets();
 
-  const summaryList = groupByCurrency(result.data!);
+  const summaryList = groupByCurrency(result.data || []);
   const showSummary = result?.data?.length && result.data.length > 1;
 
   return (

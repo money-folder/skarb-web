@@ -3,13 +3,17 @@ import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton
 import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
 import NavLink from "./Navlink";
+import UserProfile from "./UserProfile";
+import { SignOut } from "../SignOut";
 
 export default async function Sidebar() {
   const result = await fetchCurrentUserWallets();
 
   return (
-    <div className="w-[225px] h-full border-r-2 border-r-black">
-      <ul className="p-5">
+    <div className="p-5 w-[225px] h-full flex flex-col border-r-2 border-r-black">
+      <UserProfile />
+
+      <ul className="mt-5 flex-grow">
         <li className="w-full flex justify-between gap-2 overflow-hidden truncate">
           <NavLink activeClassName="text-white bg-black" href="/wallets">
             Wallets
@@ -43,6 +47,10 @@ export default async function Sidebar() {
           </ul>
         ) : null}
       </ul>
+
+      <div className="mt-5 flex justify-center">
+        <SignOut />
+      </div>
     </div>
   );
 }
