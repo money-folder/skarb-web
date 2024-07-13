@@ -12,7 +12,7 @@ const WalletHistoryFilters = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const { register, watch } = useForm();
+  const { register, watch, reset } = useForm();
 
   const whistoryFromParam = searchParams.get("whistoryFrom")
     ? getLocalISOString(new Date(+searchParams.get("whistoryFrom")!))
@@ -42,29 +42,35 @@ const WalletHistoryFilters = () => {
   }, [watch, searchParams, replace, pathname]);
 
   return (
-    <form className="w-full flex justify-start gap-5">
-      <label className="flex gap-3">
-        <span>From</span>
-        <input
-          {...register("whistoryFrom", {
-            required: false,
-            valueAsDate: true,
-          })}
-          type="datetime-local"
-          name="whistoryFrom"
-          {...(whistoryFromParam ? { defaultValue: whistoryFromParam } : {})}
-        />
-      </label>
+    <form className="w-full flex flex-col justify-start items-start gap-2">
+      <div className="flex gap-5">
+        <label className="flex gap-3">
+          <span>From</span>
+          <input
+            {...register("whistoryFrom", {
+              required: false,
+              valueAsDate: true,
+            })}
+            type="datetime-local"
+            name="whistoryFrom"
+            {...(whistoryFromParam ? { defaultValue: whistoryFromParam } : {})}
+          />
+        </label>
 
-      <label className="flex gap-3">
-        <span>To</span>
-        <input
-          {...register("whistoryTo", { required: false, valueAsDate: true })}
-          type="datetime-local"
-          name="whistoryTo"
-          {...(whistoryToParam ? { defaultValue: whistoryToParam } : {})}
-        />
-      </label>
+        <label className="flex gap-3">
+          <span>To</span>
+          <input
+            {...register("whistoryTo", { required: false, valueAsDate: true })}
+            type="datetime-local"
+            name="whistoryTo"
+            {...(whistoryToParam ? { defaultValue: whistoryToParam } : {})}
+          />
+        </label>
+      </div>
+
+      <button className="hover:underline" type="reset" onClick={reset}>
+        Reset
+      </button>
     </form>
   );
 };
