@@ -37,11 +37,11 @@ const CreateWalletForm = ({ create, close }: Props) => {
             className="px-2 border-[1px] border-black rounded-sm"
           />
         </label>
+      </div>
 
-        <div className="mt-5 flex justify-end gap-2">
-          <SecondaryButton text="Cancel" onClick={close} />
-          <PrimaryButton type="submit" text="Submit" />
-        </div>
+      <div className="mt-10 flex justify-end gap-2">
+        <SecondaryButton text="Cancel" onClick={close} />
+        <PrimaryButton type="submit" text="Submit" />
       </div>
     </form>
   );

@@ -44,7 +44,7 @@ const AddWhistoryForm = ({ create, close }: Props) => {
         </label>
       </div>
 
-      <div className="mt-5 flex justify-end gap-2">
+      <div className="mt-10 flex justify-end gap-2">
         <SecondaryButton text="Cancel" onClick={close} />
         <PrimaryButton type="submit" text="Submit" />
       </div>
