@@ -1,4 +1,8 @@
+import { Prisma } from "@prisma/client";
+
 import { prisma } from "@/prisma";
+
+import { FetchWalletHistoryParams } from "@/types/wallets";
 import { CreateWhistoryDto } from "@/types/wallets-history";
 
 export const findByWallet = async (walletId: string) => {
@@ -22,9 +26,30 @@ export const findWallet = async (whistoryId: string) => {
   return await prisma.wallet.findUnique({ where: { id: whistory.walletId } });
 };
 
-export const findUserWallet = async (userId: string, walletId: string) => {
+export const findUserWallet = async (
+  userId: string,
+  walletId: string,
+  params?: FetchWalletHistoryParams
+) => {
+  const where: Prisma.WalletHistoryWhereInput = {
+    AND: [{ walletId }, { wallet: { ownerId: userId } }],
+  };
+
+  if (params?.fromTs) {
+    (where.AND as Prisma.WalletHistoryWhereInput[]).push({
+      date: { gt: new Date(params.fromTs) },
+    });
+  }
+
+  if (params?.toTs) {
+    (where.AND as Prisma.WalletHistoryWhereInput[]).push({
+      date: { lt: new Date(params.toTs) },
+    });
+  }
+
   return await prisma.walletHistory.findMany({
-    where: { walletId, wallet: { ownerId: userId } },
+    where,
+
     orderBy: {
       date: "asc",
     },
