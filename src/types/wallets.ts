@@ -24,3 +24,8 @@ export type WalletsSummary = {
   currency: string;
   moneyAmount: number;
 };
+
+export type FetchWalletHistoryParams = {
+  fromTs?: number;
+  toTs?: number;
+};

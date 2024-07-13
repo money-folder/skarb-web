@@ -6,12 +6,19 @@ import WalletHistoryTable from "./WalletHistoryTable";
 
 interface WalletHistoryContainerProps {
   walletId: string;
+  fromTs?: number;
+  toTs?: number;
 }
 
 export default async function WalletHistoryContainer({
   walletId,
+  fromTs,
+  toTs,
 }: WalletHistoryContainerProps) {
-  const { data: walletHistory } = await fetchWalletHistory(walletId);
+  const { data: walletHistory } = await fetchWalletHistory(walletId, {
+    fromTs,
+    toTs,
+  });
 
   return walletHistory ? (
     <>

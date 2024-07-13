@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { CreateWhistoryRequestDto } from "@/types/wallets-history";
 import * as whistoryRepository from "@/repositories/wallets-history";
 import { ErrorCauses } from "@/types/errors";
+import { FetchWalletHistoryParams } from "@/types/wallets";
 
 const verifyWalletOwnership = async (userId: string, whistoryId: string) => {
   const wallet = await whistoryRepository.findWallet(whistoryId);
@@ -12,7 +13,10 @@ export const getWalletHistory = async (walletId: string) => {
   return await whistoryRepository.findByWallet(walletId);
 };
 
-export const getCurrentUserWalletHistory = async (walletId: string) => {
+export const getCurrentUserWalletHistory = async (
+  walletId: string,
+  params?: FetchWalletHistoryParams
+) => {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
@@ -20,7 +24,8 @@ export const getCurrentUserWalletHistory = async (walletId: string) => {
 
   const walletHistory = await whistoryRepository.findUserWallet(
     session.user.id,
-    walletId
+    walletId,
+    params
   );
 
   return walletHistory.map((wh, i, array) => ({

@@ -76,3 +76,6 @@ export const formatDateDifference = (diff: Partial<DateDifference>): string => {
 
   return parts.length > 0 ? parts.join(", ") : "Just now!";
 };
+
+export const isValidDate = (d: Date) =>
+  d instanceof Date && !isNaN(d.getTime());
