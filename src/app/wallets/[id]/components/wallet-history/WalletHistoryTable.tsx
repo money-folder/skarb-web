@@ -4,6 +4,7 @@ import Changes from "../../../components/Changes";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
+import DuplicateButton from "../buttons/DuplicateButton";
 
 interface Props {
   walletHistory: ClientWhistoryDto[];
@@ -60,7 +61,13 @@ export default function WalletHistoryTable({ walletHistory }: Props) {
                     <DestroyButton id={whistory.id} />
                   </>
                 ) : (
-                  <SoftDeleteButton id={whistory.id} />
+                  <>
+                    <DuplicateButton
+                      walletId={whistory.walletId}
+                      whistoryId={whistory.id}
+                    />
+                    <SoftDeleteButton id={whistory.id} />
+                  </>
                 )}
               </td>
             </tr>

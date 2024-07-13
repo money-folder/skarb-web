@@ -1,4 +1,5 @@
 import { DateDifference } from "@/utils/time-utils";
+import { WhistoryDb } from "./wallets-history";
 
 export type CreateWalletDto = {
   name: string;
@@ -16,6 +17,7 @@ export type ClientWalletDto = {
   sinceLatestBallanceTs: DateDifference | null;
   latestBalanceTs: string | null;
   latestBalance: number | null;
+  latestWhistory: WhistoryDb | null;
   createdAt: Date;
   deletedAt: Date | null;
 };

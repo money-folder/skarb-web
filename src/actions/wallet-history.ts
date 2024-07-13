@@ -8,6 +8,7 @@ import {
   archiveSelfWhistory,
   createWhistory,
   destroySelfWhistory,
+  duplicateWhistory,
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
 } from "@/services/wallets-history";
@@ -40,6 +41,18 @@ export async function create(dto: CreateWhistoryRequestDto) {
 
     await createWhistory(dto);
     await revalidatePath(`/wallets/${dto.walletId}`);
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error };
+  }
+}
+
+export async function duplicate(id: string, walletId: string) {
+  try {
+    await duplicateWhistory(id);
+    await revalidatePath(`/wallets/${walletId}`);
 
     return { success: true };
   } catch (error) {

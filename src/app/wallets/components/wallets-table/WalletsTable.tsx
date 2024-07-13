@@ -11,6 +11,7 @@ import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
 
 import OpenIcon from "@/assets/open.svg";
+import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 
 interface WalletsTableProps {
   wallets: ClientWalletDto[];
@@ -80,6 +81,13 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
                 walletId={wallet.id}
                 walletName={wallet.name}
               />
+
+              {wallet.latestWhistory && !wallet.deletedAt ? (
+                <DuplicateButton
+                  walletId={wallet.id}
+                  whistoryId={wallet.latestWhistory?.id}
+                />
+              ) : null}
 
               <Link
                 className="inline-block cursor-pointer opacity-70 hover:opacity-100"

@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { CreateWhistoryRequestDto } from "@/types/wallets-history";
 import * as whistoryRepository from "@/repositories/wallets-history";
+import * as walletsRepository from "@/repositories/wallets";
 import { ErrorCauses } from "@/types/errors";
 import { FetchWalletHistoryParams } from "@/types/wallets";
 
@@ -41,6 +42,31 @@ export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
   return await whistoryRepository.create({
     ...dto,
     date: new Date(dto.date),
+  });
+};
+
+export const duplicateWhistory = async (id: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const target = await whistoryRepository.findById(id);
+  if (!target) {
+    throw new Error("Target wallet history entry was not found!", {
+      cause: ErrorCauses.NOT_FOUND,
+    });
+  }
+
+  const targetWallet = await walletsRepository.findById(target.walletId);
+  if (targetWallet?.ownerId !== session.user.id) {
+    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+  }
+
+  return await whistoryRepository.create({
+    moneyAmount: target?.moneyAmount,
+    walletId: target.walletId,
+    date: new Date(),
   });
 };
 

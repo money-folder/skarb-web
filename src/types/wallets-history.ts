@@ -10,13 +10,16 @@ export type CreateWhistoryDto = {
   date: Date;
 };
 
-export type ClientWhistoryDto = {
+export type WhistoryDb = {
   id: string;
   walletId: string;
   moneyAmount: number;
-  changes: number | null;
   date: Date;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
+};
+
+export type ClientWhistoryDto = WhistoryDb & {
+  changes: number | null;
 };
