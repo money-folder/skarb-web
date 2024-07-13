@@ -1,5 +1,6 @@
 import { fetchWalletHistory } from "@/actions/wallet-history";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
+import WhistoryChangesChart from "@/widgets/whistory-changes-chart/WhistoryChangesChart";
 import { WithMounted } from "@/components/WithMounted";
 
 import WalletHistoryTable from "./WalletHistoryTable";
@@ -31,15 +32,25 @@ export default async function WalletHistoryContainer({
       </div>
 
       <div className="h-full w-full">
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-between">
           {walletHistory.length > 1 ? (
-            <WithMounted>
-              <WalletHistoryChart
-                width={600}
-                height={300}
-                list={walletHistory}
-              />
-            </WithMounted>
+            <>
+              <WithMounted>
+                <WalletHistoryChart
+                  width={550}
+                  height={300}
+                  list={walletHistory}
+                />
+              </WithMounted>
+
+              <WithMounted>
+                <WhistoryChangesChart
+                  width={550}
+                  height={300}
+                  list={walletHistory}
+                />
+              </WithMounted>
+            </>
           ) : (
             <p>Not enough data for building a chart 😢</p>
           )}
