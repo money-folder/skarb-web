@@ -56,6 +56,10 @@ export const findUserWallet = async (
   });
 };
 
+export const findById = async (id: string) => {
+  return await prisma.walletHistory.findFirst({ where: { id } });
+};
+
 export const create = async (dto: CreateWhistoryDto) => {
   return await prisma.walletHistory.create({
     data: dto,

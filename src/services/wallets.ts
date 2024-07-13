@@ -29,6 +29,7 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
     sinceLatestBallanceTs: w.history[0]?.date
       ? calculateDateDifference(w.history[0].date, new Date())
       : null,
+    latestWhistory: w.history[0] || null,
   }));
 };
 
