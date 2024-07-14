@@ -8,7 +8,7 @@ export default async function WalletsTableLoading() {
           <tr>
             <th className="p-1 w-2/12 text-sm border-2 border-black">Name</th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Latest Balance
+              Balance
             </th>
             <th className="p-1 w-1/12 text-sm border-2 border-black">
               Currency
