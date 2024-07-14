@@ -24,8 +24,6 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
         ? (w.history[0].moneyAmount - w.history[1].moneyAmount) /
           w.history[1].moneyAmount
         : null,
-    latestBalanceTs: w.history[0]?.date?.toLocaleString() || null,
-    latestBalance: w.history[0]?.moneyAmount || null,
     sinceLatestBallanceTs: w.history[0]?.date
       ? calculateDateDifference(w.history[0].date, new Date())
       : null,

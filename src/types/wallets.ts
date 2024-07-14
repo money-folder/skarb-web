@@ -15,8 +15,6 @@ export type ClientWalletDto = {
   currency: string;
   changes: number | null;
   sinceLatestBallanceTs: DateDifference | null;
-  latestBalanceTs: string | null;
-  latestBalance: number | null;
   latestWhistory: WhistoryDb | null;
   createdAt: Date;
   deletedAt: Date | null;

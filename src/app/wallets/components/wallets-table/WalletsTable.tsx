@@ -9,9 +9,9 @@ import AddWhistoryButton from "../buttons/AddWhistoryButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
+import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 
 import OpenIcon from "@/assets/open.svg";
-import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 
 interface WalletsTableProps {
   wallets: ClientWalletDto[];
@@ -47,7 +47,7 @@ export default function WalletsTable({ wallets }: WalletsTableProps) {
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
-              {wallet.latestBalance || "-"}
+              {wallet?.latestWhistory?.moneyAmount || "-"}
             </td>
             <td
               className={`p-1 text-sm text-center border-2 border-black ${
