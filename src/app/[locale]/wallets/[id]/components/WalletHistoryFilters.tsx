@@ -6,8 +6,13 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 import { getLocalISOString } from "@/utils";
 import { isValidDate } from "@/utils/time-utils";
+import { Dictionary } from "@/types/locale";
 
-const WalletHistoryFilters = () => {
+interface Props {
+  d: Dictionary["whistoryPage"]["filters"];
+}
+
+const WalletHistoryFilters = ({ d }: Props) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -45,7 +50,7 @@ const WalletHistoryFilters = () => {
     <form className="w-full flex flex-col justify-start items-start gap-2">
       <div className="flex gap-5">
         <label className="flex gap-3">
-          <span>From</span>
+          <span>{d.form.fromLabel}</span>
           <input
             {...register("whistoryFrom", {
               required: false,
@@ -58,7 +63,7 @@ const WalletHistoryFilters = () => {
         </label>
 
         <label className="flex gap-3">
-          <span>To</span>
+          <span>{d.form.toLabel}</span>
           <input
             {...register("whistoryTo", { required: false, valueAsDate: true })}
             type="datetime-local"
@@ -69,7 +74,7 @@ const WalletHistoryFilters = () => {
       </div>
 
       <button className="hover:underline" type="reset" onClick={reset}>
-        Reset
+        {d.form.resetLabel}
       </button>
     </form>
   );

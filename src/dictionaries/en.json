@@ -1,0 +1,80 @@
+{
+  "walletsPage": {
+    "title": "Wallets",
+
+    "walletsTable": {
+      "name": "Name",
+      "balance": "Balance",
+      "currency": "Currency",
+      "changes": "Changes",
+      "sinceLastReport": "Since Last Report",
+      "actions": "Actions"
+    },
+
+    "loadingWalletsFailed": "Loading wallets table failed 😢"
+  },
+
+  "whistoryPage": {
+    "title": "Wallet History",
+
+    "filters": {
+      "form": {
+        "fromLabel": "From: ",
+        "toLabel": "To: ",
+        "resetLabel": "Reset"
+      }
+    },
+
+    "whistoryTable": {
+      "balance": "Balance",
+      "date": "Date",
+      "changes": "Changes",
+      "actions": "Actions"
+    },
+
+    "whistoryEmpty": "No Data",
+
+    "notEnoughDataForChart": "Not enough data for building a chart 😢"
+  },
+
+  "sidebar": {
+    "walletsTitle": "Wallets",
+    "signoutLabel": "Sign Out"
+  },
+
+  "modals": {
+    "createWhistory": {
+      "title": "New \"{{ walletName }}\" Entry",
+      "form": {
+        "dateLabel": "Timestamp: ",
+        "amountLabel": "Amount: ",
+        "cancelLabel": "Cancel",
+        "submitLabel": "Submit"
+      }
+    },
+
+    "createWallet": {
+      "title": "Create Wallet",
+      "form": {
+        "nameLabel": "Name: ",
+        "currencyLabel": "Currency: ",
+        "cancelLabel": "Cancel",
+        "submitLabel": "Submit"
+      }
+    }
+  },
+
+  "charts": {
+    "whistory": {
+      "tooltip": {
+        "balanceLabel": "Balance"
+      }
+    },
+
+    "whistoryChanges": {
+      "tooltip": {
+        "changesLabel": "Changes"
+      }
+    }
+  }
+}

@@ -43,3 +43,12 @@ export const generateNumberArray = (min: number, max: number, step: number) => {
 
   return result;
 };
+
+export const replacePlaceholders = (
+  template: string,
+  replacements: { [key: string]: string }
+): string =>
+  template.replace(
+    /{{\s*([\w]+)\s*}}/g,
+    (match, p1) => replacements[p1] || match
+  );

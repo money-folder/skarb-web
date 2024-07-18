@@ -6,8 +6,15 @@ import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 import { SignOut } from "../SignOut";
+import { Dictionary } from "@/types/locale";
+import { DEFAULT_LOCALE } from "@/locales";
 
-export default async function Sidebar() {
+interface Props {
+  locale: string;
+  d: Dictionary["sidebar"];
+}
+
+export default async function Sidebar({ d, locale }: Props) {
   const session = await auth();
   const result = await fetchCurrentUserWallets();
 
@@ -19,8 +26,13 @@ export default async function Sidebar() {
         {result.data ? (
           <>
             <li className="w-full flex justify-between gap-2 overflow-hidden truncate">
-              <NavLink activeClassName="text-white bg-black" href="/wallets">
-                Wallets
+              <NavLink
+                activeClassName="text-white bg-black"
+                href={`${
+                  locale !== DEFAULT_LOCALE ? `/${locale}` : ""
+                }/wallets`}
+              >
+                {d.walletsTitle}
               </NavLink>
 
               <span className="w-fit shrink-0">
@@ -37,7 +49,9 @@ export default async function Sidebar() {
                   <NavLink
                     className="overflow-hidden text-ellipsis"
                     activeClassName="text-white bg-black"
-                    href={`/wallets/${w.id}`}
+                    href={`${
+                      locale !== DEFAULT_LOCALE ? `/${locale}` : ""
+                    }/wallets/${w.id}`}
                   >
                     {w.name}
                   </NavLink>
@@ -53,7 +67,7 @@ export default async function Sidebar() {
       </ul>
 
       <div className="mt-5 flex justify-center">
-        {session?.user ? <SignOut /> : null}
+        {session?.user ? <SignOut text={d.signoutLabel} /> : null}
       </div>
     </div>
   );

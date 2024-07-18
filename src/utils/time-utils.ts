@@ -47,7 +47,9 @@ export const calculateDateDifference = (
   };
 };
 
-export const formatDateDifference = (diff: Partial<DateDifference>): string => {
+export const formatDateDifferenceEn = (
+  diff: Partial<DateDifference>
+): string => {
   const parts: string[] = [];
 
   if (diff.years && diff.years > 0) {
@@ -75,6 +77,65 @@ export const formatDateDifference = (diff: Partial<DateDifference>): string => {
   }
 
   return parts.length > 0 ? parts.join(", ") : "Just now!";
+};
+
+export const formatDateDifferenceBe = (
+  diff: Partial<DateDifference>
+): string => {
+  const parts: string[] = [];
+
+  if (diff.years && diff.years > 0) {
+    parts.push(
+      `${diff.years} год${diff.years.toString().endsWith("1") ? "" : "ы"}`
+    );
+  }
+
+  if (diff.months && diff.months > 0) {
+    parts.push(
+      `${diff.months} месяц${diff.months.toString().endsWith("1") ? "" : "ы"}`
+    );
+  }
+
+  if (diff.days && diff.days > 0) {
+    parts.push(
+      `${diff.days} ${diff.days.toString().endsWith("1") ? "дзень" : "дні"}`
+    );
+  }
+
+  if (diff.hours && diff.hours > 0) {
+    parts.push(
+      `${diff.hours} гадзін${diff.hours.toString().endsWith("1") ? "а" : "ы"}`
+    );
+  }
+
+  if (diff.minutes && diff.minutes > 0) {
+    parts.push(
+      `${diff.minutes} хвілін${
+        diff.minutes.toString().endsWith("1") ? "а" : "ы"
+      }`
+    );
+  }
+
+  if (diff.seconds && diff.seconds > 0) {
+    parts.push(
+      `${diff.seconds} секунд${
+        diff.seconds.toString().endsWith("1") ? "а" : "ы"
+      }`
+    );
+  }
+
+  return parts.length > 0 ? parts.join(", ") : "Толькі што!";
+};
+
+export const formatDateDifference = (
+  diff: Partial<DateDifference>,
+  locale: string
+): string => {
+  if (locale === "be") {
+    return formatDateDifferenceBe(diff);
+  }
+
+  return formatDateDifferenceEn(diff);
 };
 
 export const isValidDate = (d: Date) =>

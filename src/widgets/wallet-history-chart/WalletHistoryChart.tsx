@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import {
   LineChart,
   Line,
@@ -10,6 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
+import { DictionaryContext } from "@/components/Dictionary";
 import { ClientWhistoryDto } from "@/types/wallets-history";
 import { getAxisTimestamps } from "./utils";
 
@@ -20,6 +21,8 @@ interface Props {
 }
 
 const WalletHistoryChart = ({ width, height, list }: Props) => {
+  const { d } = useContext(DictionaryContext);
+
   const formattedList = list.map((i) => ({ ...i, dateTs: i.date.getTime() }));
   const timestamps = getAxisTimestamps(formattedList);
 
@@ -37,7 +40,7 @@ const WalletHistoryChart = ({ width, height, list }: Props) => {
         separator=": "
         contentStyle={{ fontSize: "12px" }}
         labelFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
-        formatter={(value) => [value, "Money Amount"]}
+        formatter={(value) => [value, d.charts.whistory.tooltip.balanceLabel]}
       />
 
       <XAxis

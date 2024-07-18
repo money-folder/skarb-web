@@ -1,5 +1,7 @@
 "use client";
 
+import { useContext } from "react";
+
 import { ClientWhistoryDto } from "@/types/wallets-history";
 import { getWhistoryAbsChangesData } from "./utils";
 import {
@@ -11,6 +13,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { DictionaryContext } from "@/components/Dictionary";
 
 interface Props {
   width: number;
@@ -19,6 +22,8 @@ interface Props {
 }
 
 const WhistoryChangesChart = ({ width, height, list }: Props) => {
+  const { d } = useContext(DictionaryContext);
+
   const result = getWhistoryAbsChangesData(list);
 
   return (
@@ -41,6 +46,10 @@ const WhistoryChangesChart = ({ width, height, list }: Props) => {
       <Tooltip
         contentStyle={{ fontSize: "12px" }}
         labelFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
+        formatter={(value) => [
+          value,
+          d.charts.whistoryChanges.tooltip.changesLabel,
+        ]}
       />
 
       <Bar dataKey="changes" fill="#8884d8" isAnimationActive={false}>

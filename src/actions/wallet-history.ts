@@ -12,8 +12,7 @@ import {
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
 } from "@/services/wallets-history";
-
-import { createWhistoryRequstSchema } from "../app/wallets/[id]/validation";
+import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
 
 export const fetchWalletHistory = async (
   walletId: string,

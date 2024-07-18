@@ -1,6 +1,10 @@
 import { signOut } from "@/auth";
 
-export function SignOut() {
+interface Props {
+  text: string;
+}
+
+export function SignOut({ text }: Props) {
   return (
     <form
       action={async () => {
@@ -9,7 +13,7 @@ export function SignOut() {
       }}
     >
       <button type="submit" className="hover:underline">
-        Sign Out
+        {text}
       </button>
     </form>
   );

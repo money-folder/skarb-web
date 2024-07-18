@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { create } from "@/actions/wallet-history";
 import Overlay from "@/components/overlay/Overlay";
+import { DictionaryContext } from "@/components/Dictionary";
 
 import AddWhistoryForm from "./CreateWhistoryForm";
+import { replacePlaceholders } from "@/utils";
 
 interface Props {
   walletId: string;
@@ -12,6 +14,8 @@ interface Props {
 }
 
 const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
+  const { d } = useContext(DictionaryContext);
+
   const createWhistory = async (moneyAmount: number, date: number) => {
     await create({ walletId, moneyAmount, date });
   };
@@ -24,8 +28,9 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
           onClick={(e) => e.stopPropagation()}
         >
           <h3 className="text-left font-bold text-lg">
-            New {`"${walletName}"`} Entry
+            {replacePlaceholders(d.modals.createWhistory.title, { walletName })}
           </h3>
+
           <AddWhistoryForm create={createWhistory} close={close} />
         </div>
       </Overlay>
