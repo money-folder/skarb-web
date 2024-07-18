@@ -14,8 +14,27 @@
     "loadingWalletsFailed": "Loading wallets table failed 😢"
   },
 
-  "walletHistoryPage": {
-    "title": "Wallet History"
+  "whistoryPage": {
+    "title": "Wallet History",
+
+    "filters": {
+      "form": {
+        "fromLabel": "From: ",
+        "toLabel": "To: ",
+        "resetLabel": "Reset"
+      }
+    },
+
+    "whistoryTable": {
+      "balance": "Balance",
+      "date": "Date",
+      "changes": "Changes",
+      "actions": "Actions"
+    },
+
+    "whistoryEmpty": "No Data",
+
+    "notEnoughDataForChart": "Not enough data for building a chart 😢"
   },
 
   "sidebar": {
@@ -41,6 +60,20 @@
         "currencyLabel": "Currency: ",
         "cancelLabel": "Cancel",
         "submitLabel": "Submit"
+      }
+    }
+  },
+
+  "charts": {
+    "whistory": {
+      "tooltip": {
+        "balanceLabel": "Balance"
+      }
+    },
+
+    "whistoryChanges": {
+      "tooltip": {
+        "changesLabel": "Changes"
       }
     }
   }

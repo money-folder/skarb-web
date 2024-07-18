@@ -5,24 +5,30 @@ import SoftDeleteButton from "../buttons/SoftDeleteButton";
 import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../buttons/DuplicateButton";
+import { Dictionary } from "@/types/locale";
 
 interface Props {
+  d: Dictionary["whistoryPage"]["whistoryTable"];
   walletHistory: ClientWhistoryDto[];
 }
 
-export default function WalletHistoryTable({ walletHistory }: Props) {
+export default function WalletHistoryTable({ d, walletHistory }: Props) {
   return (
     <div className="h-full w-full overflow-y-scroll">
       <table className="w-full">
         <thead>
           <tr>
-            <th className="p-1 w-3/12 text-sm border-2 border-black">Amount</th>
-            <th className="p-1 w-5/12 text-sm border-2 border-black">Date</th>
             <th className="p-1 w-3/12 text-sm border-2 border-black">
-              Changes
+              {d.balance}
+            </th>
+            <th className="p-1 w-5/12 text-sm border-2 border-black">
+              {d.date}
+            </th>
+            <th className="p-1 w-3/12 text-sm border-2 border-black">
+              {d.changes}
             </th>
             <th className="p-1 w-1/12 text-sm border-2 border-black">
-              Actions
+              {d.actions}
             </th>
           </tr>
         </thead>

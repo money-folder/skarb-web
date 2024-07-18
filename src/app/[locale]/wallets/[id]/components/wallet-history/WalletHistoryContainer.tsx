@@ -4,14 +4,17 @@ import WhistoryChangesChart from "@/widgets/whistory-changes-chart/WhistoryChang
 import { WithMounted } from "@/components/WithMounted";
 
 import WalletHistoryTable from "./WalletHistoryTable";
+import { Dictionary } from "@/types/locale";
 
 interface WalletHistoryContainerProps {
+  d: Dictionary["whistoryPage"];
   walletId: string;
   fromTs?: number;
   toTs?: number;
 }
 
 export default async function WalletHistoryContainer({
+  d,
   walletId,
   fromTs,
   toTs,
@@ -25,9 +28,12 @@ export default async function WalletHistoryContainer({
     <>
       <div className="w-full h-full max-w-[475px] flex flex-col">
         {walletHistory.length ? (
-          <WalletHistoryTable walletHistory={walletHistory} />
+          <WalletHistoryTable
+            d={d.whistoryTable}
+            walletHistory={walletHistory}
+          />
         ) : (
-          <p>No Data</p>
+          <p>{d.whistoryPage.whistoryEmpty}</p>
         )}
       </div>
 
@@ -52,7 +58,7 @@ export default async function WalletHistoryContainer({
               </WithMounted>
             </>
           ) : (
-            <p>Not enough data for building a chart 😢</p>
+            <p>{d.whistoryPage.notEnoughDataForChart}</p>
           )}
         </div>
       </div>

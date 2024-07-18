@@ -14,8 +14,27 @@
     "loadingWalletsFailed": "Памылка загрузкі табліцы кашалькоў 😢"
   },
 
-  "walletHistoryPage": {
-    "title": "Гісторыя Кашалька"
+  "whistoryPage": {
+    "title": "Гісторыя Кашалька",
+
+    "filters": {
+      "form": {
+        "fromLabel": "Ад: ",
+        "toLabel": "Да: ",
+        "resetLabel": "Скінуць"
+      }
+    },
+
+    "whistoryTable": {
+      "balance": "Баланс",
+      "date": "Дата",
+      "changes": "Змены",
+      "actions": "Дзеянні"
+    },
+
+    "whistoryEmpty": "Няма дадзеных",
+
+    "notEnoughDataForChart": "Недастаткова даных для стварэння дыяграмы 😢"
   },
 
   "sidebar": {
@@ -27,7 +46,7 @@
     "createWhistory": {
       "title": "Новы запіс у \"{{ walletName }}\"",
       "form": {
-        "dateLabel": "Час падзеі: ",
+        "dateLabel": "Дата: ",
         "amountLabel": "Сума грошай: ",
         "cancelLabel": "Скасаваць",
         "submitLabel": "Адправіць"
@@ -41,6 +60,20 @@
         "currencyLabel": "Валюта: ",
         "cancelLabel": "Скасаваць",
         "submitLabel": "Адправіць"
+      }
+    }
+  },
+
+  "charts": {
+    "whistory": {
+      "tooltip": {
+        "balanceLabel": "Баланс"
+      }
+    },
+
+    "whistoryChanges": {
+      "tooltip": {
+        "changesLabel": "Змены"
       }
     }
   }
