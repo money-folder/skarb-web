@@ -1,0 +1,47 @@
+{
+  "walletsPage": {
+    "title": "Кашалькі",
+
+    "walletsTable": {
+      "name": "Назва",
+      "balance": "Баланс",
+      "currency": "Валюта",
+      "changes": "Змены",
+      "sinceLastReport": "З Апошняга Запісу",
+      "actions": "Дзеянні"
+    },
+
+    "loadingWalletsFailed": "Памылка загрузкі табліцы кашалькоў 😢"
+  },
+
+  "walletHistoryPage": {
+    "title": "Гісторыя Кашалька"
+  },
+
+  "sidebar": {
+    "walletsTitle": "Кашалькі",
+    "signoutLabel": "Выйсці"
+  },
+
+  "modals": {
+    "createWhistory": {
+      "title": "Новы запіс у \"{{ walletName }}\"",
+      "form": {
+        "dateLabel": "Час падзеі: ",
+        "amountLabel": "Сума грошай: ",
+        "cancelLabel": "Скасаваць",
+        "submitLabel": "Адправіць"
+      }
+    },
+
+    "createWallet": {
+      "title": "Стварыць Кашалёк",
+      "form": {
+        "nameLabel": "Назва: ",
+        "currencyLabel": "Валюта: ",
+        "cancelLabel": "Скасаваць",
+        "submitLabel": "Адправіць"
+      }
+    }
+  }
+}

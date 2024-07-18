@@ -6,8 +6,13 @@ import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 import { SignOut } from "../SignOut";
+import { Dictionary } from "@/types/locale";
 
-export default async function Sidebar() {
+interface Props {
+  d: Dictionary["sidebar"];
+}
+
+export default async function Sidebar({ d }: Props) {
   const session = await auth();
   const result = await fetchCurrentUserWallets();
 
@@ -20,7 +25,7 @@ export default async function Sidebar() {
           <>
             <li className="w-full flex justify-between gap-2 overflow-hidden truncate">
               <NavLink activeClassName="text-white bg-black" href="/wallets">
-                Wallets
+                {d.walletsTitle}
               </NavLink>
 
               <span className="w-fit shrink-0">
@@ -53,7 +58,7 @@ export default async function Sidebar() {
       </ul>
 
       <div className="mt-5 flex justify-center">
-        {session?.user ? <SignOut /> : null}
+        {session?.user ? <SignOut text={d.signoutLabel} /> : null}
       </div>
     </div>
   );

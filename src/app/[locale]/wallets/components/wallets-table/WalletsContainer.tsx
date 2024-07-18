@@ -1,17 +1,22 @@
 import { fetchCurrentUserWallets } from "@/actions/wallets";
 
 import WalletsTable from "./WalletsTable";
+import { Dictionary } from "@/types/locale";
 
-export default async function WalletsContainer() {
+interface Props {
+  d: Dictionary["walletsPage"];
+}
+
+export default async function WalletsContainer({ d }: Props) {
   const result = await fetchCurrentUserWallets();
 
   return (
     <div>
       <div>
         {result.data ? (
-          <WalletsTable wallets={result.data} />
+          <WalletsTable d={d.walletsTable} wallets={result.data} />
         ) : (
-          <p>Loading wallets table failed 😢</p>
+          <p>{d.loadingWalletsFailed}</p>
         )}
       </div>
     </div>

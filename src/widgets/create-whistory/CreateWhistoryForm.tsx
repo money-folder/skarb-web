@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import SecondaryButton from "@/components/buttons/SecondaryButton";
+import { DictionaryContext } from "@/components/Dictionary";
 
 import { getLocalISOString } from "@/utils";
 
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const AddWhistoryForm = ({ create, close }: Props) => {
+  const { d } = useContext(DictionaryContext);
+
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (e: FieldValues) => {
@@ -23,7 +26,7 @@ const AddWhistoryForm = ({ create, close }: Props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-2">
         <label className="mt-2 w-full flex flex-col items-start">
-          <span>Timestamp: </span>
+          <span>{d.modals.createWhistory.form.dateLabel}</span>
           <input
             {...register("date", { required: true, valueAsDate: true })}
             className="px-2 border-[1px] border-black rounded-sm"
@@ -33,7 +36,7 @@ const AddWhistoryForm = ({ create, close }: Props) => {
         </label>
 
         <label className="w-full flex flex-col items-start">
-          <span>Amount: </span>
+          <span>{d.modals.createWhistory.form.amountLabel}</span>
           <input
             {...register("amount", { required: true, valueAsNumber: true })}
             className="px-2 border-[1px] border-black rounded-sm"
@@ -45,8 +48,14 @@ const AddWhistoryForm = ({ create, close }: Props) => {
       </div>
 
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton text="Cancel" onClick={close} />
-        <PrimaryButton type="submit" text="Submit" />
+        <SecondaryButton
+          text={d.modals.createWhistory.form.cancelLabel}
+          onClick={close}
+        />
+        <PrimaryButton
+          type="submit"
+          text={d.modals.createWhistory.form.submitLabel}
+        />
       </div>
     </form>
   );

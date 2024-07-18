@@ -9,6 +9,8 @@ import OverlayProvider from "@/components/overlay/OverlayProvider";
 import Loading from "@/components/sidebar/Loading";
 
 import "./globals.css";
+import DictionaryProvider from "@/components/Dictionary";
+import { getDictionary } from "@/dictionaries";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
   description: "A simple budget tracking app",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: Readonly<{
@@ -26,20 +28,24 @@ export default function RootLayout({
     locale: string;
   };
 }>) {
+  const d = await getDictionary(locale);
+
   return (
     <html lang={locale}>
       <body
         className={`${inter.className} w-full h-screen overflow-hidden grid grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr]`}
       >
-        <OverlayProvider>
-          <div className="col-span-1 row-span-3">
-            <Suspense fallback={<Loading />}>
-              <Sidebar />
-            </Suspense>
-          </div>
+        <DictionaryProvider d={d}>
+          <OverlayProvider>
+            <div className="col-span-1 row-span-3">
+              <Suspense fallback={<Loading />}>
+                <Sidebar d={d["sidebar"]} />
+              </Suspense>
+            </div>
 
-          <div className="p-5 col-span-2 row-span-2">{children}</div>
-        </OverlayProvider>
+            <div className="p-5 col-span-2 row-span-2">{children}</div>
+          </OverlayProvider>
+        </DictionaryProvider>
 
         <Analytics />
         <SpeedInsights />
