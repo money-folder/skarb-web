@@ -33,7 +33,7 @@ export default async function WalletHistoryContainer({
             walletHistory={walletHistory}
           />
         ) : (
-          <p>{d.whistoryPage.whistoryEmpty}</p>
+          <p>{d.whistoryEmpty}</p>
         )}
       </div>
 
@@ -58,7 +58,7 @@ export default async function WalletHistoryContainer({
               </WithMounted>
             </>
           ) : (
-            <p>{d.whistoryPage.notEnoughDataForChart}</p>
+            <p>{d.notEnoughDataForChart}</p>
           )}
         </div>
       </div>
