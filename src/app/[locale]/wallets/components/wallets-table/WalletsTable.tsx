@@ -15,11 +15,16 @@ import OpenIcon from "@/assets/open.svg";
 import { Dictionary } from "@/types/locale";
 
 interface WalletsTableProps {
+  locale: string;
   d: Dictionary["walletsPage"]["walletsTable"];
   wallets: ClientWalletDto[];
 }
 
-export default function WalletsTable({ d, wallets }: WalletsTableProps) {
+export default function WalletsTable({
+  locale,
+  d,
+  wallets,
+}: WalletsTableProps) {
   return (
     <table className="w-full">
       <thead>
@@ -79,11 +84,14 @@ export default function WalletsTable({ d, wallets }: WalletsTableProps) {
               }`}
             >
               {wallet.sinceLatestBallanceTs
-                ? formatDateDifference({
-                    days: wallet.sinceLatestBallanceTs.days,
-                    hours: wallet.sinceLatestBallanceTs.hours,
-                    minutes: wallet.sinceLatestBallanceTs.minutes,
-                  })
+                ? formatDateDifference(
+                    {
+                      days: wallet.sinceLatestBallanceTs.days,
+                      hours: wallet.sinceLatestBallanceTs.hours,
+                      minutes: wallet.sinceLatestBallanceTs.minutes,
+                    },
+                    locale
+                  )
                 : "-"}
             </td>
             <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
