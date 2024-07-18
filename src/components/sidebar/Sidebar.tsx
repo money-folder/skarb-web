@@ -7,12 +7,14 @@ import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 import { SignOut } from "../SignOut";
 import { Dictionary } from "@/types/locale";
+import { DEFAULT_LOCALE } from "@/locales";
 
 interface Props {
+  locale: string;
   d: Dictionary["sidebar"];
 }
 
-export default async function Sidebar({ d }: Props) {
+export default async function Sidebar({ d, locale }: Props) {
   const session = await auth();
   const result = await fetchCurrentUserWallets();
 
@@ -24,7 +26,12 @@ export default async function Sidebar({ d }: Props) {
         {result.data ? (
           <>
             <li className="w-full flex justify-between gap-2 overflow-hidden truncate">
-              <NavLink activeClassName="text-white bg-black" href="/wallets">
+              <NavLink
+                activeClassName="text-white bg-black"
+                href={`${
+                  locale !== DEFAULT_LOCALE ? `/${locale}` : ""
+                }/wallets`}
+              >
                 {d.walletsTitle}
               </NavLink>
 
@@ -42,7 +49,9 @@ export default async function Sidebar({ d }: Props) {
                   <NavLink
                     className="overflow-hidden text-ellipsis"
                     activeClassName="text-white bg-black"
-                    href={`/wallets/${w.id}`}
+                    href={`${
+                      locale !== DEFAULT_LOCALE ? `/${locale}` : ""
+                    }/wallets/${w.id}`}
                   >
                     {w.name}
                   </NavLink>
