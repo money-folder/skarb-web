@@ -20,7 +20,7 @@ export default async function Wallets({ params: { locale } }: Props) {
       </h1>
 
       <div className="mt-10 w-full flex flex-col items-center">
-        <div className="w-2/3">
+        <div className="w-10/12">
           <Suspense fallback={<Loading />}>
             <WalletsContainer locale={locale} d={d.walletsPage} />
           </Suspense>
