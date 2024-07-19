@@ -35,6 +35,9 @@ export const getCurrentUserWalletHistory = async (
       ? (array[i].moneyAmount - array[i - 1].moneyAmount) /
         array[i - 1].moneyAmount
       : null,
+    changesAbs: array[i - 1]
+      ? array[i].moneyAmount - array[i - 1].moneyAmount
+      : null,
   }));
 };
 

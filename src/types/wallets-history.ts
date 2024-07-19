@@ -22,4 +22,5 @@ export type WhistoryDb = {
 
 export type ClientWhistoryDto = WhistoryDb & {
   changes: number | null;
+  changesAbs: number | null;
 };

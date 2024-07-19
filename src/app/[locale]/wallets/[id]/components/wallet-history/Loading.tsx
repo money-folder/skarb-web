@@ -3,15 +3,15 @@ import LoadingRow from "./LoadingRow";
 export default function Loading() {
   return (
     <>
-      <div className="w-full h-full max-w-[450px]">
+      <div className="w-full h-full max-w-[550px]">
         <table className="w-full border-collapse animate-pulse">
           <thead>
             <tr>
-              <th className="p-1 w-3/12 text-sm border-2 border-black">
+              <th className="p-1 w-2/12 text-sm border-2 border-black">
                 Amount
               </th>
               <th className="p-1 w-5/12 text-sm border-2 border-black">Date</th>
-              <th className="p-1 w-3/12 text-sm border-2 border-black">
+              <th className="p-1 w-4/12 text-sm border-2 border-black">
                 Changes
               </th>
               <th className="p-1 w-1/12 text-sm border-2 border-black">
