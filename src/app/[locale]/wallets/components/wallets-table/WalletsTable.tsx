@@ -76,7 +76,16 @@ export default function WalletsTable({
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
-              <Changes percents={+((wallet.changes || 0) * 100).toFixed(3)} />
+              <Changes
+                text={
+                  wallet.changes
+                    ? `${(wallet.changesAbs || 0).toFixed(2)} (${(
+                        (wallet.changes || 0) * 100
+                      ).toFixed(2)}%)`
+                    : ""
+                }
+                isPositive={(wallet.changes || 0) >= 0}
+              />
             </td>
             <td
               className={`p-1 text-sm text-center border-2 border-black ${
