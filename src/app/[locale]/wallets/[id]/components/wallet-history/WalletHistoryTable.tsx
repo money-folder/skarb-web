@@ -18,13 +18,13 @@ export default function WalletHistoryTable({ d, walletHistory }: Props) {
       <table className="w-full">
         <thead>
           <tr>
-            <th className="p-1 w-3/12 text-sm border-2 border-black">
+            <th className="p-1 w-2/12 text-sm border-2 border-black">
               {d.balance}
             </th>
             <th className="p-1 w-5/12 text-sm border-2 border-black">
               {d.date}
             </th>
-            <th className="p-1 w-3/12 text-sm border-2 border-black">
+            <th className="p-1 w-4/12 text-sm border-2 border-black">
               {d.changes}
             </th>
             <th className="p-1 w-1/12 text-sm border-2 border-black">
@@ -55,7 +55,14 @@ export default function WalletHistoryTable({ d, walletHistory }: Props) {
                 }`}
               >
                 <Changes
-                  percents={+((whistory.changes || 0) * 100).toFixed(2)}
+                  text={
+                    whistory.changes
+                      ? `${(whistory.changesAbs || 0).toFixed(2)} (${(
+                          (whistory.changes || 0) * 100
+                        ).toFixed(2)}%)`
+                      : ""
+                  }
+                  isPositive={(whistory.changes || 0) > 0}
                 />
               </td>
               <td

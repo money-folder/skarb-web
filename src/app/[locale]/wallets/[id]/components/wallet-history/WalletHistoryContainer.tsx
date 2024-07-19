@@ -26,7 +26,7 @@ export default async function WalletHistoryContainer({
 
   return walletHistory ? (
     <>
-      <div className="w-full h-full max-w-[475px] flex flex-col">
+      <div className="w-full h-full max-w-[550px] flex flex-col">
         {walletHistory.length ? (
           <WalletHistoryTable
             d={d.whistoryTable}
@@ -43,7 +43,7 @@ export default async function WalletHistoryContainer({
             <>
               <WithMounted>
                 <WalletHistoryChart
-                  width={550}
+                  width={525}
                   height={300}
                   list={walletHistory}
                 />
@@ -51,7 +51,7 @@ export default async function WalletHistoryContainer({
 
               <WithMounted>
                 <WhistoryChangesChart
-                  width={550}
+                  width={525}
                   height={300}
                   list={walletHistory}
                 />

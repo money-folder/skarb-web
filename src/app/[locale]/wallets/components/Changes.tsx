@@ -1,20 +1,19 @@
 interface ChangesProps {
-  percents: number;
+  text: string;
+  isPositive: boolean;
 }
 
-const Changes = ({ percents }: ChangesProps) => {
-  if (!percents) {
+const Changes = ({ text, isPositive }: ChangesProps) => {
+  if (!text) {
     return <span>-</span>;
   }
 
   return (
     <span
-      className={`${
-        percents >= 0 ? "text-green-600" : "text-red-500"
-      } font-bold`}
+      className={`${isPositive ? "text-green-600" : "text-red-500"} font-bold`}
     >
-      <span>{percents >= 0 ? "▲" : "▼"}</span>
-      <span>{percents}%</span>
+      <span>{isPositive ? "▲" : "▼"}</span>
+      <span>{text}</span>
     </span>
   );
 };
