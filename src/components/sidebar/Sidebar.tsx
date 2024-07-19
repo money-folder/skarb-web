@@ -20,7 +20,7 @@ export default async function Sidebar({ d, locale }: Props) {
 
   return (
     <div className="p-5 w-[225px] h-full flex flex-col border-r-2 border-r-black">
-      <UserProfile />
+      <UserProfile d={d} />
 
       <ul className="mt-5 flex-grow">
         {result.data ? (

@@ -39,6 +39,7 @@
 
   "sidebar": {
     "walletsTitle": "Wallets",
+    "githubSigninLabel": "Sign In with Github",
     "signoutLabel": "Sign Out"
   },
 

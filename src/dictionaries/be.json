@@ -39,6 +39,7 @@
 
   "sidebar": {
     "walletsTitle": "Кашалькі",
+    "githubSigninLabel": "Увайсці праз Github",
     "signoutLabel": "Выйсці"
   },
 

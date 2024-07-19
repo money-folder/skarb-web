@@ -1,6 +1,10 @@
 import { signIn } from "@/auth";
 
-export function SignIn() {
+interface Props {
+  text: string;
+}
+
+export function SignIn({ text }: Props) {
   return (
     <form
       action={async () => {
@@ -9,7 +13,7 @@ export function SignIn() {
       }}
     >
       <button type="submit" className="hover:underline">
-        Signin with GitHub
+        {text}
       </button>
     </form>
   );

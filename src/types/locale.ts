@@ -31,6 +31,7 @@ export interface Dictionary {
   };
   sidebar: {
     walletsTitle: string;
+    githubSigninLabel: string;
     signoutLabel: string;
   };
   modals: {
