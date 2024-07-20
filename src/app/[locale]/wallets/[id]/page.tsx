@@ -22,7 +22,7 @@ export default async function WalletHistory({
         {d.whistoryPage.title}
       </h1>
 
-      <div className="my-2 p-2 w-full flex justify-center items-center col-span-3 row-span-1 bg-gray-200 rounded-lg">
+      <div className="p-2 w-full flex justify-center items-center col-span-3 row-span-1 bg-gray-200 rounded-lg">
         <WalletHistoryFilters d={d.whistoryPage.filters} />
       </div>
 
