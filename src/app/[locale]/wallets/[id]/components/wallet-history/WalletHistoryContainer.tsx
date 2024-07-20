@@ -10,6 +10,7 @@ import WhistoryEntriesSummaryCard from "@/components/cards/WhistoryEntriesSummar
 
 interface WalletHistoryContainerProps {
   d: Dictionary["whistoryPage"];
+  locale: string;
   walletId: string;
   fromTs?: number;
   toTs?: number;
@@ -17,6 +18,7 @@ interface WalletHistoryContainerProps {
 
 export default async function WalletHistoryContainer({
   d,
+  locale,
   walletId,
   fromTs,
   toTs,
@@ -38,6 +40,7 @@ export default async function WalletHistoryContainer({
 
         {walletHistory.whistory.length ? (
           <WhistoryEntriesSummaryCard
+            locale={locale}
             d={d.cards.whistoryEntriesSummary}
             startDate={walletHistory.whistory[0].date}
             endDate={

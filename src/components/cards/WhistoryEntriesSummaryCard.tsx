@@ -1,9 +1,14 @@
 import { replacePlaceholders } from "@/utils";
 import Card from "./Card";
 import { Dictionary } from "@/types/locale";
+import {
+  calculateDateDifference,
+  formatDateDifference,
+} from "@/utils/time-utils";
 
 interface Props {
   d: Dictionary["whistoryPage"]["cards"]["whistoryEntriesSummary"];
+  locale: string;
   startDate: Date;
   endDate: Date;
   entriesCount: number;
@@ -11,10 +16,12 @@ interface Props {
 
 export default function WhistoryEntriesSummaryCard({
   d,
+  locale,
   startDate,
   endDate,
   entriesCount,
 }: Props) {
+  const dateDiff = calculateDateDifference(startDate, endDate);
   return (
     <Card>
       <div className="h-full flex flex-col items-center justify-start">
@@ -23,9 +30,14 @@ export default function WhistoryEntriesSummaryCard({
         </h4>
         <p className="text-sm">{d.in}</p>
         <p className="flex gap-2 text-xs">
-          <span>{startDate.toLocaleString().split(", ")[0]}</span>
-          <span>-</span>
-          <span>{endDate.toLocaleString().split(", ")[0]}</span>
+          {formatDateDifference(
+            {
+              years: dateDiff.years,
+              months: dateDiff.months,
+              days: dateDiff.days,
+            },
+            locale
+          )}
         </p>
       </div>
     </Card>

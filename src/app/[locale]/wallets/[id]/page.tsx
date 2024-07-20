@@ -29,6 +29,7 @@ export default async function WalletHistory({
       <div className="h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
         <Suspense fallback={<Loading />}>
           <WalletHistoryContainer
+            locale={locale}
             d={d.whistoryPage}
             walletId={id}
             fromTs={
