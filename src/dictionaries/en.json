@@ -33,7 +33,9 @@
     },
 
     "cards": {
-      "reductions": "Reductions"
+      "walletChangesSummary": {
+        "title": "Changes Σ"
+      }
     },
 
     "whistoryEmpty": "No Data",

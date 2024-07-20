@@ -33,7 +33,9 @@
     },
 
     "cards": {
-      "reductions": "Памяншэнні"
+      "walletChangesSummary": {
+        "title": "Змены Σ"
+      }
     },
 
     "whistoryEmpty": "Няма дадзеных",

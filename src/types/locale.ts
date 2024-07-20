@@ -27,7 +27,9 @@ export interface Dictionary {
       actions: string;
     };
     cards: {
-      reductions: string;
+      walletChangesSummary: {
+        title: string;
+      };
     };
     whistoryEmpty: string;
     notEnoughDataForChart: string;

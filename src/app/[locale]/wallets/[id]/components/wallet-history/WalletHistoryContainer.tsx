@@ -2,7 +2,7 @@ import { fetchWalletHistory } from "@/actions/wallet-history";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
 import WhistoryChangesChart from "@/widgets/whistory-changes-chart/WhistoryChangesChart";
 import { WithMounted } from "@/components/WithMounted";
-import WalletDecreasesCard from "@/components/cards/WalletDecreasesCard";
+import WalletChangesCard from "@/components/cards/WalletChangesCard";
 
 import WalletHistoryTable from "./WalletHistoryTable";
 import { Dictionary } from "@/types/locale";
@@ -28,9 +28,11 @@ export default async function WalletHistoryContainer({
   return walletHistory ? (
     <div className="h-full w-full grid gap-5 grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr]">
       <div className="col-span-2 row-span-1 flex">
-        <WalletDecreasesCard
-          text={d.cards.reductions}
+        <WalletChangesCard
+          text={d.cards.walletChangesSummary.title}
+          increases={walletHistory.increasesSum}
           decreases={walletHistory.decreasesSum}
+          diff={walletHistory.increasesDecreasesDiff}
         />
       </div>
 
