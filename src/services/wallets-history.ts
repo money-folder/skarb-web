@@ -46,15 +46,22 @@ export const getCurrentUserWalletHistory = async (
       : null,
   }));
 
-  const decreasesSum = whistory.reduce((acc, item) => {
-    if (item.changesAbs && item.changesAbs < 0) {
-      return acc + item.changesAbs;
-    }
+  const sums = whistory.reduce(
+    (acc, item) => {
+      if (item.changesAbs && item.changesAbs < 0) {
+        return { ...acc, decreasesSum: acc.decreasesSum + item.changesAbs };
+      } else if (item.changesAbs) {
+        return { ...acc, increasesSum: acc.increasesSum + item.changesAbs };
+      }
 
-    return acc;
-  }, 0);
+      return acc;
+    },
+    { increasesSum: 0, decreasesSum: 0 }
+  );
 
-  return { whistory, decreasesSum };
+  const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
+
+  return { whistory, increasesDecreasesDiff, ...sums };
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
