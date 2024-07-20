@@ -32,6 +32,10 @@
       "actions": "Actions"
     },
 
+    "cards": {
+      "reductions": "Reductions"
+    },
+
     "whistoryEmpty": "No Data",
 
     "notEnoughDataForChart": "Not enough data for building a chart 😢"

@@ -28,7 +28,10 @@ export default async function WalletHistoryContainer({
   return walletHistory ? (
     <div className="h-full w-full grid gap-5 grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr]">
       <div className="col-span-2 row-span-1 flex">
-        <WalletDecreasesCard decreases={walletHistory.decreasesSum} />
+        <WalletDecreasesCard
+          text={d.cards.reductions}
+          decreases={walletHistory.decreasesSum}
+        />
       </div>
 
       <div className="w-full h-full max-w-[550px] overflow-auto col-span-1 row-span-1 flex flex-col">
