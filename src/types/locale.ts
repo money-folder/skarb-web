@@ -30,6 +30,11 @@ export interface Dictionary {
       walletChangesSummary: {
         title: string;
       };
+
+      whistoryEntriesSummary: {
+        title: string;
+        in: string;
+      };
     };
     whistoryEmpty: string;
     notEnoughDataForChart: string;
