@@ -14,7 +14,7 @@ interface Props {
 
 export default function WalletHistoryTable({ d, walletHistory }: Props) {
   return (
-    <div className="h-full w-full overflow-y-auto">
+    <div className="h-full w-full">
       <table className="w-full">
         <thead>
           <tr>

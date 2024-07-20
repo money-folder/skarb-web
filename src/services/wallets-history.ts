@@ -29,7 +29,13 @@ export const getCurrentUserWalletHistory = async (
     params
   );
 
-  return walletHistory.map((wh, i, array) => ({
+  if (!walletHistory) {
+    throw new Error("Wallet history was not found!", {
+      cause: ErrorCauses.NOT_FOUND,
+    });
+  }
+
+  const whistory = walletHistory.map((wh, i, array) => ({
     ...wh,
     changes: array[i - 1]
       ? (array[i].moneyAmount - array[i - 1].moneyAmount) /
@@ -39,6 +45,16 @@ export const getCurrentUserWalletHistory = async (
       ? array[i].moneyAmount - array[i - 1].moneyAmount
       : null,
   }));
+
+  const decreasesSum = whistory.reduce((acc, item) => {
+    if (item.changesAbs && item.changesAbs < 0) {
+      return acc + item.changesAbs;
+    }
+
+    return acc;
+  }, 0);
+
+  return { whistory, decreasesSum };
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
