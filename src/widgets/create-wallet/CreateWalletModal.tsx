@@ -1,14 +1,19 @@
+import { useContext } from "react";
+
 import Overlay from "@/components/overlay/Overlay";
 
 import { create } from "@/actions/wallets";
 
 import CreateWalletForm from "./CreateWalletForm";
+import { DictionaryContext } from "@/components/Dictionary";
 
 interface Props {
   close: () => void;
 }
 
 const CreateWalletModal = ({ close }: Props) => {
+  const { d } = useContext(DictionaryContext);
+
   const createWallet = async (name: string, currency: string) => {
     await create({ name, currency });
   };
@@ -20,7 +25,9 @@ const CreateWalletModal = ({ close }: Props) => {
           className="p-5 w-96 bg-white rounded-xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <h3 className="text-left font-bold text-lg">Create Wallet</h3>
+          <h3 className="text-left font-bold text-lg">
+            {d.modals.createWallet.title}
+          </h3>
           <CreateWalletForm create={createWallet} close={close} />
         </div>
       </Overlay>
