@@ -35,6 +35,11 @@
     "cards": {
       "walletChangesSummary": {
         "title": "Змены Σ"
+      },
+
+      "whistoryEntriesSummary": {
+        "title": "{{entriesCount}} Запісаў",
+        "in": "за"
       }
     },
 

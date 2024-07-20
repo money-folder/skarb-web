@@ -8,7 +8,7 @@ interface Props {
   diff: number;
 }
 
-export default function WalletChangesCard({
+export default function WalletChangesSummaryCard({
   text,
   increases,
   decreases,
@@ -16,8 +16,8 @@ export default function WalletChangesCard({
 }: Props) {
   return (
     <Card>
-      <div className="flex flex-col items-end">
-        <h4 className="font-extrabold">{text}</h4>
+      <div className="h-full flex flex-col items-end justify-start">
+        <h4 className="mb-1 font-extrabold">{text}</h4>
         <p className="text-xs">
           <Changes text={increases.toFixed(2)} isPositive />
         </p>
