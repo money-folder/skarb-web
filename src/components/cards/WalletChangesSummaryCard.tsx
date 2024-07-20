@@ -8,7 +8,7 @@ interface Props {
   diff: number;
 }
 
-export default function WalletChangesCard({
+export default function WalletChangesSummaryCard({
   text,
   increases,
   decreases,
