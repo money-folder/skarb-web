@@ -62,8 +62,8 @@ export default async function WalletHistoryContainer({
         )}
       </div>
 
-      <div className="h-full w-full">
-        <div className="h-full w-full overflow-y-auto col-span-1 row-span-1 flex justify-between max-[1875px]:flex-col">
+      <div className="h-full w-full overflow-y-auto">
+        <div className="h-full w-full col-span-1 row-span-1 flex justify-between max-[1875px]:flex-col">
           {walletHistory.whistory.length > 1 ? (
             <>
               <WithMounted>
