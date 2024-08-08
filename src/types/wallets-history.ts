@@ -24,3 +24,8 @@ export type ClientWhistoryDto = WhistoryDb & {
   changes: number | null;
   changesAbs: number | null;
 };
+
+export type WhistoryComposed = {
+  date: Date;
+  moneyAmount: number;
+};

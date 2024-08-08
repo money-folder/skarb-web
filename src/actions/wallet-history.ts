@@ -9,6 +9,7 @@ import {
   createWhistory,
   destroySelfWhistory,
   duplicateWhistory,
+  getCurrentUserCurrencyWhistory,
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
 } from "@/services/wallets-history";
@@ -21,6 +22,16 @@ export const fetchWalletHistory = async (
   try {
     const walletHistory = await getCurrentUserWalletHistory(walletId, params);
     return { success: true, data: walletHistory };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
+
+export const fetchWhistoryByCurrency = async (currency: string) => {
+  try {
+    const whistory = await getCurrentUserCurrencyWhistory(currency);
+    return { success: true, data: whistory };
   } catch (error) {
     console.error(error);
     return { success: false, data: null, error };

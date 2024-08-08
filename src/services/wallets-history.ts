@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { CreateWhistoryRequestDto } from "@/types/wallets-history";
+import { CreateWhistoryRequestDto, WhistoryDb } from "@/types/wallets-history";
 import * as whistoryRepository from "@/repositories/wallets-history";
 import * as walletsRepository from "@/repositories/wallets";
 import { ErrorCauses } from "@/types/errors";
@@ -62,6 +62,84 @@ export const getCurrentUserWalletHistory = async (
   const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
 
   return { whistory, increasesDecreasesDiff, ...sums };
+};
+
+export const getCurrentUserCurrencyWhistory = async (currency: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const wallets = await walletsRepository.findByUserCurrency(
+    session.user.id,
+    currency
+  );
+
+  const whPromises = wallets.map(async (w) =>
+    whistoryRepository.findByWallet(w.id)
+  );
+
+  const whistories = await Promise.all(whPromises);
+
+  const whistory = whistories
+    .reduce((acc, item) => [...acc, ...item], [])
+    .sort((a, b) => a.date.valueOf() - b.date.valueOf());
+
+  const dataByWallets = whistory.reduce<{ [key: string]: WhistoryDb[] }>(
+    (acc, item) => {
+      if (!acc[item.walletId]) {
+        return { ...acc, [item.walletId]: [item] };
+      }
+
+      return { ...acc, [item.walletId]: [...acc[item.walletId], item] };
+    },
+    {}
+  );
+
+  const earliestEntryDate = whistory[0]?.date;
+  const latestEntryDate = whistory[whistory.length - 1]?.date;
+  const intervalFinish = new Date(latestEntryDate);
+  intervalFinish.setDate(latestEntryDate.getDate() + 1);
+
+  const dataByWalletsList = Object.values(dataByWallets);
+  const mergedWhistoryGroups = [];
+  const currentDate = new Date(earliestEntryDate);
+  while (currentDate <= intervalFinish) {
+    const whistoriesToMerge: { [key: string]: WhistoryDb } = {};
+    dataByWalletsList.forEach((dbw) => {
+      if (dbw[0] && dbw[0].date <= new Date(currentDate)) {
+        whistoriesToMerge[dbw[0].walletId] = dbw.shift()!;
+      }
+    });
+
+    const lastMergedWhistoryGroup =
+      mergedWhistoryGroups[mergedWhistoryGroups.length - 1];
+
+    Object.values(lastMergedWhistoryGroup?.walletsMap || {}).forEach((lmwg) => {
+      if (!whistoriesToMerge[lmwg.walletId]) {
+        whistoriesToMerge[lmwg.walletId] = lmwg;
+      }
+    });
+
+    mergedWhistoryGroups.push({
+      walletsMap: { ...whistoriesToMerge },
+      date: new Date(currentDate),
+    });
+
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  const composedWhistory = mergedWhistoryGroups.map((mwg) => {
+    const walletsList = Object.values(mwg.walletsMap);
+    return {
+      date: mwg.date,
+      moneyAmount: +walletsList
+        .reduce((acc, item) => acc + item.moneyAmount, 0)
+        .toFixed(2),
+    };
+  });
+
+  return composedWhistory;
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
