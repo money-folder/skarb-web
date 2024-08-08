@@ -26,6 +26,14 @@ export const findByUser = async (userId: string) => {
   return userWallets;
 };
 
+export const findByUserCurrency = async (userId: string, currency: string) => {
+  const userWallets = await prisma.wallet.findMany({
+    where: { ownerId: userId, currency },
+  });
+
+  return userWallets;
+};
+
 export const create = async (dto: CreateWalletDto) => {
   return await prisma.wallet.create({
     data: dto,
