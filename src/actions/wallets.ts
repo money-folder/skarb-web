@@ -6,6 +6,7 @@ import {
   archiveSelfWallet,
   createCurrentUserWallet,
   destroySelfWallet,
+  getCurrentUserWallet,
   getCurrentUserWallets,
   unarchiveSelfWallet,
 } from "@/services/wallets";
@@ -16,6 +17,16 @@ export const fetchCurrentUserWallets = async () => {
   try {
     const wallets = await getCurrentUserWallets();
     return { success: true, data: wallets };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
+
+export const fetchWallet = async (walletId: string) => {
+  try {
+    const wallet = await getCurrentUserWallet(walletId);
+    return { success: true, data: wallet };
   } catch (error) {
     console.error(error);
     return { success: false, data: null, error };

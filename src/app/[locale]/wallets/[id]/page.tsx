@@ -4,6 +4,8 @@ import WalletHistoryContainer from "./components/wallet-history/WalletHistoryCon
 import Loading from "./components/wallet-history/Loading";
 import WalletHistoryFilters from "./components/WalletHistoryFilters";
 import { getDictionary } from "@/dictionaries";
+import WalletHistoryTitle from "./components/title/WalletHistoryTitle";
+import WalletHistoryTitleLoading from "./components/title/WalletHistoryTitleLoading";
 
 interface Props {
   params: { id: string; locale: string };
@@ -18,9 +20,12 @@ export default async function WalletHistory({
 
   return (
     <main className="w-full h-full grid grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
-      <h1 className="w-full col-span-3 row-span-1 text-center font-extrabold text-lg">
-        {d.whistoryPage.title}
-      </h1>
+      <Suspense fallback={<WalletHistoryTitleLoading />}>
+        <WalletHistoryTitle
+          pageTitleTemplate={d.whistoryPage.title}
+          walletId={id}
+        />
+      </Suspense>
 
       <div className="p-2 w-full flex justify-center items-center col-span-3 row-span-1 bg-gray-200 rounded-lg">
         <WalletHistoryFilters d={d.whistoryPage.filters} />

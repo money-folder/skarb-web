@@ -35,6 +35,26 @@ export const getCurrentUserWallets = async (): Promise<ClientWalletDto[]> => {
   }));
 };
 
+export const getCurrentUserWallet = async (id: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const wallet = await walletsRepository.findOne({
+    id,
+    ownerId: session.user.id,
+  });
+
+  if (!wallet) {
+    throw new Error("Wallet was not found!", {
+      cause: ErrorCauses.NOT_FOUND,
+    });
+  }
+
+  return wallet;
+};
+
 export const createCurrentUserWallet = async (dto: CreateWalletRequestDto) => {
   const session = await auth();
   if (!session?.user?.id) {

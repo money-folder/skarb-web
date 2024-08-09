@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 import { prisma } from "@/prisma";
 import { CreateWalletDto } from "@/types/wallets";
 
@@ -8,6 +10,10 @@ export const listAll = async () => {
 
 export const findById = async (id: string) => {
   return await prisma.wallet.findUnique({ where: { id } });
+};
+
+export const findOne = async (where: Prisma.WalletWhereUniqueInput) => {
+  return await prisma.wallet.findUnique({ where });
 };
 
 export const findByUser = async (userId: string) => {
