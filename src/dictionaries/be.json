@@ -15,7 +15,7 @@
   },
 
   "whistoryPage": {
-    "title": "Гісторыя Кашалька",
+    "title": "Гісторыя {{walletName}}",
 
     "filters": {
       "form": {

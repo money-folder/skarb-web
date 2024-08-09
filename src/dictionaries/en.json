@@ -15,7 +15,7 @@
   },
 
   "whistoryPage": {
-    "title": "Wallet History",
+    "title": "{{walletName}} History",
 
     "filters": {
       "form": {
