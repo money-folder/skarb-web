@@ -98,13 +98,12 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
 
   const earliestEntryDate = whistory[0]?.date;
   const latestEntryDate = whistory[whistory.length - 1]?.date;
-  const intervalFinish = new Date(latestEntryDate);
-  intervalFinish.setDate(latestEntryDate.getDate() + 1);
 
+  let touchedIntervalEnd = false;
+  let currentDate = new Date(earliestEntryDate);
   const dataByWalletsList = Object.values(dataByWallets);
   const mergedWhistoryGroups = [];
-  const currentDate = new Date(earliestEntryDate);
-  while (currentDate <= intervalFinish) {
+  while (currentDate <= latestEntryDate) {
     const whistoriesToMerge: { [key: string]: WhistoryDb } = {};
     dataByWalletsList.forEach((dbw) => {
       if (dbw[0] && dbw[0].date <= new Date(currentDate)) {
@@ -127,12 +126,18 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     });
 
     currentDate.setDate(currentDate.getDate() + 1);
+
+    if (!touchedIntervalEnd && currentDate > latestEntryDate) {
+      currentDate = new Date(latestEntryDate);
+      touchedIntervalEnd = true;
+    }
   }
 
   const composedWhistory = mergedWhistoryGroups.map((mwg) => {
     const walletsList = Object.values(mwg.walletsMap);
     return {
       date: mwg.date,
+      walletsList,
       moneyAmount: +walletsList
         .reduce((acc, item) => acc + item.moneyAmount, 0)
         .toFixed(2),
