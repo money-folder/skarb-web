@@ -1,6 +1,16 @@
 import { DateDifference } from "@/utils/time-utils";
 import { WhistoryDb } from "./wallets-history";
 
+export type WalletDb = {
+  id: string;
+  name: string;
+  ownerId: string;
+  currency: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+};
+
 export type CreateWalletDto = {
   name: string;
   ownerId: string;
