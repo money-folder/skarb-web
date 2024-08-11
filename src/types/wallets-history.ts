@@ -1,3 +1,5 @@
+import { WalletDb } from "./wallets";
+
 export type CreateWhistoryRequestDto = {
   walletId: string;
   moneyAmount: number;
@@ -20,6 +22,10 @@ export type WhistoryDb = {
   deletedAt: Date | null;
 };
 
+export type WhistoryDbWithWallet = WhistoryDb & {
+  wallet: WalletDb;
+};
+
 export type ClientWhistoryDto = WhistoryDb & {
   changes: number | null;
   changesAbs: number | null;
@@ -27,5 +33,6 @@ export type ClientWhistoryDto = WhistoryDb & {
 
 export type WhistoryComposed = {
   date: Date;
+  whistories: WhistoryDbWithWallet[];
   moneyAmount: number;
 };

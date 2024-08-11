@@ -1,5 +1,8 @@
 import { auth } from "@/auth";
-import { CreateWhistoryRequestDto, WhistoryDb } from "@/types/wallets-history";
+import {
+  CreateWhistoryRequestDto,
+  WhistoryDbWithWallet,
+} from "@/types/wallets-history";
 import * as whistoryRepository from "@/repositories/wallets-history";
 import * as walletsRepository from "@/repositories/wallets";
 import { ErrorCauses } from "@/types/errors";
@@ -76,7 +79,10 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
   );
 
   const whPromises = wallets.map(async (w) =>
-    whistoryRepository.findByWallet(w.id)
+    (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
+      ...wh,
+      wallet: w,
+    }))
   );
 
   const whistories = await Promise.all(whPromises);
@@ -85,16 +91,15 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     .reduce((acc, item) => [...acc, ...item], [])
     .sort((a, b) => a.date.valueOf() - b.date.valueOf());
 
-  const dataByWallets = whistory.reduce<{ [key: string]: WhistoryDb[] }>(
-    (acc, item) => {
-      if (!acc[item.walletId]) {
-        return { ...acc, [item.walletId]: [item] };
-      }
+  const dataByWallets = whistory.reduce<{
+    [key: string]: WhistoryDbWithWallet[];
+  }>((acc, item) => {
+    if (!acc[item.walletId]) {
+      return { ...acc, [item.walletId]: [item] };
+    }
 
-      return { ...acc, [item.walletId]: [...acc[item.walletId], item] };
-    },
-    {}
-  );
+    return { ...acc, [item.walletId]: [...acc[item.walletId], item] };
+  }, {});
 
   const earliestEntryDate = whistory[0]?.date;
   const latestEntryDate = whistory[whistory.length - 1]?.date;
@@ -104,7 +109,7 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
   const dataByWalletsList = Object.values(dataByWallets);
   const mergedWhistoryGroups = [];
   while (currentDate <= latestEntryDate) {
-    const whistoriesToMerge: { [key: string]: WhistoryDb } = {};
+    const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
     dataByWalletsList.forEach((dbw) => {
       if (dbw[0] && dbw[0].date <= new Date(currentDate)) {
         whistoriesToMerge[dbw[0].walletId] = dbw.shift()!;
@@ -137,7 +142,9 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     const walletsList = Object.values(mwg.walletsMap);
     return {
       date: mwg.date,
-      walletsList,
+      whistories: walletsList.sort((a, b) =>
+        a.wallet.name.localeCompare(b.wallet.name)
+      ),
       moneyAmount: +walletsList
         .reduce((acc, item) => acc + item.moneyAmount, 0)
         .toFixed(2),
