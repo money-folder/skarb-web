@@ -117,12 +117,12 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
   const mergedWhistoryGroups = [];
   while (currentDate <= latestEntryDate) {
     const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
+
     dataByWalletsList.forEach((dbw) => {
-      const entriesToAdd = dbw.filter((item) => item.date <= currentDate);
-      const latestEntry = entriesToAdd.reduce(
-        (acc, item) => (acc.date < item.date ? item : acc),
-        entriesToAdd[0]
-      );
+      let latestEntry = null;
+      while (dbw[0] && dbw[0].date <= currentDate) {
+        latestEntry = dbw.shift();
+      }
 
       if (latestEntry) {
         whistoriesToMerge[latestEntry.walletId] = latestEntry;
