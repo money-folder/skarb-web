@@ -118,8 +118,14 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
   while (currentDate <= latestEntryDate) {
     const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
     dataByWalletsList.forEach((dbw) => {
-      if (dbw[0] && dbw[0].date <= new Date(currentDate)) {
-        whistoriesToMerge[dbw[0].walletId] = dbw.shift()!;
+      const entriesToAdd = dbw.filter((item) => item.date <= currentDate);
+      const latestEntry = entriesToAdd.reduce(
+        (acc, item) => (acc.date < item.date ? item : acc),
+        entriesToAdd[0]
+      );
+
+      if (latestEntry) {
+        whistoriesToMerge[latestEntry.walletId] = latestEntry;
       }
     });
 
@@ -138,7 +144,6 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     });
 
     currentDate.setDate(currentDate.getDate() + 1);
-
     if (!touchedIntervalEnd && currentDate > latestEntryDate) {
       currentDate = new Date(latestEntryDate);
       touchedIntervalEnd = true;
