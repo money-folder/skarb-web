@@ -67,16 +67,11 @@ export const getCurrentUserWalletHistory = async (
   return { whistory, increasesDecreasesDiff, ...sums };
 };
 
-export const getCurrentUserCurrencyWhistory = async (currency: string) => {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
-  }
-
-  const wallets = await walletsRepository.findByUserCurrency(
-    session.user.id,
-    currency
-  );
+const getUserWalletsHistoryByCurrency = async (
+  userId: string,
+  currency: string
+) => {
+  const wallets = await walletsRepository.findByUserCurrency(userId, currency);
 
   const whPromises = wallets.map(async (w) =>
     (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
@@ -87,9 +82,21 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
 
   const whistories = await Promise.all(whPromises);
 
-  const whistory = whistories
+  return whistories
     .reduce((acc, item) => [...acc, ...item], [])
     .sort((a, b) => a.date.valueOf() - b.date.valueOf());
+};
+
+export const getCurrentUserCurrencyWhistory = async (currency: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const whistory = await getUserWalletsHistoryByCurrency(
+    session.user.id,
+    currency
+  );
 
   const dataByWallets = whistory.reduce<{
     [key: string]: WhistoryDbWithWallet[];
@@ -103,16 +110,22 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
 
   const earliestEntryDate = whistory[0]?.date;
   const latestEntryDate = whistory[whistory.length - 1]?.date;
+  let currentDate = new Date(earliestEntryDate);
 
   let touchedIntervalEnd = false;
-  let currentDate = new Date(earliestEntryDate);
   const dataByWalletsList = Object.values(dataByWallets);
   const mergedWhistoryGroups = [];
   while (currentDate <= latestEntryDate) {
     const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
+
     dataByWalletsList.forEach((dbw) => {
-      if (dbw[0] && dbw[0].date <= new Date(currentDate)) {
-        whistoriesToMerge[dbw[0].walletId] = dbw.shift()!;
+      let latestEntry = null;
+      while (dbw[0] && dbw[0].date <= currentDate) {
+        latestEntry = dbw.shift();
+      }
+
+      if (latestEntry) {
+        whistoriesToMerge[latestEntry.walletId] = latestEntry;
       }
     });
 
@@ -131,7 +144,6 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     });
 
     currentDate.setDate(currentDate.getDate() + 1);
-
     if (!touchedIntervalEnd && currentDate > latestEntryDate) {
       currentDate = new Date(latestEntryDate);
       touchedIntervalEnd = true;
