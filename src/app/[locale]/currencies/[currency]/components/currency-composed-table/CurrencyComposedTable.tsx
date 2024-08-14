@@ -1,3 +1,4 @@
+import Changes from "@/app/[locale]/wallets/components/Changes";
 import { WhistoryComposed } from "@/types/wallets-history";
 
 interface Props {
@@ -14,6 +15,9 @@ export default async function CurrencyComposedTable({ walletHistory }: Props) {
               Money Amount
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
+              Changes
+            </th>
+            <th className="p-1 w-2/12 text-sm border-2 border-black">
               Wallets
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">Date</th>
@@ -25,6 +29,18 @@ export default async function CurrencyComposedTable({ walletHistory }: Props) {
               <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
                 {wh.moneyAmount}
                 <br />
+              </td>
+              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+                <Changes
+                  text={
+                    wh.changes
+                      ? `${(wh.changesAbs || 0).toFixed(2)} (${(
+                          (wh.changes || 0) * 100
+                        ).toFixed(2)}%)`
+                      : ""
+                  }
+                  isPositive={(wh.changes || 0) > 0}
+                />
               </td>
               <td className="p-1 w-2/12 text-xs border-2 border-black">
                 <ul className="pl-5 list-disc">
