@@ -35,4 +35,6 @@ export type WhistoryComposed = {
   date: Date;
   whistories: WhistoryDbWithWallet[];
   moneyAmount: number;
+  changes: number | null;
+  changesAbs: number | null;
 };

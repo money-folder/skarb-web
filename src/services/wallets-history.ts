@@ -150,16 +150,27 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     }
   }
 
-  const composedWhistory = mergedWhistoryGroups.map((mwg) => {
-    const walletsList = Object.values(mwg.walletsMap);
+  const composedWhistory = mergedWhistoryGroups.map((mwg, i, array) => {
+    const list = Object.values(mwg.walletsMap);
+
+    const calculateMoneyAmount = (walletsList: WhistoryDbWithWallet[]) =>
+      +walletsList.reduce((acc, item) => acc + item.moneyAmount, 0).toFixed(2);
+
+    const curMoneyAmount = calculateMoneyAmount(list);
+    const prevMoneyAmount = array[i - 1]
+      ? calculateMoneyAmount(Object.values(array[i - 1].walletsMap))
+      : null;
+
     return {
       date: mwg.date,
-      whistories: walletsList.sort((a, b) =>
+      whistories: list.sort((a, b) =>
         a.wallet.name.localeCompare(b.wallet.name)
       ),
-      moneyAmount: +walletsList
-        .reduce((acc, item) => acc + item.moneyAmount, 0)
-        .toFixed(2),
+      moneyAmount: curMoneyAmount,
+      changes: prevMoneyAmount
+        ? (curMoneyAmount - prevMoneyAmount) / prevMoneyAmount
+        : null,
+      changesAbs: prevMoneyAmount ? curMoneyAmount - prevMoneyAmount : null,
     };
   });
 
