@@ -2,6 +2,7 @@ import { fetchWhistoryByCurrency } from "@/actions/wallet-history";
 import { WithMounted } from "@/components/WithMounted";
 import WhistoryComposedChart from "@/widgets/whistory-composed-chart/WhistoryComposedChart";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
+import WhistoryComposedChangesChart from "@/widgets/whistory-composed-changes-chart/WhistoryComposedChangesChart";
 
 interface Props {
   currency: string;
@@ -26,9 +27,17 @@ export default async function CurrencyContainer({
         <CurrencyComposedTable walletHistory={response.data} />
       </div>
 
-      <div className="col-span-1 row-span-1 flex justify-center">
+      <div className="overflow-y-auto col-span-1 row-span-1 flex flex-col justify-start items-center">
         <WithMounted>
           <WhistoryComposedChart
+            width={650}
+            height={300}
+            data={response.data}
+          />
+        </WithMounted>
+
+        <WithMounted>
+          <WhistoryComposedChangesChart
             width={650}
             height={300}
             data={response.data}
