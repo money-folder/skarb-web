@@ -69,12 +69,15 @@ export const getCurrentUserWalletHistory = async (
 
 const getUserWalletsHistoryByCurrency = async (
   userId: string,
-  currency: string
+  currency: string,
+  params: FetchWalletHistoryParams
 ) => {
   const wallets = await walletsRepository.findByUserCurrency(userId, currency);
 
+  console.log(params);
+
   const whPromises = wallets.map(async (w) =>
-    (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
+    (await whistoryRepository.findByWallet(w.id, params)).map((wh) => ({
       ...wh,
       wallet: w,
     }))
@@ -87,7 +90,10 @@ const getUserWalletsHistoryByCurrency = async (
     .sort((a, b) => a.date.valueOf() - b.date.valueOf());
 };
 
-export const getCurrentUserCurrencyWhistory = async (currency: string) => {
+export const getCurrentUserCurrencyWhistory = async (
+  currency: string,
+  params: FetchWalletHistoryParams
+) => {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
@@ -95,7 +101,8 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
 
   const whistory = await getUserWalletsHistoryByCurrency(
     session.user.id,
-    currency
+    currency,
+    params
   );
 
   const dataByWallets = whistory.reduce<{
