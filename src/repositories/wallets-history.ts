@@ -5,25 +5,10 @@ import { prisma } from "@/prisma";
 import { FetchWalletHistoryParams } from "@/types/wallets";
 import { CreateWhistoryDto } from "@/types/wallets-history";
 
-export const findByWallet = async (
-  walletId: string,
-  params?: FetchWalletHistoryParams
-) => {
+export const findByWallet = async (walletId: string) => {
   const where: Prisma.WalletHistoryWhereInput = {
     AND: [{ walletId }],
   };
-
-  if (params?.fromTs) {
-    (where.AND as Prisma.WalletHistoryWhereInput[]).push({
-      date: { gt: new Date(params.fromTs) },
-    });
-  }
-
-  if (params?.toTs) {
-    (where.AND as Prisma.WalletHistoryWhereInput[]).push({
-      date: { lt: new Date(params.toTs) },
-    });
-  }
 
   return await prisma.walletHistory.findMany({
     where,

@@ -69,15 +69,12 @@ export const getCurrentUserWalletHistory = async (
 
 const getUserWalletsHistoryByCurrency = async (
   userId: string,
-  currency: string,
-  params: FetchWalletHistoryParams
+  currency: string
 ) => {
   const wallets = await walletsRepository.findByUserCurrency(userId, currency);
 
-  console.log(params);
-
   const whPromises = wallets.map(async (w) =>
-    (await whistoryRepository.findByWallet(w.id, params)).map((wh) => ({
+    (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
       ...wh,
       wallet: w,
     }))
@@ -101,8 +98,7 @@ export const getCurrentUserCurrencyWhistory = async (
 
   const whistory = await getUserWalletsHistoryByCurrency(
     session.user.id,
-    currency,
-    params
+    currency
   );
 
   const dataByWallets = whistory.reduce<{
@@ -157,7 +153,7 @@ export const getCurrentUserCurrencyWhistory = async (
     }
   }
 
-  const composedWhistory = mergedWhistoryGroups.map((mwg, i, array) => {
+  let composedWhistory = mergedWhistoryGroups.map((mwg, i, array) => {
     const list = Object.values(mwg.walletsMap);
 
     const calculateMoneyAmount = (walletsList: WhistoryDbWithWallet[]) =>
@@ -180,6 +176,21 @@ export const getCurrentUserCurrencyWhistory = async (
       changesAbs: prevMoneyAmount ? curMoneyAmount - prevMoneyAmount : null,
     };
   });
+
+  // TODO: it's super cringe to do a lot of extra composing work and then just skip it if it doesn't fit the filter params 🤦‍♀️
+  if (params) {
+    composedWhistory = composedWhistory.filter((cw) => {
+      if (params.fromTs && cw.date.valueOf() < params.fromTs) {
+        return false;
+      }
+
+      if (params.toTs && cw.date.valueOf() > params.toTs) {
+        return false;
+      }
+
+      return true;
+    });
+  }
 
   return composedWhistory;
 };
