@@ -15,7 +15,7 @@ const CurrencyComposedFilters = () => {
   const { register, watch } = useForm();
 
   const dateFromParam = searchParams.get("dateFrom")
-    ? getLocalISOString(new Date(+searchParams.get("adteFrom")!))
+    ? getLocalISOString(new Date(+searchParams.get("dateFrom")!))
     : undefined;
 
   const dateToParam = searchParams.get("dateTo")
