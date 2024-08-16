@@ -6,8 +6,12 @@ import { FetchWalletHistoryParams } from "@/types/wallets";
 import { CreateWhistoryDto } from "@/types/wallets-history";
 
 export const findByWallet = async (walletId: string) => {
+  const where: Prisma.WalletHistoryWhereInput = {
+    AND: [{ walletId }],
+  };
+
   return await prisma.walletHistory.findMany({
-    where: { walletId },
+    where,
     orderBy: {
       date: "desc",
     },

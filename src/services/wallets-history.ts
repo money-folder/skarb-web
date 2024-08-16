@@ -87,7 +87,10 @@ const getUserWalletsHistoryByCurrency = async (
     .sort((a, b) => a.date.valueOf() - b.date.valueOf());
 };
 
-export const getCurrentUserCurrencyWhistory = async (currency: string) => {
+export const getCurrentUserCurrencyWhistory = async (
+  currency: string,
+  params: FetchWalletHistoryParams
+) => {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
@@ -150,7 +153,7 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
     }
   }
 
-  const composedWhistory = mergedWhistoryGroups.map((mwg, i, array) => {
+  let composedWhistory = mergedWhistoryGroups.map((mwg, i, array) => {
     const list = Object.values(mwg.walletsMap);
 
     const calculateMoneyAmount = (walletsList: WhistoryDbWithWallet[]) =>
@@ -173,6 +176,21 @@ export const getCurrentUserCurrencyWhistory = async (currency: string) => {
       changesAbs: prevMoneyAmount ? curMoneyAmount - prevMoneyAmount : null,
     };
   });
+
+  // TODO: it's super cringe to do a lot of extra composing work and then just skip it if it doesn't fit the filter params 🤦‍♀️
+  if (params) {
+    composedWhistory = composedWhistory.filter((cw) => {
+      if (params.fromTs && cw.date.valueOf() < params.fromTs) {
+        return false;
+      }
+
+      if (params.toTs && cw.date.valueOf() > params.toTs) {
+        return false;
+      }
+
+      return true;
+    });
+  }
 
   return composedWhistory;
 };

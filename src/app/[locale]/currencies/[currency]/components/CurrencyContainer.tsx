@@ -5,10 +5,16 @@ import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTab
 
 interface Props {
   currency: string;
+  fromTs?: number;
+  toTs?: number;
 }
 
-export default async function CurrencyContainer({ currency }: Props) {
-  const response = await fetchWhistoryByCurrency(currency);
+export default async function CurrencyContainer({
+  currency,
+  fromTs,
+  toTs,
+}: Props) {
+  const response = await fetchWhistoryByCurrency(currency, { fromTs, toTs });
 
   if (!response.data) {
     return null;

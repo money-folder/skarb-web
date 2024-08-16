@@ -28,9 +28,12 @@ export const fetchWalletHistory = async (
   }
 };
 
-export const fetchWhistoryByCurrency = async (currency: string) => {
+export const fetchWhistoryByCurrency = async (
+  currency: string,
+  params: FetchWalletHistoryParams
+) => {
   try {
-    const whistory = await getCurrentUserCurrencyWhistory(currency);
+    const whistory = await getCurrentUserCurrencyWhistory(currency, params);
     return { success: true, data: whistory };
   } catch (error) {
     console.error(error);
