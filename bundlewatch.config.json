@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "./.next/*.*",
+      "maxSize": "1mB"
+    }
+  ]
+}
