@@ -1,4 +1,4 @@
-name: Lint And Build
+name: Lint, Format, and Build
 
 on:
   pull_request:
@@ -23,6 +23,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Check formatting with Prettier
+        run: npm run check-format
 
       - name: Run linter
         run: npm run lint
