@@ -1,34 +1,57 @@
-name: Lint, Format, and Build
+name: Lint & Build
 
 on:
   pull_request:
-    branches:
-      - main
-  push:
     branches:
       - main
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Cache node modules
+        uses: actions/cache@v4
         with:
-          node-version: 20
+          path: |
+            node_modules
+            .eslintcache
+            .prettiercache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: npm install
 
-      - name: Check formatting with Prettier
-        run: npm run check-format
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          separator: ","
 
-      - name: Run linter
-        run: npm run lint
+      - name: Run ESLint
+        run: |
+          if [ -n "${{ steps.changed-files.outputs.files }}" ]; then
+            echo "${{ steps.changed-files.outputs.files }}" | xargs npx eslint --fix
+          fi
 
-      - name: Run build
+      - name: Run Prettier
+        run: |
+          if [ -n "${{ steps.changed-files.outputs.files }}" ]; then
+            echo "${{ steps.changed-files.outputs.files }}" | xargs npx prettier --check
+          fi
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    if: success()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
         run: npm run build
