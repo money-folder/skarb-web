@@ -1,27 +1,25 @@
-import { Suspense } from "react";
-import CurrencyContainer from "./components/CurrencyContainer";
-import CurrencyComposedFilters from "./components/CurrencyComposedFilters";
+import { Suspense } from 'react';
+
+import CurrencyContainer from './components/CurrencyContainer';
+import CurrencyComposedFilters from './components/CurrencyComposedFilters';
 
 interface Props {
   params: { currency: string; locale: string };
   searchParams: { dateFrom?: string; dateTo?: string };
 }
 
-export default async function CurrencyPage({
-  params: { currency },
-  searchParams,
-}: Props) {
+export default async function CurrencyPage({ params: { currency }, searchParams }: Props) {
   return (
-    <main className="w-full h-full grid grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
-      <h1 className="w-full col-span-3 row-span-1 text-center font-extrabold text-lg">
+    <main className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
+      <h1 className="col-span-3 row-span-1 w-full text-center text-lg font-extrabold">
         {currency}
       </h1>
 
-      <div className="p-2 w-full flex justify-start items-center col-span-2 row-span-1 bg-gray-200 rounded-lg">
+      <div className="col-span-2 row-span-1 flex w-full items-center justify-start rounded-lg bg-gray-200 p-2">
         <CurrencyComposedFilters />
       </div>
 
-      <div className="mt-10 h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
+      <div className="col-span-2 row-span-1 mt-10 flex h-full gap-5 overflow-hidden">
         <Suspense fallback={null}>
           <CurrencyContainer
             currency={currency}
