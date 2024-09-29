@@ -29,6 +29,8 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           separator: ","
+          files: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json"
+
 
       - name: Run ESLint
         run: |
