@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Analyze bundle size
-        run: npx bundlewatch
+        run: npx bundlewatch --config bundlewatch.config.json
         env:
           BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
