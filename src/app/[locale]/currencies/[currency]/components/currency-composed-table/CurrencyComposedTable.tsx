@@ -1,5 +1,5 @@
-import Changes from "@/app/[locale]/wallets/components/Changes";
-import { WhistoryComposed } from "@/types/wallets-history";
+import Changes from '@/app/[locale]/wallets/components/Changes';
+import { WhistoryComposed } from '@/types/wallets-history';
 
 interface Props {
   walletHistory: WhistoryComposed[];
@@ -7,51 +7,43 @@ interface Props {
 
 export default async function CurrencyComposedTable({ walletHistory }: Props) {
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       <table className="w-full">
         <thead>
           <tr>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Money Amount
-            </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Changes
-            </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Wallets
-            </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">Date</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Money Amount</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Changes</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Wallets</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Date</th>
           </tr>
         </thead>
         <tbody>
           {[...walletHistory].reverse().map((wh) => (
             <tr key={wh.date.valueOf()}>
-              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+              <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 {wh.moneyAmount}
                 <br />
               </td>
-              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+              <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 <Changes
                   text={
                     wh.changes
-                      ? `${(wh.changesAbs || 0).toFixed(2)} (${(
-                          (wh.changes || 0) * 100
-                        ).toFixed(2)}%)`
-                      : ""
+                      ? `${(wh.changesAbs || 0).toFixed(2)} (${((wh.changes || 0) * 100).toFixed(
+                          2,
+                        )}%)`
+                      : ''
                   }
                   isPositive={(wh.changes || 0) > 0}
                 />
               </td>
-              <td className="p-1 w-2/12 text-xs border-2 border-black">
-                <ul className="pl-5 list-disc">
+              <td className="w-2/12 border-2 border-black p-1 text-xs">
+                <ul className="list-disc pl-5">
                   {wh.whistories.map((wh2) => (
-                    <li
-                      key={wh2.id}
-                    >{`${wh2.wallet.name} (${wh2.moneyAmount})`}</li>
+                    <li key={wh2.id}>{`${wh2.wallet.name} (${wh2.moneyAmount})`}</li>
                   ))}
                 </ul>
               </td>
-              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+              <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 {wh.date.toLocaleString()}
               </td>
             </tr>

@@ -1,4 +1,4 @@
-import LoadingRow from "./LoadingRow";
+import LoadingRow from './LoadingRow';
 
 export default async function WalletsTableLoading() {
   return (
@@ -6,22 +6,12 @@ export default async function WalletsTableLoading() {
       <table className="w-full border-collapse animate-pulse">
         <thead>
           <tr>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">Name</th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Balance
-            </th>
-            <th className="p-1 w-1/12 text-sm border-2 border-black">
-              Currency
-            </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Changes
-            </th>
-            <th className="p-1 w-3/12 text-sm border-2 border-black">
-              Since Latest Report
-            </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Actions
-            </th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Name</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Balance</th>
+            <th className="w-1/12 border-2 border-black p-1 text-sm">Currency</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Changes</th>
+            <th className="w-3/12 border-2 border-black p-1 text-sm">Since Latest Report</th>
+            <th className="w-2/12 border-2 border-black p-1 text-sm">Actions</th>
           </tr>
         </thead>
 

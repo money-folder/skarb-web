@@ -53,31 +53,16 @@ export default async function RootLayout({
                   <Link href="/wallets">In English</Link>
                 </li>
                 <li className="text-white hover:underline">
-                                     <Link href="/be/wallets">Па Беларуску</Link>
+                  <Link href="/be/wallets">Па Беларуску</Link>
                 </li>
               </ul>
-                     </footer>
+            </footer>
           </OverlayProvider>
         </DictionaryProvider>
 
-                        < Analytics />
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

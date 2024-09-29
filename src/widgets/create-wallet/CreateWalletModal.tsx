@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import Overlay from "@/components/overlay/Overlay";
+import Overlay from '@/components/overlay/Overlay';
 
-import { create } from "@/actions/wallets";
+import { create } from '@/actions/wallets';
 
-import CreateWalletForm from "./CreateWalletForm";
-import { DictionaryContext } from "@/components/Dictionary";
+import CreateWalletForm from './CreateWalletForm';
+import { DictionaryContext } from '@/components/Dictionary';
 
 interface Props {
   close: () => void;
@@ -21,13 +21,8 @@ const CreateWalletModal = ({ close }: Props) => {
   return (
     <div onClick={close}>
       <Overlay>
-        <div
-          className="p-5 w-96 bg-white rounded-xl"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left font-bold text-lg">
-            {d.modals.createWallet.title}
-          </h3>
+        <div className="w-96 rounded-xl bg-white p-5" onClick={(e) => e.stopPropagation()}>
+          <h3 className="text-left text-lg font-bold">{d.modals.createWallet.title}</h3>
           <CreateWalletForm create={createWallet} close={close} />
         </div>
       </Overlay>

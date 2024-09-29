@@ -1,8 +1,8 @@
-import { prisma } from "@/prisma";
+import { prisma } from '@/prisma';
 
 export const findUserCurrencies = async (userId: string) => {
   const data = await prisma.wallet.groupBy({
-    by: ["currency"],
+    by: ['currency'],
 
     where: {
       ownerId: userId,

@@ -1,5 +1,5 @@
-import { DateDifference } from "@/utils/time-utils";
-import { WhistoryDb } from "./wallets-history";
+import { DateDifference } from '@/utils/time-utils';
+import { WhistoryDb } from './wallets-history';
 
 export type WalletDb = {
   id: string;
@@ -17,7 +17,7 @@ export type CreateWalletDto = {
   currency: string;
 };
 
-export type CreateWalletRequestDto = Omit<CreateWalletDto, "ownerId">;
+export type CreateWalletRequestDto = Omit<CreateWalletDto, 'ownerId'>;
 
 export type ClientWalletDto = {
   id: string;

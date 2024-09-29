@@ -1,19 +1,17 @@
-"use client";
+'use client';
 
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import CreateButton from "@/components/buttons/CreateButton";
-import { OverlayContext } from "@/components/overlay/OverlayProvider";
+import CreateButton from '@/components/buttons/CreateButton';
+import { OverlayContext } from '@/components/overlay/OverlayProvider';
 
-import CreateWalletModal from "./CreateWalletModal";
+import CreateWalletModal from './CreateWalletModal';
 
 interface CreateWalletButtonProps {
   text?: string;
 }
 
-export default function CreateWalletButton({
-  text = "",
-}: CreateWalletButtonProps) {
+export default function CreateWalletButton({ text = '' }: CreateWalletButtonProps) {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {

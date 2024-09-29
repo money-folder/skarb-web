@@ -1,17 +1,15 @@
-"use client";
+'use client';
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 
-import { generatePseudoUUID } from "@/utils";
+import { generatePseudoUUID } from '@/utils';
 
 interface GetOverlayNodeParams {
   removeSelf: () => void;
 }
 
 interface OverlayContextParams {
-  addOverlay: (
-    getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode
-  ) => void;
+  addOverlay: (getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode) => void;
 
   removeOverlay: (overlayId: string) => void;
   clearOverlays: () => void;
@@ -38,27 +36,23 @@ export default function OverlayProvider({ children }: OverlayProviderProps) {
   // remove the top overlay on Esc click
   useEffect(() => {
     const onKeydown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         setOverlays((prevOverlays) =>
-          prevOverlays.filter((_, index, array) => array.length - 1 !== index)
+          prevOverlays.filter((_, index, array) => array.length - 1 !== index),
         );
       }
     };
 
-    window.addEventListener("keydown", onKeydown);
+    window.addEventListener('keydown', onKeydown);
 
-    return () => window.removeEventListener("keydown", onKeydown);
+    return () => window.removeEventListener('keydown', onKeydown);
   }, []);
 
   const removeOverlay = (overlayId: string) => {
-    setOverlays((prevOverlays) =>
-      prevOverlays.filter((o) => o.id !== overlayId)
-    );
+    setOverlays((prevOverlays) => prevOverlays.filter((o) => o.id !== overlayId));
   };
 
-  const addOverlay = (
-    getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode
-  ) => {
+  const addOverlay = (getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode) => {
     const id = generatePseudoUUID();
 
     setOverlays((prevOverlays) => [
@@ -77,14 +71,10 @@ export default function OverlayProvider({ children }: OverlayProviderProps) {
   };
 
   return (
-    <OverlayContext.Provider
-      value={{ addOverlay, removeOverlay, clearOverlays }}
-    >
+    <OverlayContext.Provider value={{ addOverlay, removeOverlay, clearOverlays }}>
       {children}
       {overlays.length
-        ? overlays.map((overlay) => (
-            <div key={overlay.id}>{overlay.component}</div>
-          ))
+        ? overlays.map((overlay) => <div key={overlay.id}>{overlay.component}</div>)
         : null}
     </OverlayContext.Provider>
   );

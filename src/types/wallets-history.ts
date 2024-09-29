@@ -1,4 +1,4 @@
-import { WalletDb } from "./wallets";
+import { WalletDb } from './wallets';
 
 export type CreateWhistoryRequestDto = {
   walletId: string;

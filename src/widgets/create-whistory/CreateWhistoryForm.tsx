@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import React, { useContext } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
 
-import PrimaryButton from "@/components/buttons/PrimaryButton";
-import SecondaryButton from "@/components/buttons/SecondaryButton";
-import { DictionaryContext } from "@/components/Dictionary";
+import PrimaryButton from '@/components/buttons/PrimaryButton';
+import SecondaryButton from '@/components/buttons/SecondaryButton';
+import { DictionaryContext } from '@/components/Dictionary';
 
-import { getLocalISOString } from "@/utils";
+import { getLocalISOString } from '@/utils';
 
 interface Props {
   create: (amount: number, ts: number) => void;
@@ -25,21 +25,21 @@ const AddWhistoryForm = ({ create, close }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-2">
-        <label className="mt-2 w-full flex flex-col items-start">
+        <label className="mt-2 flex w-full flex-col items-start">
           <span>{d.modals.createWhistory.form.dateLabel}</span>
           <input
-            {...register("date", { required: true, valueAsDate: true })}
-            className="px-2 border-[1px] border-black rounded-sm"
+            {...register('date', { required: true, valueAsDate: true })}
+            className="rounded-sm border-[1px] border-black px-2"
             type="datetime-local"
             defaultValue={getLocalISOString(new Date())}
           />
         </label>
 
-        <label className="w-full flex flex-col items-start">
+        <label className="flex w-full flex-col items-start">
           <span>{d.modals.createWhistory.form.amountLabel}</span>
           <input
-            {...register("amount", { required: true, valueAsNumber: true })}
-            className="px-2 border-[1px] border-black rounded-sm"
+            {...register('amount', { required: true, valueAsNumber: true })}
+            className="rounded-sm border-[1px] border-black px-2"
             type="number"
             step={0.01}
             autoFocus
@@ -48,14 +48,8 @@ const AddWhistoryForm = ({ create, close }: Props) => {
       </div>
 
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.createWhistory.form.cancelLabel}
-          onClick={close}
-        />
-        <PrimaryButton
-          type="submit"
-          text={d.modals.createWhistory.form.submitLabel}
-        />
+        <SecondaryButton text={d.modals.createWhistory.form.cancelLabel} onClick={close} />
+        <PrimaryButton type="submit" text={d.modals.createWhistory.form.submitLabel} />
       </div>
     </form>
   );

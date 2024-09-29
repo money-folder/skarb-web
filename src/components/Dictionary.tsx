@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { createContext } from "react";
+import { createContext } from 'react';
 
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from '@/types/locale';
 
-import en from "../dictionaries/en.json";
+import en from '../dictionaries/en.json';
 
 interface LocaleContextParams {
   d: Dictionary;
@@ -19,13 +19,6 @@ interface DictionaryProviderProps {
   children: React.ReactNode;
 }
 
-export default function DictionaryProvider({
-  d,
-  children,
-}: DictionaryProviderProps) {
-  return (
-    <DictionaryContext.Provider value={{ d }}>
-      {children}
-    </DictionaryContext.Provider>
-  );
+export default function DictionaryProvider({ d, children }: DictionaryProviderProps) {
+  return <DictionaryContext.Provider value={{ d }}>{children}</DictionaryContext.Provider>;
 }

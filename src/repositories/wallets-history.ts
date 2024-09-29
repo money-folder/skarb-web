@@ -1,9 +1,9 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
-import { prisma } from "@/prisma";
+import { prisma } from '@/prisma';
 
-import { FetchWalletHistoryParams } from "@/types/wallets";
-import { CreateWhistoryDto } from "@/types/wallets-history";
+import { FetchWalletHistoryParams } from '@/types/wallets';
+import { CreateWhistoryDto } from '@/types/wallets-history';
 
 export const findByWallet = async (walletId: string) => {
   const where: Prisma.WalletHistoryWhereInput = {
@@ -13,7 +13,7 @@ export const findByWallet = async (walletId: string) => {
   return await prisma.walletHistory.findMany({
     where,
     orderBy: {
-      date: "desc",
+      date: 'desc',
     },
   });
 };
@@ -33,7 +33,7 @@ export const findWallet = async (whistoryId: string) => {
 export const findUserWallet = async (
   userId: string,
   walletId: string,
-  params?: FetchWalletHistoryParams
+  params?: FetchWalletHistoryParams,
 ) => {
   const where: Prisma.WalletHistoryWhereInput = {
     AND: [{ walletId }, { wallet: { ownerId: userId } }],
@@ -55,7 +55,7 @@ export const findUserWallet = async (
     where,
 
     orderBy: {
-      date: "asc",
+      date: 'asc',
     },
   });
 };

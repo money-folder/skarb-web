@@ -1,7 +1,7 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
-import { prisma } from "@/prisma";
-import { CreateWalletDto } from "@/types/wallets";
+import { prisma } from '@/prisma';
+import { CreateWalletDto } from '@/types/wallets';
 
 export const listAll = async () => {
   const wallets = await prisma.wallet.findMany({});
@@ -22,7 +22,7 @@ export const findByUser = async (userId: string) => {
     include: {
       history: {
         orderBy: {
-          date: "desc",
+          date: 'desc',
         },
         take: 2,
       },

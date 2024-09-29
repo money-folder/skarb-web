@@ -1,4 +1,4 @@
-import SkeletonBar from "../SkeletonBar";
+import SkeletonBar from '../SkeletonBar';
 
 export default function LoadingBar() {
   return (

@@ -1,5 +1,5 @@
-import Changes from "@/app/[locale]/wallets/components/Changes";
-import Card from "./Card";
+import Changes from '@/app/[locale]/wallets/components/Changes';
+import Card from './Card';
 
 interface Props {
   text: string;
@@ -8,15 +8,10 @@ interface Props {
   diff: number;
 }
 
-export default function WalletChangesSummaryCard({
-  text,
-  increases,
-  decreases,
-  diff,
-}: Props) {
+export default function WalletChangesSummaryCard({ text, increases, decreases, diff }: Props) {
   return (
     <Card>
-      <div className="h-full flex flex-col items-end justify-start">
+      <div className="flex h-full flex-col items-end justify-start">
         <h4 className="mb-1 font-extrabold">{text}</h4>
         <p className="text-xs">
           <Changes text={increases.toFixed(2)} isPositive />

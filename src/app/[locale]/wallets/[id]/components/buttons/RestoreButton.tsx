@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
-import { unarchive } from "@/actions/wallet-history";
+import { unarchive } from '@/actions/wallet-history';
 
-import RestoreIcon from "@/assets/restore.svg";
+import RestoreIcon from '@/assets/restore.svg';
 
 interface RestoreButtonProps {
   id: string;
@@ -13,7 +13,7 @@ interface RestoreButtonProps {
 const RestoreButton = ({ id }: RestoreButtonProps) => {
   return (
     <button
-      className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+      className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => unarchive(id)}
     >
       <Image src={RestoreIcon} alt="restore" />

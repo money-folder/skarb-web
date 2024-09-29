@@ -1,18 +1,18 @@
-import { auth } from "@/auth";
-import { fetchCurrentUserWallets } from "@/actions/wallets";
-import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
-import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
+import { auth } from '@/auth';
+import { fetchCurrentUserWallets } from '@/actions/wallets';
+import CreateWhistoryButton from '@/widgets/create-whistory/CreateWhistoryButton';
+import CreateWalletButton from '@/widgets/create-wallet/CreateWalletButton';
 
-import NavLink from "./Navlink";
-import UserProfile from "./UserProfile";
-import { SignOut } from "../SignOut";
-import { Dictionary } from "@/types/locale";
-import { DEFAULT_LOCALE } from "@/locales";
-import { fetchCurrentUserCurrencies } from "@/actions/currencies";
+import NavLink from './Navlink';
+import UserProfile from './UserProfile';
+import { SignOut } from '../SignOut';
+import { Dictionary } from '@/types/locale';
+import { DEFAULT_LOCALE } from '@/locales';
+import { fetchCurrentUserCurrencies } from '@/actions/currencies';
 
 interface Props {
   locale: string;
-  d: Dictionary["sidebar"];
+  d: Dictionary['sidebar'];
 }
 
 export default async function Sidebar({ d, locale }: Props) {
@@ -24,18 +24,16 @@ export default async function Sidebar({ d, locale }: Props) {
   ]);
 
   return (
-    <div className="p-5 w-[225px] h-full flex flex-col border-r-2 border-r-black">
+    <div className="flex h-full w-[225px] flex-col border-r-2 border-r-black p-5">
       <UserProfile d={d} />
 
       <ul className="mt-5 flex-grow">
         {walletsResponse.data ? (
           <>
-            <li className="w-full flex justify-between gap-2 overflow-hidden truncate">
+            <li className="flex w-full justify-between gap-2 overflow-hidden truncate">
               <NavLink
                 activeClassName="text-white bg-black"
-                href={`${
-                  locale !== DEFAULT_LOCALE ? `/${locale}` : ""
-                }/wallets`}
+                href={`${locale !== DEFAULT_LOCALE ? `/${locale}` : ''}/wallets`}
               >
                 {d.walletsTitle}
               </NavLink>
@@ -49,14 +47,12 @@ export default async function Sidebar({ d, locale }: Props) {
               {walletsResponse.data.map((w) => (
                 <li
                   key={w.id}
-                  className="w-full flex justify-between gap-2 overflow-hidden truncate"
+                  className="flex w-full justify-between gap-2 overflow-hidden truncate"
                 >
                   <NavLink
                     className="overflow-hidden text-ellipsis"
                     activeClassName="text-white bg-black"
-                    href={`${
-                      locale !== DEFAULT_LOCALE ? `/${locale}` : ""
-                    }/wallets/${w.id}`}
+                    href={`${locale !== DEFAULT_LOCALE ? `/${locale}` : ''}/wallets/${w.id}`}
                   >
                     {w.name}
                   </NavLink>
@@ -80,9 +76,7 @@ export default async function Sidebar({ d, locale }: Props) {
                   <NavLink
                     className="overflow-hidden text-ellipsis"
                     activeClassName="text-white bg-black"
-                    href={`${
-                      locale !== DEFAULT_LOCALE ? `/${locale}` : ""
-                    }/currencies/${c}`}
+                    href={`${locale !== DEFAULT_LOCALE ? `/${locale}` : ''}/currencies/${c}`}
                   >
                     {c}
                   </NavLink>

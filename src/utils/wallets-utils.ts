@@ -1,4 +1,4 @@
-import { ClientWalletDto } from "@/types/wallets";
+import { ClientWalletDto } from '@/types/wallets';
 
 export const groupByCurrency = (wallets: ClientWalletDto[]) =>
   Object.entries(
@@ -14,5 +14,5 @@ export const groupByCurrency = (wallets: ClientWalletDto[]) =>
       }
 
       return acc;
-    }, {})
+    }, {}),
   ).map(([currency, moneyAmount]) => ({ currency, moneyAmount }));

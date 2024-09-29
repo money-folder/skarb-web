@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { useMounted } from "@/hooks/useMounted";
+import { useMounted } from '@/hooks/useMounted';
 
 interface WithMoutedProps {
   children: React.ReactNode;

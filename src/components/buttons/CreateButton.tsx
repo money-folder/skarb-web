@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 // icons
-import PlusIcon from "@/assets/plus.svg";
+import PlusIcon from '@/assets/plus.svg';
 
 interface CreateButtonProps {
   text?: string;
@@ -12,7 +12,7 @@ interface CreateButtonProps {
 
 const CreateButton = ({ text, onClick }: CreateButtonProps) => (
   <button
-    className="inline-flex items-center space-x-2 cursor-pointer opacity-75 hover:underline hover:opacity-100"
+    className="inline-flex cursor-pointer items-center space-x-2 opacity-75 hover:underline hover:opacity-100"
     onClick={onClick}
   >
     <Image src={PlusIcon} width={16} height={16} alt="plus" />

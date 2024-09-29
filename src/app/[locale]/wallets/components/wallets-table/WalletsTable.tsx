@@ -1,79 +1,65 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { ClientWalletDto } from "@/types/wallets";
-import { formatDateDifference } from "@/utils/time-utils";
+import { ClientWalletDto } from '@/types/wallets';
+import { formatDateDifference } from '@/utils/time-utils';
 
-import Changes from "../Changes";
-import AddWhistoryButton from "../buttons/AddWhistoryButton";
-import SoftDeleteButton from "../buttons/SoftDeleteButton";
-import RestoreButton from "../buttons/RestoreButton";
-import DestroyButton from "../buttons/DestroyButton";
-import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
+import Changes from '../Changes';
+import AddWhistoryButton from '../buttons/AddWhistoryButton';
+import SoftDeleteButton from '../buttons/SoftDeleteButton';
+import RestoreButton from '../buttons/RestoreButton';
+import DestroyButton from '../buttons/DestroyButton';
+import DuplicateButton from '../../[id]/components/buttons/DuplicateButton';
 
-import OpenIcon from "@/assets/open.svg";
-import { Dictionary } from "@/types/locale";
+import OpenIcon from '@/assets/open.svg';
+import { Dictionary } from '@/types/locale';
 
 interface WalletsTableProps {
   locale: string;
-  d: Dictionary["walletsPage"]["walletsTable"];
+  d: Dictionary['walletsPage']['walletsTable'];
   wallets: ClientWalletDto[];
 }
 
-export default function WalletsTable({
-  locale,
-  d,
-  wallets,
-}: WalletsTableProps) {
+export default function WalletsTable({ locale, d, wallets }: WalletsTableProps) {
   return (
     <table className="w-full">
       <thead>
         <tr>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">{d.name}</th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
-            {d.balance}
-          </th>
-          <th className="p-1 w-1/12 text-sm border-2 border-black">
-            {d.currency}
-          </th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
-            {d.changes}
-          </th>
-          <th className="p-1 w-3/12 text-sm border-2 border-black">
-            {d.sinceLastReport}
-          </th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
-            {d.actions}
-          </th>
+          <th className="w-2/12 border-2 border-black p-1 text-sm">{d.name}</th>
+          <th className="w-2/12 border-2 border-black p-1 text-sm">{d.balance}</th>
+          <th className="w-1/12 border-2 border-black p-1 text-sm">{d.currency}</th>
+          <th className="w-2/12 border-2 border-black p-1 text-sm">{d.changes}</th>
+          <th className="w-3/12 border-2 border-black p-1 text-sm">{d.sinceLastReport}</th>
+          <th className="w-2/12 border-2 border-black p-1 text-sm">{d.actions}</th>
         </tr>
       </thead>
       <tbody>
         {wallets.map((wallet) => (
           <tr key={wallet.id}>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
-                wallet.deletedAt ? "opacity-30" : ""
+              className={`border-2 border-black p-1 text-center text-sm ${
+                wallet.deletedAt ? 'opacity-30' : ''
               }`}
             >
               {wallet.name}
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
-                wallet.deletedAt ? "opacity-30" : ""
+              className={`border-2 border-black p-1 text-center text-sm ${
+                wallet.deletedAt ? 'opacity-30' : ''
               }`}
             >
-              {wallet?.latestWhistory?.moneyAmount || "-"}
+              {wallet?.latestWhistory?.moneyAmount || '-'}
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
-                wallet.deletedAt ? "opacity-30" : ""
+              className={`border-2 border-black p-1 text-center text-sm ${
+                wallet.deletedAt ? 'opacity-30' : ''
               }`}
             >
               {wallet.currency}
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
-                wallet.deletedAt ? "opacity-30" : ""
+              className={`border-2 border-black p-1 text-center text-sm ${
+                wallet.deletedAt ? 'opacity-30' : ''
               }`}
             >
               <Changes
@@ -82,14 +68,14 @@ export default function WalletsTable({
                     ? `${(wallet.changesAbs || 0).toFixed(2)} (${(
                         (wallet.changes || 0) * 100
                       ).toFixed(2)}%)`
-                    : ""
+                    : ''
                 }
                 isPositive={(wallet.changes || 0) >= 0}
               />
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
-                wallet.deletedAt ? "opacity-30" : ""
+              className={`border-2 border-black p-1 text-center text-sm ${
+                wallet.deletedAt ? 'opacity-30' : ''
               }`}
             >
               {wallet.sinceLatestBallanceTs
@@ -99,21 +85,15 @@ export default function WalletsTable({
                       hours: wallet.sinceLatestBallanceTs.hours,
                       minutes: wallet.sinceLatestBallanceTs.minutes,
                     },
-                    locale
+                    locale,
                   )
-                : "-"}
+                : '-'}
             </td>
-            <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
-              <AddWhistoryButton
-                walletId={wallet.id}
-                walletName={wallet.name}
-              />
+            <td className="space-x-2 border-2 border-black p-1 text-center text-sm">
+              <AddWhistoryButton walletId={wallet.id} walletName={wallet.name} />
 
               {wallet.latestWhistory && !wallet.deletedAt ? (
-                <DuplicateButton
-                  walletId={wallet.id}
-                  whistoryId={wallet.latestWhistory?.id}
-                />
+                <DuplicateButton walletId={wallet.id} whistoryId={wallet.latestWhistory?.id} />
               ) : null}
 
               <Link

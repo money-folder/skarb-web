@@ -1,19 +1,16 @@
-import { fetchWallet } from "@/actions/wallets";
-import { replacePlaceholders } from "@/utils";
+import { fetchWallet } from '@/actions/wallets';
+import { replacePlaceholders } from '@/utils';
 
 interface Props {
   pageTitleTemplate: string;
   walletId: string;
 }
 
-export default async function WalletHistoryTitle({
-  pageTitleTemplate,
-  walletId,
-}: Props) {
+export default async function WalletHistoryTitle({ pageTitleTemplate, walletId }: Props) {
   const wallet = await fetchWallet(walletId);
 
   return (
-    <h1 className="w-full col-span-3 row-span-1 text-center font-extrabold text-lg">
+    <h1 className="col-span-3 row-span-1 w-full text-center text-lg font-extrabold">
       {replacePlaceholders(pageTitleTemplate, {
         walletName: wallet?.data?.name ? `${wallet.data.name}` : `Wallet`,
       })}

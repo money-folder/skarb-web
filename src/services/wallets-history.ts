@@ -1,12 +1,9 @@
-import { auth } from "@/auth";
-import {
-  CreateWhistoryRequestDto,
-  WhistoryDbWithWallet,
-} from "@/types/wallets-history";
-import * as whistoryRepository from "@/repositories/wallets-history";
-import * as walletsRepository from "@/repositories/wallets";
-import { ErrorCauses } from "@/types/errors";
-import { FetchWalletHistoryParams } from "@/types/wallets";
+import { auth } from '@/auth';
+import { CreateWhistoryRequestDto, WhistoryDbWithWallet } from '@/types/wallets-history';
+import * as whistoryRepository from '@/repositories/wallets-history';
+import * as walletsRepository from '@/repositories/wallets';
+import { ErrorCauses } from '@/types/errors';
+import { FetchWalletHistoryParams } from '@/types/wallets';
 
 const verifyWalletOwnership = async (userId: string, whistoryId: string) => {
   const wallet = await whistoryRepository.findWallet(whistoryId);
@@ -19,21 +16,17 @@ export const getWalletHistory = async (walletId: string) => {
 
 export const getCurrentUserWalletHistory = async (
   walletId: string,
-  params?: FetchWalletHistoryParams
+  params?: FetchWalletHistoryParams,
 ) => {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+    throw new Error('Unauthorized!', { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const walletHistory = await whistoryRepository.findUserWallet(
-    session.user.id,
-    walletId,
-    params
-  );
+  const walletHistory = await whistoryRepository.findUserWallet(session.user.id, walletId, params);
 
   if (!walletHistory) {
-    throw new Error("Wallet history was not found!", {
+    throw new Error('Wallet history was not found!', {
       cause: ErrorCauses.NOT_FOUND,
     });
   }
@@ -41,12 +34,9 @@ export const getCurrentUserWalletHistory = async (
   const whistory = walletHistory.map((wh, i, array) => ({
     ...wh,
     changes: array[i - 1]
-      ? (array[i].moneyAmount - array[i - 1].moneyAmount) /
-        array[i - 1].moneyAmount
+      ? (array[i].moneyAmount - array[i - 1].moneyAmount) / array[i - 1].moneyAmount
       : null,
-    changesAbs: array[i - 1]
-      ? array[i].moneyAmount - array[i - 1].moneyAmount
-      : null,
+    changesAbs: array[i - 1] ? array[i].moneyAmount - array[i - 1].moneyAmount : null,
   }));
 
   const sums = whistory.reduce(
@@ -59,7 +49,7 @@ export const getCurrentUserWalletHistory = async (
 
       return acc;
     },
-    { increasesSum: 0, decreasesSum: 0 }
+    { increasesSum: 0, decreasesSum: 0 },
   );
 
   const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
@@ -67,17 +57,14 @@ export const getCurrentUserWalletHistory = async (
   return { whistory, increasesDecreasesDiff, ...sums };
 };
 
-const getUserWalletsHistoryByCurrency = async (
-  userId: string,
-  currency: string
-) => {
+const getUserWalletsHistoryByCurrency = async (userId: string, currency: string) => {
   const wallets = await walletsRepository.findByUserCurrency(userId, currency);
 
   const whPromises = wallets.map(async (w) =>
     (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
       ...wh,
       wallet: w,
-    }))
+    })),
   );
 
   const whistories = await Promise.all(whPromises);
@@ -89,17 +76,14 @@ const getUserWalletsHistoryByCurrency = async (
 
 export const getCurrentUserCurrencyWhistory = async (
   currency: string,
-  params: FetchWalletHistoryParams
+  params: FetchWalletHistoryParams,
 ) => {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+    throw new Error('Unauthorized!', { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const whistory = await getUserWalletsHistoryByCurrency(
-    session.user.id,
-    currency
-  );
+  const whistory = await getUserWalletsHistoryByCurrency(session.user.id, currency);
 
   const dataByWallets = whistory.reduce<{
     [key: string]: WhistoryDbWithWallet[];
@@ -132,8 +116,7 @@ export const getCurrentUserCurrencyWhistory = async (
       }
     });
 
-    const lastMergedWhistoryGroup =
-      mergedWhistoryGroups[mergedWhistoryGroups.length - 1];
+    const lastMergedWhistoryGroup = mergedWhistoryGroups[mergedWhistoryGroups.length - 1];
 
     Object.values(lastMergedWhistoryGroup?.walletsMap || {}).forEach((lmwg) => {
       if (!whistoriesToMerge[lmwg.walletId]) {
@@ -166,13 +149,9 @@ export const getCurrentUserCurrencyWhistory = async (
 
     return {
       date: mwg.date,
-      whistories: list.sort((a, b) =>
-        a.wallet.name.localeCompare(b.wallet.name)
-      ),
+      whistories: list.sort((a, b) => a.wallet.name.localeCompare(b.wallet.name)),
       moneyAmount: curMoneyAmount,
-      changes: prevMoneyAmount
-        ? (curMoneyAmount - prevMoneyAmount) / prevMoneyAmount
-        : null,
+      changes: prevMoneyAmount ? (curMoneyAmount - prevMoneyAmount) / prevMoneyAmount : null,
       changesAbs: prevMoneyAmount ? curMoneyAmount - prevMoneyAmount : null,
     };
   });
@@ -205,19 +184,19 @@ export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
 export const duplicateWhistory = async (id: string) => {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+    throw new Error('Unauthorized!', { cause: ErrorCauses.UNAUTHORIZED });
   }
 
   const target = await whistoryRepository.findById(id);
   if (!target) {
-    throw new Error("Target wallet history entry was not found!", {
+    throw new Error('Target wallet history entry was not found!', {
       cause: ErrorCauses.NOT_FOUND,
     });
   }
 
   const targetWallet = await walletsRepository.findById(target.walletId);
   if (targetWallet?.ownerId !== session.user.id) {
-    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+    throw new Error('Forbidden!', { cause: ErrorCauses.FORBIDDEN });
   }
 
   return await whistoryRepository.create({
@@ -230,12 +209,12 @@ export const duplicateWhistory = async (id: string) => {
 export const archiveSelfWhistory = async (id: string) => {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+    throw new Error('Unauthorized!', { cause: ErrorCauses.UNAUTHORIZED });
   }
 
   const allowedToDelete = await verifyWalletOwnership(session.user.id, id);
   if (!allowedToDelete) {
-    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+    throw new Error('Forbidden!', { cause: ErrorCauses.FORBIDDEN });
   }
 
   return await whistoryRepository.archive(id);
@@ -244,12 +223,12 @@ export const archiveSelfWhistory = async (id: string) => {
 export const unarchiveSelfWhistory = async (id: string) => {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+    throw new Error('Unauthorized!', { cause: ErrorCauses.UNAUTHORIZED });
   }
 
   const allowedToUndelete = await verifyWalletOwnership(session.user.id, id);
   if (!allowedToUndelete) {
-    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+    throw new Error('Forbidden!', { cause: ErrorCauses.FORBIDDEN });
   }
 
   return await whistoryRepository.unarchive(id);
@@ -258,12 +237,12 @@ export const unarchiveSelfWhistory = async (id: string) => {
 export const destroySelfWhistory = async (id: string) => {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+    throw new Error('Unauthorized!', { cause: ErrorCauses.UNAUTHORIZED });
   }
 
   const allowedToDelete = await verifyWalletOwnership(session.user.id, id);
   if (!allowedToDelete) {
-    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+    throw new Error('Forbidden!', { cause: ErrorCauses.FORBIDDEN });
   }
 
   return await whistoryRepository.destroy(id);

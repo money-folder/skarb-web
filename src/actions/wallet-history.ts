@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
 
-import { CreateWhistoryRequestDto } from "@/types/wallets-history";
-import { FetchWalletHistoryParams } from "@/types/wallets";
+import { CreateWhistoryRequestDto } from '@/types/wallets-history';
+import { FetchWalletHistoryParams } from '@/types/wallets';
 import {
   archiveSelfWhistory,
   createWhistory,
@@ -12,13 +12,10 @@ import {
   getCurrentUserCurrencyWhistory,
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
-} from "@/services/wallets-history";
-import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
+} from '@/services/wallets-history';
+import { createWhistoryRequstSchema } from '@/app/[locale]/wallets/[id]/validation';
 
-export const fetchWalletHistory = async (
-  walletId: string,
-  params?: FetchWalletHistoryParams
-) => {
+export const fetchWalletHistory = async (walletId: string, params?: FetchWalletHistoryParams) => {
   try {
     const walletHistory = await getCurrentUserWalletHistory(walletId, params);
     return { success: true, data: walletHistory };
@@ -30,7 +27,7 @@ export const fetchWalletHistory = async (
 
 export const fetchWhistoryByCurrency = async (
   currency: string,
-  params: FetchWalletHistoryParams
+  params: FetchWalletHistoryParams,
 ) => {
   try {
     const whistory = await getCurrentUserCurrencyWhistory(currency, params);
@@ -45,11 +42,8 @@ export async function create(dto: CreateWhistoryRequestDto) {
   try {
     const validationResult = createWhistoryRequstSchema.safeParse(dto);
     if (validationResult.error) {
-      console.error("Create whistory validation failed", dto);
-      throw new Error(
-        "Create whistory validation failed",
-        validationResult.error
-      );
+      console.error('Create whistory validation failed', dto);
+      throw new Error('Create whistory validation failed', validationResult.error);
     }
 
     await createWhistory(dto);

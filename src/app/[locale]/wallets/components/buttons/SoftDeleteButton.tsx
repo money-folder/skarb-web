@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
-import { archive } from "@/actions/wallets";
+import { archive } from '@/actions/wallets';
 
-import CrossIcon from "@/assets/cross.svg";
+import CrossIcon from '@/assets/cross.svg';
 
 interface SoftDeleteButtonProps {
   id: string;
@@ -13,7 +13,7 @@ interface SoftDeleteButtonProps {
 const SoftDeleteButton = ({ id }: SoftDeleteButtonProps) => {
   return (
     <button
-      className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+      className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => archive(id)}
     >
       <Image src={CrossIcon} width={16} height={16} alt="cross" />
