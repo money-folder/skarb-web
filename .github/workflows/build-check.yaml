@@ -26,14 +26,18 @@ jobs:
       - name: Run build
         run: npm run build
 
-      - name: View folder
+      - name: List root directory
         run: ls -la
+
+      - name: List .next directory
+        run: ls -la .next || echo ".next directory not found"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build
           path: .next
+          if-no-files-found: warn
 
   bundlewatch:
     needs: build
@@ -47,6 +51,9 @@ jobs:
         with:
           name: build
           path: .next
+
+      - name: List downloaded artifacts
+        run: ls -la .next
 
       - name: Run Bundlewatch
         uses: jackyef/bundlewatch-gh-action@master
