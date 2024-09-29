@@ -1,62 +1,36 @@
-name: Build and Analyze
+name: Next.js Bundle Size Analysis
 
 on:
   push:
-    branches:
-      - main
+    branches: main
   pull_request:
-    branches:
-      - main
+    branches: main
 
 jobs:
-  build:
+  analyze:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 20
+          node-version: "20"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run build
+      - name: Build Next.js app
         run: npm run build
 
-      - name: List root directory
-        run: ls -la
+      - name: Analyze bundle size
+        run: npx bundlewatch
+        env:
+          BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
-      - name: List .next directory
-        run: ls -la .next || echo ".next directory not found"
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload bundle stats
+        uses: actions/upload-artifact@v2
         with:
-          name: build
-          path: .next
-          if-no-files-found: warn
-
-  bundlewatch:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-          path: .next
-
-      - name: List downloaded artifacts
-        run: ls -la .next
-
-      - name: Run Bundlewatch
-        uses: jackyef/bundlewatch-gh-action@master
-        with:
-          build-script: npm run build
-          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+          name: bundle-stats
+          path: .next/stats.json
