@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-import { getLocalISOString } from "@/utils";
-import { isValidDate } from "@/utils/time-utils";
+import { getLocalISOString } from '@/utils';
+import { isValidDate } from '@/utils/time-utils';
 
 const CurrencyComposedFilters = () => {
   const searchParams = useSearchParams();
@@ -14,27 +14,27 @@ const CurrencyComposedFilters = () => {
 
   const { register, watch } = useForm();
 
-  const dateFromParam = searchParams.get("dateFrom")
-    ? getLocalISOString(new Date(+searchParams.get("dateFrom")!))
+  const dateFromParam = searchParams.get('dateFrom')
+    ? getLocalISOString(new Date(+searchParams.get('dateFrom')!))
     : undefined;
 
-  const dateToParam = searchParams.get("dateTo")
-    ? getLocalISOString(new Date(+searchParams.get("dateTo")!))
+  const dateToParam = searchParams.get('dateTo')
+    ? getLocalISOString(new Date(+searchParams.get('dateTo')!))
     : undefined;
 
   useEffect(() => {
     watch((data) => {
       const params = new URLSearchParams(searchParams);
       if (data.dateFrom && isValidDate(data.dateFrom)) {
-        params.set("dateFrom", data.dateFrom.getTime());
+        params.set('dateFrom', data.dateFrom.getTime());
       } else {
-        params.delete("dateFrom");
+        params.delete('dateFrom');
       }
 
       if (data.dateTo && isValidDate(data.dateTo)) {
-        params.set("dateTo", data.dateTo.getTime());
+        params.set('dateTo', data.dateTo.getTime());
       } else {
-        params.delete("dateTo");
+        params.delete('dateTo');
       }
 
       replace(`${pathname}?${params.toString()}`);
@@ -47,7 +47,7 @@ const CurrencyComposedFilters = () => {
         <label className="flex gap-3">
           <span>From</span>
           <input
-            {...register("dateFrom", {
+            {...register('dateFrom', {
               required: false,
               valueAsDate: true,
             })}
@@ -59,7 +59,7 @@ const CurrencyComposedFilters = () => {
         <label className="flex gap-3">
           <span>To</span>
           <input
-            {...register("dateTo", { required: false, valueAsDate: true })}
+            {...register('dateTo', { required: false, valueAsDate: true })}
             type="datetime-local"
             name="dateTo"
             {...(dateToParam ? { defaultValue: dateToParam } : {})}

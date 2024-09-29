@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { create } from "@/actions/wallet-history";
-import Overlay from "@/components/overlay/Overlay";
-import { DictionaryContext } from "@/components/Dictionary";
+import { create } from '@/actions/wallet-history';
+import Overlay from '@/components/overlay/Overlay';
+import { DictionaryContext } from '@/components/Dictionary';
 
-import AddWhistoryForm from "./CreateWhistoryForm";
-import { replacePlaceholders } from "@/utils";
+import AddWhistoryForm from './CreateWhistoryForm';
+import { replacePlaceholders } from '@/utils';
 
 interface Props {
   walletId: string;
@@ -23,11 +23,8 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
   return (
     <div onClick={close}>
       <Overlay>
-        <div
-          className="p-5 w-96 bg-white rounded-xl"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left font-bold text-lg">
+        <div className="w-96 rounded-xl bg-white p-5" onClick={(e) => e.stopPropagation()}>
+          <h3 className="text-left text-lg font-bold">
             {replacePlaceholders(d.modals.createWhistory.title, { walletName })}
           </h3>
 
