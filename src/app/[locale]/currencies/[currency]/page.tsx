@@ -1,4 +1,6 @@
 import { Suspense } from 'react';
+import { Pagination } from '@mui/material';
+import _ from 'lodash';
 
 import CurrencyContainer from './components/CurrencyContainer';
 import CurrencyComposedFilters from './components/CurrencyComposedFilters';
@@ -9,6 +11,8 @@ interface Props {
 }
 
 export default async function CurrencyPage({ params: { currency }, searchParams }: Props) {
+  console.log(Pagination, _);
+
   return (
     <main className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
       <h1 className="col-span-3 row-span-1 w-full text-center text-lg font-extrabold">
