@@ -18,8 +18,13 @@ interface Props {
 }
 
 const WhistoryComposedChangesChart = ({ width, height, data }: Props) => {
+  const result = data.map((item) => ({
+    ...item,
+    changesAbs: +(item.changesAbs || 0).toFixed(2),
+  }));
+
   return (
-    <BarChart width={width} height={height} data={data}>
+    <BarChart width={width} height={height} data={result}>
       <CartesianGrid strokeDasharray="3 3" />
 
       <XAxis
@@ -43,7 +48,7 @@ const WhistoryComposedChangesChart = ({ width, height, data }: Props) => {
       />
 
       <Bar dataKey="changesAbs" fill="#8884d8" isAnimationActive={false}>
-        {data.map((item) => (
+        {result.map((item) => (
           <Cell
             key={`${item.date.valueOf()}`}
             fill={item.changes && item.changes < 0 ? "#ef4444" : "#16a34a"}
