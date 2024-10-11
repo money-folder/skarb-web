@@ -21,7 +21,7 @@ export default async function CurrencyPage({
         <CurrencyComposedFilters />
       </div>
 
-      <div className="mt-10 h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
+      <div className="h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
         <Suspense fallback={null}>
           <CurrencyContainer
             currency={currency}
