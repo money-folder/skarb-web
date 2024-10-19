@@ -1,26 +1,33 @@
+import { Dictionary } from "@/types/locale";
 import LoadingRow from "./LoadingRow";
 
-export default async function WalletsTableLoading() {
+interface Props {
+  d: Dictionary["walletsPage"]["walletsTable"];
+}
+
+export default async function WalletsTableLoading({ d }: Props) {
   return (
     <div className="w-full">
       <table className="w-full border-collapse animate-pulse">
         <thead>
           <tr>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">Name</th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Balance
+              {d.name}
+            </th>
+            <th className="p-1 w-2/12 text-sm border-2 border-black">
+              {d.balance}
             </th>
             <th className="p-1 w-1/12 text-sm border-2 border-black">
-              Currency
+              {d.currency}
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Changes
+              {d.changes}
             </th>
             <th className="p-1 w-3/12 text-sm border-2 border-black">
-              Since Latest Report
+              {d.sinceLastReport}
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Actions
+              {d.actions}
             </th>
           </tr>
         </thead>

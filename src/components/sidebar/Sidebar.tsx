@@ -72,7 +72,7 @@ export default async function Sidebar({ d, locale }: Props) {
 
         {currenciesResponse.data ? (
           <>
-            <li>Currencies</li>
+            <li>{d.currenciesTitle}</li>
 
             <ul className="pl-5">
               {currenciesResponse.data.map((c) => (

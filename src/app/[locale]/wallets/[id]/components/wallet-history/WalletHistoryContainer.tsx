@@ -90,6 +90,6 @@ export default async function WalletHistoryContainer({
       </div>
     </div>
   ) : (
-    <p>Wallet History fetch failed 😢</p>
+    <p>{d.loadingWhistoryFailed}</p>
   );
 }

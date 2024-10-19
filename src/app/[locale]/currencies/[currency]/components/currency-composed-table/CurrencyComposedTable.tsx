@@ -1,26 +1,33 @@
 import Changes from "@/app/[locale]/wallets/components/Changes";
+import { Dictionary } from "@/types/locale";
 import { WhistoryComposed } from "@/types/wallets-history";
 
 interface Props {
   walletHistory: WhistoryComposed[];
+  d: Dictionary["currencyPage"]["currencyTable"];
 }
 
-export default async function CurrencyComposedTable({ walletHistory }: Props) {
+export default async function CurrencyComposedTable({
+  walletHistory,
+  d,
+}: Props) {
   return (
     <div className="w-full h-full">
       <table className="w-full">
         <thead>
           <tr>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Money Amount
+              {d.moneyAmount}
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Changes
+              {d.changes}
             </th>
             <th className="p-1 w-2/12 text-sm border-2 border-black">
-              Wallets
+              {d.wallets}
             </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">Date</th>
+            <th className="p-1 w-2/12 text-sm border-2 border-black">
+              {d.date}
+            </th>
           </tr>
         </thead>
         <tbody>

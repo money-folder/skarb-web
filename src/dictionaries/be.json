@@ -32,6 +32,8 @@
       "actions": "Дзеянні"
     },
 
+    "loadingWhistoryFailed": "Памылка загрузкі гісторыі кашалька 😢",
+
     "cards": {
       "walletChangesSummary": {
         "title": "Змены Σ"
@@ -48,8 +50,26 @@
     "notEnoughDataForChart": "Недастаткова даных для стварэння дыяграмы 😢"
   },
 
+  "currencyPage": {
+    "filters": {
+      "form": {
+        "fromLabel": "Ад: ",
+        "toLabel": "Да: ",
+        "resetLabel": "Скінуць"
+      }
+    },
+
+    "currencyTable": {
+      "moneyAmount": "Сума грошай",
+      "changes": "Змены",
+      "wallets": "Кашалькі",
+      "date": "Дата"
+    }
+  },
+
   "sidebar": {
     "walletsTitle": "Кашалькі",
+    "currenciesTitle": "Валюты",
     "githubSigninLabel": "Увайсці праз Github",
     "signoutLabel": "Выйсці"
   },
