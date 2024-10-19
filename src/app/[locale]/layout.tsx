@@ -50,9 +50,11 @@ export default async function RootLayout({
             <footer className="p-1 col-span-2 row-span-1 flex justify-end bg-black">
               <ul className="px-5 flex gap-4 text-xs">
                 <li className="text-white hover:underline">
+                  {/* eslint-disable-next-line react/jsx-no-literals */}
                   <Link href="/wallets">In English</Link>
                 </li>
                 <li className="text-white hover:underline">
+                  {/* eslint-disable-next-line react/jsx-no-literals */}
                   <Link href="/be/wallets">Па Беларуску</Link>
                 </li>
               </ul>

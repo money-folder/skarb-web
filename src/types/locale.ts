@@ -26,11 +26,11 @@ export interface Dictionary {
       changes: string;
       actions: string;
     };
+    loadingWhistoryFailed: string;
     cards: {
       walletChangesSummary: {
         title: string;
       };
-
       whistoryEntriesSummary: {
         title: string;
         in: string;
@@ -39,8 +39,24 @@ export interface Dictionary {
     whistoryEmpty: string;
     notEnoughDataForChart: string;
   };
+  currencyPage: {
+    filters: {
+      form: {
+        fromLabel: string;
+        toLabel: string;
+        resetLabel: string;
+      };
+    };
+    currencyTable: {
+      moneyAmount: string;
+      changes: string;
+      wallets: string;
+      date: string;
+    };
+  };
   sidebar: {
     walletsTitle: string;
+    currenciesTitle: string;
     githubSigninLabel: string;
     signoutLabel: string;
   };
