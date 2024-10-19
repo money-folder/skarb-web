@@ -1,0 +1,2 @@
+export const CHART_WIDTH_DEFAULT = 525;
+export const CHART_HEIGHT_DEFAULT = 300;
