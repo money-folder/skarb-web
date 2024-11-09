@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { getLocalISOString } from "@/utils";
 import { isValidDate } from "@/utils/time-utils";
+import { DictionaryContext } from "@/components/Dictionary";
 
 const CurrencyComposedFilters = () => {
   const searchParams = useSearchParams();
@@ -13,6 +14,8 @@ const CurrencyComposedFilters = () => {
   const { replace } = useRouter();
 
   const { register, watch } = useForm();
+
+  const { d } = useContext(DictionaryContext);
 
   const dateFromParam = searchParams.get("dateFrom")
     ? getLocalISOString(new Date(+searchParams.get("dateFrom")!))
@@ -45,7 +48,7 @@ const CurrencyComposedFilters = () => {
     <form>
       <div className="flex gap-5">
         <label className="flex gap-3">
-          <span>From</span>
+          <span>{d.currencyPage.filters.form.fromLabel}</span>
           <input
             {...register("dateFrom", {
               required: false,
@@ -57,7 +60,7 @@ const CurrencyComposedFilters = () => {
           />
         </label>
         <label className="flex gap-3">
-          <span>To</span>
+          <span>{d.currencyPage.filters.form.toLabel}</span>
           <input
             {...register("dateTo", { required: false, valueAsDate: true })}
             type="datetime-local"

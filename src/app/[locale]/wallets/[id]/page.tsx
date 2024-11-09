@@ -32,7 +32,7 @@ export default async function WalletHistory({
       </div>
 
       <div className="h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading d={d.whistoryPage.whistoryTable} />}>
           <WalletHistoryContainer
             locale={locale}
             d={d.whistoryPage}

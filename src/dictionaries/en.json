@@ -32,6 +32,8 @@
       "actions": "Actions"
     },
 
+    "loadingWhistoryFailed": "Wallet History fetch failed 😢",
+
     "cards": {
       "walletChangesSummary": {
         "title": "Changes Σ"
@@ -48,8 +50,26 @@
     "notEnoughDataForChart": "Not enough data for building a chart 😢"
   },
 
+  "currencyPage": {
+    "filters": {
+      "form": {
+        "fromLabel": "From: ",
+        "toLabel": "To: ",
+        "resetLabel": "Reset"
+      }
+    },
+
+    "currencyTable": {
+      "moneyAmount": "Money Amount",
+      "changes": "Changes",
+      "wallets": "Wallets",
+      "date": "Date"
+    }
+  },
+
   "sidebar": {
     "walletsTitle": "Wallets",
+    "currenciesTitle": "Currencies",
     "githubSigninLabel": "Sign In with Github",
     "signoutLabel": "Sign Out"
   },

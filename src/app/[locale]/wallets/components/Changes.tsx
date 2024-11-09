@@ -5,7 +5,7 @@ interface ChangesProps {
 
 const Changes = ({ text, isPositive }: ChangesProps) => {
   if (!text) {
-    return <span>-</span>;
+    return <span>{"-"}</span>;
   }
 
   return (

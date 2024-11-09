@@ -7,6 +7,7 @@ import WalletChangesSummaryCard from "@/components/cards/WalletChangesSummaryCar
 import WalletHistoryTable from "./WalletHistoryTable";
 import { Dictionary } from "@/types/locale";
 import WhistoryEntriesSummaryCard from "@/components/cards/WhistoryEntriesSummaryCard";
+import { CHART_HEIGHT_DEFAULT, CHART_WIDTH_DEFAULT } from "@/constants/charts";
 
 interface WalletHistoryContainerProps {
   d: Dictionary["whistoryPage"];
@@ -68,16 +69,16 @@ export default async function WalletHistoryContainer({
             <>
               <WithMounted>
                 <WalletHistoryChart
-                  width={525}
-                  height={300}
+                  width={CHART_WIDTH_DEFAULT}
+                  height={CHART_HEIGHT_DEFAULT}
                   list={walletHistory.whistory}
                 />
               </WithMounted>
 
               <WithMounted>
                 <WhistoryChangesChart
-                  width={525}
-                  height={300}
+                  width={CHART_WIDTH_DEFAULT}
+                  height={CHART_HEIGHT_DEFAULT}
                   list={walletHistory.whistory}
                 />
               </WithMounted>
@@ -89,6 +90,6 @@ export default async function WalletHistoryContainer({
       </div>
     </div>
   ) : (
-    <p>Wallet History fetch failed 😢</p>
+    <p>{d.loadingWhistoryFailed}</p>
   );
 }
