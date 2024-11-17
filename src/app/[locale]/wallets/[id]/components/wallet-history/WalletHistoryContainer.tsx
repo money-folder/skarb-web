@@ -71,7 +71,7 @@ export default async function WalletHistoryContainer({
                 <WalletHistoryChart
                   width={CHART_WIDTH_DEFAULT}
                   height={CHART_HEIGHT_DEFAULT}
-                  list={walletHistory.whistory}
+                  data={walletHistory.whistory}
                 />
               </WithMounted>
 
@@ -79,7 +79,7 @@ export default async function WalletHistoryContainer({
                 <WhistoryChangesChart
                   width={CHART_WIDTH_DEFAULT}
                   height={CHART_HEIGHT_DEFAULT}
-                  list={walletHistory.whistory}
+                  data={walletHistory.whistory}
                 />
               </WithMounted>
             </>
