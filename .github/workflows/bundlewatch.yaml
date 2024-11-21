@@ -1,0 +1,98 @@
+name: Bundlewatch Analysis
+on: [pull_request]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Analyze bundle
+        id: bundlewatch
+        run: |
+          # Run bundlewatch and capture output
+          OUTPUT=$(npm run bundlewatch)
+          echo "BUNDLE_OUTPUT<<EOF" >> $GITHUB_ENV
+          echo "$OUTPUT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        env:
+          BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI_BRANCH_BASE: develop
+
+      - name: Create PR Comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const bundleOutput = JSON.parse(process.env.BUNDLE_OUTPUT);
+
+            let markdown = '## 📦 Bundle Size Analysis\n\n';
+            markdown += '| File | Size | Status | Max Size | Difference |\n';
+            markdown += '|------|------|--------|-----------|------------|\n';
+
+            bundleOutput.files.forEach(file => {
+              const status = file.pass ? '✅' : '⚠️';
+              const size = (file.size / 1024).toFixed(2);
+              const maxSize = (file.maxSize / 1024).toFixed(2);
+              const diff = ((file.size - file.baseBranchSize || 0) / 1024).toFixed(2);
+              const diffSymbol = diff > 0 ? `+${diff}` : diff;
+              const diffColor = diff > 0 ? '🔴' : '🟢';
+
+              markdown += `| ${file.filePath} | ${size}KB | ${status} | ${maxSize}KB | ${diffColor} ${diffSymbol}KB |\n`;
+            });
+
+            // Add summary
+            const totalDiff = (bundleOutput.totalDiff / 1024).toFixed(2);
+            markdown += `\n### Summary\n`;
+            markdown += `- Total size change: ${totalDiff}KB\n`;
+            markdown += `- Files analyzed: ${bundleOutput.files.length}\n`;
+            markdown += `- Files over budget: ${bundleOutput.files.filter(f => !f.pass).length}\n`;
+
+            // Add recommendations if needed
+            if (bundleOutput.files.some(f => !f.pass)) {
+              markdown += '\n### 📝 Recommendations\n';
+              markdown += '- Consider code splitting for large bundles\n';
+              markdown += '- Check for unused dependencies\n';
+              markdown += '- Verify import statements for tree-shaking\n';
+            }
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Bundle Size Analysis')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: markdown
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: markdown
+              });
+            }
+
+      - name: Fail if over budget
+        if: ${{ contains(env.BUNDLE_OUTPUT, '"pass":false') }}
+        run: exit 1
