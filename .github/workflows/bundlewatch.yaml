@@ -32,6 +32,13 @@ jobs:
           # Run bundlewatch and capture output, always return true to prevent workflow failure
           OUTPUT=$(npm run bundlewatch || true)
 
+          # Format the output by replacing specific patterns
+          OUTPUT=$(echo "$OUTPUT" | sed 's/%0A/\n/g' | # Replace %0A with actual newlines
+                                  sed 's/\[INFO\]/### ℹ️ /g' | # Format INFO messages
+                                  sed 's/PASS/✅ PASS/g' | # Add emoji to PASS
+                                  sed 's/FAIL/❌ FAIL/g' | # Add emoji to FAIL
+                                  sed 's/Result breakdown at:/📊 Result breakdown at:/')
+
           # Escape newlines and special characters for GitHub Actions
           OUTPUT="${OUTPUT//'%'/'%25'}"
           OUTPUT="${OUTPUT//$'\n'/'%0A'}"
@@ -52,11 +59,37 @@ jobs:
           script: |
             const bundlewatchOutput = process.env.BUNDLEWATCH_OUTPUT;
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            // Find existing comment
+            const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-             body: `### Bundlewatch Results\n\`\`\`\n${bundlewatchOutput}\n\`\`\``
-            })
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.data.find(comment =>
+              comment.body.includes('### 📦 Bundlewatch Results')
+            );
+
+            const commentBody = `### 📦 Bundlewatch Results
+
+${bundlewatchOutput.split('%0A').join('\n')}`;
+
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
         env:
           BUNDLEWATCH_OUTPUT: ${{ steps.bundlewatch.outputs.result }}
