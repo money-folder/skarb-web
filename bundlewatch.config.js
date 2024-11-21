@@ -15,13 +15,5 @@ module.exports = {
   ],
   ci: {
     trackBranches: ["develop"],
-    defaultCompression: "gzip",
-    commitSha: "$CI_COMMIT_SHA",
-    repoBranchBase: "develop",
-    repoOwner: "money-folder",
-    repoName: "skarb-web",
-    bundlewatch: {
-      trackBranches: ["develop"],
-    },
   },
 };
