@@ -52,7 +52,7 @@ jobs:
           BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
           CI_REPO_OWNER: money-folder
           CI_REPO_NAME: skarb-web
-          CI_BRANCH_BASE: develop
+          CI_COMMIT_SHA: ${{ github.sha }}
 
       - name: Comment PR
         uses: actions/github-script@v7
