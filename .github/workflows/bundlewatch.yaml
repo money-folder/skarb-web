@@ -70,9 +70,7 @@ jobs:
               comment.body.includes('### 📦 Bundlewatch Results')
             );
 
-            const commentBody = `### 📦 Bundlewatch Results
-
-${bundlewatchOutput.split('%0A').join('\n')}`;
+            const commentBody = `### 📦 Bundlewatch Results\n${bundlewatchOutput.split('%0A').join('\n')}`;
 
             if (botComment) {
               // Update existing comment
