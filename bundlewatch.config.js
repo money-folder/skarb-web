@@ -14,6 +14,6 @@ module.exports = {
     },
   ],
   ci: {
-    trackBranches: ["main"],
+    trackBranches: ["main", "develop"],
   },
 };
