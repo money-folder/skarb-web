@@ -13,7 +13,4 @@ module.exports = {
       maxSize: "100kb",
     },
   ],
-  ci: {
-    trackBranches: ["main", "develop"],
-  },
 };
