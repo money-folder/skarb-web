@@ -9,7 +9,7 @@ env:
   CI_REPO_OWNER: money-folder
   CI_REPO_NAME: skarb-web
   CI_COMMIT_SHA: ${{ github.sha }}
-  CI_BRANCH: develop
+  CI_BRANCH_BASE: develop
   BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
 permissions:
