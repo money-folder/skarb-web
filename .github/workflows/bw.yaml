@@ -32,17 +32,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Restore next build
-        uses: actions/cache@v4
-        id: restore-build-cache
-        env:
-          cache-name: cache-next-build
-        with:
-          path: .next/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-
       - name: Build next.js app
-        run: ./node_modules/.bin/next build
+        run: npm run build
 
       - name: Analyze bundle
         run: npm run bundlewatch
