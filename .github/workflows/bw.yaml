@@ -4,12 +4,13 @@ on:
   pull_request:
     branches:
       - develop
+      - main
 
 env:
   CI_REPO_OWNER: money-folder
   CI_REPO_NAME: skarb-web
   CI_COMMIT_SHA: ${{ github.sha }}
-  CI_BRANCH_BASE: develop
+  CI_BRANCH_BASE: ${{ github.base_ref }}
   BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
 permissions:
