@@ -66,6 +66,7 @@ export interface Dictionary {
       form: {
         dateLabel: string;
         amountLabel: string;
+        commentLabel: string;
         cancelLabel: string;
         submitLabel: string;
       };

@@ -16,8 +16,12 @@ interface Props {
 const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  const createWhistory = async (moneyAmount: number, date: number) => {
-    await create({ walletId, moneyAmount, date });
+  const createWhistory = async (
+    moneyAmount: number,
+    date: number,
+    comment?: string
+  ) => {
+    await create({ walletId, moneyAmount, date, comment });
   };
 
   return (
