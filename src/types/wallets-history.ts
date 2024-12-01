@@ -4,6 +4,7 @@ export type CreateWhistoryRequestDto = {
   walletId: string;
   moneyAmount: number;
   date: number;
+  comment?: string;
 };
 
 export type CreateWhistoryDto = {

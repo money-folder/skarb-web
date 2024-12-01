@@ -80,6 +80,7 @@
       "form": {
         "dateLabel": "Дата: ",
         "amountLabel": "Сума грошай: ",
+        "commentLabel": "Каментар: ",
         "cancelLabel": "Скасаваць",
         "submitLabel": "Адправіць"
       }

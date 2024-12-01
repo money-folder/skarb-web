@@ -95,6 +95,7 @@ model WalletHistory {
   walletId    String    @map("wallet_id") @db.Uuid
   moneyAmount Float     @map("money_amount")
   date        DateTime  @default(now()) @db.Timestamp(6)
+  comment     String?   @db.VarChar(255)
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
   deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)

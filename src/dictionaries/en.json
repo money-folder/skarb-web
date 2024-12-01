@@ -80,6 +80,7 @@
       "form": {
         "dateLabel": "Timestamp: ",
         "amountLabel": "Amount: ",
+        "commentLabel": "Comment: ",
         "cancelLabel": "Cancel",
         "submitLabel": "Submit"
       }
