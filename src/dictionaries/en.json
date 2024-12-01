@@ -29,6 +29,7 @@
       "balance": "Balance",
       "date": "Date",
       "changes": "Changes",
+      "comment": "Comment",
       "actions": "Actions"
     },
 
