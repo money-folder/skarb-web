@@ -29,6 +29,7 @@
       "balance": "Баланс",
       "date": "Дата",
       "changes": "Змены",
+      "comment": "Каментар",
       "actions": "Дзеянні"
     },
 
@@ -80,6 +81,7 @@
       "form": {
         "dateLabel": "Дата: ",
         "amountLabel": "Сума грошай: ",
+        "commentLabel": "Каментар: ",
         "cancelLabel": "Скасаваць",
         "submitLabel": "Адправіць"
       }

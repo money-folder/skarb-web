@@ -18,13 +18,13 @@ import { DictionaryContext } from "@/components/Dictionary";
 interface Props {
   width: number;
   height: number;
-  list: ClientWhistoryDto[];
+  data: ClientWhistoryDto[];
 }
 
-const WhistoryChangesChart = ({ width, height, list }: Props) => {
+const WhistoryChangesChart = ({ width, height, data }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  const result = getWhistoryAbsChangesData(list);
+  const result = getWhistoryAbsChangesData(data);
 
   return (
     <BarChart width={width} height={height} data={result}>

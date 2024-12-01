@@ -17,13 +17,13 @@ import { getAxisTimestamps } from "./utils";
 interface Props {
   width: number;
   height: number;
-  list: ClientWhistoryDto[];
+  data: ClientWhistoryDto[];
 }
 
-const WalletHistoryChart = ({ width, height, list }: Props) => {
+const WalletHistoryChart = ({ width, height, data }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  const formattedList = list.map((i) => ({ ...i, dateTs: i.date.getTime() }));
+  const formattedList = data.map((i) => ({ ...i, dateTs: i.date.getTime() }));
   const timestamps = getAxisTimestamps(formattedList);
 
   return (

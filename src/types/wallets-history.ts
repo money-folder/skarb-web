@@ -4,6 +4,7 @@ export type CreateWhistoryRequestDto = {
   walletId: string;
   moneyAmount: number;
   date: number;
+  comment?: string;
 };
 
 export type CreateWhistoryDto = {
@@ -17,6 +18,7 @@ export type WhistoryDb = {
   walletId: string;
   moneyAmount: number;
   date: Date;
+  comment: string | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

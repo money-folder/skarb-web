@@ -8,7 +8,7 @@ import { DictionaryContext } from "@/components/Dictionary";
 import { getLocalISOString } from "@/utils";
 
 interface Props {
-  create: (amount: number, ts: number) => void;
+  create: (amount: number, ts: number, comment?: string) => void;
   close: () => void;
 }
 
@@ -18,7 +18,8 @@ const AddWhistoryForm = ({ create, close }: Props) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (e: FieldValues) => {
-    create(e.amount, e.date.getTime());
+    const trimmedComment = e.comment ? e.comment.trim() : e.comment;
+    create(e.amount, e.date.getTime(), trimmedComment);
     close();
   };
 
@@ -43,6 +44,15 @@ const AddWhistoryForm = ({ create, close }: Props) => {
             type="number"
             step={0.01}
             autoFocus
+          />
+        </label>
+
+        <label className="w-full flex flex-col items-start">
+          <span>{d.modals.createWhistory.form.commentLabel}</span>
+          <textarea
+            {...register("comment", { required: false })}
+            maxLength={255}
+            className="px-2 w-full border-[1px] border-black rounded-sm"
           />
         </label>
       </div>
