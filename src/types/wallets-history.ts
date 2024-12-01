@@ -18,6 +18,7 @@ export type WhistoryDb = {
   walletId: string;
   moneyAmount: number;
   date: Date;
+  comment: string | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

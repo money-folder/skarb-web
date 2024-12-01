@@ -24,6 +24,7 @@ export interface Dictionary {
       balance: string;
       date: string;
       changes: string;
+      comment: string;
       actions: string;
     };
     loadingWhistoryFailed: string;
