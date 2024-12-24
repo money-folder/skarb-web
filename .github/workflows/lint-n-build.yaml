@@ -1,4 +1,4 @@
-name: Analyze
+name: Lint & Build
 
 on:
   pull_request:
