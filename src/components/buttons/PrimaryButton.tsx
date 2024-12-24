@@ -4,11 +4,12 @@ interface PrimarySubmitProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const PrimaryButton = ({ type, text }: PrimarySubmitProps) => {
+const PrimaryButton = ({ type, text, onClick }: PrimarySubmitProps) => {
   return (
     <button
       type={type}
       className="px-5 py-2 text-white bg-black cursor-pointer"
+      onClick={onClick}
     >
       {text}
     </button>
