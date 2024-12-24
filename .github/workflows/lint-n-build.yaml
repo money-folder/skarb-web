@@ -1,4 +1,4 @@
-name: Lint And Build
+name: Lint & Build
 
 on:
   pull_request:
@@ -27,3 +27,6 @@ jobs:
 
       - name: Run build
         run: npm run build
+
+      - name: Run tests
+        run: npm run test
