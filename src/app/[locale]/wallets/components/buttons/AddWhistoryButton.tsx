@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useContext } from "react";
 
 import CreateWhistoryModal from "@/widgets/create-whistory/CreateWhistoryModal";
-import { OverlayContext } from "@/components/overlay/OverlayProvider";
+import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
 import PlusIcon from "@/assets/plus.svg";
 

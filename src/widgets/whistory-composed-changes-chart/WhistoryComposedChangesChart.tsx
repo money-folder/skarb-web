@@ -1,6 +1,6 @@
 "use client";
 
-import { WhistoryComposed } from "@/types/wallets-history";
+import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
 import {
   Bar,
   BarChart,

@@ -10,8 +10,8 @@ import {
   getCurrentUserWallets,
   unarchiveSelfWallet,
 } from "@/app/[locale]/wallets/services";
-import { CreateWalletRequestDto } from "@/types/wallets";
 import { createWalletRequestSchema } from "@/app/[locale]/wallets/validation";
+import { CreateWalletRequestDto } from "./types";
 
 export const fetchCurrentUserWallets = async () => {
   try {

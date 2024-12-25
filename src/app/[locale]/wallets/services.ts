@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { ErrorCauses } from "@/shared/types/errors";
-import { ClientWalletDto, CreateWalletRequestDto } from "@/types/wallets";
 import { calculateDateDifference } from "@/shared/utils/time-utils";
+import { ClientWalletDto, CreateWalletRequestDto } from "./types";
 
 const verifyWalletOwnership = async (userId: string, walletId: string) => {
   const wallet = await walletsRepository.findById(walletId);

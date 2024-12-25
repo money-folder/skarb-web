@@ -10,8 +10,8 @@ import {
   CartesianGrid,
 } from "recharts";
 
-import { DictionaryContext } from "@/components/Dictionary";
-import { ClientWhistoryDto } from "@/types/wallets-history";
+import { DictionaryContext } from "@/shared/components/Dictionary";
+import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 import { getAxisTimestamps } from "./utils";
 
 interface Props {

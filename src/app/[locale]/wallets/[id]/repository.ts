@@ -2,8 +2,8 @@ import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/prisma";
 
-import { FetchWalletHistoryParams } from "@/types/wallets";
-import { CreateWhistoryDto } from "@/types/wallets-history";
+import { CreateWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
+import { FetchWalletHistoryParams } from "../types";
 
 export const findByWallet = async (walletId: string) => {
   const where: Prisma.WalletHistoryWhereInput = {

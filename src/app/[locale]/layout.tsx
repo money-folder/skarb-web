@@ -5,10 +5,10 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 
-import Sidebar from "@/components/sidebar/Sidebar";
-import OverlayProvider from "@/components/overlay/OverlayProvider";
-import Loading from "@/components/sidebar/Loading";
-import DictionaryProvider from "@/components/Dictionary";
+import Sidebar from "@/shared/components/sidebar/Sidebar";
+import OverlayProvider from "@/shared/components/overlay/OverlayProvider";
+import Loading from "@/shared/components/sidebar/Loading";
+import DictionaryProvider from "@/shared/components/Dictionary";
 
 import { getDictionary } from "@/dictionaries";
 

@@ -1,4 +1,4 @@
-import SkeletonBar from "@/components/SkeletonBar";
+import SkeletonBar from "@/shared/components/SkeletonBar";
 
 export default function LoadingRow() {
   return (

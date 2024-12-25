@@ -4,7 +4,7 @@ import { createContext } from "react";
 
 import { Dictionary } from "@/shared/types/locale";
 
-import en from "../dictionaries/en.json";
+import en from "../../dictionaries/en.json";
 
 interface LocaleContextParams {
   d: Dictionary;

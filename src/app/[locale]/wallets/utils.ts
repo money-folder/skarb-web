@@ -1,4 +1,4 @@
-import { ClientWalletDto } from "@/types/wallets";
+import { ClientWalletDto } from "./types";
 
 export const groupByCurrency = (wallets: ClientWalletDto[]) =>
   Object.entries(

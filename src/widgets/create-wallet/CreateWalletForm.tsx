@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 
 // components
-import PrimaryButton from "@/components/buttons/PrimaryButton";
-import SecondaryButton from "@/components/buttons/SecondaryButton";
-import { DictionaryContext } from "@/components/Dictionary";
+import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
+import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 
 interface Props {
   create: (name: string, currency: string) => void;

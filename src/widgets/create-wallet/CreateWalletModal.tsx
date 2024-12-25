@@ -1,11 +1,11 @@
 import { useContext } from "react";
 
-import Overlay from "@/components/overlay/Overlay";
+import Overlay from "@/shared/components/overlay/Overlay";
 
 import { create } from "@/app/[locale]/wallets/actions";
 
 import CreateWalletForm from "./CreateWalletForm";
-import { DictionaryContext } from "@/components/Dictionary";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 
 interface Props {
   close: () => void;

@@ -1,5 +1,5 @@
 import { fetchWhistoryByCurrency } from "@/app/[locale]/wallets/[id]/actions";
-import { WithMounted } from "@/components/WithMounted";
+import { WithMounted } from "@/shared/components/WithMounted";
 import WhistoryComposedChart from "@/widgets/whistory-composed-chart/WhistoryComposedChart";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 import WhistoryComposedChangesChart from "@/widgets/whistory-composed-changes-chart/WhistoryComposedChangesChart";

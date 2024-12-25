@@ -6,7 +6,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { getLocalISOString } from "@/shared/utils/utils";
 import { isValidDate } from "@/shared/utils/time-utils";
-import { DictionaryContext } from "@/components/Dictionary";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 
 const CurrencyComposedFilters = () => {
   const searchParams = useSearchParams();

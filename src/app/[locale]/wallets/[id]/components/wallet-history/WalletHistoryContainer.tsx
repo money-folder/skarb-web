@@ -1,12 +1,12 @@
 import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
 import WhistoryChangesChart from "@/widgets/whistory-changes-chart/WhistoryChangesChart";
-import { WithMounted } from "@/components/WithMounted";
-import WalletChangesSummaryCard from "@/components/cards/WalletChangesSummaryCard";
+import { WithMounted } from "@/shared/components/WithMounted";
+import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 
 import WalletHistoryTable from "./WalletHistoryTable";
 import { Dictionary } from "@/shared/types/locale";
-import WhistoryEntriesSummaryCard from "@/components/cards/WhistoryEntriesSummaryCard";
+import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
 import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,

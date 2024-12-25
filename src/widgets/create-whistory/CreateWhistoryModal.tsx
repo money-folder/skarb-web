@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
 import { create } from "@/app/[locale]/wallets/[id]/actions";
-import Overlay from "@/components/overlay/Overlay";
-import { DictionaryContext } from "@/components/Dictionary";
+import Overlay from "@/shared/components/overlay/Overlay";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 
 import AddWhistoryForm from "./CreateWhistoryForm";
 import { replacePlaceholders } from "@/shared/utils/utils";

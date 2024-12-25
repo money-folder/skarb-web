@@ -2,11 +2,11 @@ import { auth } from "@/auth";
 import {
   CreateWhistoryRequestDto,
   WhistoryDbWithWallet,
-} from "@/types/wallets-history";
+} from "@/app/[locale]/wallets/[id]/types";
 import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { ErrorCauses } from "@/shared/types/errors";
-import { FetchWalletHistoryParams } from "@/types/wallets";
+import { FetchWalletHistoryParams } from "../types";
 
 const verifyWalletOwnership = async (userId: string, whistoryId: string) => {
   const wallet = await whistoryRepository.findWallet(whistoryId);

@@ -1,5 +1,5 @@
 import { DateDifference } from "@/shared/utils/time-utils";
-import { WhistoryDb } from "./wallets-history";
+import { WhistoryDb } from "./[id]/types";
 
 export type WalletDb = {
   id: string;

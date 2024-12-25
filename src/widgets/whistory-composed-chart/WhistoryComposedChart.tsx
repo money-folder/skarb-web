@@ -3,8 +3,8 @@
 import { useContext } from "react";
 import { Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 
-import { WhistoryComposed } from "@/types/wallets-history";
-import { DictionaryContext } from "@/components/Dictionary";
+import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 
 interface Props {
   width: number;

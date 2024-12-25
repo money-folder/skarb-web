@@ -2,8 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { CreateWhistoryRequestDto } from "@/types/wallets-history";
-import { FetchWalletHistoryParams } from "@/types/wallets";
+import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
 import {
   archiveSelfWhistory,
   createWhistory,
@@ -14,6 +13,7 @@ import {
   unarchiveSelfWhistory,
 } from "@/app/[locale]/wallets/[id]/services";
 import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
+import { FetchWalletHistoryParams } from "../types";
 
 export const fetchWalletHistory = async (
   walletId: string,

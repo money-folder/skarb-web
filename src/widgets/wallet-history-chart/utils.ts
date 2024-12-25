@@ -1,4 +1,4 @@
-import { ClientWhistoryDto } from "@/types/wallets-history";
+import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 import { generateNumberArray } from "@/shared/utils/utils";
 
 export const getWhistoryMinMaxTimestamps = (
