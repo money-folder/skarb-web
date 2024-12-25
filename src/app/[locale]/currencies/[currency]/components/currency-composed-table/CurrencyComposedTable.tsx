@@ -1,6 +1,6 @@
 import Changes from "@/app/[locale]/wallets/components/Changes";
-import { Dictionary } from "@/types/locale";
-import { WhistoryComposed } from "@/types/wallets-history";
+import { Dictionary } from "@/shared/types/locale";
+import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
 
 interface Props {
   walletHistory: WhistoryComposed[];

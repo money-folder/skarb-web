@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import DuplicateIcon from "@/assets/duplicate.svg";
-import { duplicate } from "@/actions/wallet-history";
+import { duplicate } from "@/app/[locale]/wallets/[id]/actions";
 
 interface Props {
   walletId: string;

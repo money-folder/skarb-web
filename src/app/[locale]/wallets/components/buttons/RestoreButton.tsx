@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { unrchive } from "@/actions/wallets";
+import { unrchive } from "@/app/[locale]/wallets/actions";
 
 import RestoreIcon from "@/assets/restore.svg";
 

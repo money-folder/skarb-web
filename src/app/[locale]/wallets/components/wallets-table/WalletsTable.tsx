@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ClientWalletDto } from "@/types/wallets";
-import { formatDateDifference } from "@/utils/time-utils";
+import { formatDateDifference } from "@/shared/utils/time-utils";
 
 import Changes from "../Changes";
 import AddWhistoryButton from "../buttons/AddWhistoryButton";
@@ -12,7 +11,8 @@ import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 
 import OpenIcon from "@/assets/open.svg";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
+import { ClientWalletDto } from "../../types";
 
 interface WalletsTableProps {
   locale: string;

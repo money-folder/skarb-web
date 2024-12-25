@@ -1,6 +1,6 @@
 import "server-only";
 
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 
 // TODO: fix
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -15,10 +15,6 @@ export default function LoadingRow() {
       <td className="p-2 h-1 border-2 border-black-300">
         <SkeletonBar />
       </td>
-      <td className="p-2 h-1 border-2 border-black-300">
-        <SkeletonBar />
-      </td>
-      <td className="p-2 h-1 border-2 border-black-300"></td>
     </tr>
   );
 }
