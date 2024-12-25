@@ -3,8 +3,8 @@ import {
   CreateWhistoryRequestDto,
   WhistoryDbWithWallet,
 } from "@/types/wallets-history";
-import * as whistoryRepository from "@/repositories/wallets-history";
-import * as walletsRepository from "@/repositories/wallets";
+import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
+import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { ErrorCauses } from "@/types/errors";
 import { FetchWalletHistoryParams } from "@/types/wallets";
 

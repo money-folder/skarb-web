@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { findUserCurrencies } from "@/repositories/currencies";
+import { findUserCurrencies } from "@/app/[locale]/currencies/repository";
 import { ErrorCauses } from "@/types/errors";
 
 export const getCurrentUserCurrencies = async () => {
