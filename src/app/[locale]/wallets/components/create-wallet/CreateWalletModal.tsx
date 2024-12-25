@@ -4,8 +4,8 @@ import Overlay from "@/shared/components/overlay/Overlay";
 
 import { create } from "@/app/[locale]/wallets/actions";
 
-import CreateWalletForm from "./CreateWalletForm";
 import { DictionaryContext } from "@/shared/components/Dictionary";
+import CreateWalletForm from "./CreateWalletForm";
 
 interface Props {
   close: () => void;

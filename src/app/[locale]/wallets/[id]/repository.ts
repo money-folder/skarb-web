@@ -33,7 +33,7 @@ export const findWallet = async (whistoryId: string) => {
 export const findUserWallet = async (
   userId: string,
   walletId: string,
-  params?: FetchWalletHistoryParams
+  params?: FetchWalletHistoryParams,
 ) => {
   const where: Prisma.WalletHistoryWhereInput = {
     AND: [{ walletId }, { wallet: { ownerId: userId } }],

@@ -16,7 +16,7 @@ const millisecondsInYear = millisecondsInDay * 365;
 
 export const calculateDateDifference = (
   date1: Date,
-  date2: Date
+  date2: Date,
 ): DateDifference => {
   let diff = Math.abs(date1.getTime() - date2.getTime());
 
@@ -48,7 +48,7 @@ export const calculateDateDifference = (
 };
 
 export const formatDateDifferenceEn = (
-  diff: Partial<DateDifference>
+  diff: Partial<DateDifference>,
 ): string => {
   const parts: string[] = [];
 
@@ -80,31 +80,31 @@ export const formatDateDifferenceEn = (
 };
 
 export const formatDateDifferenceBe = (
-  diff: Partial<DateDifference>
+  diff: Partial<DateDifference>,
 ): string => {
   const parts: string[] = [];
 
   if (diff.years && diff.years > 0) {
     parts.push(
-      `${diff.years} год${diff.years.toString().endsWith("1") ? "" : "ы"}`
+      `${diff.years} год${diff.years.toString().endsWith("1") ? "" : "ы"}`,
     );
   }
 
   if (diff.months && diff.months > 0) {
     parts.push(
-      `${diff.months} месяц${diff.months.toString().endsWith("1") ? "" : "ы"}`
+      `${diff.months} месяц${diff.months.toString().endsWith("1") ? "" : "ы"}`,
     );
   }
 
   if (diff.days && diff.days > 0) {
     parts.push(
-      `${diff.days} ${diff.days.toString().endsWith("1") ? "дзень" : "дні"}`
+      `${diff.days} ${diff.days.toString().endsWith("1") ? "дзень" : "дні"}`,
     );
   }
 
   if (diff.hours && diff.hours > 0) {
     parts.push(
-      `${diff.hours} гадзін${diff.hours.toString().endsWith("1") ? "а" : "ы"}`
+      `${diff.hours} гадзін${diff.hours.toString().endsWith("1") ? "а" : "ы"}`,
     );
   }
 
@@ -112,7 +112,7 @@ export const formatDateDifferenceBe = (
     parts.push(
       `${diff.minutes} хвілін${
         diff.minutes.toString().endsWith("1") ? "а" : "ы"
-      }`
+      }`,
     );
   }
 
@@ -120,7 +120,7 @@ export const formatDateDifferenceBe = (
     parts.push(
       `${diff.seconds} секунд${
         diff.seconds.toString().endsWith("1") ? "а" : "ы"
-      }`
+      }`,
     );
   }
 
@@ -129,7 +129,7 @@ export const formatDateDifferenceBe = (
 
 export const formatDateDifference = (
   diff: Partial<DateDifference>,
-  locale: string
+  locale: string,
 ): string => {
   if (locale === "be") {
     return formatDateDifferenceBe(diff);

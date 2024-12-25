@@ -1,14 +1,14 @@
-import { auth } from "@/auth";
-import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 import CreateWhistoryButton from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryButton";
+import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 import CreateWalletButton from "@/app/[locale]/wallets/components/create-wallet/CreateWalletButton";
+import { auth } from "@/auth";
 
+import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
+import { DEFAULT_LOCALE } from "@/locales";
+import { Dictionary } from "@/shared/types/locale";
+import { SignOut } from "../SignOut";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
-import { SignOut } from "../SignOut";
-import { Dictionary } from "@/shared/types/locale";
-import { DEFAULT_LOCALE } from "@/locales";
-import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
 
 interface Props {
   locale: string;

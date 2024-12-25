@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useContext } from "react";
+import { useContext } from "react";
 import {
-  LineChart,
+  CartesianGrid,
   Line,
+  LineChart,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  CartesianGrid,
 } from "recharts";
 
-import { DictionaryContext } from "@/shared/components/Dictionary";
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getAxisTimestamps } from "./utils";
 
 interface Props {

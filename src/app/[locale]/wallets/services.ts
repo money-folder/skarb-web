@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
+import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 import { calculateDateDifference } from "@/shared/utils/time-utils";
 import { ClientWalletDto, CreateWalletRequestDto } from "./types";

@@ -1,7 +1,7 @@
-import { Suspense } from "react";
-import CurrencyContainer from "./components/CurrencyContainer";
-import CurrencyComposedFilters from "./components/CurrencyComposedFilters";
 import { getDictionary } from "@/dictionaries";
+import { Suspense } from "react";
+import CurrencyComposedFilters from "./components/CurrencyComposedFilters";
+import CurrencyContainer from "./components/CurrencyContainer";
 
 interface Props {
   params: { currency: string; locale: string };

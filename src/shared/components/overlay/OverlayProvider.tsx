@@ -10,7 +10,7 @@ interface GetOverlayNodeParams {
 
 interface OverlayContextParams {
   addOverlay: (
-    getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode
+    getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode,
   ) => void;
 
   removeOverlay: (overlayId: string) => void;
@@ -40,7 +40,7 @@ export default function OverlayProvider({ children }: OverlayProviderProps) {
     const onKeydown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOverlays((prevOverlays) =>
-          prevOverlays.filter((_, index, array) => array.length - 1 !== index)
+          prevOverlays.filter((_, index, array) => array.length - 1 !== index),
         );
       }
     };
@@ -52,12 +52,12 @@ export default function OverlayProvider({ children }: OverlayProviderProps) {
 
   const removeOverlay = (overlayId: string) => {
     setOverlays((prevOverlays) =>
-      prevOverlays.filter((o) => o.id !== overlayId)
+      prevOverlays.filter((o) => o.id !== overlayId),
     );
   };
 
   const addOverlay = (
-    getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode
+    getOverlayNode: (params: GetOverlayNodeParams) => React.ReactNode,
   ) => {
     const id = generatePseudoUUID();
 

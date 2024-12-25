@@ -1,11 +1,11 @@
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 
+import { Dictionary } from "@/shared/types/locale";
 import Changes from "../../../components/Changes";
-import SoftDeleteButton from "../buttons/SoftDeleteButton";
-import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../buttons/DuplicateButton";
-import { Dictionary } from "@/shared/types/locale";
+import RestoreButton from "../buttons/RestoreButton";
+import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 interface Props {
   d: Dictionary["whistoryPage"]["whistoryTable"];

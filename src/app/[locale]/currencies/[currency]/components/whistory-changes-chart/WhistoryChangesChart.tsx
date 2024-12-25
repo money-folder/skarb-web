@@ -3,7 +3,7 @@
 import { useContext } from "react";
 
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
-import { getWhistoryAbsChangesData } from "./utils";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 import {
   Bar,
   BarChart,
@@ -13,7 +13,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { DictionaryContext } from "@/shared/components/Dictionary";
+import { getWhistoryAbsChangesData } from "./utils";
 
 interface Props {
   width: number;

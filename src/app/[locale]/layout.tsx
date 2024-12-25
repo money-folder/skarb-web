@@ -1,14 +1,14 @@
-import { Suspense } from "react";
-import type { Metadata } from "next";
-import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
+import { Suspense } from "react";
 
-import Sidebar from "@/shared/components/sidebar/Sidebar";
+import DictionaryProvider from "@/shared/components/Dictionary";
 import OverlayProvider from "@/shared/components/overlay/OverlayProvider";
 import Loading from "@/shared/components/sidebar/Loading";
-import DictionaryProvider from "@/shared/components/Dictionary";
+import Sidebar from "@/shared/components/sidebar/Sidebar";
 
 import { getDictionary } from "@/dictionaries";
 

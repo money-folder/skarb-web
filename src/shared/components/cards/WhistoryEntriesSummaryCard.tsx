@@ -1,10 +1,10 @@
-import { replacePlaceholders } from "@/shared/utils/utils";
-import Card from "./Card";
 import { Dictionary } from "@/shared/types/locale";
 import {
   calculateDateDifference,
   formatDateDifference,
 } from "@/shared/utils/time-utils";
+import { replacePlaceholders } from "@/shared/utils/utils";
+import Card from "./Card";
 
 interface Props {
   d: Dictionary["whistoryPage"]["cards"]["whistoryEntriesSummary"];
@@ -36,7 +36,7 @@ export default function WhistoryEntriesSummaryCard({
               months: dateDiff.months,
               days: dateDiff.days,
             },
-            locale
+            locale,
           )}
         </p>
       </div>

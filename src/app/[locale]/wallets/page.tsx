@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
 import { getDictionary } from "@/dictionaries";
-import WalletsContainer from "./components/wallets-table/WalletsContainer";
 import Loading from "./components/wallets-table/Loading";
+import WalletsContainer from "./components/wallets-table/WalletsContainer";
 
 interface Props {
   params: {

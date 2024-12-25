@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import PrimaryButton from "../PrimaryButton";
 
@@ -16,7 +16,7 @@ describe("PrimaryButton", () => {
       "py-2",
       "text-white",
       "bg-black",
-      "cursor-pointer"
+      "cursor-pointer",
     );
   });
 

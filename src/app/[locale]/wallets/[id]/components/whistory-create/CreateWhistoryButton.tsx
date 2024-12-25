@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import CreateItemButton from "@/shared/components/buttons/CreateButton";
 import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
