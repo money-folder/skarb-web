@@ -1,8 +1,8 @@
 import WhistoryChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-changes-chart/WhistoryChangesChart";
 import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
 import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-chart/WalletHistoryChart";
-import { WithMounted } from "@/shared/components/WithMounted";
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
+import { WithMounted } from "@/shared/components/WithMounted";
 
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
 import {
