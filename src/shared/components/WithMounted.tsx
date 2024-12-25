@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useMounted } from "@/hooks/useMounted";
+import { useMounted } from "@/shared/hooks/useMounted";
 
 interface WithMoutedProps {
   children: React.ReactNode;

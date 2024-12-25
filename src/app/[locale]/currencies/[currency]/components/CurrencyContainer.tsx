@@ -3,8 +3,11 @@ import { WithMounted } from "@/components/WithMounted";
 import WhistoryComposedChart from "@/widgets/whistory-composed-chart/WhistoryComposedChart";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 import WhistoryComposedChangesChart from "@/widgets/whistory-composed-changes-chart/WhistoryComposedChangesChart";
-import { CHART_HEIGHT_DEFAULT, CHART_WIDTH_DEFAULT } from "@/constants/charts";
-import { Dictionary } from "@/types/locale";
+import {
+  CHART_HEIGHT_DEFAULT,
+  CHART_WIDTH_DEFAULT,
+} from "@/shared/constants/charts";
+import { Dictionary } from "@/shared/types/locale";
 
 interface Props {
   currency: string;

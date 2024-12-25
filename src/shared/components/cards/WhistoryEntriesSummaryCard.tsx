@@ -1,10 +1,10 @@
-import { replacePlaceholders } from "@/utils";
+import { replacePlaceholders } from "@/shared/utils/utils";
 import Card from "./Card";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 import {
   calculateDateDifference,
   formatDateDifference,
-} from "@/utils/time-utils";
+} from "@/shared/utils/time-utils";
 
 interface Props {
   d: Dictionary["whistoryPage"]["cards"]["whistoryEntriesSummary"];

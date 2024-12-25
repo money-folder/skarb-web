@@ -2,7 +2,7 @@
 
 import { createContext } from "react";
 
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 
 import en from "../dictionaries/en.json";
 

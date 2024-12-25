@@ -5,7 +5,7 @@ import {
 } from "@/types/wallets-history";
 import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
-import { ErrorCauses } from "@/types/errors";
+import { ErrorCauses } from "@/shared/types/errors";
 import { FetchWalletHistoryParams } from "@/types/wallets";
 
 const verifyWalletOwnership = async (userId: string, whistoryId: string) => {

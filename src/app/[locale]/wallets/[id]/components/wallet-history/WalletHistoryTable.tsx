@@ -5,7 +5,7 @@ import SoftDeleteButton from "../buttons/SoftDeleteButton";
 import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../buttons/DuplicateButton";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 
 interface Props {
   d: Dictionary["whistoryPage"]["whistoryTable"];

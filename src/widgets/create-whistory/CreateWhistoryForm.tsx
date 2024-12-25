@@ -5,7 +5,7 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 import SecondaryButton from "@/components/buttons/SecondaryButton";
 import { DictionaryContext } from "@/components/Dictionary";
 
-import { getLocalISOString } from "@/utils";
+import { getLocalISOString } from "@/shared/utils/utils";
 
 interface Props {
   create: (amount: number, ts: number, comment?: string) => void;

@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-import { getLocalISOString } from "@/utils";
-import { isValidDate } from "@/utils/time-utils";
-import { Dictionary } from "@/types/locale";
+import { getLocalISOString } from "@/shared/utils/utils";
+import { isValidDate } from "@/shared/utils/time-utils";
+import { Dictionary } from "@/shared/types/locale";
 
 interface Props {
   d: Dictionary["whistoryPage"]["filters"];

@@ -6,7 +6,7 @@ import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 import { SignOut } from "../SignOut";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 import { DEFAULT_LOCALE } from "@/locales";
 import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
 

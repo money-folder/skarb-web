@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from "react";
 
-import { generatePseudoUUID } from "@/utils";
+import { generatePseudoUUID } from "@/shared/utils/utils";
 
 interface GetOverlayNodeParams {
   removeSelf: () => void;

@@ -1,4 +1,4 @@
-import { DateDifference } from "@/utils/time-utils";
+import { DateDifference } from "@/shared/utils/time-utils";
 import { WhistoryDb } from "./wallets-history";
 
 export type WalletDb = {

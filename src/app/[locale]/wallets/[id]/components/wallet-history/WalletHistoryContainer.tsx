@@ -5,9 +5,12 @@ import { WithMounted } from "@/components/WithMounted";
 import WalletChangesSummaryCard from "@/components/cards/WalletChangesSummaryCard";
 
 import WalletHistoryTable from "./WalletHistoryTable";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 import WhistoryEntriesSummaryCard from "@/components/cards/WhistoryEntriesSummaryCard";
-import { CHART_HEIGHT_DEFAULT, CHART_WIDTH_DEFAULT } from "@/constants/charts";
+import {
+  CHART_HEIGHT_DEFAULT,
+  CHART_WIDTH_DEFAULT,
+} from "@/shared/constants/charts";
 
 interface WalletHistoryContainerProps {
   d: Dictionary["whistoryPage"];

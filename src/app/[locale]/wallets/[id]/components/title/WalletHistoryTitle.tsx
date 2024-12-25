@@ -1,5 +1,5 @@
 import { fetchWallet } from "@/app/[locale]/wallets/actions";
-import { replacePlaceholders } from "@/utils";
+import { replacePlaceholders } from "@/shared/utils/utils";
 
 interface Props {
   pageTitleTemplate: string;

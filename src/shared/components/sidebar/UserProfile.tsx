@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { auth } from "@/auth";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 import { SignIn } from "../SignIn";
 
 interface Props {

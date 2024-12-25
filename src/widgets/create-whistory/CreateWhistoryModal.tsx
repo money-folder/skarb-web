@@ -5,7 +5,7 @@ import Overlay from "@/components/overlay/Overlay";
 import { DictionaryContext } from "@/components/Dictionary";
 
 import AddWhistoryForm from "./CreateWhistoryForm";
-import { replacePlaceholders } from "@/utils";
+import { replacePlaceholders } from "@/shared/utils/utils";
 
 interface Props {
   walletId: string;

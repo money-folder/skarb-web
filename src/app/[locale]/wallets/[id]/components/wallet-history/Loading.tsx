@@ -1,4 +1,4 @@
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
 import LoadingRow from "./LoadingRow";
 
 interface Props {
