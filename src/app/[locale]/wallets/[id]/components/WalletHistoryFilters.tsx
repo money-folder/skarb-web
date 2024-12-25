@@ -47,7 +47,7 @@ const WalletHistoryFilters = ({ d }: Props) => {
   }, [watch, searchParams, replace, pathname]);
 
   return (
-    <form className="w-full flex flex-col justify-start items-start gap-2">
+    <form className="flex w-full flex-col items-start justify-start gap-2">
       <div className="flex gap-5">
         <label className="flex gap-3">
           <span>{d.form.fromLabel}</span>

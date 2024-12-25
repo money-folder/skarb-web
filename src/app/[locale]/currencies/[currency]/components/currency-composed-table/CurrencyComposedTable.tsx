@@ -12,20 +12,20 @@ export default async function CurrencyComposedTable({
   d,
 }: Props) {
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       <table className="w-full">
         <thead>
           <tr>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
+            <th className="w-2/12 border-2 border-black p-1 text-sm">
               {d.moneyAmount}
             </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
+            <th className="w-2/12 border-2 border-black p-1 text-sm">
               {d.changes}
             </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
+            <th className="w-2/12 border-2 border-black p-1 text-sm">
               {d.wallets}
             </th>
-            <th className="p-1 w-2/12 text-sm border-2 border-black">
+            <th className="w-2/12 border-2 border-black p-1 text-sm">
               {d.date}
             </th>
           </tr>
@@ -33,11 +33,11 @@ export default async function CurrencyComposedTable({
         <tbody>
           {[...walletHistory].reverse().map((wh) => (
             <tr key={wh.date.valueOf()}>
-              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+              <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 {wh.moneyAmount}
                 <br />
               </td>
-              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+              <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 <Changes
                   text={
                     wh.changes
@@ -49,8 +49,8 @@ export default async function CurrencyComposedTable({
                   isPositive={(wh.changes || 0) > 0}
                 />
               </td>
-              <td className="p-1 w-2/12 text-xs border-2 border-black">
-                <ul className="pl-5 list-disc">
+              <td className="w-2/12 border-2 border-black p-1 text-xs">
+                <ul className="list-disc pl-5">
                   {wh.whistories.map((wh2) => (
                     <li
                       key={wh2.id}
@@ -58,7 +58,7 @@ export default async function CurrencyComposedTable({
                   ))}
                 </ul>
               </td>
-              <td className="p-1 w-2/12 text-sm text-center border-2 border-black">
+              <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 {wh.date.toLocaleString()}
               </td>
             </tr>

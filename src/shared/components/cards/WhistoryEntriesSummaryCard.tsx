@@ -24,7 +24,7 @@ export default function WhistoryEntriesSummaryCard({
   const dateDiff = calculateDateDifference(startDate, endDate);
   return (
     <Card>
-      <div className="h-full flex flex-col items-center justify-start">
+      <div className="flex h-full flex-col items-center justify-start">
         <h4 className="mb-1 font-extrabold">
           {replacePlaceholders(d.title, { entriesCount: `${entriesCount}` })}
         </h4>

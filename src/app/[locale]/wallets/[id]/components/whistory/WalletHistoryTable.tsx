@@ -18,19 +18,19 @@ export default function WalletHistoryTable({ d, walletHistory }: Props) {
       <table className="w-full">
         <thead>
           <tr>
-            <th className="p-1 w-2/12 text-xs border-2 border-black">
+            <th className="w-2/12 border-2 border-black p-1 text-xs">
               {d.balance}
             </th>
-            <th className="p-1 w-2/12 text-xs border-2 border-black">
+            <th className="w-2/12 border-2 border-black p-1 text-xs">
               {d.date}
             </th>
-            <th className="p-1 w-4/12 text-xs border-2 border-black">
+            <th className="w-4/12 border-2 border-black p-1 text-xs">
               {d.changes}
             </th>
-            <th className="p-1 w-3/12 text-xs border-2 border-black">
+            <th className="w-3/12 border-2 border-black p-1 text-xs">
               {d.comment}
             </th>
-            <th className="p-1 w-1/12 text-xs border-2 border-black">
+            <th className="w-1/12 border-2 border-black p-1 text-xs">
               {d.actions}
             </th>
           </tr>
@@ -39,21 +39,21 @@ export default function WalletHistoryTable({ d, walletHistory }: Props) {
           {[...walletHistory].reverse().map((whistory) => (
             <tr key={whistory.id}>
               <td
-                className={`p-1 text-xs text-center border-2 border-black ${
+                className={`border-2 border-black p-1 text-center text-xs ${
                   whistory.deletedAt ? "opacity-30" : ""
                 }`}
               >
                 {whistory.moneyAmount}
               </td>
               <td
-                className={`p-1 text-xs text-center border-2 border-black ${
+                className={`border-2 border-black p-1 text-center text-xs ${
                   whistory.deletedAt ? "opacity-30" : ""
                 }`}
               >
                 {whistory.date.toLocaleString().split(", ")[0]}
               </td>
               <td
-                className={`p-1 text-xs text-center border-2 border-black ${
+                className={`border-2 border-black p-1 text-center text-xs ${
                   whistory.deletedAt ? "opacity-30" : ""
                 }`}
               >
@@ -69,12 +69,12 @@ export default function WalletHistoryTable({ d, walletHistory }: Props) {
                 />
               </td>
               <td
-                className={`p-1 space-x-2 text-xs text-center border-2 border-black`}
+                className={`space-x-2 border-2 border-black p-1 text-center text-xs`}
               >
                 {whistory.comment || `-`}
               </td>
               <td
-                className={`p-1 space-x-2 text-xs text-center border-2 border-black`}
+                className={`space-x-2 border-2 border-black p-1 text-center text-xs`}
               >
                 {whistory.deletedAt ? (
                   <>

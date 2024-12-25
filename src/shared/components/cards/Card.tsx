@@ -4,7 +4,7 @@ interface Props {
 
 export default function Card({ children }: Props) {
   return (
-    <div className="h-[90px] w-[180px] flex justify-center items-center border-b-2 border-black">
+    <div className="flex h-[90px] w-[180px] items-center justify-center border-b-2 border-black">
       {children}
     </div>
   );

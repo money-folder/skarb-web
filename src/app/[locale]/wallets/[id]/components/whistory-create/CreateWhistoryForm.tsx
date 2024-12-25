@@ -26,33 +26,33 @@ const AddWhistoryForm = ({ create, close }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-2">
-        <label className="mt-2 w-full flex flex-col items-start">
+        <label className="mt-2 flex w-full flex-col items-start">
           <span>{d.modals.createWhistory.form.dateLabel}</span>
           <input
             {...register("date", { required: true, valueAsDate: true })}
-            className="px-2 border-[1px] border-black rounded-sm"
+            className="rounded-sm border-[1px] border-black px-2"
             type="datetime-local"
             defaultValue={getLocalISOString(new Date())}
           />
         </label>
 
-        <label className="w-full flex flex-col items-start">
+        <label className="flex w-full flex-col items-start">
           <span>{d.modals.createWhistory.form.amountLabel}</span>
           <input
             {...register("amount", { required: true, valueAsNumber: true })}
-            className="px-2 border-[1px] border-black rounded-sm"
+            className="rounded-sm border-[1px] border-black px-2"
             type="number"
             step={0.01}
             autoFocus
           />
         </label>
 
-        <label className="w-full flex flex-col items-start">
+        <label className="flex w-full flex-col items-start">
           <span>{d.modals.createWhistory.form.commentLabel}</span>
           <textarea
             {...register("comment", { required: false })}
             maxLength={255}
-            className="px-2 w-full border-[1px] border-black rounded-sm"
+            className="w-full rounded-sm border-[1px] border-black px-2"
           />
         </label>
       </div>

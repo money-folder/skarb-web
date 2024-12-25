@@ -24,13 +24,13 @@ export default async function Sidebar({ d, locale }: Props) {
   ]);
 
   return (
-    <div className="p-5 w-[225px] h-full flex flex-col border-r-2 border-r-black">
+    <div className="flex h-full w-[225px] flex-col border-r-2 border-r-black p-5">
       <UserProfile d={d} />
 
       <ul className="mt-5 flex-grow">
         {walletsResponse.data ? (
           <>
-            <li className="w-full flex justify-between gap-2 overflow-hidden truncate">
+            <li className="flex w-full justify-between gap-2 overflow-hidden truncate">
               <NavLink
                 activeClassName="text-white bg-black"
                 href={`${
@@ -49,7 +49,7 @@ export default async function Sidebar({ d, locale }: Props) {
               {walletsResponse.data.map((w) => (
                 <li
                   key={w.id}
-                  className="w-full flex justify-between gap-2 overflow-hidden truncate"
+                  className="flex w-full justify-between gap-2 overflow-hidden truncate"
                 >
                   <NavLink
                     className="overflow-hidden text-ellipsis"

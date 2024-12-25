@@ -29,7 +29,7 @@ export default async function CurrencyContainer({
   }
 
   return (
-    <div className="h-full w-full grid gap-5 grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr]">
+    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-1 row-span-1 overflow-auto">
         <CurrencyComposedTable
           d={d.currencyTable}
@@ -37,7 +37,7 @@ export default async function CurrencyContainer({
         />
       </div>
 
-      <div className="overflow-y-auto col-span-1 row-span-1 flex flex-col justify-start items-center">
+      <div className="col-span-1 row-span-1 flex flex-col items-center justify-start overflow-y-auto">
         <WithMounted>
           <WhistoryComposedChart
             width={CHART_WIDTH_DEFAULT}
