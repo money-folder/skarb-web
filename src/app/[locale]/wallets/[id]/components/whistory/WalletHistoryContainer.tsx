@@ -1,8 +1,8 @@
-import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-chart/WalletHistoryChart";
 import WhistoryChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-changes-chart/WhistoryChangesChart";
-import { WithMounted } from "@/shared/components/WithMounted";
 import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
+import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-chart/WalletHistoryChart";
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
+import { WithMounted } from "@/shared/components/WithMounted";
 
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
 import {
@@ -33,7 +33,7 @@ export default async function WalletHistoryContainer({
   });
 
   return walletHistory ? (
-    <div className="w-full grid h-full  grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
+    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
         <WalletChangesSummaryCard
           text={d.cards.walletChangesSummary.title}
