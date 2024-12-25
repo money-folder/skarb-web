@@ -12,7 +12,7 @@ import {
   getCurrentUserCurrencyWhistory,
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
-} from "@/services/wallets-history";
+} from "@/app/[locale]/wallets/[id]/services";
 import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
 
 export const fetchWalletHistory = async (

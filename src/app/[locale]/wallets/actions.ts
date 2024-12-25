@@ -9,7 +9,7 @@ import {
   getCurrentUserWallet,
   getCurrentUserWallets,
   unarchiveSelfWallet,
-} from "@/services/wallets";
+} from "@/app/[locale]/wallets/services";
 import { CreateWalletRequestDto } from "@/types/wallets";
 import { createWalletRequestSchema } from "@/app/[locale]/wallets/validation";
 
