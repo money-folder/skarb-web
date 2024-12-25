@@ -35,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${inter.className} w-full h-screen overflow-hidden grid grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr,_auto]`}
+        className={`${inter.className} grid h-screen w-full grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr,_auto] overflow-hidden`}
       >
         <DictionaryProvider d={d}>
           <OverlayProvider>
@@ -45,10 +45,10 @@ export default async function RootLayout({
               </Suspense>
             </div>
 
-            <div className="p-5 col-span-2 row-span-2">{children}</div>
+            <div className="col-span-2 row-span-2 p-5">{children}</div>
 
-            <footer className="p-1 col-span-2 row-span-1 flex justify-end bg-black">
-              <ul className="px-5 flex gap-4 text-xs">
+            <footer className="col-span-2 row-span-1 flex justify-end bg-black p-1">
+              <ul className="flex gap-4 px-5 text-xs">
                 <li className="text-white hover:underline">
                   {/* eslint-disable-next-line react/jsx-no-literals */}
                   <Link href="/wallets">In English</Link>

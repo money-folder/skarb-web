@@ -8,7 +8,7 @@ const PrimaryButton = ({ type, text, onClick }: PrimarySubmitProps) => {
   return (
     <button
       type={type}
-      className="px-5 py-2 text-white bg-black cursor-pointer"
+      className="cursor-pointer bg-black px-5 py-2 text-white"
       onClick={onClick}
     >
       {text}

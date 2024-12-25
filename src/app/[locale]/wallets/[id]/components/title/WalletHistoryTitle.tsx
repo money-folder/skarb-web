@@ -13,7 +13,7 @@ export default async function WalletHistoryTitle({
   const wallet = await fetchWallet(walletId);
 
   return (
-    <h1 className="w-full col-span-3 row-span-1 text-center font-extrabold text-lg">
+    <h1 className="col-span-3 row-span-1 w-full text-center text-lg font-extrabold">
       {replacePlaceholders(pageTitleTemplate, {
         walletName: wallet?.data?.name ? `${wallet.data.name}` : `Wallet`,
       })}

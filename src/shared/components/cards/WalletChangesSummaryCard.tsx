@@ -16,7 +16,7 @@ export default function WalletChangesSummaryCard({
 }: Props) {
   return (
     <Card>
-      <div className="h-full flex flex-col items-end justify-start">
+      <div className="flex h-full flex-col items-end justify-start">
         <h4 className="mb-1 font-extrabold">{text}</h4>
         <p className="text-xs">
           <Changes text={increases.toFixed(2)} isPositive />

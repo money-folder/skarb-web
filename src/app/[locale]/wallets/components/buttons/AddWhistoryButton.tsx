@@ -28,7 +28,7 @@ export default function AddWhistoryButton({ walletId, walletName }: Props) {
 
   return (
     <button
-      className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+      className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={onClick}
     >
       <Image src={PlusIcon} alt="create" />

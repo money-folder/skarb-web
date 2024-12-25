@@ -19,7 +19,7 @@ export default async function WalletHistory({
   const d = await getDictionary(locale);
 
   return (
-    <main className="w-full h-full grid grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
+    <main className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
       <Suspense fallback={<WalletHistoryTitleLoading />}>
         <WalletHistoryTitle
           pageTitleTemplate={d.whistoryPage.title}
@@ -27,11 +27,11 @@ export default async function WalletHistory({
         />
       </Suspense>
 
-      <div className="p-2 w-full flex justify-center items-center col-span-3 row-span-1 bg-gray-200 rounded-lg">
+      <div className="col-span-3 row-span-1 flex w-full items-center justify-center rounded-lg bg-gray-200 p-2">
         <WalletHistoryFilters d={d.whistoryPage.filters} />
       </div>
 
-      <div className="h-full row-span-1 col-span-2 flex gap-5 overflow-hidden">
+      <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden">
         <Suspense fallback={<Loading d={d.whistoryPage.whistoryTable} />}>
           <WalletHistoryContainer
             locale={locale}

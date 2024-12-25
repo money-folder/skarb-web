@@ -22,10 +22,10 @@ const CreateWalletModal = ({ close }: Props) => {
     <div onClick={close}>
       <Overlay>
         <div
-          className="p-5 w-96 bg-white rounded-xl"
+          className="w-96 rounded-xl bg-white p-5"
           onClick={(e) => e.stopPropagation()}
         >
-          <h3 className="text-left font-bold text-lg">
+          <h3 className="text-left text-lg font-bold">
             {d.modals.createWallet.title}
           </h3>
           <CreateWalletForm create={createWallet} close={close} />

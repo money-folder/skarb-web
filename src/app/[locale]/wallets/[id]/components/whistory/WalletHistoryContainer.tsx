@@ -33,7 +33,7 @@ export default async function WalletHistoryContainer({
   });
 
   return walletHistory ? (
-    <div className="h-full w-full grid gap-5 grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr]">
+    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
         <WalletChangesSummaryCard
           text={d.cards.walletChangesSummary.title}
@@ -55,7 +55,7 @@ export default async function WalletHistoryContainer({
         ) : null}
       </div>
 
-      <div className="w-full h-full max-w-[550px] overflow-auto col-span-1 row-span-1 flex flex-col">
+      <div className="col-span-1 row-span-1 flex h-full w-full max-w-[550px] flex-col overflow-auto">
         {walletHistory.whistory.length ? (
           <WalletHistoryTable
             d={d.whistoryTable}
@@ -67,7 +67,7 @@ export default async function WalletHistoryContainer({
       </div>
 
       <div className="h-full w-full overflow-y-auto">
-        <div className="h-full w-full col-span-1 row-span-1 flex justify-between flex-col">
+        <div className="col-span-1 row-span-1 flex h-full w-full flex-col justify-between">
           {walletHistory.whistory.length > 1 ? (
             <>
               <WithMounted>

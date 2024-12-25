@@ -24,20 +24,20 @@ const CreateWalletForm = ({ create, close }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-2">
-        <label className="mt-2 w-full flex flex-col items-start">
+        <label className="mt-2 flex w-full flex-col items-start">
           <span>{d.modals.createWallet.form.nameLabel}</span>
           <input
             {...register("name", { required: true, maxLength: 255 })}
-            className="px-2 border-[1px] border-black rounded-sm"
+            className="rounded-sm border-[1px] border-black px-2"
             autoFocus
           />
         </label>
 
-        <label className="mt-2 w-full flex flex-col items-start">
+        <label className="mt-2 flex w-full flex-col items-start">
           <span>{d.modals.createWallet.form.currencyLabel}</span>
           <input
             {...register("currency", { required: true, maxLength: 63 })}
-            className="px-2 border-[1px] border-black rounded-sm"
+            className="rounded-sm border-[1px] border-black px-2"
           />
         </label>
       </div>
