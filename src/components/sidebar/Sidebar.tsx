@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { fetchCurrentUserWallets } from "@/actions/wallets";
+import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
 import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
 
@@ -8,7 +8,7 @@ import UserProfile from "./UserProfile";
 import { SignOut } from "../SignOut";
 import { Dictionary } from "@/types/locale";
 import { DEFAULT_LOCALE } from "@/locales";
-import { fetchCurrentUserCurrencies } from "@/actions/currencies";
+import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
 
 interface Props {
   locale: string;

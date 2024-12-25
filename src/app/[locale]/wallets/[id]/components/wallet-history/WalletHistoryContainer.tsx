@@ -1,4 +1,4 @@
-import { fetchWalletHistory } from "@/actions/wallet-history";
+import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
 import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
 import WhistoryChangesChart from "@/widgets/whistory-changes-chart/WhistoryChangesChart";
 import { WithMounted } from "@/components/WithMounted";

@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import Overlay from "@/components/overlay/Overlay";
 
-import { create } from "@/actions/wallets";
+import { create } from "@/app/[locale]/wallets/actions";
 
 import CreateWalletForm from "./CreateWalletForm";
 import { DictionaryContext } from "@/components/Dictionary";

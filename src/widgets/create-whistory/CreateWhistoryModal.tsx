@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { create } from "@/actions/wallet-history";
+import { create } from "@/app/[locale]/wallets/[id]/actions";
 import Overlay from "@/components/overlay/Overlay";
 import { DictionaryContext } from "@/components/Dictionary";
 

@@ -1,4 +1,4 @@
-import { fetchWallet } from "@/actions/wallets";
+import { fetchWallet } from "@/app/[locale]/wallets/actions";
 import { replacePlaceholders } from "@/utils";
 
 interface Props {
