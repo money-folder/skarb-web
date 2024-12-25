@@ -1,7 +1,7 @@
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 
 export const getWhistoryAbsChangesData = (
-  whistoryList: ClientWhistoryDto[]
+  whistoryList: ClientWhistoryDto[],
 ) => {
   const result = [];
 

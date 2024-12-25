@@ -1,12 +1,12 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-import { getLocalISOString } from "@/shared/utils/utils";
-import { isValidDate } from "@/shared/utils/time-utils";
 import { DictionaryContext } from "@/shared/components/Dictionary";
+import { isValidDate } from "@/shared/utils/time-utils";
+import { getLocalISOString } from "@/shared/utils/utils";
 
 const CurrencyComposedFilters = () => {
   const searchParams = useSearchParams();

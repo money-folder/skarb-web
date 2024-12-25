@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 
-import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
 import {
   archiveSelfWhistory,
   createWhistory,
@@ -12,12 +11,13 @@ import {
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
 } from "@/app/[locale]/wallets/[id]/services";
+import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
 import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
 import { FetchWalletHistoryParams } from "../types";
 
 export const fetchWalletHistory = async (
   walletId: string,
-  params?: FetchWalletHistoryParams
+  params?: FetchWalletHistoryParams,
 ) => {
   try {
     const walletHistory = await getCurrentUserWalletHistory(walletId, params);
@@ -30,7 +30,7 @@ export const fetchWalletHistory = async (
 
 export const fetchWhistoryByCurrency = async (
   currency: string,
-  params: FetchWalletHistoryParams
+  params: FetchWalletHistoryParams,
 ) => {
   try {
     const whistory = await getCurrentUserCurrencyWhistory(currency, params);
@@ -48,7 +48,7 @@ export async function create(dto: CreateWhistoryRequestDto) {
       console.error("Create whistory validation failed", dto);
       throw new Error(
         "Create whistory validation failed",
-        validationResult.error
+        validationResult.error,
       );
     }
 

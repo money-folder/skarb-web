@@ -14,23 +14,24 @@ export function middleware(request: NextRequest) {
       new URL(
         pathname.replace(
           `/${DEFAULT_LOCALE}`,
-          pathname === `/${DEFAULT_LOCALE}` ? "/" : ""
+          pathname === `/${DEFAULT_LOCALE}` ? "/" : "",
         ),
-        request.url
-      )
+        request.url,
+      ),
     );
   }
 
   const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    (locale) =>
+      !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
   if (pathnameIsMissingLocale) {
     return NextResponse.rewrite(
       new URL(
         `/${DEFAULT_LOCALE}${pathname}${request.nextUrl.search}`,
-        request.nextUrl.href
-      )
+        request.nextUrl.href,
+      ),
     );
   }
 }

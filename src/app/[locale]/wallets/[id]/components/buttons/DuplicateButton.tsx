@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 
-import DuplicateIcon from "@/assets/duplicate.svg";
 import { duplicate } from "@/app/[locale]/wallets/[id]/actions";
+import DuplicateIcon from "@/assets/duplicate.svg";
 
 interface Props {
   walletId: string;

@@ -1,12 +1,12 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-import { getLocalISOString } from "@/shared/utils/utils";
-import { isValidDate } from "@/shared/utils/time-utils";
 import { Dictionary } from "@/shared/types/locale";
+import { isValidDate } from "@/shared/utils/time-utils";
+import { getLocalISOString } from "@/shared/utils/utils";
 
 interface Props {
   d: Dictionary["whistoryPage"]["filters"];

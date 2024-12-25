@@ -3,12 +3,12 @@ import Link from "next/link";
 
 import { formatDateDifference } from "@/shared/utils/time-utils";
 
+import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 import Changes from "../Changes";
 import AddWhistoryButton from "../buttons/AddWhistoryButton";
-import SoftDeleteButton from "../buttons/SoftDeleteButton";
-import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
-import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
+import RestoreButton from "../buttons/RestoreButton";
+import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 import OpenIcon from "@/assets/open.svg";
 import { Dictionary } from "@/shared/types/locale";
@@ -99,7 +99,7 @@ export default function WalletsTable({
                       hours: wallet.sinceLatestBallanceTs.hours,
                       minutes: wallet.sinceLatestBallanceTs.minutes,
                     },
-                    locale
+                    locale,
                   )
                 : "-"}
             </td>

@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import { create } from "@/app/[locale]/wallets/[id]/actions";
-import Overlay from "@/shared/components/overlay/Overlay";
 import { DictionaryContext } from "@/shared/components/Dictionary";
+import Overlay from "@/shared/components/overlay/Overlay";
 
-import AddWhistoryForm from "./CreateWhistoryForm";
 import { replacePlaceholders } from "@/shared/utils/utils";
+import AddWhistoryForm from "./CreateWhistoryForm";
 
 interface Props {
   walletId: string;
@@ -19,7 +19,7 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
   const createWhistory = async (
     moneyAmount: number,
     date: number,
-    comment?: string
+    comment?: string,
   ) => {
     await create({ walletId, moneyAmount, date, comment });
   };

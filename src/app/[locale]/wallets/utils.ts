@@ -14,5 +14,5 @@ export const groupByCurrency = (wallets: ClientWalletDto[]) =>
       }
 
       return acc;
-    }, {})
+    }, {}),
   ).map(([currency, moneyAmount]) => ({ currency, moneyAmount }));

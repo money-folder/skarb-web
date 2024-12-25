@@ -1,10 +1,10 @@
-import { auth } from "@/auth";
+import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
 import {
   CreateWhistoryRequestDto,
   WhistoryDbWithWallet,
 } from "@/app/[locale]/wallets/[id]/types";
-import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
+import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 import { FetchWalletHistoryParams } from "../types";
 
@@ -19,7 +19,7 @@ export const getWalletHistory = async (walletId: string) => {
 
 export const getCurrentUserWalletHistory = async (
   walletId: string,
-  params?: FetchWalletHistoryParams
+  params?: FetchWalletHistoryParams,
 ) => {
   const session = await auth();
   if (!session?.user?.id) {
@@ -29,7 +29,7 @@ export const getCurrentUserWalletHistory = async (
   const walletHistory = await whistoryRepository.findUserWallet(
     session.user.id,
     walletId,
-    params
+    params,
   );
 
   if (!walletHistory) {
@@ -59,7 +59,7 @@ export const getCurrentUserWalletHistory = async (
 
       return acc;
     },
-    { increasesSum: 0, decreasesSum: 0 }
+    { increasesSum: 0, decreasesSum: 0 },
   );
 
   const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
@@ -69,7 +69,7 @@ export const getCurrentUserWalletHistory = async (
 
 const getUserWalletsHistoryByCurrency = async (
   userId: string,
-  currency: string
+  currency: string,
 ) => {
   const wallets = await walletsRepository.findByUserCurrency(userId, currency);
 
@@ -77,7 +77,7 @@ const getUserWalletsHistoryByCurrency = async (
     (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
       ...wh,
       wallet: w,
-    }))
+    })),
   );
 
   const whistories = await Promise.all(whPromises);
@@ -89,7 +89,7 @@ const getUserWalletsHistoryByCurrency = async (
 
 export const getCurrentUserCurrencyWhistory = async (
   currency: string,
-  params: FetchWalletHistoryParams
+  params: FetchWalletHistoryParams,
 ) => {
   const session = await auth();
   if (!session?.user?.id) {
@@ -98,7 +98,7 @@ export const getCurrentUserCurrencyWhistory = async (
 
   const whistory = await getUserWalletsHistoryByCurrency(
     session.user.id,
-    currency
+    currency,
   );
 
   const dataByWallets = whistory.reduce<{
@@ -167,7 +167,7 @@ export const getCurrentUserCurrencyWhistory = async (
     return {
       date: mwg.date,
       whistories: list.sort((a, b) =>
-        a.wallet.name.localeCompare(b.wallet.name)
+        a.wallet.name.localeCompare(b.wallet.name),
       ),
       moneyAmount: curMoneyAmount,
       changes: prevMoneyAmount

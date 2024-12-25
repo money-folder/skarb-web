@@ -1,13 +1,13 @@
+import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
+import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
 import { fetchWhistoryByCurrency } from "@/app/[locale]/wallets/[id]/actions";
 import { WithMounted } from "@/shared/components/WithMounted";
-import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
-import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
-import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
 import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 import { Dictionary } from "@/shared/types/locale";
+import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 
 interface Props {
   currency: string;
