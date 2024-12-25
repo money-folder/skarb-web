@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
-import CreateWhistoryButton from "@/widgets/create-whistory/CreateWhistoryButton";
-import CreateWalletButton from "@/widgets/create-wallet/CreateWalletButton";
+import CreateWhistoryButton from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryButton";
+import CreateWalletButton from "@/app/[locale]/wallets/components/create-wallet/CreateWalletButton";
 
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";

@@ -1,6 +1,6 @@
 import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
-import WalletHistoryChart from "@/widgets/wallet-history-chart/WalletHistoryChart";
-import WhistoryChangesChart from "@/widgets/whistory-changes-chart/WhistoryChangesChart";
+import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-chart/WalletHistoryChart";
+import WhistoryChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-changes-chart/WhistoryChangesChart";
 import { WithMounted } from "@/shared/components/WithMounted";
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 

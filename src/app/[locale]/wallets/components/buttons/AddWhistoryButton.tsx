@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useContext } from "react";
 
-import CreateWhistoryModal from "@/widgets/create-whistory/CreateWhistoryModal";
+import CreateWhistoryModal from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryModal";
 import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
 import PlusIcon from "@/assets/plus.svg";

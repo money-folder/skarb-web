@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import WalletHistoryContainer from "./components/wallet-history/WalletHistoryContainer";
-import Loading from "./components/wallet-history/Loading";
+import WalletHistoryContainer from "./components/whistory/WalletHistoryContainer";
+import Loading from "./components/whistory/Loading";
 import WalletHistoryFilters from "./components/WalletHistoryFilters";
 import { getDictionary } from "@/dictionaries";
 import WalletHistoryTitle from "./components/title/WalletHistoryTitle";
