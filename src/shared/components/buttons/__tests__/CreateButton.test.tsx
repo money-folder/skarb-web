@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import CreateButton from "../CreateButton";
 
-// Mock next/image
 jest.mock("next/image", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,7 +18,6 @@ jest.mock("next/image", () => ({
   },
 }));
 
-// Mock the SVG import
 jest.mock("@/assets/plus.svg", () => ({
   src: "/mock-plus-icon.svg",
   height: 16,
@@ -30,23 +28,17 @@ describe("CreateButton", () => {
   it("renders with plus icon and without text when text prop is not provided", () => {
     render(<CreateButton onClick={() => {}} />);
 
-    // Check if icon is rendered
     const icon = screen.getByAltText("plus");
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute("width", "16");
     expect(icon).toHaveAttribute("height", "16");
-
-    // Verify text is not rendered
     expect(screen.queryByText("Add Item")).not.toBeInTheDocument();
   });
 
   it("renders with plus icon and text when text prop is provided", () => {
     render(<CreateButton text="Add Item" onClick={() => {}} />);
 
-    // Check if icon is rendered
     expect(screen.getByAltText("plus")).toBeInTheDocument();
-
-    // Check if text is rendered
     expect(screen.getByText("Add Item")).toBeInTheDocument();
   });
 
