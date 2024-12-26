@@ -3,5 +3,6 @@
     "prettier-plugin-organize-imports",
     "prettier-plugin-tailwindcss"
   ],
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "organizeImportsSkipDestructiveCodeActions": true
 }
