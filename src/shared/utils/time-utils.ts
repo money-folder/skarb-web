@@ -7,27 +7,56 @@ export interface DateDifference {
   seconds: number;
 }
 
-const millisecondsInSecond = 1000;
-const millisecondsInMinute = millisecondsInSecond * 60;
-const millisecondsInHour = millisecondsInMinute * 60;
-const millisecondsInDay = millisecondsInHour * 24;
-const millisecondsInMonth = millisecondsInDay * 30;
-const millisecondsInYear = millisecondsInDay * 365;
-
 export const calculateDateDifference = (
   date1: Date,
   date2: Date,
 ): DateDifference => {
-  let diff = Math.abs(date1.getTime() - date2.getTime());
+  const startDate = date1 < date2 ? new Date(date1) : new Date(date2);
+  const endDate = date1 < date2 ? new Date(date2) : new Date(date1);
 
-  const years = Math.floor(diff / millisecondsInYear);
-  diff -= years * millisecondsInYear;
+  let years = 0;
+  let months = 0;
+  let days = 0;
 
-  const months = Math.floor(diff / millisecondsInMonth);
-  diff -= months * millisecondsInMonth;
+  while (
+    new Date(
+      startDate.getFullYear() + 1,
+      startDate.getMonth(),
+      startDate.getDate(),
+    ) <= endDate
+  ) {
+    years++;
+    startDate.setFullYear(startDate.getFullYear() + 1);
+  }
 
-  const days = Math.floor(diff / millisecondsInDay);
-  diff -= days * millisecondsInDay;
+  while (
+    new Date(
+      startDate.getFullYear(),
+      startDate.getMonth() + 1,
+      startDate.getDate(),
+    ) <= endDate
+  ) {
+    months++;
+    startDate.setMonth(startDate.getMonth() + 1);
+  }
+
+  while (startDate < endDate) {
+    startDate.setDate(startDate.getDate() + 1);
+    days++;
+  }
+
+  if (startDate > endDate) {
+    startDate.setDate(startDate.getDate() - 1);
+    days--;
+  }
+
+  const remainingDiff = endDate.getTime() - startDate.getTime();
+
+  const millisecondsInSecond = 1000;
+  const millisecondsInMinute = millisecondsInSecond * 60;
+  const millisecondsInHour = millisecondsInMinute * 60;
+
+  let diff = remainingDiff;
 
   const hours = Math.floor(diff / millisecondsInHour);
   diff -= hours * millisecondsInHour;
