@@ -4,7 +4,10 @@ import { ErrorCauses } from "@/shared/types/errors";
 import { calculateDateDifference } from "@/shared/utils/time-utils";
 import { ClientWalletDto, CreateWalletRequestDto } from "./types";
 
-const verifyWalletOwnership = async (userId: string, walletId: string) => {
+export const verifyWalletOwnership = async (
+  userId: string,
+  walletId: string,
+) => {
   const wallet = await walletsRepository.findById(walletId);
   return !!wallet && wallet.ownerId === userId;
 };
@@ -80,7 +83,7 @@ export const archiveSelfWallet = async (id: string) => {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await walletsRepository.archive(id);
+  return walletsRepository.archive(id);
 };
 
 export const unarchiveSelfWallet = async (id: string) => {
@@ -94,7 +97,7 @@ export const unarchiveSelfWallet = async (id: string) => {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await walletsRepository.unarchive(id);
+  return walletsRepository.unarchive(id);
 };
 
 export const destroySelfWallet = async (id: string) => {
@@ -108,5 +111,5 @@ export const destroySelfWallet = async (id: string) => {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await walletsRepository.destroy(id);
+  return walletsRepository.destroy(id);
 };

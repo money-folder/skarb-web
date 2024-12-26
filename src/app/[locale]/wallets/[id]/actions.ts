@@ -10,7 +10,7 @@ import {
   getCurrentUserCurrencyWhistory,
   getCurrentUserWalletHistory,
   unarchiveSelfWhistory,
-} from "@/app/[locale]/wallets/[id]/services";
+} from "@/app/[locale]/wallets/[id]/service";
 import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
 import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
 import { FetchWalletHistoryParams } from "../types";

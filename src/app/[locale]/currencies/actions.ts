@@ -1,6 +1,6 @@
 "use server";
 
-import { getCurrentUserCurrencies } from "@/app/[locale]/currencies/services";
+import { getCurrentUserCurrencies } from "@/app/[locale]/currencies/service";
 
 export const fetchCurrentUserCurrencies = async () => {
   try {
