@@ -1,20 +1,27 @@
 import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
-import {
-  CreateWhistoryRequestDto,
-  WhistoryDbWithWallet,
-} from "@/app/[locale]/wallets/[id]/types";
+import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
-import { FetchWalletHistoryParams } from "../types";
 
-const verifyWalletOwnership = async (userId: string, whistoryId: string) => {
+import { FetchWalletHistoryParams } from "../types";
+import {
+  composeWhistoryMoneyAmount,
+  getWhistoryWithinInterval,
+  groupWhistoryByDate,
+  groupWhistoryByWallets,
+} from "./utils";
+
+export const verifyWhistoryOwnership = async (
+  userId: string,
+  whistoryId: string,
+) => {
   const wallet = await whistoryRepository.findWallet(whistoryId);
   return !!wallet && wallet.ownerId === userId;
 };
 
 export const getWalletHistory = async (walletId: string) => {
-  return await whistoryRepository.findByWallet(walletId);
+  return whistoryRepository.findByWallet(walletId);
 };
 
 export const getCurrentUserWalletHistory = async (
@@ -67,7 +74,7 @@ export const getCurrentUserWalletHistory = async (
   return { whistory, increasesDecreasesDiff, ...sums };
 };
 
-const getUserWalletsHistoryByCurrency = async (
+export const getUserWalletsHistoryByCurrency = async (
   userId: string,
   currency: string,
 ) => {
@@ -101,102 +108,23 @@ export const getCurrentUserCurrencyWhistory = async (
     currency,
   );
 
-  const dataByWallets = whistory.reduce<{
-    [key: string]: WhistoryDbWithWallet[];
-  }>((acc, item) => {
-    if (!acc[item.walletId]) {
-      return { ...acc, [item.walletId]: [item] };
-    }
-
-    return { ...acc, [item.walletId]: [...acc[item.walletId], item] };
-  }, {});
-
-  const earliestEntryDate = whistory[0]?.date;
-  const latestEntryDate = whistory[whistory.length - 1]?.date;
-  let currentDate = new Date(earliestEntryDate);
-
-  let touchedIntervalEnd = false;
-  const dataByWalletsList = Object.values(dataByWallets);
-  const mergedWhistoryGroups = [];
-  while (currentDate <= latestEntryDate) {
-    const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
-
-    dataByWalletsList.forEach((dbw) => {
-      let latestEntry = null;
-      while (dbw[0] && dbw[0].date <= currentDate) {
-        latestEntry = dbw.shift();
-      }
-
-      if (latestEntry) {
-        whistoriesToMerge[latestEntry.walletId] = latestEntry;
-      }
-    });
-
-    const lastMergedWhistoryGroup =
-      mergedWhistoryGroups[mergedWhistoryGroups.length - 1];
-
-    Object.values(lastMergedWhistoryGroup?.walletsMap || {}).forEach((lmwg) => {
-      if (!whistoriesToMerge[lmwg.walletId]) {
-        whistoriesToMerge[lmwg.walletId] = lmwg;
-      }
-    });
-
-    mergedWhistoryGroups.push({
-      walletsMap: { ...whistoriesToMerge },
-      date: new Date(currentDate),
-    });
-
-    currentDate.setDate(currentDate.getDate() + 1);
-    if (!touchedIntervalEnd && currentDate > latestEntryDate) {
-      currentDate = new Date(latestEntryDate);
-      touchedIntervalEnd = true;
-    }
+  const intervalWhistory = getWhistoryWithinInterval(whistory, params);
+  const dataByWallets = groupWhistoryByWallets(intervalWhistory);
+  if (!Object.keys(dataByWallets).length) {
+    return [];
   }
 
-  let composedWhistory = mergedWhistoryGroups.map((mwg, i, array) => {
-    const list = Object.values(mwg.walletsMap);
+  const mergedWhistoryGroups = groupWhistoryByDate(
+    intervalWhistory[0]?.date,
+    intervalWhistory[intervalWhistory.length - 1]?.date,
+    dataByWallets,
+  );
 
-    const calculateMoneyAmount = (walletsList: WhistoryDbWithWallet[]) =>
-      +walletsList.reduce((acc, item) => acc + item.moneyAmount, 0).toFixed(2);
-
-    const curMoneyAmount = calculateMoneyAmount(list);
-    const prevMoneyAmount = array[i - 1]
-      ? calculateMoneyAmount(Object.values(array[i - 1].walletsMap))
-      : null;
-
-    return {
-      date: mwg.date,
-      whistories: list.sort((a, b) =>
-        a.wallet.name.localeCompare(b.wallet.name),
-      ),
-      moneyAmount: curMoneyAmount,
-      changes: prevMoneyAmount
-        ? (curMoneyAmount - prevMoneyAmount) / prevMoneyAmount
-        : null,
-      changesAbs: prevMoneyAmount ? curMoneyAmount - prevMoneyAmount : null,
-    };
-  });
-
-  // TODO: it's super cringe to do a lot of extra composing work and then just skip it if it doesn't fit the filter params 🤦‍♀️
-  if (params) {
-    composedWhistory = composedWhistory.filter((cw) => {
-      if (params.fromTs && cw.date.valueOf() < params.fromTs) {
-        return false;
-      }
-
-      if (params.toTs && cw.date.valueOf() > params.toTs) {
-        return false;
-      }
-
-      return true;
-    });
-  }
-
-  return composedWhistory;
+  return composeWhistoryMoneyAmount(mergedWhistoryGroups);
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
-  return await whistoryRepository.create({
+  return whistoryRepository.create({
     ...dto,
     date: new Date(dto.date),
   });
@@ -220,7 +148,7 @@ export const duplicateWhistory = async (id: string) => {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await whistoryRepository.create({
+  return whistoryRepository.create({
     moneyAmount: target?.moneyAmount,
     walletId: target.walletId,
     date: new Date(),
@@ -233,12 +161,12 @@ export const archiveSelfWhistory = async (id: string) => {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const allowedToDelete = await verifyWalletOwnership(session.user.id, id);
+  const allowedToDelete = await verifyWhistoryOwnership(session.user.id, id);
   if (!allowedToDelete) {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await whistoryRepository.archive(id);
+  return whistoryRepository.archive(id);
 };
 
 export const unarchiveSelfWhistory = async (id: string) => {
@@ -247,12 +175,12 @@ export const unarchiveSelfWhistory = async (id: string) => {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const allowedToUndelete = await verifyWalletOwnership(session.user.id, id);
+  const allowedToUndelete = await verifyWhistoryOwnership(session.user.id, id);
   if (!allowedToUndelete) {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await whistoryRepository.unarchive(id);
+  return whistoryRepository.unarchive(id);
 };
 
 export const destroySelfWhistory = async (id: string) => {
@@ -261,10 +189,10 @@ export const destroySelfWhistory = async (id: string) => {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const allowedToDelete = await verifyWalletOwnership(session.user.id, id);
+  const allowedToDelete = await verifyWhistoryOwnership(session.user.id, id);
   if (!allowedToDelete) {
     throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
   }
 
-  return await whistoryRepository.destroy(id);
+  return whistoryRepository.destroy(id);
 };
