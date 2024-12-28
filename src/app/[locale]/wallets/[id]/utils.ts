@@ -76,6 +76,8 @@ export const groupWhistoryByDate = (
     });
 
     currentDate.setDate(currentDate.getDate() + 1);
+
+    // @TODO: revise this part, it doesn't look right
     if (!touchedIntervalEnd && currentDate > end) {
       currentDate = new Date(end);
       touchedIntervalEnd = true;

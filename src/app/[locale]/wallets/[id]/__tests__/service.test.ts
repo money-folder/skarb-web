@@ -251,6 +251,16 @@ describe("Wallet Service", () => {
       deletedAt: null,
     };
 
+    const mockWallet2 = {
+      id: "wallet2",
+      name: "Wallet 2",
+      ownerId: mockUserId,
+      currency: "USD",
+      createdAt: new Date("2023-12-01T00:00:00Z"),
+      updatedAt: new Date("2023-12-01T00:00:00Z"),
+      deletedAt: null,
+    };
+
     const mockWhistoryData = [
       {
         id: "wh1",
@@ -273,6 +283,17 @@ describe("Wallet Service", () => {
         updatedAt: new Date("2024-01-02T12:00:00Z"),
         deletedAt: null,
         wallet: { ...mockWallet },
+      },
+      {
+        id: "wh3",
+        walletId: "wallet2",
+        moneyAmount: 350,
+        date: new Date("2024-01-02T12:00:00Z"),
+        comment: "One more deposit",
+        createdAt: new Date("2024-01-02T12:00:00Z"),
+        updatedAt: new Date("2024-01-02T12:00:00Z"),
+        deletedAt: null,
+        wallet: { ...mockWallet2 },
       },
     ];
 
@@ -320,7 +341,6 @@ describe("Wallet Service", () => {
         },
       );
 
-      expect(result).toBeTruthy();
       expect(result.length).toBeGreaterThan(0);
       expect(result[0]).toHaveProperty("date");
       expect(result[0]).toHaveProperty("whistories");
