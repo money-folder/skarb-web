@@ -233,6 +233,7 @@ describe("Wallet Service", () => {
     });
   });
 
+  // @TODO: after the getCurrentUserCurrencyWhistory refactoring, add tests for calculation only
   describe("getCurrentUserCurrencyWhistory", () => {
     const mockUserId = "user123";
     const mockCurrency = "USD";
