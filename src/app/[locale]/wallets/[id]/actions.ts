@@ -7,34 +7,20 @@ import {
   createWhistory,
   destroySelfWhistory,
   duplicateWhistory,
-  getCurrentUserCurrencyWhistory,
-  getCurrentUserWalletHistory,
+  getCurrentUserWhistory,
   unarchiveSelfWhistory,
 } from "@/app/[locale]/wallets/[id]/service";
 import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
 import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
-import { FetchWalletHistoryParams } from "../types";
+import { FetchWhistoryParams } from "../types";
 
 export const fetchWalletHistory = async (
   walletId: string,
-  params?: FetchWalletHistoryParams,
+  params?: FetchWhistoryParams,
 ) => {
   try {
-    const walletHistory = await getCurrentUserWalletHistory(walletId, params);
+    const walletHistory = await getCurrentUserWhistory(walletId, params);
     return { success: true, data: walletHistory };
-  } catch (error) {
-    console.error(error);
-    return { success: false, data: null, error };
-  }
-};
-
-export const fetchWhistoryByCurrency = async (
-  currency: string,
-  params: FetchWalletHistoryParams,
-) => {
-  try {
-    const whistory = await getCurrentUserCurrencyWhistory(currency, params);
-    return { success: true, data: whistory };
   } catch (error) {
     console.error(error);
     return { success: false, data: null, error };

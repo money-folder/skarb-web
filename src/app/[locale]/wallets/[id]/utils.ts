@@ -1,9 +1,9 @@
-import { FetchWalletHistoryParams } from "../types";
+import { FetchWhistoryParams } from "../types";
 import { WhistoryDbWithWallet } from "./types";
 
 export const getWhistoryWithinInterval = (
   whistory: WhistoryDbWithWallet[],
-  params: FetchWalletHistoryParams,
+  params: FetchWhistoryParams,
 ) =>
   whistory.filter((wh) => {
     if (params.fromTs && wh.date.valueOf() < params.fromTs) {

@@ -36,7 +36,7 @@ export type WalletsSummary = {
   moneyAmount: number;
 };
 
-export type FetchWalletHistoryParams = {
+export type FetchWhistoryParams = {
   fromTs?: number;
   toTs?: number;
 };

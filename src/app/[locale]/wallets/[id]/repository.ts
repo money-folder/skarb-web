@@ -3,7 +3,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/prisma";
 
 import { CreateWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
-import { FetchWalletHistoryParams } from "../types";
+import { FetchWhistoryParams } from "../types";
 
 export const findByWallet = async (walletId: string) => {
   const where: Prisma.WalletHistoryWhereInput = {
@@ -33,7 +33,7 @@ export const findWallet = async (whistoryId: string) => {
 export const findUserWallet = async (
   userId: string,
   walletId: string,
-  params?: FetchWalletHistoryParams,
+  params?: FetchWhistoryParams,
 ) => {
   const where: Prisma.WalletHistoryWhereInput = {
     AND: [{ walletId }, { wallet: { ownerId: userId } }],

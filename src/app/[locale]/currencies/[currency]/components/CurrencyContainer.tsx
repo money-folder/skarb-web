@@ -1,12 +1,12 @@
 import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
 import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
-import { fetchWhistoryByCurrency } from "@/app/[locale]/wallets/[id]/actions";
 import { WithMounted } from "@/shared/components/WithMounted";
 import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 import { Dictionary } from "@/shared/types/locale";
+import { fetchCurrencyWhistory } from "../../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 
 interface Props {
@@ -22,7 +22,7 @@ export default async function CurrencyContainer({
   fromTs,
   toTs,
 }: Props) {
-  const response = await fetchWhistoryByCurrency(currency, { fromTs, toTs });
+  const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
 
   if (!response.data) {
     return null;

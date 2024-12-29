@@ -86,7 +86,7 @@ describe("Wallet Service", () => {
       (auth as jest.Mock).mockResolvedValue(null);
 
       await expect(
-        whistoryService.getCurrentUserWalletHistory(mockWalletId, mockParams),
+        whistoryService.getCurrentUserWhistory(mockWalletId, mockParams),
       ).rejects.toThrow(
         new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED }),
       );
@@ -97,7 +97,7 @@ describe("Wallet Service", () => {
       (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue(null);
 
       await expect(
-        whistoryService.getCurrentUserWalletHistory(mockWalletId, mockParams),
+        whistoryService.getCurrentUserWhistory(mockWalletId, mockParams),
       ).rejects.toThrow(
         new Error("Wallet history was not found!", {
           cause: ErrorCauses.NOT_FOUND,
@@ -116,7 +116,7 @@ describe("Wallet Service", () => {
         mockWalletHistory,
       );
 
-      const result = await whistoryService.getCurrentUserWalletHistory(
+      const result = await whistoryService.getCurrentUserWhistory(
         mockWalletId,
         mockParams,
       );
@@ -142,7 +142,7 @@ describe("Wallet Service", () => {
         mockWalletHistory,
       );
 
-      const result = await whistoryService.getCurrentUserWalletHistory(
+      const result = await whistoryService.getCurrentUserWhistory(
         mockWalletId,
         mockParams,
       );
@@ -153,201 +153,6 @@ describe("Wallet Service", () => {
       expect(result.increasesSum).toBe(0);
       expect(result.decreasesSum).toBe(0);
       expect(result.increasesDecreasesDiff).toBe(0);
-    });
-  });
-
-  describe("getUserWalletsHistoryByCurrency", () => {
-    const mockUserId = "user-123";
-    const mockCurrency = "USD";
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it("should fetch and combine wallet histories correctly", async () => {
-      const mockWallets = [
-        { id: "wallet-1", name: "Wallet 1" },
-        { id: "wallet-2", name: "Wallet 2" },
-      ];
-
-      const mockWallet1History = [
-        {
-          id: "h1",
-          walletId: "wallet-1",
-          date: new Date("2024-01-01"),
-          moneyAmount: 100,
-        },
-        {
-          id: "h2",
-          walletId: "wallet-1",
-          date: new Date("2024-01-02"),
-          moneyAmount: 150,
-        },
-      ];
-
-      const mockWallet2History = [
-        {
-          id: "h3",
-          walletId: "wallet-2",
-          date: new Date("2024-01-01"),
-          moneyAmount: 200,
-        },
-        {
-          id: "h4",
-          walletId: "wallet-2",
-          date: new Date("2024-01-03"),
-          moneyAmount: 250,
-        },
-      ];
-
-      (walletsRepository.findByUserCurrency as jest.Mock).mockResolvedValue(
-        mockWallets,
-      );
-      (whistoryRepository.findByWallet as jest.Mock)
-        .mockResolvedValueOnce(mockWallet1History)
-        .mockResolvedValueOnce(mockWallet2History);
-
-      const result = await whistoryService.getUserWalletsHistoryByCurrency(
-        mockUserId,
-        mockCurrency,
-      );
-
-      expect(result).toHaveLength(4);
-      expect(walletsRepository.findByUserCurrency).toHaveBeenCalledWith(
-        mockUserId,
-        mockCurrency,
-      );
-      expect(whistoryRepository.findByWallet).toHaveBeenCalledTimes(2);
-    });
-
-    it("should handle empty wallet list", async () => {
-      (walletsRepository.findByUserCurrency as jest.Mock).mockResolvedValue([]);
-
-      const result = await whistoryService.getUserWalletsHistoryByCurrency(
-        mockUserId,
-        mockCurrency,
-      );
-
-      expect(result).toEqual([]);
-      expect(whistoryRepository.findByWallet).not.toHaveBeenCalled();
-    });
-  });
-
-  // @TODO: after the getCurrentUserCurrencyWhistory refactoring, add tests for calculation only
-  describe("getCurrentUserCurrencyWhistory", () => {
-    const mockUserId = "user123";
-    const mockCurrency = "USD";
-    const mockParams = {
-      fromTs: new Date("202-01-01").valueOf(),
-      toTs: new Date("2024-01-31").valueOf(),
-    };
-
-    const mockWallet = {
-      id: "wallet1",
-      name: "Main Wallet",
-      ownerId: mockUserId,
-      currency: "USD",
-      createdAt: new Date("2023-12-01T00:00:00Z"),
-      updatedAt: new Date("2023-12-01T00:00:00Z"),
-      deletedAt: null,
-    };
-
-    const mockWallet2 = {
-      id: "wallet2",
-      name: "Wallet 2",
-      ownerId: mockUserId,
-      currency: "USD",
-      createdAt: new Date("2023-12-01T00:00:00Z"),
-      updatedAt: new Date("2023-12-01T00:00:00Z"),
-      deletedAt: null,
-    };
-
-    const mockWhistoryData = [
-      {
-        id: "wh1",
-        walletId: "wallet1",
-        moneyAmount: 100,
-        date: new Date("2024-01-01T12:00:00Z"),
-        comment: "Initial deposit",
-        createdAt: new Date("2024-01-01T12:00:00Z"),
-        updatedAt: new Date("2024-01-01T12:00:00Z"),
-        deletedAt: null,
-        wallet: { ...mockWallet },
-      },
-      {
-        id: "wh2",
-        walletId: "wallet1",
-        moneyAmount: 150,
-        date: new Date("2024-01-02T12:00:00Z"),
-        comment: "Additional deposit",
-        createdAt: new Date("2024-01-02T12:00:00Z"),
-        updatedAt: new Date("2024-01-02T12:00:00Z"),
-        deletedAt: null,
-        wallet: { ...mockWallet },
-      },
-      {
-        id: "wh3",
-        walletId: "wallet2",
-        moneyAmount: 350,
-        date: new Date("2024-01-02T12:00:00Z"),
-        comment: "One more deposit",
-        createdAt: new Date("2024-01-02T12:00:00Z"),
-        updatedAt: new Date("2024-01-02T12:00:00Z"),
-        deletedAt: null,
-        wallet: { ...mockWallet2 },
-      },
-    ];
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it("should throw unauthorized error when user is not authenticated", async () => {
-      (auth as jest.Mock).mockResolvedValue(null);
-
-      await expect(
-        whistoryService.getCurrentUserCurrencyWhistory(
-          mockCurrency,
-          mockParams,
-        ),
-      ).rejects.toThrow(
-        new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED }),
-      );
-    });
-
-    it("returns empty array when no wallet history found", async () => {
-      (auth as jest.Mock).mockResolvedValue({ user: { id: mockUserId } });
-      jest
-        .spyOn(whistoryService, "getUserWalletsHistoryByCurrency")
-        .mockResolvedValue([]);
-
-      const result = await whistoryService.getCurrentUserCurrencyWhistory(
-        "USD",
-        {},
-      );
-      expect(result).toEqual([]);
-    });
-
-    it("processes wallet history correctly with date range", async () => {
-      (auth as jest.Mock).mockResolvedValue({ user: { id: mockUserId } });
-      jest
-        .spyOn(whistoryService, "getUserWalletsHistoryByCurrency")
-        .mockResolvedValue(mockWhistoryData);
-
-      const result = await whistoryService.getCurrentUserCurrencyWhistory(
-        "USD",
-        {
-          fromTs: new Date("2024-01-01T00:00:00Z").valueOf(),
-          toTs: new Date("2024-01-02T23:59:59Z").valueOf(),
-        },
-      );
-
-      expect(result.length).toBeGreaterThan(0);
-      expect(result[0]).toHaveProperty("date");
-      expect(result[0]).toHaveProperty("whistories");
-      expect(result[0]).toHaveProperty("moneyAmount");
-      expect(result[0]).toHaveProperty("changes");
-      expect(result[0]).toHaveProperty("changesAbs");
     });
   });
 
