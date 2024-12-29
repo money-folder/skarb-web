@@ -14,7 +14,7 @@ module.exports = {
     },
   ],
   ci: {
-    repoBranchBase: "develop",
-    trackBranches: ["develop"],
+    repoBranchBase: process.env.CI_BRANCH_BASE || "develop",
+    trackBranches: ["develop", "main"],
   },
 };

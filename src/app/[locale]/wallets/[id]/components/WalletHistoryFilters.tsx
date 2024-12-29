@@ -1,12 +1,12 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-import { getLocalISOString } from "@/utils";
-import { isValidDate } from "@/utils/time-utils";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
+import { isValidDate } from "@/shared/utils/time-utils";
+import { getLocalISOString } from "@/shared/utils/utils";
 
 interface Props {
   d: Dictionary["whistoryPage"]["filters"];
@@ -47,7 +47,7 @@ const WalletHistoryFilters = ({ d }: Props) => {
   }, [watch, searchParams, replace, pathname]);
 
   return (
-    <form className="w-full flex flex-col justify-start items-start gap-2">
+    <form className="flex w-full flex-col items-start justify-start gap-2">
       <div className="flex gap-5">
         <label className="flex gap-3">
           <span>{d.form.fromLabel}</span>

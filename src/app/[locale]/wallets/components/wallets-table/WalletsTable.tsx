@@ -1,18 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ClientWalletDto } from "@/types/wallets";
-import { formatDateDifference } from "@/utils/time-utils";
+import { formatDateDifference } from "@/shared/utils/time-utils";
 
+import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 import Changes from "../Changes";
 import AddWhistoryButton from "../buttons/AddWhistoryButton";
-import SoftDeleteButton from "../buttons/SoftDeleteButton";
-import RestoreButton from "../buttons/RestoreButton";
 import DestroyButton from "../buttons/DestroyButton";
-import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
+import RestoreButton from "../buttons/RestoreButton";
+import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 import OpenIcon from "@/assets/open.svg";
-import { Dictionary } from "@/types/locale";
+import { Dictionary } from "@/shared/types/locale";
+import { ClientWalletDto } from "../../types";
 
 interface WalletsTableProps {
   locale: string;
@@ -29,20 +29,20 @@ export default function WalletsTable({
     <table className="w-full">
       <thead>
         <tr>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">{d.name}</th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
+          <th className="w-2/12 border-2 border-black p-1 text-sm">{d.name}</th>
+          <th className="w-2/12 border-2 border-black p-1 text-sm">
             {d.balance}
           </th>
-          <th className="p-1 w-1/12 text-sm border-2 border-black">
+          <th className="w-1/12 border-2 border-black p-1 text-sm">
             {d.currency}
           </th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
+          <th className="w-2/12 border-2 border-black p-1 text-sm">
             {d.changes}
           </th>
-          <th className="p-1 w-3/12 text-sm border-2 border-black">
+          <th className="w-3/12 border-2 border-black p-1 text-sm">
             {d.sinceLastReport}
           </th>
-          <th className="p-1 w-2/12 text-sm border-2 border-black">
+          <th className="w-2/12 border-2 border-black p-1 text-sm">
             {d.actions}
           </th>
         </tr>
@@ -51,28 +51,28 @@ export default function WalletsTable({
         {wallets.map((wallet) => (
           <tr key={wallet.id}>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
+              className={`border-2 border-black p-1 text-center text-sm ${
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
               {wallet.name}
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
+              className={`border-2 border-black p-1 text-center text-sm ${
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
               {wallet?.latestWhistory?.moneyAmount || "-"}
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
+              className={`border-2 border-black p-1 text-center text-sm ${
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
               {wallet.currency}
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
+              className={`border-2 border-black p-1 text-center text-sm ${
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
@@ -88,7 +88,7 @@ export default function WalletsTable({
               />
             </td>
             <td
-              className={`p-1 text-sm text-center border-2 border-black ${
+              className={`border-2 border-black p-1 text-center text-sm ${
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
@@ -99,11 +99,11 @@ export default function WalletsTable({
                       hours: wallet.sinceLatestBallanceTs.hours,
                       minutes: wallet.sinceLatestBallanceTs.minutes,
                     },
-                    locale
+                    locale,
                   )
                 : "-"}
             </td>
-            <td className="p-1 space-x-2 text-sm text-center border-2 border-black">
+            <td className="space-x-2 border-2 border-black p-1 text-center text-sm">
               <AddWhistoryButton
                 walletId={wallet.id}
                 walletName={wallet.name}

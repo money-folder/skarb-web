@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { destroy } from "@/actions/wallet-history";
+import { destroy } from "@/app/[locale]/wallets/[id]/actions";
 
 import TrashIcon from "@/assets/trash.svg";
 
@@ -13,7 +13,7 @@ interface DestroyButtonProps {
 const DestroyButton = ({ id }: DestroyButtonProps) => {
   return (
     <button
-      className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+      className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => destroy(id)}
     >
       <Image src={TrashIcon} alt="trash" />

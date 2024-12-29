@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 
+import { duplicate } from "@/app/[locale]/wallets/[id]/actions";
 import DuplicateIcon from "@/assets/duplicate.svg";
-import { duplicate } from "@/actions/wallet-history";
 
 interface Props {
   walletId: string;
@@ -13,7 +13,7 @@ interface Props {
 const DuplicateButton = ({ whistoryId, walletId }: Props) => {
   return (
     <button
-      className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+      className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => duplicate(whistoryId, walletId)}
     >
       <Image src={DuplicateIcon} width={16} height={16} alt="duplicate" />

@@ -1,10 +1,13 @@
-import { fetchWhistoryByCurrency } from "@/actions/wallet-history";
-import { WithMounted } from "@/components/WithMounted";
-import WhistoryComposedChart from "@/widgets/whistory-composed-chart/WhistoryComposedChart";
+import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
+import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
+import { WithMounted } from "@/shared/components/WithMounted";
+import {
+  CHART_HEIGHT_DEFAULT,
+  CHART_WIDTH_DEFAULT,
+} from "@/shared/constants/charts";
+import { Dictionary } from "@/shared/types/locale";
+import { fetchCurrencyWhistory } from "../../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
-import WhistoryComposedChangesChart from "@/widgets/whistory-composed-changes-chart/WhistoryComposedChangesChart";
-import { CHART_HEIGHT_DEFAULT, CHART_WIDTH_DEFAULT } from "@/constants/charts";
-import { Dictionary } from "@/types/locale";
 
 interface Props {
   currency: string;
@@ -19,14 +22,14 @@ export default async function CurrencyContainer({
   fromTs,
   toTs,
 }: Props) {
-  const response = await fetchWhistoryByCurrency(currency, { fromTs, toTs });
+  const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
 
   if (!response.data) {
     return null;
   }
 
   return (
-    <div className="h-full w-full grid gap-5 grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr]">
+    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-1 row-span-1 overflow-auto">
         <CurrencyComposedTable
           d={d.currencyTable}
@@ -34,7 +37,7 @@ export default async function CurrencyContainer({
         />
       </div>
 
-      <div className="overflow-y-auto col-span-1 row-span-1 flex flex-col justify-start items-center">
+      <div className="col-span-1 row-span-1 flex flex-col items-center justify-start overflow-y-auto">
         <WithMounted>
           <WhistoryComposedChart
             width={CHART_WIDTH_DEFAULT}

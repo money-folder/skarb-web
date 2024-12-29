@@ -1,7 +1,7 @@
-import { fetchCurrentUserWallets } from "@/actions/wallets";
+import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 
+import { Dictionary } from "@/shared/types/locale";
 import WalletsTable from "./WalletsTable";
-import { Dictionary } from "@/types/locale";
 
 interface Props {
   locale: string;
