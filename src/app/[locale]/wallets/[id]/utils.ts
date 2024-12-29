@@ -43,13 +43,20 @@ export const groupWhistoryByDate = (
   dataByWallets: WhistoryByWallets,
 ): WhistoryByDate => {
   let currentDate = new Date(start);
-
   let touchedIntervalEnd = false;
   const dataByWalletsList = Object.values(dataByWallets);
   const mergedWhistoryGroups = [];
   while (currentDate <= end) {
-    const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
+    // if the next iteration will be outside of the interval, include it in the current iteration
+    const nextDate = new Date(currentDate);
+    nextDate.setDate(currentDate.getDate() + 1);
+    if (!touchedIntervalEnd && nextDate > end) {
+      currentDate = new Date(end);
+      touchedIntervalEnd = true;
+      continue;
+    }
 
+    const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
     dataByWalletsList.forEach((dbw) => {
       let latestEntry = null;
       while (dbw[0] && dbw[0].date <= currentDate) {
@@ -76,12 +83,6 @@ export const groupWhistoryByDate = (
     });
 
     currentDate.setDate(currentDate.getDate() + 1);
-
-    // @TODO: revise this part, it doesn't look right
-    if (!touchedIntervalEnd && currentDate > end) {
-      currentDate = new Date(end);
-      touchedIntervalEnd = true;
-    }
   }
 
   return mergedWhistoryGroups;
