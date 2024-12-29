@@ -4,13 +4,7 @@ import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 
-import { FetchWalletHistoryParams } from "../types";
-import {
-  composeWhistoryMoneyAmount,
-  getWhistoryWithinInterval,
-  groupWhistoryByDate,
-  groupWhistoryByWallets,
-} from "./utils";
+import { FetchWhistoryParams } from "../types";
 
 export const verifyWhistoryOwnership = async (
   userId: string,
@@ -24,9 +18,9 @@ export const getWalletHistory = async (walletId: string) => {
   return whistoryRepository.findByWallet(walletId);
 };
 
-export const getCurrentUserWalletHistory = async (
+export const getCurrentUserWhistory = async (
   walletId: string,
-  params?: FetchWalletHistoryParams,
+  params?: FetchWhistoryParams,
 ) => {
   const session = await auth();
   if (!session?.user?.id) {
@@ -72,55 +66,6 @@ export const getCurrentUserWalletHistory = async (
   const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
 
   return { whistory, increasesDecreasesDiff, ...sums };
-};
-
-export const getUserWalletsHistoryByCurrency = async (
-  userId: string,
-  currency: string,
-) => {
-  const wallets = await walletsRepository.findByUserCurrency(userId, currency);
-
-  const whPromises = wallets.map(async (w) =>
-    (await whistoryRepository.findByWallet(w.id)).map((wh) => ({
-      ...wh,
-      wallet: w,
-    })),
-  );
-
-  const whistories = await Promise.all(whPromises);
-
-  return whistories
-    .reduce((acc, item) => [...acc, ...item], [])
-    .sort((a, b) => a.date.valueOf() - b.date.valueOf());
-};
-
-export const getCurrentUserCurrencyWhistory = async (
-  currency: string,
-  params: FetchWalletHistoryParams,
-) => {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
-  }
-
-  const whistory = await getUserWalletsHistoryByCurrency(
-    session.user.id,
-    currency,
-  );
-
-  const intervalWhistory = getWhistoryWithinInterval(whistory, params);
-  const dataByWallets = groupWhistoryByWallets(intervalWhistory);
-  if (!Object.keys(dataByWallets).length) {
-    return [];
-  }
-
-  const mergedWhistoryGroups = groupWhistoryByDate(
-    intervalWhistory[0]?.date,
-    intervalWhistory[intervalWhistory.length - 1]?.date,
-    dataByWallets,
-  );
-
-  return composeWhistoryMoneyAmount(mergedWhistoryGroups);
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
