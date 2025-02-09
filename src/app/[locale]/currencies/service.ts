@@ -53,7 +53,12 @@ export const getCurrentUserCurrencyWhistory = async (
   const intervalWhistory = getWhistoryWithinInterval(whistory, params);
   const dataByWallets = groupWhistoryByWallets(intervalWhistory);
   if (!Object.keys(dataByWallets).length) {
-    return [];
+    return {
+      composedWhistory: [],
+      increasesDecreasesDiff: 0,
+      increasesSum: 0,
+      decreasesSum: 0,
+    };
   }
 
   const mergedWhistoryGroups = groupWhistoryByDate(
@@ -62,5 +67,25 @@ export const getCurrentUserCurrencyWhistory = async (
     dataByWallets,
   );
 
-  return composeWhistoryMoneyAmount(mergedWhistoryGroups);
+  const composedWhistory = composeWhistoryMoneyAmount(mergedWhistoryGroups);
+
+  const sums = composedWhistory.reduce(
+    (acc, item) => {
+      if (item.changesAbs && item.changesAbs < 0) {
+        return { ...acc, decreasesSum: acc.decreasesSum + item.changesAbs };
+      } else if (item.changesAbs) {
+        return { ...acc, increasesSum: acc.increasesSum + item.changesAbs };
+      }
+
+      return acc;
+    },
+    {
+      increasesSum: 0,
+      decreasesSum: 0,
+    },
+  );
+
+  const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
+
+  return { composedWhistory, increasesDecreasesDiff, ...sums };
 };

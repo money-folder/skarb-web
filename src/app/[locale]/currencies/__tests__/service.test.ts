@@ -244,7 +244,7 @@ describe("getCurrentUserCurrencyWhistory", () => {
       "USD",
       {},
     );
-    expect(result).toEqual([]);
+    expect(result.composedWhistory).toEqual([]);
   });
 
   it("processes wallet history correctly with date range", async () => {
@@ -261,11 +261,11 @@ describe("getCurrentUserCurrencyWhistory", () => {
       },
     );
 
-    expect(result.length).toBeGreaterThan(0);
-    expect(result[0]).toHaveProperty("date");
-    expect(result[0]).toHaveProperty("whistories");
-    expect(result[0]).toHaveProperty("moneyAmount");
-    expect(result[0]).toHaveProperty("changes");
-    expect(result[0]).toHaveProperty("changesAbs");
+    expect(result.composedWhistory.length).toBeGreaterThan(0);
+    expect(result.composedWhistory[0]).toHaveProperty("date");
+    expect(result.composedWhistory[0]).toHaveProperty("whistories");
+    expect(result.composedWhistory[0]).toHaveProperty("moneyAmount");
+    expect(result.composedWhistory[0]).toHaveProperty("changes");
+    expect(result.composedWhistory[0]).toHaveProperty("changesAbs");
   });
 });
