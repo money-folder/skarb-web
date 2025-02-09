@@ -1,4 +1,5 @@
-import { Dictionary } from "@/shared/types/locale";
+import { Dictionary } from "@/dictionaries/locale";
+import { Locale } from "@/locale";
 import {
   calculateDateDifference,
   formatDateDifference,
@@ -8,7 +9,7 @@ import Card from "./Card";
 
 interface Props {
   d: Dictionary["whistoryPage"]["cards"]["whistoryEntriesSummary"];
-  locale: string;
+  locale: Locale;
   startDate: Date;
   endDate: Date;
   entriesCount: number;

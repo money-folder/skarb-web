@@ -11,11 +11,12 @@ import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 import OpenIcon from "@/assets/open.svg";
-import { Dictionary } from "@/shared/types/locale";
+import { Dictionary } from "@/dictionaries/locale";
+import { Locale } from "@/locale";
 import { ClientWalletDto } from "../../types";
 
 interface WalletsTableProps {
-  locale: string;
+  locale: Locale;
   d: Dictionary["walletsPage"]["walletsTable"];
   wallets: ClientWalletDto[];
 }

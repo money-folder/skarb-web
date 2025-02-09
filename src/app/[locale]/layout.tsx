@@ -12,6 +12,7 @@ import Sidebar from "@/shared/components/sidebar/Sidebar";
 
 import { getDictionary } from "@/dictionaries";
 
+import { Locale } from "@/locale";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,7 +28,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
   params: {
-    locale: string;
+    locale: Locale;
   };
 }>) {
   const d = await getDictionary(locale);

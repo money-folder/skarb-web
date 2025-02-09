@@ -4,17 +4,18 @@ import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 import { WithMounted } from "@/shared/components/WithMounted";
 
+import { Dictionary } from "@/dictionaries/locale";
+import { Locale } from "@/locale";
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
 import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
-import { Dictionary } from "@/shared/types/locale";
 import WalletHistoryTable from "./WalletHistoryTable";
 
 interface WalletHistoryContainerProps {
   d: Dictionary["whistoryPage"];
-  locale: string;
+  locale: Locale;
   walletId: string;
   fromTs?: number;
   toTs?: number;

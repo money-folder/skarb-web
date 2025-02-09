@@ -4,14 +4,14 @@ import CreateWalletButton from "@/app/[locale]/wallets/components/create-wallet/
 import { auth } from "@/auth";
 
 import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
-import { DEFAULT_LOCALE } from "@/locales";
-import { Dictionary } from "@/shared/types/locale";
+import { Dictionary } from "@/dictionaries/locale";
+import { DEFAULT_LOCALE, Locale } from "@/locale";
 import { SignOut } from "../SignOut";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 
 interface Props {
-  locale: string;
+  locale: Locale;
   d: Dictionary["sidebar"];
 }
 
