@@ -1,10 +1,12 @@
+import { WalletDb } from "../../types";
 import { WhistoryDbWithWallet } from "../types";
 import {
   composeWhistoryMoneyAmount,
   getWhistoryWithinInterval,
-  // groupWhistoryByDate,
+  groupWhistoryByDate,
   groupWhistoryByWallets,
   WhistoryByDate,
+  WhistoryByWallets,
 } from "../utils";
 
 const createDate = (dateStr: string) => new Date(dateStr);
@@ -92,29 +94,136 @@ describe("groupWhistoryByWallets", () => {
   });
 });
 
-// describe("groupWhistoryByDate", () => {
-//   const dataByWallets: WhistoryByWallets = {
-//     "wallet-1": [
-//       createWhistory({
-//         walletId: "wallet-1",
-//         date: createDate("2024-01-01"),
-//         moneyAmount: 100,
-//       }),
-//       createWhistory({
-//         walletId: "wallet-1",
-//         date: createDate("2024-01-03"),
-//         moneyAmount: 150,
-//       }),
-//     ],
-//     "wallet-2": [
-//       createWhistory({
-//         walletId: "wallet-2",
-//         date: createDate("2024-01-02"),
-//         moneyAmount: 200,
-//       }),
-//     ],
-//   };
-// });
+describe("groupWhistoryByDate", () => {
+  const createWallet = (id: string): WalletDb => ({
+    id,
+    name: `Wallet ${id}`,
+    ownerId: "owner1",
+    currency: "USD",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+  });
+
+  const createWhistory = (
+    id: string,
+    walletId: string,
+    date: Date,
+    amount: number,
+    wallet?: WalletDb,
+  ): WhistoryDbWithWallet => ({
+    id,
+    walletId,
+    moneyAmount: amount,
+    date,
+    comment: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    wallet: wallet || createWallet(walletId),
+  });
+
+  it("should group entries by date within the given interval", () => {
+    const wallet1 = createWallet("wallet1");
+    const wallet2 = createWallet("wallet2");
+
+    const start = new Date("2024-01-01");
+    const end = new Date("2024-01-03");
+
+    const dataByWallets: WhistoryByWallets = {
+      wallet1: [
+        createWhistory("w1", "wallet1", new Date("2024-01-01"), 100, wallet1),
+        createWhistory("w2", "wallet1", new Date("2024-01-02"), 200, wallet1),
+      ],
+      wallet2: [
+        createWhistory("w3", "wallet2", new Date("2024-01-01"), 300, wallet2),
+        createWhistory("w4", "wallet2", new Date("2024-01-03"), 400, wallet2),
+      ],
+    };
+
+    const result = groupWhistoryByDate(start, end, dataByWallets);
+
+    expect(result).toHaveLength(3);
+    expect(result[0].date).toEqual(new Date("2024-01-01"));
+    expect(Object.keys(result[0].walletsMap)).toHaveLength(2);
+    expect(result[0].walletsMap.wallet1.moneyAmount).toBe(100);
+    expect(result[0].walletsMap.wallet2.moneyAmount).toBe(300);
+
+    expect(result[1].date).toEqual(new Date("2024-01-02"));
+    expect(result[1].walletsMap.wallet1.moneyAmount).toBe(200);
+    expect(result[1].walletsMap.wallet2.moneyAmount).toBe(300);
+
+    expect(result[2].date).toEqual(new Date("2024-01-03"));
+    expect(result[2].walletsMap.wallet1.moneyAmount).toBe(200);
+    expect(result[2].walletsMap.wallet2.moneyAmount).toBe(400);
+  });
+
+  it("should handle empty data", () => {
+    const start = new Date("2024-01-01");
+    const end = new Date("2024-01-02");
+    const result = groupWhistoryByDate(start, end, {});
+
+    expect(result).toHaveLength(2);
+    expect(result[0].walletsMap).toEqual({});
+    expect(result[1].walletsMap).toEqual({});
+  });
+
+  it("should handle single-day interval", () => {
+    const wallet1 = createWallet("wallet1");
+    const start = new Date("2024-01-01");
+    const end = new Date("2024-01-01");
+
+    const dataByWallets: WhistoryByWallets = {
+      wallet1: [
+        createWhistory("w1", "wallet1", new Date("2024-01-01"), 100, wallet1),
+      ],
+    };
+
+    const result = groupWhistoryByDate(start, end, dataByWallets);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].date).toEqual(new Date("2024-01-01"));
+    expect(result[0].walletsMap.wallet1.moneyAmount).toBe(100);
+  });
+
+  it("should carry forward last known values", () => {
+    const wallet1 = createWallet("wallet1");
+    const start = new Date("2024-01-01");
+    const end = new Date("2024-01-03");
+
+    const dataByWallets: WhistoryByWallets = {
+      wallet1: [
+        createWhistory("w1", "wallet1", new Date("2024-01-01"), 100, wallet1),
+      ],
+    };
+
+    const result = groupWhistoryByDate(start, end, dataByWallets);
+
+    expect(result).toHaveLength(3);
+    expect(result[0].walletsMap.wallet1.moneyAmount).toBe(100);
+    expect(result[1].walletsMap.wallet1.moneyAmount).toBe(100);
+    expect(result[2].walletsMap.wallet1.moneyAmount).toBe(100);
+  });
+
+  it("should handle data outside the interval", () => {
+    const wallet1 = createWallet("wallet1");
+    const start = new Date("2024-01-02");
+    const end = new Date("2024-01-03");
+
+    const dataByWallets: WhistoryByWallets = {
+      wallet1: [
+        createWhistory("w1", "wallet1", new Date("2024-01-01"), 100, wallet1),
+        createWhistory("w2", "wallet1", new Date("2024-01-04"), 200, wallet1),
+      ],
+    };
+
+    const result = groupWhistoryByDate(start, end, dataByWallets);
+
+    expect(result).toHaveLength(2);
+    expect(result[0].walletsMap.wallet1.moneyAmount).toBe(100);
+    expect(result[1].walletsMap.wallet1.moneyAmount).toBe(100);
+  });
+});
 
 describe("composeWhistoryMoneyAmount", () => {
   const createWhistoryGroup = (

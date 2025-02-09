@@ -1,11 +1,12 @@
 import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
 import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
+import { Dictionary } from "@/dictionaries/locale";
+import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 import { WithMounted } from "@/shared/components/WithMounted";
 import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
-import { Dictionary } from "@/shared/types/locale";
 import { fetchCurrencyWhistory } from "../../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 
@@ -24,16 +25,25 @@ export default async function CurrencyContainer({
 }: Props) {
   const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
 
-  if (!response.data) {
+  if (!response.data || !response.data.composedWhistory.length) {
     return null;
   }
 
   return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
+      <div className="col-span-2 row-span-1 flex gap-5">
+        <WalletChangesSummaryCard
+          text={d.cards.walletChangesSummary.title}
+          increases={response.data.increasesSum}
+          decreases={response.data.decreasesSum}
+          diff={response.data.increasesDecreasesDiff}
+        />
+      </div>
+
       <div className="col-span-1 row-span-1 overflow-auto">
         <CurrencyComposedTable
           d={d.currencyTable}
-          walletHistory={response.data}
+          walletHistory={response.data.composedWhistory}
         />
       </div>
 
@@ -42,7 +52,7 @@ export default async function CurrencyContainer({
           <WhistoryComposedChart
             width={CHART_WIDTH_DEFAULT}
             height={CHART_HEIGHT_DEFAULT}
-            data={response.data}
+            data={response.data.composedWhistory}
           />
         </WithMounted>
 
@@ -50,7 +60,7 @@ export default async function CurrencyContainer({
           <WhistoryComposedChangesChart
             width={CHART_WIDTH_DEFAULT}
             height={CHART_HEIGHT_DEFAULT}
-            data={response.data}
+            data={response.data.composedWhistory}
           />
         </WithMounted>
       </div>

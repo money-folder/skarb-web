@@ -52,6 +52,12 @@
   },
 
   "currencyPage": {
+    "cards": {
+      "walletChangesSummary": {
+        "title": "Changes Σ"
+      }
+    },
+
     "filters": {
       "form": {
         "fromLabel": "From: ",

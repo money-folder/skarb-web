@@ -1,6 +1,6 @@
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 
-import { Dictionary } from "@/shared/types/locale";
+import { Dictionary } from "@/dictionaries/locale";
 import Changes from "../../../components/Changes";
 import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../buttons/DuplicateButton";

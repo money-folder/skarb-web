@@ -1,13 +1,14 @@
 import "server-only";
 
-import { Dictionary } from "@/shared/types/locale";
+import { BeDictionary, Dictionary, EnDictionary } from "@/dictionaries/locale";
+import { Locale } from "@/locale";
 
-// TODO: fix
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const dictionaries: any = {
-  en: () => import("./en.json").then((module) => module.default),
-  be: () => import("./be.json").then((module) => module.default),
+const dictionaries = {
+  en: () =>
+    import("./en.json").then((module) => module.default as EnDictionary),
+  be: () =>
+    import("./be.json").then((module) => module.default as BeDictionary),
 };
 
-export const getDictionary = async (locale: string): Promise<Dictionary> =>
+export const getDictionary = async (locale: Locale): Promise<Dictionary> =>
   dictionaries[locale]();
