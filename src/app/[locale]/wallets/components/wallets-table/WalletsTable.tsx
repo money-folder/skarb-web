@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Dictionary } from "@/dictionaries/locale";
+import { Locale } from "@/locale";
 import { formatDateDifference } from "@/shared/utils/time-utils";
 
 import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
+import { ClientWalletDto } from "../../types";
 import Changes from "../Changes";
 import AddWhistoryButton from "../buttons/AddWhistoryButton";
 import DestroyButton from "../buttons/DestroyButton";
@@ -11,9 +14,6 @@ import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 import OpenIcon from "@/assets/open.svg";
-import { Dictionary } from "@/dictionaries/locale";
-import { Locale } from "@/locale";
-import { ClientWalletDto } from "../../types";
 
 interface WalletsTableProps {
   locale: Locale;
@@ -70,7 +70,12 @@ export default function WalletsTable({
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
-              {wallet.currency}
+              <Link
+                href={`/currencies/${wallet.currency}`}
+                className="hover:underline"
+              >
+                {wallet.currency}
+              </Link>
             </td>
             <td
               className={`border-2 border-black p-1 text-center text-sm ${
