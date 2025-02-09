@@ -1,3 +1,5 @@
+import { Locale } from "@/locale";
+
 export interface DateDifference {
   years: number;
   months: number;
@@ -158,7 +160,7 @@ export const formatDateDifferenceBe = (
 
 export const formatDateDifference = (
   diff: Partial<DateDifference>,
-  locale: string,
+  locale: Locale,
 ): string => {
   if (locale === "be") {
     return formatDateDifferenceBe(diff);

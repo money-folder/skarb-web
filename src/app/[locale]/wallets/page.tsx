@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 
 import { getDictionary } from "@/dictionaries";
+import { Locale } from "@/locale";
 import Loading from "./components/wallets-table/Loading";
 import WalletsContainer from "./components/wallets-table/WalletsContainer";
 
 interface Props {
   params: {
-    locale: string;
+    locale: Locale;
   };
 }
 

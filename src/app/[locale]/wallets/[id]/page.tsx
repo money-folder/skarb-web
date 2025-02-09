@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { getDictionary } from "@/dictionaries";
+import { Locale } from "@/locale";
 import WalletHistoryTitle from "./components/title/WalletHistoryTitle";
 import WalletHistoryTitleLoading from "./components/title/WalletHistoryTitleLoading";
 import WalletHistoryFilters from "./components/WalletHistoryFilters";
@@ -8,7 +9,7 @@ import Loading from "./components/whistory/Loading";
 import WalletHistoryContainer from "./components/whistory/WalletHistoryContainer";
 
 interface Props {
-  params: { id: string; locale: string };
+  params: { id: string; locale: Locale };
   searchParams: { whistoryFrom?: string; whistoryTo?: string };
 }
 

@@ -1,10 +1,11 @@
 import { getDictionary } from "@/dictionaries";
+import { Locale } from "@/locale";
 import { Suspense } from "react";
 import CurrencyComposedFilters from "./components/CurrencyComposedFilters";
 import CurrencyContainer from "./components/CurrencyContainer";
 
 interface Props {
-  params: { currency: string; locale: string };
+  params: { currency: string; locale: Locale };
   searchParams: { dateFrom?: string; dateTo?: string };
 }
 
