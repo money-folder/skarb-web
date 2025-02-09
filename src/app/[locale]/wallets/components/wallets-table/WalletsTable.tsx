@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { Dictionary } from "@/dictionaries/locale";
@@ -12,8 +11,6 @@ import AddWhistoryButton from "../buttons/AddWhistoryButton";
 import DestroyButton from "../buttons/DestroyButton";
 import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
-
-import OpenIcon from "@/assets/open.svg";
 
 interface WalletsTableProps {
   locale: Locale;
@@ -56,7 +53,9 @@ export default function WalletsTable({
                 wallet.deletedAt ? "opacity-30" : ""
               }`}
             >
-              {wallet.name}
+              <Link href={`/wallets/${wallet.id}`} className="hover:underline">
+                {wallet.name}
+              </Link>
             </td>
             <td
               className={`border-2 border-black p-1 text-center text-sm ${
@@ -84,6 +83,7 @@ export default function WalletsTable({
             >
               <Changes
                 text={
+                  // @TODO: move to a util
                   wallet.changes
                     ? `${(wallet.changesAbs || 0).toFixed(2)} (${(
                         (wallet.changes || 0) * 100
@@ -121,13 +121,6 @@ export default function WalletsTable({
                   whistoryId={wallet.latestWhistory?.id}
                 />
               ) : null}
-
-              <Link
-                className="inline-block cursor-pointer opacity-70 hover:opacity-100"
-                href={`/wallets/${wallet.id}`}
-              >
-                <Image src={OpenIcon} width={16} height={16} alt="open" />
-              </Link>
 
               {wallet.deletedAt ? (
                 <>
