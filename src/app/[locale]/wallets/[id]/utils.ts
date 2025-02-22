@@ -1,21 +1,4 @@
-import { FetchWhistoryParams } from "../types";
 import { WhistoryDbWithWallet } from "./types";
-
-export const getWhistoryWithinInterval = (
-  whistory: WhistoryDbWithWallet[],
-  params: FetchWhistoryParams,
-) =>
-  whistory.filter((wh) => {
-    if (params.fromTs && wh.date.valueOf() < params.fromTs) {
-      return false;
-    }
-
-    if (params.toTs && wh.date.valueOf() > params.toTs) {
-      return false;
-    }
-
-    return true;
-  });
 
 export type WhistoryByWallets = {
   [key: string]: WhistoryDbWithWallet[];
@@ -42,20 +25,11 @@ export const groupWhistoryByDate = (
   end: Date,
   dataByWallets: WhistoryByWallets,
 ): WhistoryByDate => {
-  let currentDate = new Date(start);
   let touchedIntervalEnd = false;
+  let currentDate = new Date(start);
   const dataByWalletsList = Object.values(dataByWallets);
   const mergedWhistoryGroups = [];
   while (currentDate <= end) {
-    // if the next iteration will be outside of the interval, include it in the current iteration
-    const nextDate = new Date(currentDate);
-    nextDate.setDate(currentDate.getDate() + 1);
-    if (!touchedIntervalEnd && nextDate > end) {
-      currentDate = new Date(end);
-      touchedIntervalEnd = true;
-      continue;
-    }
-
     const whistoriesToMerge: { [key: string]: WhistoryDbWithWallet } = {};
     dataByWalletsList.forEach((dbw) => {
       let latestEntry = null;
@@ -82,7 +56,14 @@ export const groupWhistoryByDate = (
       date: new Date(currentDate),
     });
 
-    currentDate.setDate(currentDate.getDate() + 1);
+    const nextDate = new Date(currentDate);
+    nextDate.setDate(currentDate.getDate() + 1);
+    if (currentDate < end && nextDate >= end && !touchedIntervalEnd) {
+      currentDate = new Date(end);
+      touchedIntervalEnd = true;
+    } else {
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
   }
 
   return mergedWhistoryGroups;

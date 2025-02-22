@@ -5,7 +5,6 @@ import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 import {
   composeWhistoryMoneyAmount,
-  getWhistoryWithinInterval,
   groupWhistoryByDate,
   groupWhistoryByWallets,
 } from "../wallets/[id]/utils";
@@ -50,9 +49,8 @@ export const getCurrentUserCurrencyWhistory = async (
   }
 
   const whistory = await getUserCurrencyWhistory(session.user.id, currency);
-  const intervalWhistory = getWhistoryWithinInterval(whistory, params);
-  const dataByWallets = groupWhistoryByWallets(intervalWhistory);
-  if (!Object.keys(dataByWallets).length) {
+  const dataByWallets = groupWhistoryByWallets(whistory);
+  if (!Object.keys(dataByWallets).length || !whistory.length) {
     return {
       composedWhistory: [],
       increasesDecreasesDiff: 0,
@@ -62,8 +60,8 @@ export const getCurrentUserCurrencyWhistory = async (
   }
 
   const mergedWhistoryGroups = groupWhistoryByDate(
-    intervalWhistory[0]?.date,
-    intervalWhistory[intervalWhistory.length - 1]?.date,
+    params.fromTs ? new Date(params.fromTs) : whistory[0].date,
+    params.toTs ? new Date(params.toTs) : whistory[whistory.length - 1].date,
     dataByWallets,
   );
 
