@@ -53,8 +53,13 @@
 
   "currencyPage": {
     "cards": {
-      "walletChangesSummary": {
+      "changesSummary": {
         "title": "Changes Σ"
+      },
+
+      "entriesSummary": {
+        "title": "{{entriesCount}} Entries",
+        "in": "in"
       }
     },
 
