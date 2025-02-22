@@ -53,8 +53,13 @@
 
   "currencyPage": {
     "cards": {
-      "walletChangesSummary": {
+      "changesSummary": {
         "title": "Змены Σ"
+      },
+
+      "entriesSummary": {
+        "title": "{{entriesCount}} Запісаў",
+        "in": "за"
       }
     },
     "filters": {

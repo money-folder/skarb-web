@@ -29,6 +29,7 @@ export default async function CurrencyPage({
         <Suspense fallback={null}>
           <CurrencyContainer
             d={d.currencyPage}
+            locale={locale}
             currency={currency}
             fromTs={searchParams.dateFrom ? +searchParams.dateFrom : undefined}
             toTs={searchParams.dateTo ? +searchParams.dateTo : undefined}
