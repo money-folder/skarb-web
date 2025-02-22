@@ -24,7 +24,6 @@ export default async function CurrencyContainer({
   toTs,
 }: Props) {
   const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
-
   if (!response.data || !response.data.composedWhistory.length) {
     return null;
   }
