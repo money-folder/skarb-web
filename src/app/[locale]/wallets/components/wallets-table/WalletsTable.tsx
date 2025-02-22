@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { Dictionary } from "@/dictionaries/locale";
-import { Locale } from "@/locale";
+import { getDictionary } from "@/dictionaries";
+import { getServerLocale } from "@/getServerLocale";
 import { formatDateDifference } from "@/shared/utils/time-utils";
 
 import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
@@ -13,16 +13,13 @@ import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 interface WalletsTableProps {
-  locale: Locale;
-  d: Dictionary["walletsPage"]["walletsTable"];
   wallets: ClientWalletDto[];
 }
 
-export default function WalletsTable({
-  locale,
-  d,
-  wallets,
-}: WalletsTableProps) {
+export default async function WalletsTable({ wallets }: WalletsTableProps) {
+  const locale = getServerLocale();
+  const d = await getDictionary(locale, "walletsPage.walletsTable");
+
   return (
     <table className="w-full">
       <thead>
@@ -83,7 +80,7 @@ export default function WalletsTable({
             >
               <Changes
                 text={
-                  // @TODO: move to a util
+                  // @TODO: move to a util, lol
                   wallet.changes
                     ? `${(wallet.changesAbs || 0).toFixed(2)} (${(
                         (wallet.changes || 0) * 100

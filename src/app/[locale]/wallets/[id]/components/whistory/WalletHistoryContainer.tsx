@@ -4,8 +4,9 @@ import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 import { WithMounted } from "@/shared/components/WithMounted";
 
-import { Dictionary } from "@/dictionaries/locale";
-import { Locale } from "@/locale";
+import { getDictionary } from "@/dictionaries";
+import { getServerLocale } from "@/getServerLocale";
+
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
 import {
   CHART_HEIGHT_DEFAULT,
@@ -14,20 +15,19 @@ import {
 import WalletHistoryTable from "./WalletHistoryTable";
 
 interface WalletHistoryContainerProps {
-  d: Dictionary["whistoryPage"];
-  locale: Locale;
   walletId: string;
   fromTs?: number;
   toTs?: number;
 }
 
 export default async function WalletHistoryContainer({
-  d,
-  locale,
   walletId,
   fromTs,
   toTs,
 }: WalletHistoryContainerProps) {
+  const locale = getServerLocale();
+  const d = await getDictionary(locale, "whistoryPage");
+
   const { data: walletHistory } = await fetchWalletHistory(walletId, {
     fromTs,
     toTs,
@@ -45,8 +45,6 @@ export default async function WalletHistoryContainer({
 
         {walletHistory.whistory.length ? (
           <WhistoryEntriesSummaryCard
-            locale={locale}
-            d={d.cards.whistoryEntriesSummary}
             startDate={walletHistory.whistory[0].date}
             endDate={
               walletHistory.whistory[walletHistory.whistory.length - 1].date
@@ -58,10 +56,7 @@ export default async function WalletHistoryContainer({
 
       <div className="col-span-1 row-span-1 flex h-full w-full max-w-[550px] flex-col overflow-auto">
         {walletHistory.whistory.length ? (
-          <WalletHistoryTable
-            d={d.whistoryTable}
-            walletHistory={walletHistory.whistory}
-          />
+          <WalletHistoryTable walletHistory={walletHistory.whistory} />
         ) : (
           <p>{d.whistoryEmpty}</p>
         )}

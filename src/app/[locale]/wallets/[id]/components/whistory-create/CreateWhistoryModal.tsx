@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { create } from "@/app/[locale]/wallets/[id]/actions";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import Overlay from "@/shared/components/overlay/Overlay";
-
 import { replacePlaceholders } from "@/shared/utils/utils";
+
 import AddWhistoryForm from "./CreateWhistoryForm";
 
 interface Props {

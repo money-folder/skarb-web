@@ -1,6 +1,7 @@
-import { getDictionary } from "@/dictionaries";
-import { Locale } from "@/locale";
 import { Suspense } from "react";
+
+import { Locale } from "@/locale";
+
 import CurrencyComposedFilters from "./components/CurrencyComposedFilters";
 import CurrencyContainer from "./components/CurrencyContainer";
 
@@ -10,11 +11,9 @@ interface Props {
 }
 
 export default async function CurrencyPage({
-  params: { currency, locale },
+  params: { currency },
   searchParams,
 }: Props) {
-  const d = await getDictionary(locale);
-
   return (
     <main className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
       <h1 className="col-span-3 row-span-1 w-full text-center text-lg font-extrabold">
@@ -28,8 +27,6 @@ export default async function CurrencyPage({
       <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden">
         <Suspense fallback={null}>
           <CurrencyContainer
-            d={d.currencyPage}
-            locale={locale}
             currency={currency}
             fromTs={searchParams.dateFrom ? +searchParams.dateFrom : undefined}
             toTs={searchParams.dateTo ? +searchParams.dateTo : undefined}

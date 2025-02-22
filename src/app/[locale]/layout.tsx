@@ -38,16 +38,17 @@ export default async function RootLayout({
       <body
         className={`${inter.className} grid h-screen w-full grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr,_auto] overflow-hidden`}
       >
-        <DictionaryProvider d={d}>
+        <DictionaryProvider d={d} locale={locale}>
           <OverlayProvider>
             <div className="col-span-1 row-span-4">
               <Suspense fallback={<Loading />}>
-                <Sidebar d={d["sidebar"]} locale={locale} />
+                <Sidebar />
               </Suspense>
             </div>
 
             <div className="col-span-2 row-span-2 p-5">{children}</div>
 
+            {/* TODO: move the footer to a separate component */}
             <footer className="col-span-2 row-span-1 flex justify-end bg-black p-1">
               <ul className="flex gap-4 px-5 text-xs">
                 <li className="text-white hover:underline">

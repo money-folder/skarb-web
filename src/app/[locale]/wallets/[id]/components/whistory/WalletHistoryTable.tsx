@@ -1,6 +1,7 @@
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
+import { getDictionary } from "@/dictionaries";
+import { getServerLocale } from "@/getServerLocale";
 
-import { Dictionary } from "@/dictionaries/locale";
 import Changes from "../../../components/Changes";
 import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../buttons/DuplicateButton";
@@ -8,11 +9,13 @@ import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 interface Props {
-  d: Dictionary["whistoryPage"]["whistoryTable"];
   walletHistory: ClientWhistoryDto[];
 }
 
-export default function WalletHistoryTable({ d, walletHistory }: Props) {
+export default async function WalletHistoryTable({ walletHistory }: Props) {
+  const locale = getServerLocale();
+  const d = await getDictionary(locale, "whistoryPage.whistoryTable");
+
   return (
     <div className="h-full w-full">
       <table className="w-full">
@@ -59,6 +62,7 @@ export default function WalletHistoryTable({ d, walletHistory }: Props) {
               >
                 <Changes
                   text={
+                    // @TODO: create a util!
                     whistory.changes
                       ? `${(whistory.changesAbs || 0).toFixed(2)} (${(
                           (whistory.changes || 0) * 100

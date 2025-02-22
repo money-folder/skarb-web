@@ -1,26 +1,20 @@
 import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
+import { getServerLocale } from "@/getServerLocale";
 
-import { Dictionary } from "@/dictionaries/locale";
-import { Locale } from "@/locale";
+import { getDictionary } from "@/dictionaries";
 import WalletsTable from "./WalletsTable";
 
-interface Props {
-  locale: Locale;
-  d: Dictionary["walletsPage"];
-}
-
-export default async function WalletsContainer({ locale, d }: Props) {
+export default async function WalletsContainer() {
   const result = await fetchCurrentUserWallets();
+
+  const locale = getServerLocale();
+  const d = await getDictionary(locale, "walletsPage");
 
   return (
     <div>
       <div>
         {result.data ? (
-          <WalletsTable
-            locale={locale}
-            d={d.walletsTable}
-            wallets={result.data}
-          />
+          <WalletsTable wallets={result.data} />
         ) : (
           <p>{d.loadingWalletsFailed}</p>
         )}
