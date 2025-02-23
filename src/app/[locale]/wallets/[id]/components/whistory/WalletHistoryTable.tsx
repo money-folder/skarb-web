@@ -21,14 +21,14 @@ export default async function WalletHistoryTable({
   const d = await getDictionary(locale, "whistoryPage.whistoryTable");
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full min-w-[420px]">
       <table className="w-full">
         <thead>
           <tr>
-            <th className="w-2/12 border-2 border-black p-1 text-xs">
+            <th className="w-1/12 border-2 border-black text-xs">
               {d.balance}
             </th>
-            <th className="w-2/12 border-2 border-black p-1 text-xs">
+            <th className="w-1/12 border-2 border-black p-1 text-xs">
               {d.date}
             </th>
             <th className="w-4/12 border-2 border-black p-1 text-xs">
@@ -37,7 +37,7 @@ export default async function WalletHistoryTable({
             <th className="w-3/12 border-2 border-black p-1 text-xs">
               {d.comment}
             </th>
-            <th className="w-1/12 border-2 border-black p-1 text-xs">
+            <th className="w-3/12 border-2 border-black p-1 text-xs">
               {d.actions}
             </th>
           </tr>
@@ -82,7 +82,7 @@ export default async function WalletHistoryTable({
                 {whistory.comment || `-`}
               </td>
               <td
-                className={`space-x-2 border-2 border-black p-1 text-center text-xs`}
+                className={`space-x-1 border-2 border-black p-1 text-center text-xs`}
               >
                 <EditWhistoryButton whistory={whistory} />
 
