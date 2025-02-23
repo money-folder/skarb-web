@@ -10,6 +10,16 @@ export type CreateWhistoryRequestDto = {
   comment?: string;
 };
 
+export type UpdateWhistoryRequestDto = {
+  id: string;
+  walletId: string;
+  data: {
+    moneyAmount: number;
+    date: number;
+    comment?: string;
+  };
+};
+
 export type CreateWhistoryDto = {
   walletId: string;
   moneyAmount: number;

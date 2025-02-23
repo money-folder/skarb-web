@@ -6,6 +6,7 @@ import { DictionaryContext } from "@/shared/components/Dictionary";
 import Overlay from "@/shared/components/overlay/Overlay";
 import { getLocalISOString, replacePlaceholders } from "@/shared/utils/utils";
 
+import { update } from "../../actions";
 import { ClientWhistoryDto, WhistoryFormValues } from "../../types";
 import { whistoryFormSchema } from "../../validation";
 import WhistoryForm from "../WhistoryForm";
@@ -29,8 +30,12 @@ const EditWhistoryModal = ({ whistory, close }: Props) => {
     }
   }, [methods, whistory]);
 
-  const onSubmit = ({ amount, date, comment }: WhistoryFormValues) => {
-    console.log({ data: { amount, date, comment } });
+  const onSubmit = async ({ amount, date, comment }: WhistoryFormValues) => {
+    await update({
+      id: whistory.id,
+      walletId: whistory.walletId,
+      data: { moneyAmount: amount, date: date.getTime(), comment },
+    });
     close();
   };
 

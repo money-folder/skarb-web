@@ -100,7 +100,7 @@
     },
 
     "editWhistory": {
-      "title": "Edit \"{{ walletName }}\" Entry"
+      "title": "Edit Entry"
     },
 
     "walletForm": {
