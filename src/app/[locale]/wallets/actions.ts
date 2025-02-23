@@ -9,9 +9,13 @@ import {
   getCurrentUserWallet,
   getCurrentUserWallets,
   unarchiveSelfWallet,
+  updateCurrentUserWallet,
 } from "@/app/[locale]/wallets/service";
-import { createWalletRequestSchema } from "@/app/[locale]/wallets/validation";
-import { CreateWalletRequestDto } from "./types";
+import {
+  createWalletRequestSchema,
+  updateWalletRequestSchema,
+} from "@/app/[locale]/wallets/validation";
+import { CreateWalletRequestDto, UpdateWalletRequestDto } from "./types";
 
 export const fetchCurrentUserWallets = async () => {
   try {
@@ -40,13 +44,23 @@ export async function create(dto: CreateWalletRequestDto) {
   }
 
   await createCurrentUserWallet(dto);
-  await revalidatePath("/wallets");
+  revalidatePath("/wallets");
+}
+
+export async function update(dto: UpdateWalletRequestDto) {
+  const validationResult = updateWalletRequestSchema.safeParse(dto);
+  if (validationResult.error) {
+    throw new Error("Update wallet validation failed!", validationResult.error);
+  }
+
+  await updateCurrentUserWallet(dto);
+  revalidatePath("/wallets");
 }
 
 export async function archive(id: string) {
   try {
     await archiveSelfWallet(id);
-    await revalidatePath("/wallets");
+    revalidatePath("/wallets");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -57,7 +71,7 @@ export async function archive(id: string) {
 export async function unrchive(id: string) {
   try {
     await unarchiveSelfWallet(id);
-    await revalidatePath("/wallets");
+    revalidatePath("/wallets");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -68,7 +82,7 @@ export async function unrchive(id: string) {
 export async function destroy(id: string) {
   try {
     await destroySelfWallet(id);
-    await revalidatePath("/wallets");
+    revalidatePath("/wallets");
     return { success: true };
   } catch (error) {
     console.error(error);
