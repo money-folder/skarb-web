@@ -1,33 +1,40 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { create } from "@/app/[locale]/wallets/[id]/actions";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import Overlay from "@/shared/components/overlay/Overlay";
-import { replacePlaceholders } from "@/shared/utils/utils";
+import { getLocalISOString, replacePlaceholders } from "@/shared/utils/utils";
 
-import { WhistoryFormValues } from "../../types";
+import { update } from "../../actions";
+import { ClientWhistoryDto, WhistoryFormValues } from "../../types";
 import { whistoryFormSchema } from "../../validation";
 import WhistoryForm from "../WhistoryForm";
 
 interface Props {
-  walletId: string;
-  walletName: string;
+  whistory: ClientWhistoryDto;
   close: () => void;
 }
 
-const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
+const EditWhistoryModal = ({ whistory, close }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   const methods = useForm({ resolver: zodResolver(whistoryFormSchema) });
 
+  useEffect(() => {
+    // @ts-expect-error -- the date should be set as string
+    methods.setValue("date", getLocalISOString(whistory.date));
+    methods.setValue("amount", whistory.moneyAmount);
+    if (whistory.comment) {
+      methods.setValue("comment", whistory.comment);
+    }
+  }, [methods, whistory]);
+
   const onSubmit = async ({ amount, date, comment }: WhistoryFormValues) => {
-    await create({
-      walletId,
-      moneyAmount: amount,
-      date: date.getTime(),
-      comment: comment ? comment.trim() : undefined,
+    await update({
+      id: whistory.id,
+      walletId: whistory.walletId,
+      data: { moneyAmount: amount, date: date.getTime(), comment },
     });
     close();
   };
@@ -40,7 +47,9 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
           onClick={(e) => e.stopPropagation()}
         >
           <h3 className="text-left text-lg font-bold">
-            {replacePlaceholders(d.modals.createWhistory.title, { walletName })}
+            {replacePlaceholders(d.modals.editWhistory.title, {
+              walletName: "-",
+            })}
           </h3>
 
           <WhistoryForm
@@ -54,4 +63,4 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
   );
 };
 
-export default CreateWhistoryModal;
+export default EditWhistoryModal;

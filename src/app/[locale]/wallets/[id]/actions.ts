@@ -9,9 +9,17 @@ import {
   duplicateWhistory,
   getCurrentUserWhistory,
   unarchiveSelfWhistory,
+  updateWhistory,
 } from "@/app/[locale]/wallets/[id]/service";
-import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
-import { createWhistoryRequstSchema } from "@/app/[locale]/wallets/[id]/validation";
+import {
+  CreateWhistoryRequestDto,
+  UpdateWhistoryRequestDto,
+} from "@/app/[locale]/wallets/[id]/types";
+import {
+  createWhistoryRequstSchema,
+  updateWhistoryRequstSchema,
+} from "@/app/[locale]/wallets/[id]/validation";
+
 import { FetchWhistoryParams } from "../types";
 
 export const fetchWalletHistory = async (
@@ -39,7 +47,28 @@ export async function create(dto: CreateWhistoryRequestDto) {
     }
 
     await createWhistory(dto);
-    await revalidatePath(`/wallets/${dto.walletId}`);
+    revalidatePath(`/wallets/${dto.walletId}`);
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error };
+  }
+}
+
+export async function update(dto: UpdateWhistoryRequestDto) {
+  try {
+    const validationResult = updateWhistoryRequstSchema.safeParse(dto);
+    if (validationResult.error) {
+      console.error("Update whistory validation failed", dto);
+      throw new Error(
+        "Update whistory validation failed",
+        validationResult.error,
+      );
+    }
+
+    await updateWhistory(dto);
+    revalidatePath(`/wallets/${dto.walletId}`);
 
     return { success: true };
   } catch (error) {
@@ -51,7 +80,7 @@ export async function create(dto: CreateWhistoryRequestDto) {
 export async function duplicate(id: string, walletId: string) {
   try {
     await duplicateWhistory(id);
-    await revalidatePath(`/wallets/${walletId}`);
+    revalidatePath(`/wallets/${walletId}`);
 
     return { success: true };
   } catch (error) {
@@ -63,7 +92,7 @@ export async function duplicate(id: string, walletId: string) {
 export const archive = async (id: string) => {
   try {
     await archiveSelfWhistory(id);
-    await revalidatePath(`/wallets/${id}`);
+    revalidatePath(`/wallets/${id}`);
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -74,7 +103,7 @@ export const archive = async (id: string) => {
 export const unarchive = async (id: string) => {
   try {
     await unarchiveSelfWhistory(id);
-    await revalidatePath(`/wallets/${id}`);
+    revalidatePath(`/wallets/${id}`);
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -85,7 +114,7 @@ export const unarchive = async (id: string) => {
 export const destroy = async (id: string) => {
   try {
     await destroySelfWhistory(id);
-    await revalidatePath(`/wallets/${id}`);
+    revalidatePath(`/wallets/${id}`);
     return { success: true };
   } catch (error) {
     console.error(error);

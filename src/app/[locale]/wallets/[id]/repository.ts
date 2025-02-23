@@ -2,7 +2,10 @@ import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/prisma";
 
-import { CreateWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
+import {
+  CreateWhistoryDto,
+  UpdateWhistoryRequestDto,
+} from "@/app/[locale]/wallets/[id]/types";
 import { FetchWhistoryParams } from "../types";
 
 export const findByWallet = async (walletId: string) => {
@@ -10,7 +13,7 @@ export const findByWallet = async (walletId: string) => {
     AND: [{ walletId }],
   };
 
-  return await prisma.walletHistory.findMany({
+  return prisma.walletHistory.findMany({
     where,
     orderBy: {
       date: "desc",
@@ -27,7 +30,7 @@ export const findWallet = async (whistoryId: string) => {
     return null;
   }
 
-  return await prisma.wallet.findUnique({ where: { id: whistory.walletId } });
+  return prisma.wallet.findUnique({ where: { id: whistory.walletId } });
 };
 
 export const findUserWallet = async (
@@ -51,7 +54,7 @@ export const findUserWallet = async (
     });
   }
 
-  return await prisma.walletHistory.findMany({
+  return prisma.walletHistory.findMany({
     where,
 
     orderBy: {
@@ -61,17 +64,28 @@ export const findUserWallet = async (
 };
 
 export const findById = async (id: string) => {
-  return await prisma.walletHistory.findFirst({ where: { id } });
+  return prisma.walletHistory.findFirst({ where: { id } });
 };
 
 export const create = async (dto: CreateWhistoryDto) => {
-  return await prisma.walletHistory.create({
+  return prisma.walletHistory.create({
     data: dto,
   });
 };
 
+export const update = async (dto: UpdateWhistoryRequestDto) => {
+  return prisma.walletHistory.update({
+    where: { id: dto.id },
+    data: {
+      date: new Date(dto.data.date),
+      moneyAmount: dto.data.moneyAmount,
+      comment: dto.data.comment,
+    },
+  });
+};
+
 export const archive = async (id: string) => {
-  return await prisma.walletHistory.update({
+  return prisma.walletHistory.update({
     where: { id },
     data: {
       deletedAt: new Date(),
@@ -80,7 +94,7 @@ export const archive = async (id: string) => {
 };
 
 export const unarchive = async (id: string) => {
-  return await prisma.walletHistory.update({
+  return prisma.walletHistory.update({
     where: { id },
     data: {
       deletedAt: null,
@@ -89,5 +103,5 @@ export const unarchive = async (id: string) => {
 };
 
 export const destroy = async (id: string) => {
-  return await prisma.walletHistory.delete({ where: { id } });
+  return prisma.walletHistory.delete({ where: { id } });
 };

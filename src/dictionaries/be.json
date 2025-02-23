@@ -86,15 +86,20 @@
   },
 
   "modals": {
+    "whistoryForm": {
+      "dateLabel": "Дата: ",
+      "amountLabel": "Сума грошай: ",
+      "commentLabel": "Каментар: ",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Адправіць"
+    },
+
     "createWhistory": {
-      "title": "Новы запіс у \"{{ walletName }}\"",
-      "form": {
-        "dateLabel": "Дата: ",
-        "amountLabel": "Сума грошай: ",
-        "commentLabel": "Каментар: ",
-        "cancelLabel": "Скасаваць",
-        "submitLabel": "Адправіць"
-      }
+      "title": "Новы запіс у \"{{ walletName }}\""
+    },
+
+    "editWhistory": {
+      "title": "Рэдагаваць запіс"
     },
 
     "walletForm": {

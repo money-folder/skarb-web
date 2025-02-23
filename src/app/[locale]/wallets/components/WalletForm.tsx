@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
-// components
 import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
 import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
 import { DictionaryContext } from "@/shared/components/Dictionary";
+
 import { WalletFormValues } from "../types";
 
 interface Props {

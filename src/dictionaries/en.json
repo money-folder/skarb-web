@@ -87,15 +87,20 @@
   },
 
   "modals": {
+    "whistoryForm": {
+      "dateLabel": "Timestamp: ",
+      "amountLabel": "Amount: ",
+      "commentLabel": "Comment: ",
+      "cancelLabel": "Cancel",
+      "submitLabel": "Submit"
+    },
+
     "createWhistory": {
-      "title": "New \"{{ walletName }}\" Entry",
-      "form": {
-        "dateLabel": "Timestamp: ",
-        "amountLabel": "Amount: ",
-        "commentLabel": "Comment: ",
-        "cancelLabel": "Cancel",
-        "submitLabel": "Submit"
-      }
+      "title": "New \"{{ walletName }}\" Entry"
+    },
+
+    "editWhistory": {
+      "title": "Edit Entry"
     },
 
     "walletForm": {
