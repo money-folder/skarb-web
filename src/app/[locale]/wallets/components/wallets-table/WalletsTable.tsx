@@ -11,6 +11,7 @@ import AddWhistoryButton from "../buttons/AddWhistoryButton";
 import DestroyButton from "../buttons/DestroyButton";
 import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
+import { EditButton } from "../edit-wallet/EditWalletButton";
 
 interface WalletsTableProps {
   locale: Locale;
@@ -121,6 +122,8 @@ export default async function WalletsTable({
                   whistoryId={wallet.latestWhistory?.id}
                 />
               ) : null}
+
+              <EditButton wallet={wallet} />
 
               {wallet.deletedAt ? (
                 <>

@@ -98,14 +98,19 @@
       }
     },
 
+    "walletForm": {
+      "nameLabel": "Name: ",
+      "currencyLabel": "Currency: ",
+      "cancelLabel": "Cancel",
+      "submitLabel": "Submit"
+    },
+
     "createWallet": {
-      "title": "Create Wallet",
-      "form": {
-        "nameLabel": "Name: ",
-        "currencyLabel": "Currency: ",
-        "cancelLabel": "Cancel",
-        "submitLabel": "Submit"
-      }
+      "title": "Create Wallet"
+    },
+
+    "editWallet": {
+      "title": "Edit Wallet"
     }
   },
 

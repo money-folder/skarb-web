@@ -1,5 +1,7 @@
 import { DateDifference } from "@/shared/utils/time-utils";
+import { z } from "zod";
 import { WhistoryDb } from "./[id]/types";
+import { walletFormSchema } from "./validation";
 
 export type WalletDb = {
   id: string;
@@ -40,3 +42,5 @@ export type FetchWhistoryParams = {
   fromTs?: number;
   toTs?: number;
 };
+
+export type WalletFormValues = z.infer<typeof walletFormSchema>;

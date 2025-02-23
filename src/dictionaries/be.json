@@ -97,14 +97,19 @@
       }
     },
 
+    "walletForm": {
+      "nameLabel": "Назва: ",
+      "currencyLabel": "Валюта: ",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Адправіць"
+    },
+
     "createWallet": {
-      "title": "Стварыць Кашалёк",
-      "form": {
-        "nameLabel": "Назва: ",
-        "currencyLabel": "Валюта: ",
-        "cancelLabel": "Скасаваць",
-        "submitLabel": "Адправіць"
-      }
+      "title": "Стварыць Кашалёк"
+    },
+
+    "editWallet": {
+      "title": "Рэдагаваць Кашалёк"
     }
   },
 
