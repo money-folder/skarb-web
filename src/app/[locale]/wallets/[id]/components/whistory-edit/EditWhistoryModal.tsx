@@ -22,7 +22,7 @@ const EditWhistoryModal = ({ whistory, close }: Props) => {
   const methods = useForm({ resolver: zodResolver(whistoryFormSchema) });
 
   useEffect(() => {
-    // @ts-ignore
+    // @ts-expect-error -- the date should be set as string
     methods.setValue("date", getLocalISOString(whistory.date));
     methods.setValue("amount", whistory.moneyAmount);
     if (whistory.comment) {
