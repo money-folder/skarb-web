@@ -22,7 +22,7 @@ export default async function WalletHistory({
   return (
     <main className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5 overflow-hidden">
       <Suspense fallback={<WalletHistoryTitleLoading />}>
-        <WalletHistoryTitle walletId={id} />
+        <WalletHistoryTitle locale={locale} walletId={id} />
       </Suspense>
 
       <div className="col-span-3 row-span-1 flex w-full items-center justify-center rounded-lg bg-gray-200 p-2">
@@ -32,6 +32,7 @@ export default async function WalletHistory({
       <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden">
         <Suspense fallback={<Loading d={d.whistoryPage.whistoryTable} />}>
           <WalletHistoryContainer
+            locale={locale}
             walletId={id}
             fromTs={
               searchParams.whistoryFrom ? +searchParams.whistoryFrom : undefined

@@ -1,6 +1,6 @@
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 import { getDictionary } from "@/dictionaries";
-import { getServerLocale } from "@/getServerLocale";
+import { Locale } from "@/locale";
 
 import Changes from "../../../components/Changes";
 import DestroyButton from "../buttons/DestroyButton";
@@ -9,11 +9,14 @@ import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 interface Props {
+  locale: Locale;
   walletHistory: ClientWhistoryDto[];
 }
 
-export default async function WalletHistoryTable({ walletHistory }: Props) {
-  const locale = getServerLocale();
+export default async function WalletHistoryTable({
+  locale,
+  walletHistory,
+}: Props) {
   const d = await getDictionary(locale, "whistoryPage.whistoryTable");
 
   return (

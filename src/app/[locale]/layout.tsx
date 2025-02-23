@@ -42,7 +42,7 @@ export default async function RootLayout({
           <OverlayProvider>
             <div className="col-span-1 row-span-4">
               <Suspense fallback={<Loading />}>
-                <Sidebar />
+                <Sidebar locale={locale} />
               </Suspense>
             </div>
 

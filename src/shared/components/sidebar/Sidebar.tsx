@@ -4,17 +4,19 @@ import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 import CreateWalletButton from "@/app/[locale]/wallets/components/create-wallet/CreateWalletButton";
 import { auth } from "@/auth";
 import { getDictionary } from "@/dictionaries";
-import { getServerLocale } from "@/getServerLocale";
-import { DEFAULT_LOCALE } from "@/locale";
+import { DEFAULT_LOCALE, Locale } from "@/locale";
 
 import { SignOut } from "../SignOut";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 
-export default async function Sidebar() {
+interface Props {
+  locale: Locale;
+}
+
+export default async function Sidebar({ locale }: Props) {
   const session = await auth();
 
-  const locale = getServerLocale();
   const d = await getDictionary(locale);
 
   const [walletsResponse, currenciesResponse] = await Promise.all([
@@ -24,7 +26,7 @@ export default async function Sidebar() {
 
   return (
     <div className="flex h-full w-[225px] flex-col border-r-2 border-r-black p-5">
-      <UserProfile />
+      <UserProfile locale={locale} />
 
       <ul className="mt-5 flex-grow">
         {walletsResponse.data ? (

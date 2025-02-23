@@ -2,13 +2,17 @@ import Image from "next/image";
 
 import { auth } from "@/auth";
 import { getDictionary } from "@/dictionaries";
-import { getServerLocale } from "@/getServerLocale";
+import { Locale } from "@/locale";
+
 import { SignIn } from "../SignIn";
 
-export default async function UserProfile() {
+interface Props {
+  locale: Locale;
+}
+
+export default async function UserProfile({ locale }: Props) {
   const session = await auth();
 
-  const locale = getServerLocale();
   const d = await getDictionary(locale);
 
   return (

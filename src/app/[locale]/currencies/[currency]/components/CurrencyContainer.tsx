@@ -1,7 +1,7 @@
 import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
 import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
 import { getDictionary } from "@/dictionaries";
-import { getServerLocale } from "@/getServerLocale";
+import { Locale } from "@/locale";
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
 import { WithMounted } from "@/shared/components/WithMounted";
@@ -14,17 +14,18 @@ import { fetchCurrencyWhistory } from "../../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 
 interface Props {
+  locale: Locale;
   currency: string;
   fromTs?: number;
   toTs?: number;
 }
 
 export default async function CurrencyContainer({
+  locale,
   currency,
   fromTs,
   toTs,
 }: Props) {
-  const locale = getServerLocale();
   const d = await getDictionary(locale, "currencyPage");
 
   const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
@@ -44,6 +45,7 @@ export default async function CurrencyContainer({
 
         {response.data.composedWhistory.length ? (
           <WhistoryEntriesSummaryCard
+            locale={locale}
             startDate={response.data.composedWhistory[0].date}
             endDate={
               response.data.composedWhistory[
@@ -56,7 +58,10 @@ export default async function CurrencyContainer({
       </div>
 
       <div className="col-span-1 row-span-1 overflow-auto">
-        <CurrencyComposedTable walletHistory={response.data.composedWhistory} />
+        <CurrencyComposedTable
+          locale={locale}
+          walletHistory={response.data.composedWhistory}
+        />
       </div>
 
       <div className="col-span-1 row-span-1 flex flex-col items-center justify-start overflow-y-auto">

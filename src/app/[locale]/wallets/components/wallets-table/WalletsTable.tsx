@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 import { getDictionary } from "@/dictionaries";
-import { getServerLocale } from "@/getServerLocale";
 import { formatDateDifference } from "@/shared/utils/time-utils";
 
+import { Locale } from "@/locale";
 import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
 import { ClientWalletDto } from "../../types";
 import Changes from "../Changes";
@@ -13,11 +13,14 @@ import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
 
 interface WalletsTableProps {
+  locale: Locale;
   wallets: ClientWalletDto[];
 }
 
-export default async function WalletsTable({ wallets }: WalletsTableProps) {
-  const locale = getServerLocale();
+export default async function WalletsTable({
+  locale,
+  wallets,
+}: WalletsTableProps) {
   const d = await getDictionary(locale, "walletsPage.walletsTable");
 
   return (

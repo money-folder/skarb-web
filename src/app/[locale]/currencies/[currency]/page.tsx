@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default async function CurrencyPage({
-  params: { currency },
+  params: { currency, locale },
   searchParams,
 }: Props) {
   return (
@@ -27,6 +27,7 @@ export default async function CurrencyPage({
       <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden">
         <Suspense fallback={null}>
           <CurrencyContainer
+            locale={locale}
             currency={currency}
             fromTs={searchParams.dateFrom ? +searchParams.dateFrom : undefined}
             toTs={searchParams.dateTo ? +searchParams.dateTo : undefined}
