@@ -3,26 +3,23 @@
 import Image from "next/image";
 import { useContext } from "react";
 
-import CreateWhistoryModal from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryModal";
 import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
-import PlusIcon from "@/assets/plus.svg";
+import { ClientWalletDto } from "../../types";
+import EditWalletModal from "./EditWalletModal";
+
+import EditIcon from "@/assets/edit.svg";
 
 interface Props {
-  walletId: string;
-  walletName: string;
+  wallet: ClientWalletDto;
 }
 
-export default function AddWhistoryButton({ walletId, walletName }: Props) {
+export const EditButton = ({ wallet }: Props) => {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {
     addOverlay(({ removeSelf }) => (
-      <CreateWhistoryModal
-        walletId={walletId}
-        walletName={walletName}
-        close={removeSelf}
-      />
+      <EditWalletModal wallet={wallet} close={removeSelf} />
     ));
   };
 
@@ -31,7 +28,7 @@ export default function AddWhistoryButton({ walletId, walletName }: Props) {
       className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={onClick}
     >
-      <Image src={PlusIcon} alt="create" />
+      <Image src={EditIcon} alt="edit" />
     </button>
   );
-}
+};

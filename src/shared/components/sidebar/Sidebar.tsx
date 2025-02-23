@@ -1,22 +1,23 @@
+import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
 import CreateWhistoryButton from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryButton";
 import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 import CreateWalletButton from "@/app/[locale]/wallets/components/create-wallet/CreateWalletButton";
 import { auth } from "@/auth";
-
-import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
-import { Dictionary } from "@/dictionaries/locale";
+import { getDictionary } from "@/dictionaries";
 import { DEFAULT_LOCALE, Locale } from "@/locale";
+
 import { SignOut } from "../SignOut";
 import NavLink from "./Navlink";
 import UserProfile from "./UserProfile";
 
 interface Props {
   locale: Locale;
-  d: Dictionary["sidebar"];
 }
 
-export default async function Sidebar({ d, locale }: Props) {
+export default async function Sidebar({ locale }: Props) {
   const session = await auth();
+
+  const d = await getDictionary(locale);
 
   const [walletsResponse, currenciesResponse] = await Promise.all([
     fetchCurrentUserWallets(),
@@ -25,7 +26,7 @@ export default async function Sidebar({ d, locale }: Props) {
 
   return (
     <div className="flex h-full w-[225px] flex-col border-r-2 border-r-black p-5">
-      <UserProfile d={d} />
+      <UserProfile locale={locale} />
 
       <ul className="mt-5 flex-grow">
         {walletsResponse.data ? (
@@ -37,7 +38,7 @@ export default async function Sidebar({ d, locale }: Props) {
                   locale !== DEFAULT_LOCALE ? `/${locale}` : ""
                 }/wallets`}
               >
-                {d.walletsTitle}
+                {d.sidebar.walletsTitle}
               </NavLink>
 
               <span className="w-fit shrink-0">
@@ -72,7 +73,7 @@ export default async function Sidebar({ d, locale }: Props) {
 
         {currenciesResponse.data ? (
           <>
-            <li>{d.currenciesTitle}</li>
+            <li>{d.sidebar.currenciesTitle}</li>
 
             <ul className="pl-5">
               {currenciesResponse.data.map((c) => (
@@ -94,7 +95,7 @@ export default async function Sidebar({ d, locale }: Props) {
       </ul>
 
       <div className="mt-5 flex justify-center">
-        {session?.user ? <SignOut text={d.signoutLabel} /> : null}
+        {session?.user ? <SignOut text={d.sidebar.signoutLabel} /> : null}
       </div>
     </div>
   );

@@ -4,4 +4,4 @@ import type enDictionary from "./en.json";
 export type BeDictionary = typeof beDictionary;
 export type EnDictionary = typeof enDictionary;
 
-export type Dictionary = BeDictionary & EnDictionary;
+export type Dictionary = BeDictionary | EnDictionary;

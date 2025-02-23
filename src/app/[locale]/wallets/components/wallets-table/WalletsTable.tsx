@@ -1,28 +1,29 @@
 import Link from "next/link";
 
-import { Dictionary } from "@/dictionaries/locale";
-import { Locale } from "@/locale";
+import { getDictionary } from "@/dictionaries";
 import { formatDateDifference } from "@/shared/utils/time-utils";
 
+import { Locale } from "@/locale";
 import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
+import CreateWhistoryButton from "../../[id]/components/whistory-create/CreateWhistoryButton";
 import { ClientWalletDto } from "../../types";
 import Changes from "../Changes";
-import AddWhistoryButton from "../buttons/AddWhistoryButton";
 import DestroyButton from "../buttons/DestroyButton";
 import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
+import { EditButton } from "../edit-wallet/EditWalletButton";
 
 interface WalletsTableProps {
   locale: Locale;
-  d: Dictionary["walletsPage"]["walletsTable"];
   wallets: ClientWalletDto[];
 }
 
-export default function WalletsTable({
+export default async function WalletsTable({
   locale,
-  d,
   wallets,
 }: WalletsTableProps) {
+  const d = await getDictionary(locale, "walletsPage.walletsTable");
+
   return (
     <table className="w-full">
       <thead>
@@ -83,7 +84,7 @@ export default function WalletsTable({
             >
               <Changes
                 text={
-                  // @TODO: move to a util
+                  // @TODO: move to a util, lol
                   wallet.changes
                     ? `${(wallet.changesAbs || 0).toFixed(2)} (${(
                         (wallet.changes || 0) * 100
@@ -110,7 +111,7 @@ export default function WalletsTable({
                 : "-"}
             </td>
             <td className="space-x-2 border-2 border-black p-1 text-center text-sm">
-              <AddWhistoryButton
+              <CreateWhistoryButton
                 walletId={wallet.id}
                 walletName={wallet.name}
               />
@@ -121,6 +122,8 @@ export default function WalletsTable({
                   whistoryId={wallet.latestWhistory?.id}
                 />
               ) : null}
+
+              <EditButton wallet={wallet} />
 
               {wallet.deletedAt ? (
                 <>

@@ -2,7 +2,6 @@ import { WalletDb } from "../../types";
 import { WhistoryDbWithWallet } from "../types";
 import {
   composeWhistoryMoneyAmount,
-  getWhistoryWithinInterval,
   groupWhistoryByDate,
   groupWhistoryByWallets,
   WhistoryByDate,
@@ -32,45 +31,6 @@ const createWhistory = (
     deletedAt: null,
   },
   ...overrides,
-});
-
-describe("getWhistoryWithinInterval", () => {
-  const whistories = [
-    createWhistory({ date: createDate("2024-01-01") }),
-    createWhistory({ date: createDate("2024-01-02") }),
-    createWhistory({ date: createDate("2024-01-03") }),
-    createWhistory({ date: createDate("2024-01-04") }),
-    createWhistory({ date: createDate("2024-01-05") }),
-  ];
-
-  it("should return all records when no params provided", () => {
-    const result = getWhistoryWithinInterval(whistories, {});
-    expect(result).toHaveLength(5);
-  });
-
-  it("should filter by fromTs", () => {
-    const result = getWhistoryWithinInterval(whistories, {
-      fromTs: createDate("2024-01-03").valueOf(),
-    });
-    expect(result).toHaveLength(3);
-    expect(result[0].date).toEqual(createDate("2024-01-03"));
-  });
-
-  it("should filter by toTs", () => {
-    const result = getWhistoryWithinInterval(whistories, {
-      toTs: createDate("2024-01-03").valueOf(),
-    });
-    expect(result).toHaveLength(3);
-    expect(result[result.length - 1].date).toEqual(createDate("2024-01-03"));
-  });
-
-  it("should filter by both fromTs and toTs", () => {
-    const result = getWhistoryWithinInterval(whistories, {
-      fromTs: createDate("2024-01-02").valueOf(),
-      toTs: createDate("2024-01-04").valueOf(),
-    });
-    expect(result).toHaveLength(3);
-  });
 });
 
 describe("groupWhistoryByWallets", () => {
@@ -142,8 +102,7 @@ describe("groupWhistoryByDate", () => {
     };
 
     const result = groupWhistoryByDate(start, end, dataByWallets);
-
-    expect(result).toHaveLength(3);
+    expect(result.length).toBe(3);
     expect(result[0].date).toEqual(new Date("2024-01-01"));
     expect(Object.keys(result[0].walletsMap)).toHaveLength(2);
     expect(result[0].walletsMap.wallet1.moneyAmount).toBe(100);

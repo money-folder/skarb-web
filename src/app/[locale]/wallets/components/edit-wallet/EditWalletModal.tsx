@@ -1,26 +1,32 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { create } from "@/app/[locale]/wallets/actions";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import Overlay from "@/shared/components/overlay/Overlay";
 
-import { WalletFormValues } from "../../types";
+import { update } from "../../actions";
+import { ClientWalletDto, WalletFormValues } from "../../types";
 import { walletFormSchema } from "../../validation";
 import WalletForm from "../WalletForm";
 
 interface Props {
+  wallet: ClientWalletDto;
   close: () => void;
 }
 
-const CreateWalletModal = ({ close }: Props) => {
+const EditWalletModal = ({ wallet, close }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   const methods = useForm({ resolver: zodResolver(walletFormSchema) });
 
-  const onSubmit = async ({ name, currency }: WalletFormValues) => {
-    await create({ name, currency });
+  useEffect(() => {
+    methods.setValue("name", wallet.name);
+    methods.setValue("currency", wallet.currency);
+  }, [methods, wallet]);
+
+  const onSubmit = async ({ name }: WalletFormValues) => {
+    await update({ id: wallet.id, data: { name } });
     close();
   };
 
@@ -32,13 +38,17 @@ const CreateWalletModal = ({ close }: Props) => {
           onClick={(e) => e.stopPropagation()}
         >
           <h3 className="text-left text-lg font-bold">
-            {d.modals.createWallet.title}
+            {d.modals.editWallet.title}
           </h3>
-          <WalletForm methods={methods} onSubmit={onSubmit} />
+          <WalletForm
+            methods={methods}
+            onSubmit={onSubmit}
+            disabledFields={{ currency: true }}
+          />
         </div>
       </Overlay>
     </div>
   );
 };
 
-export default CreateWalletModal;
+export default EditWalletModal;

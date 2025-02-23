@@ -53,8 +53,13 @@
 
   "currencyPage": {
     "cards": {
-      "walletChangesSummary": {
+      "changesSummary": {
         "title": "Змены Σ"
+      },
+
+      "entriesSummary": {
+        "title": "{{entriesCount}} Запісаў",
+        "in": "за"
       }
     },
     "filters": {
@@ -81,25 +86,35 @@
   },
 
   "modals": {
+    "whistoryForm": {
+      "dateLabel": "Дата: ",
+      "amountLabel": "Сума грошай: ",
+      "commentLabel": "Каментар: ",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Адправіць"
+    },
+
     "createWhistory": {
-      "title": "Новы запіс у \"{{ walletName }}\"",
-      "form": {
-        "dateLabel": "Дата: ",
-        "amountLabel": "Сума грошай: ",
-        "commentLabel": "Каментар: ",
-        "cancelLabel": "Скасаваць",
-        "submitLabel": "Адправіць"
-      }
+      "title": "Новы запіс у \"{{ walletName }}\""
+    },
+
+    "editWhistory": {
+      "title": "Рэдагаваць запіс"
+    },
+
+    "walletForm": {
+      "nameLabel": "Назва: ",
+      "currencyLabel": "Валюта: ",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Адправіць"
     },
 
     "createWallet": {
-      "title": "Стварыць Кашалёк",
-      "form": {
-        "nameLabel": "Назва: ",
-        "currencyLabel": "Валюта: ",
-        "cancelLabel": "Скасаваць",
-        "submitLabel": "Адправіць"
-      }
+      "title": "Стварыць Кашалёк"
+    },
+
+    "editWallet": {
+      "title": "Рэдагаваць Кашалёк"
     }
   },
 

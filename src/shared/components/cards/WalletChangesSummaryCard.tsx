@@ -8,6 +8,7 @@ interface Props {
   diff: number;
 }
 
+// @TODO: Rename -- this component is used for both whistory and currencies
 export default function WalletChangesSummaryCard({
   text,
   increases,

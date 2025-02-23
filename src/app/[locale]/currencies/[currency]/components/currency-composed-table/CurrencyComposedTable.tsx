@@ -1,16 +1,19 @@
 import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
 import Changes from "@/app/[locale]/wallets/components/Changes";
-import { Dictionary } from "@/dictionaries/locale";
+import { getDictionary } from "@/dictionaries";
+import { Locale } from "@/locale";
 
 interface Props {
+  locale: Locale;
   walletHistory: WhistoryComposed[];
-  d: Dictionary["currencyPage"]["currencyTable"];
 }
 
 export default async function CurrencyComposedTable({
+  locale,
   walletHistory,
-  d,
 }: Props) {
+  const d = await getDictionary(locale, "currencyPage.currencyTable");
+
   return (
     <div className="h-full w-full">
       <table className="w-full">
@@ -40,6 +43,7 @@ export default async function CurrencyComposedTable({
               <td className="w-2/12 border-2 border-black p-1 text-center text-sm">
                 <Changes
                   text={
+                    // @TODO: move it to a util, lol
                     wh.changes
                       ? `${(wh.changesAbs || 0).toFixed(2)} (${(
                           (wh.changes || 0) * 100

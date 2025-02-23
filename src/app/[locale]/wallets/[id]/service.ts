@@ -1,5 +1,8 @@
 import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
-import { CreateWhistoryRequestDto } from "@/app/[locale]/wallets/[id]/types";
+import {
+  CreateWhistoryRequestDto,
+  UpdateWhistoryRequestDto,
+} from "@/app/[locale]/wallets/[id]/types";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
@@ -73,6 +76,10 @@ export const createWhistory = async (dto: CreateWhistoryRequestDto) => {
     ...dto,
     date: new Date(dto.date),
   });
+};
+
+export const updateWhistory = async (dto: UpdateWhistoryRequestDto) => {
+  return whistoryRepository.update(dto);
 };
 
 export const duplicateWhistory = async (id: string) => {
