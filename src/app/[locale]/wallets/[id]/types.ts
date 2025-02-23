@@ -1,4 +1,7 @@
+import { z } from "zod";
+
 import { WalletDb } from "../types";
+import { whistoryFormSchema } from "./validation";
 
 export type CreateWhistoryRequestDto = {
   walletId: string;
@@ -40,3 +43,5 @@ export type WhistoryComposed = {
   changes: number | null;
   changesAbs: number | null;
 };
+
+export type WhistoryFormValues = z.infer<typeof whistoryFormSchema>;

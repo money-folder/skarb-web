@@ -5,9 +5,9 @@ import { formatDateDifference } from "@/shared/utils/time-utils";
 
 import { Locale } from "@/locale";
 import DuplicateButton from "../../[id]/components/buttons/DuplicateButton";
+import CreateWhistoryButton from "../../[id]/components/whistory-create/CreateWhistoryButton";
 import { ClientWalletDto } from "../../types";
 import Changes from "../Changes";
-import AddWhistoryButton from "../buttons/AddWhistoryButton";
 import DestroyButton from "../buttons/DestroyButton";
 import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
@@ -111,7 +111,7 @@ export default async function WalletsTable({
                 : "-"}
             </td>
             <td className="space-x-2 border-2 border-black p-1 text-center text-sm">
-              <AddWhistoryButton
+              <CreateWhistoryButton
                 walletId={wallet.id}
                 walletName={wallet.name}
               />

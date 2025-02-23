@@ -6,3 +6,9 @@ export const createWhistoryRequstSchema = z.object({
   date: z.number(),
   comment: z.string().optional(),
 });
+
+export const whistoryFormSchema = z.object({
+  date: z.date(),
+  amount: z.number(),
+  comment: z.string().optional(),
+});

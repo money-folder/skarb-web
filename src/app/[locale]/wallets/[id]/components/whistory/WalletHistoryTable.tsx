@@ -7,6 +7,7 @@ import DestroyButton from "../buttons/DestroyButton";
 import DuplicateButton from "../buttons/DuplicateButton";
 import RestoreButton from "../buttons/RestoreButton";
 import SoftDeleteButton from "../buttons/SoftDeleteButton";
+import EditWhistoryButton from "../whistory-edit/EditWhistoryButton";
 
 interface Props {
   locale: Locale;
@@ -83,6 +84,8 @@ export default async function WalletHistoryTable({
               <td
                 className={`space-x-2 border-2 border-black p-1 text-center text-xs`}
               >
+                <EditWhistoryButton whistory={whistory} />
+
                 {whistory.deletedAt ? (
                   <>
                     <RestoreButton id={whistory.id} />
