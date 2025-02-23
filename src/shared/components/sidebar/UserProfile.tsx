@@ -1,15 +1,19 @@
 import Image from "next/image";
 
 import { auth } from "@/auth";
-import { Dictionary } from "@/dictionaries/locale";
+import { getDictionary } from "@/dictionaries";
+import { Locale } from "@/locale";
+
 import { SignIn } from "../SignIn";
 
 interface Props {
-  d: Dictionary["sidebar"];
+  locale: Locale;
 }
 
-export default async function UserProfile({ d }: Props) {
+export default async function UserProfile({ locale }: Props) {
   const session = await auth();
+
+  const d = await getDictionary(locale);
 
   return (
     <div className="w-full">
@@ -32,7 +36,7 @@ export default async function UserProfile({ d }: Props) {
           </div>
 
           <div className="mt-5">
-            <SignIn text={d.githubSigninLabel} />
+            <SignIn text={d.sidebar.githubSigninLabel} />
           </div>
         </div>
       )}

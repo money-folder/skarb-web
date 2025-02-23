@@ -1,15 +1,16 @@
 import { fetchWallet } from "@/app/[locale]/wallets/actions";
+import { getDictionary } from "@/dictionaries";
+import { Locale } from "@/locale";
 import { replacePlaceholders } from "@/shared/utils/utils";
 
 interface Props {
-  pageTitleTemplate: string;
+  locale: Locale;
   walletId: string;
 }
 
-export default async function WalletHistoryTitle({
-  pageTitleTemplate,
-  walletId,
-}: Props) {
+export default async function WalletHistoryTitle({ locale, walletId }: Props) {
+  const pageTitleTemplate = await getDictionary(locale, "whistoryPage.title");
+
   const wallet = await fetchWallet(walletId);
 
   return (

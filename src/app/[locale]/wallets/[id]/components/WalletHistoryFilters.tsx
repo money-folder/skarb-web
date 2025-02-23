@@ -1,21 +1,19 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { Dictionary } from "@/dictionaries/locale";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 import { isValidDate } from "@/shared/utils/time-utils";
 import { getLocalISOString } from "@/shared/utils/utils";
 
-interface Props {
-  d: Dictionary["whistoryPage"]["filters"];
-}
-
-const WalletHistoryFilters = ({ d }: Props) => {
+const WalletHistoryFilters = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
+  const { d } = useContext(DictionaryContext);
 
   const { register, watch, reset } = useForm();
 
@@ -50,7 +48,7 @@ const WalletHistoryFilters = ({ d }: Props) => {
     <form className="flex w-full flex-col items-start justify-start gap-2">
       <div className="flex gap-5">
         <label className="flex gap-3">
-          <span>{d.form.fromLabel}</span>
+          <span>{d.whistoryPage.filters.form.fromLabel}</span>
           <input
             {...register("whistoryFrom", {
               required: false,
@@ -63,7 +61,7 @@ const WalletHistoryFilters = ({ d }: Props) => {
         </label>
 
         <label className="flex gap-3">
-          <span>{d.form.toLabel}</span>
+          <span>{d.whistoryPage.filters.form.toLabel}</span>
           <input
             {...register("whistoryTo", { required: false, valueAsDate: true })}
             type="datetime-local"
@@ -74,7 +72,7 @@ const WalletHistoryFilters = ({ d }: Props) => {
       </div>
 
       <button className="hover:underline" type="reset" onClick={reset}>
-        {d.form.resetLabel}
+        {d.whistoryPage.filters.form.resetLabel}
       </button>
     </form>
   );

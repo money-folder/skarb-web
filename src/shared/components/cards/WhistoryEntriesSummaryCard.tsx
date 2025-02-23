@@ -1,27 +1,32 @@
-import { Dictionary } from "@/dictionaries/locale";
+import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import {
   calculateDateDifference,
   formatDateDifference,
 } from "@/shared/utils/time-utils";
 import { replacePlaceholders } from "@/shared/utils/utils";
+
 import Card from "./Card";
 
 interface Props {
-  d: Dictionary["whistoryPage"]["cards"]["whistoryEntriesSummary"];
   locale: Locale;
   startDate: Date;
   endDate: Date;
   entriesCount: number;
 }
 
-export default function WhistoryEntriesSummaryCard({
-  d,
+// @TODO: Rename -- this component is used for both whistory and currencies
+export default async function WhistoryEntriesSummaryCard({
   locale,
   startDate,
   endDate,
   entriesCount,
 }: Props) {
+  const d = await getDictionary(
+    locale,
+    "whistoryPage.cards.whistoryEntriesSummary",
+  );
+
   const dateDiff = calculateDateDifference(startDate, endDate);
   return (
     <Card>

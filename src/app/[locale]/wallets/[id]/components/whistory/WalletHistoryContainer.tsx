@@ -1,20 +1,19 @@
 import WhistoryChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-changes-chart/WhistoryChangesChart";
 import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
 import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-chart/WalletHistoryChart";
-import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
-import { WithMounted } from "@/shared/components/WithMounted";
-
-import { Dictionary } from "@/dictionaries/locale";
+import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
+import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
+import { WithMounted } from "@/shared/components/WithMounted";
 import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
+
 import WalletHistoryTable from "./WalletHistoryTable";
 
 interface WalletHistoryContainerProps {
-  d: Dictionary["whistoryPage"];
   locale: Locale;
   walletId: string;
   fromTs?: number;
@@ -22,12 +21,13 @@ interface WalletHistoryContainerProps {
 }
 
 export default async function WalletHistoryContainer({
-  d,
   locale,
   walletId,
   fromTs,
   toTs,
 }: WalletHistoryContainerProps) {
+  const d = await getDictionary(locale, "whistoryPage");
+
   const { data: walletHistory } = await fetchWalletHistory(walletId, {
     fromTs,
     toTs,
@@ -46,7 +46,6 @@ export default async function WalletHistoryContainer({
         {walletHistory.whistory.length ? (
           <WhistoryEntriesSummaryCard
             locale={locale}
-            d={d.cards.whistoryEntriesSummary}
             startDate={walletHistory.whistory[0].date}
             endDate={
               walletHistory.whistory[walletHistory.whistory.length - 1].date
@@ -59,7 +58,7 @@ export default async function WalletHistoryContainer({
       <div className="col-span-1 row-span-1 flex h-full w-full max-w-[550px] flex-col overflow-auto">
         {walletHistory.whistory.length ? (
           <WalletHistoryTable
-            d={d.whistoryTable}
+            locale={locale}
             walletHistory={walletHistory.whistory}
           />
         ) : (

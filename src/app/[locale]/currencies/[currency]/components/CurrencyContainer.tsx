@@ -1,6 +1,6 @@
 import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
 import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
-import { Dictionary } from "@/dictionaries/locale";
+import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
 import WhistoryEntriesSummaryCard from "@/shared/components/cards/WhistoryEntriesSummaryCard";
@@ -9,24 +9,25 @@ import {
   CHART_HEIGHT_DEFAULT,
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
+
 import { fetchCurrencyWhistory } from "../../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 
 interface Props {
+  locale: Locale;
   currency: string;
   fromTs?: number;
   toTs?: number;
-  d: Dictionary["currencyPage"];
-  locale: Locale;
 }
 
 export default async function CurrencyContainer({
-  d,
+  locale,
   currency,
   fromTs,
   toTs,
-  locale,
 }: Props) {
+  const d = await getDictionary(locale, "currencyPage");
+
   const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
   if (!response.data || !response.data.composedWhistory.length) {
     return null;
@@ -45,7 +46,6 @@ export default async function CurrencyContainer({
         {response.data.composedWhistory.length ? (
           <WhistoryEntriesSummaryCard
             locale={locale}
-            d={d.cards.entriesSummary}
             startDate={response.data.composedWhistory[0].date}
             endDate={
               response.data.composedWhistory[
@@ -59,7 +59,7 @@ export default async function CurrencyContainer({
 
       <div className="col-span-1 row-span-1 overflow-auto">
         <CurrencyComposedTable
-          d={d.currencyTable}
+          locale={locale}
           walletHistory={response.data.composedWhistory}
         />
       </div>
