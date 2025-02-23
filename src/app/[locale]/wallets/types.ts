@@ -1,7 +1,11 @@
 import { DateDifference } from "@/shared/utils/time-utils";
 import { z } from "zod";
 import { WhistoryDb } from "./[id]/types";
-import { walletFormSchema } from "./validation";
+import {
+  createWalletRequestSchema,
+  updateWalletRequestSchema,
+  walletFormSchema,
+} from "./validation";
 
 export type WalletDb = {
   id: string;
@@ -19,7 +23,9 @@ export type CreateWalletDto = {
   currency: string;
 };
 
-export type CreateWalletRequestDto = Omit<CreateWalletDto, "ownerId">;
+export type CreateWalletRequestDto = z.infer<typeof createWalletRequestSchema>;
+
+export type UpdateWalletRequestDto = z.infer<typeof updateWalletRequestSchema>;
 
 export type ClientWalletDto = {
   id: string;

@@ -16,8 +16,6 @@ interface Props {
 const WalletForm = ({ methods, onSubmit, disabledFields = {} }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  console.log(disabledFields);
-
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
       <div className="space-y-2">

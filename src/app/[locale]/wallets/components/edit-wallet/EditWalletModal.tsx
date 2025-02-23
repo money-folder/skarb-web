@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import Overlay from "@/shared/components/overlay/Overlay";
 
+import { update } from "../../actions";
 import { ClientWalletDto, WalletFormValues } from "../../types";
 import { walletFormSchema } from "../../validation";
 import WalletForm from "../WalletForm";
@@ -25,7 +26,7 @@ const EditWalletModal = ({ wallet, close }: Props) => {
   }, [methods, wallet]);
 
   const onSubmit = async ({ name }: WalletFormValues) => {
-    console.log({ name });
+    await update({ id: wallet.id, data: { name } });
     close();
   };
 

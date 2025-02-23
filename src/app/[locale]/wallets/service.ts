@@ -2,7 +2,12 @@ import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 import { calculateDateDifference } from "@/shared/utils/time-utils";
-import { ClientWalletDto, CreateWalletRequestDto } from "./types";
+
+import {
+  ClientWalletDto,
+  CreateWalletRequestDto,
+  UpdateWalletRequestDto,
+} from "./types";
 
 export const verifyWalletOwnership = async (
   userId: string,
@@ -69,6 +74,16 @@ export const createCurrentUserWallet = async (dto: CreateWalletRequestDto) => {
     ownerId: session.user.id,
   });
 
+  return result;
+};
+
+export const updateCurrentUserWallet = async (dto: UpdateWalletRequestDto) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const result = walletsRepository.update(dto);
   return result;
 };
 

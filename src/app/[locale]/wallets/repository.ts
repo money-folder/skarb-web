@@ -1,24 +1,20 @@
+import { prisma } from "@/prisma";
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/prisma";
-import { CreateWalletDto } from "./types";
-
-export const listAll = async () => {
-  const wallets = await prisma.wallet.findMany({});
-  return wallets;
-};
+import { CreateWalletDto, UpdateWalletRequestDto } from "./types";
 
 export const findById = async (id: string) => {
-  return await prisma.wallet.findUnique({ where: { id } });
+  return prisma.wallet.findUnique({ where: { id } });
 };
 
 export const findOne = async (where: Prisma.WalletWhereUniqueInput) => {
-  return await prisma.wallet.findUnique({ where });
+  return prisma.wallet.findUnique({ where });
 };
 
 export const findByUser = async (userId: string) => {
   const userWallets = await prisma.wallet.findMany({
     where: { ownerId: userId },
+    orderBy: { createdAt: "asc" },
     include: {
       history: {
         orderBy: {
@@ -41,20 +37,27 @@ export const findByUserCurrency = async (userId: string, currency: string) => {
 };
 
 export const create = async (dto: CreateWalletDto) => {
-  return await prisma.wallet.create({
+  return prisma.wallet.create({
     data: dto,
   });
 };
 
+export const update = async (dto: UpdateWalletRequestDto) => {
+  return prisma.wallet.update({
+    where: { id: dto.id },
+    data: { name: dto.data.name },
+  });
+};
+
 export const archive = async (id: string) => {
-  return await prisma.wallet.update({
+  return prisma.wallet.update({
     where: { id },
     data: { deletedAt: new Date() },
   });
 };
 
 export const unarchive = async (id: string) => {
-  return await prisma.wallet.update({
+  return prisma.wallet.update({
     where: { id },
     data: {
       deletedAt: null,
@@ -63,5 +66,5 @@ export const unarchive = async (id: string) => {
 };
 
 export const destroy = async (id: string) => {
-  return await prisma.wallet.delete({ where: { id } });
+  return prisma.wallet.delete({ where: { id } });
 };
