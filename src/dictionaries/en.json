@@ -116,6 +116,18 @@
 
     "editWallet": {
       "title": "Edit Wallet"
+    },
+
+    "exportAllForm": {
+      "outputFormat": "Output Format",
+      "outputFormatJson": "JSON",
+      "outputFormatSql": "SQL",
+      "cancelLabel": "Cancel",
+      "submitLabel": "Submit"
+    },
+
+    "exportAll": {
+      "title": "Export"
     }
   },
 
@@ -131,5 +143,11 @@
         "changesLabel": "Changes"
       }
     }
+  },
+
+  "footer": {
+    "exportAll": "Export All",
+    "inEnglish": "In English",
+    "inBelarusian": "Па Беларуску"
   }
 }

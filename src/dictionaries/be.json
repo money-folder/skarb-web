@@ -115,6 +115,18 @@
 
     "editWallet": {
       "title": "Рэдагаваць Кашалёк"
+    },
+
+    "exportAllForm": {
+      "outputFormat": "Фармат Вываду",
+      "outputFormatJson": "JSON",
+      "outputFormatSql": "SQL",
+      "cancelLabel": "Адмена",
+      "submitLabel": "Пацвердзіць"
+    },
+
+    "exportAll": {
+      "title": "Экспартаваць"
     }
   },
 
@@ -130,5 +142,11 @@
         "changesLabel": "Змены"
       }
     }
+  },
+
+  "footer": {
+    "exportAll": "Экспартаваць усё",
+    "inEnglish": "In English",
+    "inBelarusian": "Па Беларуску"
   }
 }
