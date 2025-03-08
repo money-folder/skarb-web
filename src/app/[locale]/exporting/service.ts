@@ -15,7 +15,9 @@ export const getCurrentUserAppData = async (params: ExportAllParams) => {
   const appData = await exportingRepository.getUserAppData(session.user.id);
   const filename = `skarb-${new Date().valueOf()}.${params.outputFormat}`;
   if (params.outputFormat === "json") {
-    const b64 = btoa(JSON.stringify(appData, null, 2));
+    const b64 = Buffer.from(JSON.stringify(appData, null, 2)).toString(
+      "base64",
+    );
 
     return {
       filename,
@@ -25,7 +27,7 @@ export const getCurrentUserAppData = async (params: ExportAllParams) => {
 
   if (params.outputFormat === "sql") {
     const sql = generateSQLDump(appData!);
-    const b64 = btoa(sql);
+    const b64 = Buffer.from(sql).toString("base64");
 
     return {
       filename,
