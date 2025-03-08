@@ -16,7 +16,7 @@ const formatStringForSQL = (value: string | null) => {
   return `'${value.replace(/'/g, "''")}'`;
 };
 
-const formatValueForSQL = (value: any) => {
+const formatValueForSQL = (value: unknown) => {
   if (value === null || value === undefined) {
     return "NULL";
   }
