@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { exportAll } from "../actions";
 import { ExportAllFormValues } from "../types";
-import { downloadJSON } from "../utils";
+import { downloadFile } from "../utils-fe";
 import { exportAllFormSchema } from "../validation";
 import { ExportAllForm } from "./ExportAllForm";
 
@@ -28,7 +28,7 @@ export const ExportAllModal = ({ close }: Props) => {
   const onSubmit = async (params: ExportAllFormValues) => {
     const { data } = await exportAll(params);
     if (data) {
-      downloadJSON(data);
+      downloadFile(data.filename, data.b64);
     }
   };
 

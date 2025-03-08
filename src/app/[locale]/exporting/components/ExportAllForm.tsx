@@ -34,7 +34,6 @@ export const ExportAllForm = ({ methods, onSubmit, onCancel }: Props) => {
               {...methods.register("outputFormat")}
               type="radio"
               value="sql"
-              disabled
             />
             <span>{d.modals.exportAllForm.outputFormatSql}</span>
           </label>
