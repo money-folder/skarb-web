@@ -1,11 +1,8 @@
-export const downloadJSON = (data: object) => {
-  const jsonString = JSON.stringify(data, null, 2);
-  const blob = new Blob([jsonString], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-
+export const downloadFile = (filename: string, b64: string) => {
+  const url = `data:file;base64,${b64}`;
   const a = document.createElement("a");
   a.href = url;
-  a.download = `skarb-${new Date().valueOf()}.json`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

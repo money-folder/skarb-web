@@ -11,5 +11,12 @@ export const getCurrentUserAppData = async (params: ExportAllParams) => {
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  return exportingRepository.getUserAppData(session.user.id);
+  const appData = await exportingRepository.getUserAppData(session.user.id);
+  const b64 = btoa(JSON.stringify(appData, null, 2));
+  const filename = `skarb-${new Date().valueOf()}.${params.outputFormat}`;
+
+  return {
+    filename,
+    b64,
+  };
 };
