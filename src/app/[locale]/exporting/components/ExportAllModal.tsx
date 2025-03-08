@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { exportAll } from "../actions";
 import { ExportAllFormValues } from "../types";
-import { downloadFile } from "../utils";
+import { downloadFile } from "../utils-fe";
 import { exportAllFormSchema } from "../validation";
 import { ExportAllForm } from "./ExportAllForm";
 
