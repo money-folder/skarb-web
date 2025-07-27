@@ -1,4 +1,4 @@
-import WhistoryChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-changes-chart/WhistoryChangesChart";
+import WhistoryChangesChart from "@/app/[locale]/currencies/[currency]/history/components/whistory-changes-chart/WhistoryChangesChart";
 import { fetchWalletHistory } from "@/app/[locale]/wallets/[id]/actions";
 import WalletHistoryChart from "@/app/[locale]/wallets/[id]/components/whistory-chart/WalletHistoryChart";
 import { getDictionary } from "@/dictionaries";

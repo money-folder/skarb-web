@@ -1,13 +1,13 @@
-import * as currenciesRepository from "@/app/[locale]/currencies/repository";
 import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 
+import * as currenciesRepository from "../repository";
 import * as currenciesService from "../service";
 
 jest.mock("@/auth");
-jest.mock("@/app/[locale]/currencies/repository");
+jest.mock("../repository");
 jest.mock("@/app/[locale]/wallets/[id]/repository");
 jest.mock("@/app/[locale]/wallets/repository");
 
