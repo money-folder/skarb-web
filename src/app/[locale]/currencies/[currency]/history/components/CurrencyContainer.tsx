@@ -1,5 +1,5 @@
-import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
-import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/components/whistory-composed-chart/WhistoryComposedChart";
+import WhistoryComposedChangesChart from "@/app/[locale]/currencies/[currency]/history/components/whistory-composed-changes-chart/WhistoryComposedChangesChart";
+import WhistoryComposedChart from "@/app/[locale]/currencies/[currency]/history/components/whistory-composed-chart/WhistoryComposedChart";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import WalletChangesSummaryCard from "@/shared/components/cards/WalletChangesSummaryCard";
@@ -10,7 +10,7 @@ import {
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 
-import { fetchCurrencyWhistory } from "../../actions";
+import { fetchCurrencyWhistory } from "../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
 
 interface Props {
