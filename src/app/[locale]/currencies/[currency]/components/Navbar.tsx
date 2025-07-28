@@ -6,8 +6,7 @@ import {
   RedirectType,
   useSelectedLayoutSegments,
 } from "next/navigation";
-import { Tab } from "../../types";
-
+import { Tab } from "../types";
 interface Props {
   tabs: Tab[];
 }
