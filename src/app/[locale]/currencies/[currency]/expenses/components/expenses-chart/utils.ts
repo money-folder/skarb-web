@@ -10,7 +10,7 @@ export function getExpensesData(
     if (entry) {
       map.set(expense.type, {
         ...entry,
-        value: entry?.value + expense.moneyAmount,
+        value: entry.value + expense.moneyAmount,
       });
     } else {
       const color = getStoredColorFor(expense.type);

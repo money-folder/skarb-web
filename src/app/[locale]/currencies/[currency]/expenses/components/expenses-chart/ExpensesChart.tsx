@@ -22,7 +22,7 @@ const ExpensesChart = ({ width, height, expenses, currency }: Props) => {
   const renderCustomizedLabel = ({
     percent,
   }: ExpensesChartEntry & { percent: number }) => {
-    return `${((percent ?? 1) * 100).toFixed(0)}%`;
+    return `${((percent ?? 1) * 100).toFixed(2)}%`;
   };
   const renderTooltip = ({
     active,
@@ -59,7 +59,7 @@ const ExpensesChart = ({ width, height, expenses, currency }: Props) => {
           label={renderCustomizedLabel}
           isAnimationActive={false}
         >
-          {data.map((entry: { name: string; color: string; value: number }) => (
+          {data.map((entry) => (
             <Cell key={`cell-${entry.name}`} fill={entry.color} />
           ))}
         </Pie>

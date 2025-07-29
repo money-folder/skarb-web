@@ -19,17 +19,15 @@ export default function Navbar({ tabs }: Props) {
     redirect(tabs[0].link, RedirectType.replace);
   }
 
-  const listItems = tabs.map((tab) => (
-    <li className="" key={tab.title}>
-      <NavLink activeClassName="text-white bg-black" href={tab.link}>
-        {tab.title}
-      </NavLink>
-    </li>
-  ));
-
   return (
     <ul className="align-center m-3 flex flex-1 justify-center gap-3">
-      {listItems}
+      {tabs.map((tab) => (
+        <li key={tab.title}>
+          <NavLink activeClassName="text-white bg-black" href={tab.link}>
+            {tab.title}
+          </NavLink>
+        </li>
+      ))}
     </ul>
   );
 }
