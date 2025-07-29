@@ -155,7 +155,7 @@
     "expenseForm": {
       "dateLabel": "Дата: ",
       "amountLabel": "Сума грошай: ",
-      "typeLabel": "T: ",
+      "typeLabel": "Tып: ",
       "commentLabel": "Каментар: ",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
