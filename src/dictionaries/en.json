@@ -76,6 +76,25 @@
       "changes": "Changes",
       "wallets": "Wallets",
       "date": "Date"
+    },
+
+    "navbar": {
+      "history": "History",
+      "expenses": "Expenses"
+    },
+
+    "expensesTable": {
+      "moneyAmount": "Money Amount",
+      "date": "Date",
+      "type": "Type",
+      "comment": "Comment",
+      "actions": "Actions"
+    },
+
+    "expensesContainer": {
+      "createButtonLabel": "Create",
+      "noExpenses": "No expenses",
+      "loadingFailed": "Loading failed"
     }
   },
 
@@ -128,6 +147,19 @@
 
     "exportAll": {
       "title": "Export"
+    },
+
+    "createExpense": {
+      "title": "Create Expense"
+    },
+
+    "expenseForm": {
+      "dateLabel": "Timestamp: ",
+      "amountLabel": "Amount: ",
+      "typeLabel": "Type: ",
+      "commentLabel": "Comment: ",
+      "cancelLabel": "Cancel",
+      "submitLabel": "Submit"
     }
   },
 

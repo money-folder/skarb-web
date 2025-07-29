@@ -8,6 +8,7 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   activeClassName: string;
+  isNested?: boolean;
 }
 
 const NavLink = ({
@@ -15,9 +16,10 @@ const NavLink = ({
   children,
   activeClassName,
   className = "",
+  isNested = false,
 }: Props) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = isNested ? pathname.includes(href) : pathname === href;
 
   return (
     <Link

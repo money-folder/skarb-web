@@ -1,4 +1,4 @@
-import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/actions";
+import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/[currency]/history/actions";
 import CreateWhistoryButton from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryButton";
 import { fetchCurrentUserWallets } from "@/app/[locale]/wallets/actions";
 import CreateWalletButton from "@/app/[locale]/wallets/components/create-wallet/CreateWalletButton";
@@ -58,6 +58,7 @@ export default async function Sidebar({ locale }: Props) {
                     href={`${
                       locale !== DEFAULT_LOCALE ? `/${locale}` : ""
                     }/wallets/${w.id}`}
+                    isNested={true}
                   >
                     {w.name}
                   </NavLink>
@@ -84,6 +85,7 @@ export default async function Sidebar({ locale }: Props) {
                     href={`${
                       locale !== DEFAULT_LOCALE ? `/${locale}` : ""
                     }/currencies/${c}`}
+                    isNested={true}
                   >
                     {c}
                   </NavLink>
