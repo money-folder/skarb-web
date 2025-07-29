@@ -1,4 +1,4 @@
-import { findUserCurrencies } from "@/app/[locale]/currencies/repository";
+import { findUserCurrencies } from "@/app/[locale]/currencies/[currency]/history/repository";
 import * as whistoryRepository from "@/app/[locale]/wallets/[id]/repository";
 import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
@@ -7,8 +7,8 @@ import {
   composeWhistoryMoneyAmount,
   groupWhistoryByDate,
   groupWhistoryByWallets,
-} from "../wallets/[id]/utils";
-import { FetchWhistoryParams } from "../wallets/types";
+} from "../../../wallets/[id]/utils";
+import { FetchWhistoryParams } from "../../../wallets/types";
 
 export const getCurrentUserCurrencies = async () => {
   const session = await auth();

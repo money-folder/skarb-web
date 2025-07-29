@@ -1,2 +1,4 @@
 export const CHART_WIDTH_DEFAULT = 525;
 export const CHART_HEIGHT_DEFAULT = 300;
+export const PIE_CHART_WIDTH_DEFAULT = 525;
+export const PIE_CHART_HEIGHT_DEFAULT = 350;

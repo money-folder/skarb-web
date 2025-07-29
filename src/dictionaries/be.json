@@ -75,6 +75,25 @@
       "changes": "Змены",
       "wallets": "Кашалькі",
       "date": "Дата"
+    },
+
+    "navbar": {
+      "history": "Гісторыя",
+      "expenses": "Выдаткі"
+    },
+
+    "expensesTable": {
+      "moneyAmount": "Сума грошай",
+      "date": "Дата",
+      "type": "Тып выдатку",
+      "comment": "Каментар",
+      "actions": "Дзеянні"
+    },
+
+    "expensesContainer": {
+      "createButtonLabel": "Стварыць",
+      "noExpenses": "Няма выдаткоў",
+      "loadingFailed": "Загрузка не ўдалася"
     }
   },
 
@@ -127,6 +146,19 @@
 
     "exportAll": {
       "title": "Экспартаваць"
+    },
+
+    "createExpense": {
+      "title": "Стварыць"
+    },
+
+    "expenseForm": {
+      "dateLabel": "Дата: ",
+      "amountLabel": "Сума грошай: ",
+      "typeLabel": "Tып: ",
+      "commentLabel": "Каментар: ",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Адправіць"
     }
   },
 

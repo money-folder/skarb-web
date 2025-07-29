@@ -3,8 +3,8 @@
 import {
   getCurrentUserCurrencies,
   getCurrentUserCurrencyWhistory,
-} from "@/app/[locale]/currencies/service";
-import { FetchWhistoryParams } from "../wallets/types";
+} from "@/app/[locale]/currencies/[currency]/history/service";
+import { FetchWhistoryParams } from "../../../wallets/types";
 
 export const fetchCurrentUserCurrencies = async () => {
   try {
