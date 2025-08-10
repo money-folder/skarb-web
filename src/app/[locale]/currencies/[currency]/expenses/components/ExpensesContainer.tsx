@@ -5,7 +5,7 @@ import {
   PIE_CHART_HEIGHT_DEFAULT,
   PIE_CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
-import { fetchExpenses } from "../actions";
+import { fetchExpenses, fetchTypes } from "../actions";
 import ExpensesTable from "./ExpensesTable";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
 import ExpensesChart from "./expenses-chart/ExpensesChart";
@@ -24,12 +24,17 @@ export default async function ExpensesContainer({
   toTs,
 }: Props) {
   const { data: expenses } = await fetchExpenses(currency, { fromTs, toTs });
+  const { data: types } = await fetchTypes(currency);
   const d = await getDictionary(locale, "currencyPage.expensesContainer");
 
   return expenses ? (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
-        <CreateExpenseButton text={d.createButtonLabel} currency={currency} />
+        <CreateExpenseButton
+          text={d.createButtonLabel}
+          currency={currency}
+          types={types}
+        />
       </div>
       <div className="col-span-1 row-span-1 overflow-auto">
         {expenses.length ? (

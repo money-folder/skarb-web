@@ -8,6 +8,28 @@ import {
   FetchExpensesParams,
 } from "./types";
 
+export const getUserCurrencyExpensesTypes = async (
+  currency: string,
+): Promise<string[]> => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const types = await expensesRepository.getExpensesTypesByUserCurrency(
+    session.user.id,
+    currency,
+  );
+
+  if (!types) {
+    throw new Error(`Expenses types for currency ${currency} were not found!`, {
+      cause: ErrorCauses.NOT_FOUND,
+    });
+  }
+
+  return types.map(({ type }) => type);
+};
+
 export const getUserCurrencyExpenses = async (
   currency: string,
   params: FetchExpensesParams,
