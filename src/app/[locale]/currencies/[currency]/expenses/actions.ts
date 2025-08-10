@@ -5,9 +5,20 @@ import {
   createUserCurrencyExpense,
   destroySelfExpense,
   getUserCurrencyExpenses,
+  getUserCurrencyExpensesTypes,
 } from "./service";
 import { CreateExpenseRequestDto } from "./types";
 import { createExpenseRequestSchema } from "./validation";
+
+export const fetchTypes = async (currency: string) => {
+  try {
+    const types = await getUserCurrencyExpensesTypes(currency);
+    return { success: true, data: types };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
 
 export const fetchExpenses = async (currency: string) => {
   try {

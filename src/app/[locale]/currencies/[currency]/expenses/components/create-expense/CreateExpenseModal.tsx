@@ -13,9 +13,10 @@ import ExpenseForm from "./ExpenseForm";
 interface Props {
   close: () => void;
   currency: string;
+  types?: string[] | null;
 }
 
-const CreateExpenseModal = ({ close, currency }: Props) => {
+const CreateExpenseModal = ({ close, currency, types }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   const methods = useForm({ resolver: zodResolver(expenseFormSchema) });
@@ -40,13 +41,18 @@ const CreateExpenseModal = ({ close, currency }: Props) => {
     <div onClick={close}>
       <Overlay>
         <div
-          className="w-96 rounded-xl bg-white p-5"
+          className="w-196 rounded-xl bg-white p-5"
           onClick={(e) => e.stopPropagation()}
         >
           <h3 className="text-left text-lg font-bold">
             {d.modals.createExpense.title}
           </h3>
-          <ExpenseForm methods={methods} onSubmit={onSubmit} onCancel={close} />
+          <ExpenseForm
+            methods={methods}
+            onSubmit={onSubmit}
+            onCancel={close}
+            types={types}
+          />
         </div>
       </Overlay>
     </div>

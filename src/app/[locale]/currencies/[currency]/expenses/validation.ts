@@ -11,6 +11,6 @@ export const createExpenseRequestSchema = z.object({
 export const expenseFormSchema = z.object({
   moneyAmount: z.number(),
   date: z.date(),
-  type: z.string(),
+  type: z.string().trim().min(1).max(255),
   comment: z.string().optional(),
 });
