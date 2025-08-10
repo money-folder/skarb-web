@@ -1,9 +1,31 @@
 import { prisma } from "@/prisma";
-import { CreateExpenseDto } from "./types";
+import { CreateExpenseDto, FetchExpensesParams } from "./types";
 
-export const findByUserCurrency = async (userId: string, currency: string) => {
-  const expenses = await prisma.expense.findMany({
+export const getExpensesTypesByUserCurrency = async (
+  userId: string,
+  currency: string,
+) => {
+  const types = await prisma.expense.groupBy({
+    by: ["type"],
     where: { ownerId: userId, currency },
+  });
+  return types;
+};
+
+export const findByUserCurrency = async (
+  userId: string,
+  currency: string,
+  params?: FetchExpensesParams,
+) => {
+  const expenses = await prisma.expense.findMany({
+    where: {
+      ownerId: userId,
+      currency,
+      date: {
+        lte: params?.toTs ? new Date(params.toTs) : undefined,
+        gte: params?.fromTs ? new Date(params.fromTs) : undefined,
+      },
+    },
   });
 
   return expenses;

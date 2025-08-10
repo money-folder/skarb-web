@@ -10,14 +10,23 @@ import CreateExpenseModal from "./CreateExpenseModal";
 interface Props {
   currency: string;
   text?: string;
+  types?: string[] | null;
 }
 
-export default function CreateExpenseButton({ currency, text = "" }: Props) {
+export default function CreateExpenseButton({
+  types,
+  currency,
+  text = "",
+}: Props) {
   const { addOverlay } = useContext(OverlayContext);
 
   const onClick = () => {
     addOverlay(({ removeSelf }) => (
-      <CreateExpenseModal close={removeSelf} currency={currency} />
+      <CreateExpenseModal
+        close={removeSelf}
+        currency={currency}
+        types={types}
+      />
     ));
   };
 
