@@ -2,7 +2,11 @@ import * as expensesRepository from "@/app/[locale]/currencies/[currency]/expens
 
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
-import { ClientExpenseDto, CreateExpenseRequestDto } from "./types";
+import {
+  ClientExpenseDto,
+  CreateExpenseRequestDto,
+  FetchExpensesParams,
+} from "./types";
 
 export const getUserCurrencyExpensesTypes = async (
   currency: string,
@@ -28,6 +32,7 @@ export const getUserCurrencyExpensesTypes = async (
 
 export const getUserCurrencyExpenses = async (
   currency: string,
+  params: FetchExpensesParams,
 ): Promise<ClientExpenseDto[]> => {
   const session = await auth();
   if (!session?.user?.id) {
@@ -37,6 +42,7 @@ export const getUserCurrencyExpenses = async (
   const expenses = await expensesRepository.findByUserCurrency(
     session.user.id,
     currency,
+    params,
   );
 
   if (!expenses) {

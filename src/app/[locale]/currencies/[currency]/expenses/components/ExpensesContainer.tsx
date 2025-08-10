@@ -13,10 +13,17 @@ import ExpensesChart from "./expenses-chart/ExpensesChart";
 interface Props {
   locale: Locale;
   currency: string;
+  fromTs?: number;
+  toTs?: number;
 }
 
-export default async function ExpensesContainer({ locale, currency }: Props) {
-  const { data: expenses } = await fetchExpenses(currency);
+export default async function ExpensesContainer({
+  locale,
+  currency,
+  fromTs,
+  toTs,
+}: Props) {
+  const { data: expenses } = await fetchExpenses(currency, { fromTs, toTs });
   const { data: types } = await fetchTypes(currency);
   const d = await getDictionary(locale, "currencyPage.expensesContainer");
 

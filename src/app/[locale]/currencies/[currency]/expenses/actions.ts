@@ -7,7 +7,7 @@ import {
   getUserCurrencyExpenses,
   getUserCurrencyExpensesTypes,
 } from "./service";
-import { CreateExpenseRequestDto } from "./types";
+import { CreateExpenseRequestDto, FetchExpensesParams } from "./types";
 import { createExpenseRequestSchema } from "./validation";
 
 export const fetchTypes = async (currency: string) => {
@@ -20,9 +20,12 @@ export const fetchTypes = async (currency: string) => {
   }
 };
 
-export const fetchExpenses = async (currency: string) => {
+export const fetchExpenses = async (
+  currency: string,
+  params: FetchExpensesParams,
+) => {
   try {
-    const expenses = await getUserCurrencyExpenses(currency);
+    const expenses = await getUserCurrencyExpenses(currency, params);
     return { success: true, data: expenses };
   } catch (error) {
     console.error(error);

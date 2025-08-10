@@ -31,3 +31,8 @@ export type CreateExpenseRequestDto = z.infer<
 >;
 
 export type ExpenseFormValues = z.infer<typeof expenseFormSchema>;
+
+export type FetchExpensesParams = {
+  fromTs?: number;
+  toTs?: number;
+};
