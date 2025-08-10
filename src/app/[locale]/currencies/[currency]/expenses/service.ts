@@ -12,7 +12,7 @@ export const getUserCurrencyExpensesTypes = async (
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const types = await expensesRepository.findTypesByUserCurrency(
+  const types = await expensesRepository.getExpensesTypesByUserCurrency(
     session.user.id,
     currency,
   );
@@ -23,7 +23,7 @@ export const getUserCurrencyExpensesTypes = async (
     });
   }
 
-  return types;
+  return types.map(({ type }) => type);
 };
 
 export const getUserCurrencyExpenses = async (

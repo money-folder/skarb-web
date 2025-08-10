@@ -1,18 +1,15 @@
 import { prisma } from "@/prisma";
 import { CreateExpenseDto } from "./types";
 
-export const findTypesByUserCurrency = async (
+export const getExpensesTypesByUserCurrency = async (
   userId: string,
   currency: string,
 ) => {
-  const groups = await prisma.expense.groupBy({
+  const types = await prisma.expense.groupBy({
     by: ["type"],
     where: { ownerId: userId, currency },
   });
-  return groups.reduce((acc: string[], { type }) => {
-    acc.push(type);
-    return acc;
-  }, []);
+  return types;
 };
 
 export const findByUserCurrency = async (userId: string, currency: string) => {

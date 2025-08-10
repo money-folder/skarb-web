@@ -11,10 +11,10 @@ interface Props {
   methods: UseFormReturn<ExpenseFormValues>;
   onSubmit: SubmitHandler<ExpenseFormValues>;
   onCancel: () => void;
-  types?: string[] | null;
+  types?: string[];
 }
 
-const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
+const ExpenseForm = ({ methods, onSubmit, onCancel, types = [] }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   return (
@@ -55,18 +55,16 @@ const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
             maxLength={255}
             list="types"
           />
-          {types?.length && (
-            <datalist
-              className="rounded-sm border-[1px] border-black px-2"
-              id="types"
-            >
-              {types.map((type) => (
-                <option value={type} key={type}>
-                  {type}
-                </option>
-              ))}
-            </datalist>
-          )}
+          <datalist
+            className="rounded-sm border-[1px] border-black px-2"
+            id="types"
+          >
+            {types.map((type) => (
+              <option value={type} key={type}>
+                {type}
+              </option>
+            ))}
+          </datalist>
         </label>
 
         <label className="flex w-full flex-col items-start">
