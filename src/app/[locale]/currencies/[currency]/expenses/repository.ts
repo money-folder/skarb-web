@@ -10,13 +10,10 @@ export const findByUserCurrency = async (
     where: {
       ownerId: userId,
       currency,
-      date:
-        params?.fromTs || params?.toTs
-          ? {
-              lte: params.toTs ? new Date(params.toTs) : undefined,
-              gte: params?.fromTs ? new Date(params.fromTs) : undefined,
-            }
-          : undefined,
+      date: {
+        lte: params?.toTs ? new Date(params.toTs) : undefined,
+        gte: params?.fromTs ? new Date(params.fromTs) : undefined,
+      },
     },
   });
 

@@ -15,12 +15,12 @@ export default async function ExpensesPage({
   searchParams,
 }: Props) {
   return (
-    <div className="grid h-full w-full overflow-hidden">
-      <div className="flex h-fit w-full items-center justify-start rounded-lg bg-gray-200 p-2">
+    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-x-5 overflow-hidden">
+      <div className="col-span-2 row-span-1 flex w-full items-center justify-start rounded-lg bg-gray-200 p-2">
         <ExpensesComposedFilters />
       </div>
 
-      <div className="flex h-full overflow-hidden pt-5">
+      <div className="col-span-2 row-span-1 flex h-full overflow-hidden pt-5">
         <ExpensesContainer
           locale={locale}
           currency={currency}

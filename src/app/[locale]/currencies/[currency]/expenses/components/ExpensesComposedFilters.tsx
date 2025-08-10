@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { isValidDate } from "@/shared/utils/time-utils";
@@ -13,7 +13,9 @@ const ExpensesComposedFilters = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const { register, watch } = useForm();
+  const { register, control } = useForm();
+  const dateFrom = useWatch({ control, name: "dateFrom" });
+  const dateTo = useWatch({ control, name: "dateTo" });
 
   const { d } = useContext(DictionaryContext);
 
@@ -26,23 +28,21 @@ const ExpensesComposedFilters = () => {
     : undefined;
 
   useEffect(() => {
-    watch((data) => {
-      const params = new URLSearchParams(searchParams);
-      if (data.dateFrom && isValidDate(data.dateFrom)) {
-        params.set("dateFrom", data.dateFrom.getTime());
-      } else {
-        params.delete("dateFrom");
-      }
+    const params = new URLSearchParams(searchParams);
+    if (dateFrom && isValidDate(dateFrom)) {
+      params.set("dateFrom", dateFrom.getTime());
+    } else {
+      params.delete("dateFrom");
+    }
 
-      if (data.dateTo && isValidDate(data.dateTo)) {
-        params.set("dateTo", data.dateTo.getTime());
-      } else {
-        params.delete("dateTo");
-      }
+    if (dateTo && isValidDate(dateTo)) {
+      params.set("dateTo", dateTo.getTime());
+    } else {
+      params.delete("dateTo");
+    }
 
-      replace(`${pathname}?${params.toString()}`);
-    });
-  }, [watch, searchParams, replace, pathname]);
+    replace(`${pathname}?${params.toString()}`);
+  }, [dateFrom, dateTo, searchParams, replace, pathname]);
 
   return (
     <form>
