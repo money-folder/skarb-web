@@ -11,10 +11,10 @@ interface Props {
   methods: UseFormReturn<ExpenseFormValues>;
   onSubmit: SubmitHandler<ExpenseFormValues>;
   onCancel: () => void;
-  types?: string[];
+  types: string[];
 }
 
-const ExpenseForm = ({ methods, onSubmit, onCancel, types = [] }: Props) => {
+const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   return (

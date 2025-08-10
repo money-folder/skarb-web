@@ -51,7 +51,7 @@ const CreateExpenseModal = ({ close, currency, types }: Props) => {
             methods={methods}
             onSubmit={onSubmit}
             onCancel={close}
-            types={types}
+            types={types || []}
           />
         </div>
       </Overlay>
