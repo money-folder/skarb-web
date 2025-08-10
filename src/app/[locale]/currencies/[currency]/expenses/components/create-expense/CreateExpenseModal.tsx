@@ -41,7 +41,7 @@ const CreateExpenseModal = ({ close, currency, types }: Props) => {
     <div onClick={close}>
       <Overlay>
         <div
-          className="w-196 rounded-xl bg-white p-5"
+          className="w-96 rounded-xl bg-white p-5"
           onClick={(e) => e.stopPropagation()}
         >
           <h3 className="text-left text-lg font-bold">
