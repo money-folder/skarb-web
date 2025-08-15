@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
+import { Button } from "@/components/ui/button";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getLocalISOString } from "@/shared/utils/utils";
 import { WhistoryFormValues } from "../types";
@@ -15,12 +14,6 @@ interface Props {
 
 const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
   const { d } = useContext(DictionaryContext);
-
-  // const onSubmit = (e: FieldValues) => {
-  //   const trimmedComment = e.comment ? e.comment.trim() : e.comment;
-  //   create(e.amount, e.date.getTime(), trimmedComment);
-  //   close();
-  // };
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -60,11 +53,12 @@ const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
       </div>
 
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.whistoryForm.cancelLabel}
-          onClick={onCancel}
-        />
-        <PrimaryButton type="submit" text={d.modals.whistoryForm.submitLabel} />
+        <Button variant="outline" onClick={onCancel}>
+          {d.modals.whistoryForm.cancelLabel}
+        </Button>
+        <Button type="submit" variant="default">
+          {d.modals.whistoryForm.submitLabel}
+        </Button>
       </div>
     </form>
   );
