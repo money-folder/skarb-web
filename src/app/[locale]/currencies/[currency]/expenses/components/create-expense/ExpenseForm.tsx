@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
+import { Button } from "@/components/ui/button";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getLocalISOString } from "@/shared/utils/utils";
 import { ExpenseFormValues } from "../../types";
@@ -78,11 +77,10 @@ const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
       </div>
 
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.expenseForm.cancelLabel}
-          onClick={onCancel}
-        />
-        <PrimaryButton type="submit" text={d.modals.expenseForm.submitLabel} />
+        <Button variant="outline" onClick={onCancel}>
+          {d.modals.expenseForm.cancelLabel}
+        </Button>
+        <Button type="submit">{d.modals.expenseForm.submitLabel}</Button>
       </div>
     </form>
   );

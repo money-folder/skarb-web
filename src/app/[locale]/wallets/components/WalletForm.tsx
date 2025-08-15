@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
+import { Button } from "@/components/ui/button";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
 import { WalletFormValues } from "../types";
@@ -10,10 +9,16 @@ import { WalletFormValues } from "../types";
 interface Props {
   methods: UseFormReturn<WalletFormValues>;
   onSubmit: SubmitHandler<WalletFormValues>;
+  close: () => void;
   disabledFields?: Partial<{ [key in keyof WalletFormValues]: true }>;
 }
 
-const WalletForm = ({ methods, onSubmit, disabledFields = {} }: Props) => {
+const WalletForm = ({
+  methods,
+  onSubmit,
+  close,
+  disabledFields = {},
+}: Props) => {
   const { d } = useContext(DictionaryContext);
 
   return (
@@ -40,11 +45,10 @@ const WalletForm = ({ methods, onSubmit, disabledFields = {} }: Props) => {
       </div>
 
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.walletForm.cancelLabel}
-          onClick={close}
-        />
-        <PrimaryButton type="submit" text={d.modals.walletForm.submitLabel} />
+        <Button type="button" variant="outline" onClick={close}>
+          {d.modals.walletForm.cancelLabel}
+        </Button>
+        <Button type="submit">{d.modals.walletForm.submitLabel}</Button>
       </div>
     </form>
   );
