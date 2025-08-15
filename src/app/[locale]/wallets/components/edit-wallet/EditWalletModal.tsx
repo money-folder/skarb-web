@@ -43,6 +43,7 @@ const EditWalletModal = ({ wallet, close }: Props) => {
           <WalletForm
             methods={methods}
             onSubmit={onSubmit}
+            close={close}
             disabledFields={{ currency: true }}
           />
         </div>
