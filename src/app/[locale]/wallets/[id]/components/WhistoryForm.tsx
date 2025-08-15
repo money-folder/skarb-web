@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
+import { Button } from "@/components/ui/button";
 import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
 import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
 import { DictionaryContext } from "@/shared/components/Dictionary";
@@ -60,11 +61,12 @@ const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
       </div>
 
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.whistoryForm.cancelLabel}
-          onClick={onCancel}
-        />
-        <PrimaryButton type="submit" text={d.modals.whistoryForm.submitLabel} />
+        <Button variant="outline" onClick={onCancel}>
+          {d.modals.whistoryForm.cancelLabel}
+        </Button>
+        <Button type="submit" variant="default">
+          {d.modals.whistoryForm.submitLabel}
+        </Button>
       </div>
     </form>
   );
