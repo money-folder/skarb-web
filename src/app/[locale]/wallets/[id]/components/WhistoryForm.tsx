@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getLocalISOString } from "@/shared/utils/utils";
 import { WhistoryFormValues } from "../types";
@@ -16,12 +14,6 @@ interface Props {
 
 const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
   const { d } = useContext(DictionaryContext);
-
-  // const onSubmit = (e: FieldValues) => {
-  //   const trimmedComment = e.comment ? e.comment.trim() : e.comment;
-  //   create(e.amount, e.date.getTime(), trimmedComment);
-  //   close();
-  // };
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
