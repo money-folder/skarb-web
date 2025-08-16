@@ -51,7 +51,7 @@ const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
         </div>
         <div className="flex w-full flex-col items-start gap-3">
           <Label htmlFor="expenseType">{d.modals.expenseForm.typeLabel}</Label>
-          <input
+          <Input
             {...methods.register("type", {
               required: true,
             })}
@@ -62,7 +62,7 @@ const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
             list="types"
           />
           <datalist
-            className="rounded-sm border-[1px] border-black px-2"
+            className="w-full rounded-sm border-[1px] border-black px-2"
             id="types"
           >
             {types.map((type) => (
