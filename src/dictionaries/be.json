@@ -106,9 +106,9 @@
 
   "modals": {
     "whistoryForm": {
-      "dateLabel": "Дата: ",
-      "amountLabel": "Сума грошай: ",
-      "commentLabel": "Каментар: ",
+      "dateLabel": "Дата",
+      "amountLabel": "Сума грошай",
+      "commentLabel": "Каментар",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
     },

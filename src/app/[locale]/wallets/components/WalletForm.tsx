@@ -34,7 +34,7 @@ const WalletForm = ({
             autoFocus
           />
         </div>
-        <div className="mt-2 flex w-full flex-col items-start gap-3">
+        <div className="flex w-full flex-col items-start gap-3">
           <Label htmlFor="walletCurrency">
             {d.modals.walletForm.currencyLabel}
           </Label>

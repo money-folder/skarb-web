@@ -107,9 +107,9 @@
 
   "modals": {
     "whistoryForm": {
-      "dateLabel": "Timestamp: ",
-      "amountLabel": "Amount: ",
-      "commentLabel": "Comment: ",
+      "dateLabel": "Timestamp",
+      "amountLabel": "Amount",
+      "commentLabel": "Comment",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
     },
