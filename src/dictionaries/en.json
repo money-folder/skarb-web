@@ -154,10 +154,10 @@
     },
 
     "expenseForm": {
-      "dateLabel": "Timestamp: ",
-      "amountLabel": "Amount: ",
-      "typeLabel": "Type: ",
-      "commentLabel": "Comment: ",
+      "dateLabel": "Timestamp",
+      "amountLabel": "Amount",
+      "typeLabel": "Type",
+      "commentLabel": "Comment",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
     }

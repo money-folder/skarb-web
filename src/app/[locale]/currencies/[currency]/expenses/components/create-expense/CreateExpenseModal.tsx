@@ -47,12 +47,14 @@ const CreateExpenseModal = ({ close, currency, types }: Props) => {
           <h3 className="text-left text-lg font-bold">
             {d.modals.createExpense.title}
           </h3>
-          <ExpenseForm
-            methods={methods}
-            onSubmit={onSubmit}
-            onCancel={close}
-            types={types || []}
-          />
+          <div className="mt-5">
+            <ExpenseForm
+              methods={methods}
+              onSubmit={onSubmit}
+              onCancel={close}
+              types={types || []}
+            />
+          </div>
         </div>
       </Overlay>
     </div>
