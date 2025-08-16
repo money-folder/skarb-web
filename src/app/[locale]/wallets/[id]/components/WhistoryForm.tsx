@@ -25,7 +25,7 @@ const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
           <Label htmlFor="whistoryDate">
             {d.modals.whistoryForm.dateLabel}
           </Label>
-          <input
+          <Input
             {...methods.register("date", { required: true, valueAsDate: true })}
             id="whistoryDate"
             className="rounded-sm border-[1px] border-black px-2"
