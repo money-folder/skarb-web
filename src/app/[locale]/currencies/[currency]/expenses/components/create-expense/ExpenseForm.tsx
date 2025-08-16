@@ -25,7 +25,7 @@ const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
       <div className="space-y-5">
         <div className="flex w-full flex-col items-start gap-3">
           <Label htmlFor="expenseDate">{d.modals.expenseForm.dateLabel}</Label>
-          <input
+          <Input
             {...methods.register("date", { required: true, valueAsDate: true })}
             id="expenseDate"
             className="rounded-sm border-[1px] border-black px-2"
