@@ -122,8 +122,8 @@
     },
 
     "walletForm": {
-      "nameLabel": "Назва: ",
-      "currencyLabel": "Валюта: ",
+      "nameLabel": "Назва",
+      "currencyLabel": "Валюта",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
     },

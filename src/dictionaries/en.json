@@ -123,8 +123,8 @@
     },
 
     "walletForm": {
-      "nameLabel": "Name: ",
-      "currencyLabel": "Currency: ",
+      "nameLabel": "Name",
+      "currencyLabel": "Currency",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
     },
