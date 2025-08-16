@@ -106,9 +106,9 @@
 
   "modals": {
     "whistoryForm": {
-      "dateLabel": "Дата: ",
-      "amountLabel": "Сума грошай: ",
-      "commentLabel": "Каментар: ",
+      "dateLabel": "Дата",
+      "amountLabel": "Сума грошай",
+      "commentLabel": "Каментар",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
     },
@@ -122,8 +122,8 @@
     },
 
     "walletForm": {
-      "nameLabel": "Назва: ",
-      "currencyLabel": "Валюта: ",
+      "nameLabel": "Назва",
+      "currencyLabel": "Валюта",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
     },
@@ -153,10 +153,10 @@
     },
 
     "expenseForm": {
-      "dateLabel": "Дата: ",
-      "amountLabel": "Сума грошай: ",
-      "typeLabel": "Tып: ",
-      "commentLabel": "Каментар: ",
+      "dateLabel": "Дата",
+      "amountLabel": "Сума грошай",
+      "typeLabel": "Tып",
+      "commentLabel": "Каментар",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
     }

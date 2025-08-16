@@ -2,8 +2,10 @@ import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
+import { Label } from "@/components/ui/label";
 import { WalletFormValues } from "../types";
 
 interface Props {
@@ -23,27 +25,28 @@ const WalletForm = ({
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
-      <div className="space-y-2">
-        <label className="mt-2 flex w-full flex-col items-start">
-          <span>{d.modals.walletForm.nameLabel}</span>
-          <input
+      <div className="space-y-5">
+        <div className="flex w-full flex-col items-start gap-3">
+          <Label htmlFor="walletName">{d.modals.walletForm.nameLabel}</Label>
+          <Input
             {...methods.register("name", { disabled: disabledFields["name"] })}
-            className="rounded-sm border-[1px] border-black px-2"
+            id="walletName"
             autoFocus
           />
-        </label>
-
-        <label className="mt-2 flex w-full flex-col items-start">
-          <span>{d.modals.walletForm.currencyLabel}</span>
-          <input
+        </div>
+        <div className="flex w-full flex-col items-start gap-3">
+          <Label htmlFor="walletCurrency">
+            {d.modals.walletForm.currencyLabel}
+          </Label>
+          <Input
             {...methods.register("currency", {
               disabled: disabledFields["currency"],
             })}
-            className="rounded-sm border-[1px] border-black px-2 disabled:opacity-25"
+            id="walletCurrency"
+            className="disabled:opacity-25"
           />
-        </label>
+        </div>
       </div>
-
       <div className="mt-10 flex justify-end gap-2">
         <Button type="button" variant="outline" onClick={close}>
           {d.modals.walletForm.cancelLabel}

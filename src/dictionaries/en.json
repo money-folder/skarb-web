@@ -107,9 +107,9 @@
 
   "modals": {
     "whistoryForm": {
-      "dateLabel": "Timestamp: ",
-      "amountLabel": "Amount: ",
-      "commentLabel": "Comment: ",
+      "dateLabel": "Timestamp",
+      "amountLabel": "Amount",
+      "commentLabel": "Comment",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
     },
@@ -123,8 +123,8 @@
     },
 
     "walletForm": {
-      "nameLabel": "Name: ",
-      "currencyLabel": "Currency: ",
+      "nameLabel": "Name",
+      "currencyLabel": "Currency",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
     },
@@ -154,10 +154,10 @@
     },
 
     "expenseForm": {
-      "dateLabel": "Timestamp: ",
-      "amountLabel": "Amount: ",
-      "typeLabel": "Type: ",
-      "commentLabel": "Comment: ",
+      "dateLabel": "Timestamp",
+      "amountLabel": "Amount",
+      "typeLabel": "Type",
+      "commentLabel": "Comment",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
     }
