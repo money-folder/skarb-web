@@ -1,43 +1,56 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Dictionary } from "@/dictionaries/locale";
-import LoadingRow from "./LoadingRow";
+
+import LoadingCell from "./LoadingCell";
 
 interface Props {
   d: Dictionary["walletsPage"]["walletsTable"];
 }
 
-export default async function WalletsTableLoading({ d }: Props) {
+export default function Loading({ d }: Props) {
   return (
-    <div className="w-full">
-      <table className="w-full border-collapse animate-pulse">
-        <thead>
-          <tr>
-            <th className="w-2/12 border-2 border-black p-1 text-sm">
-              {d.name}
-            </th>
-            <th className="w-2/12 border-2 border-black p-1 text-sm">
-              {d.balance}
-            </th>
-            <th className="w-1/12 border-2 border-black p-1 text-sm">
-              {d.currency}
-            </th>
-            <th className="w-2/12 border-2 border-black p-1 text-sm">
-              {d.changes}
-            </th>
-            <th className="w-3/12 border-2 border-black p-1 text-sm">
-              {d.sinceLastReport}
-            </th>
-            <th className="w-2/12 border-2 border-black p-1 text-sm">
-              {d.actions}
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
+    <div className="w-full animate-pulse">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{d.name}</TableHead>
+            <TableHead>{d.balance}</TableHead>
+            <TableHead>{d.currency}</TableHead>
+            <TableHead>{d.changes}</TableHead>
+            <TableHead>{d.sinceLastReport}</TableHead>
+            <TableHead>{d.actions}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {[...Array(7)].map((_, i) => (
-            <LoadingRow key={i} />
+            <TableRow key={i}>
+              <TableCell className="py-3">
+                <LoadingCell />
+              </TableCell>
+              <TableCell className="py-3">
+                <LoadingCell />
+              </TableCell>
+              <TableCell className="py-3">
+                <LoadingCell />
+              </TableCell>
+              <TableCell className="py-3">
+                <LoadingCell />
+              </TableCell>
+              <TableCell className="py-3">
+                <LoadingCell />
+              </TableCell>
+              <TableCell className="py-3"></TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }
