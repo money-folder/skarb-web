@@ -27,7 +27,7 @@ model User {
   wallets  Wallet[]
   accounts Account[]
   sessions Session[]
-  Expense  Expense[]
+  expenses Expense[]
 
   @@map("users")
 }
