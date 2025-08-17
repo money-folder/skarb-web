@@ -2,14 +2,14 @@
 
 import {
   ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
+  // getPaginationRowModel,
   getSortedRowModel,
+  SortingState,
   useReactTable,
+  VisibilityState,
 } from "@tanstack/react-table";
 import { useState } from "react";
 
@@ -22,23 +22,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Dictionary } from "@/dictionaries/locale";
-import { Locale } from "@/locale";
 
-import { ClientWalletDto } from "../../types";
+import { ClientWhistoryDto } from "../../types";
 import { createColumns } from "./columns";
 
-interface WalletsTableClientProps {
-  locale: Locale;
-  wallets: ClientWalletDto[];
-  dictionary: Dictionary["walletsPage"]["walletsTable"];
+interface Props {
+  dictionary: Dictionary["whistoryPage"]["whistoryTable"];
+  whistory: ClientWhistoryDto[];
 }
 
-export function WalletsTableClient({
-  locale,
-  wallets,
-  dictionary,
-}: WalletsTableClientProps) {
-  const columns = createColumns(locale, dictionary);
+export const WalletHistoryTableClient = ({ dictionary, whistory }: Props) => {
+  const columns = createColumns(dictionary);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -46,7 +40,7 @@ export function WalletsTableClient({
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data: wallets,
+    data: whistory,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -55,7 +49,7 @@ export function WalletsTableClient({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
       columnFilters,
@@ -106,4 +100,4 @@ export function WalletsTableClient({
       </TableBody>
     </Table>
   );
-}
+};

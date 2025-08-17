@@ -41,7 +41,17 @@
       "date": "Date",
       "changes": "Changes",
       "comment": "Comment",
-      "actions": "Actions"
+      "actions": "Actions",
+      "actionsMenu": {
+        "label": "Actions",
+        "edit": "Edit",
+        "duplicate": "Duplicate",
+        "restore": "Restore",
+        "deletePermanently": "Delete Permanently",
+        "delete": "Delete",
+        "confirmDeleteMessage": "Are you sure you want to delete this balance entry?",
+        "confirmPermanentDeleteMessage": "Are you sure you want to permanently delete this balance entry?"
+      }
     },
 
     "loadingWhistoryFailed": "Wallet History fetch failed 😢",

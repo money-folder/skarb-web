@@ -11,7 +11,7 @@ import {
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 
-import WalletHistoryTable from "./WalletHistoryTable";
+import { WalletHistoryTableClient } from "./WalletHistoryTableClient";
 
 interface WalletHistoryContainerProps {
   locale: Locale;
@@ -32,6 +32,8 @@ export default async function WalletHistoryContainer({
     fromTs,
     toTs,
   });
+
+  console.log(walletHistory?.whistory.length);
 
   return walletHistory ? (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
@@ -57,9 +59,9 @@ export default async function WalletHistoryContainer({
 
       <div className="col-span-1 row-span-1 flex h-full w-full max-w-[550px] flex-col overflow-auto">
         {walletHistory.whistory.length ? (
-          <WalletHistoryTable
-            locale={locale}
-            walletHistory={walletHistory.whistory}
+          <WalletHistoryTableClient
+            dictionary={d.whistoryTable}
+            whistory={walletHistory.whistory.reverse()}
           />
         ) : (
           <p>{d.whistoryEmpty}</p>
