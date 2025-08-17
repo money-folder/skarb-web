@@ -7,6 +7,7 @@ import {
   useSelectedLayoutSegments,
 } from "next/navigation";
 import { Tab } from "../types";
+
 interface Props {
   tabs: Tab[];
 }
