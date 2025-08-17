@@ -13,17 +13,25 @@ interface Props {
   width: number;
   height: number;
   expenses: ClientExpenseDto[];
+  expensesSum: number;
   currency: string;
 }
 
-const ExpensesChart = ({ width, height, expenses, currency }: Props) => {
-  const data: ExpensesChartEntry[] = getExpensesData(expenses);
+const ExpensesChart = ({
+  width,
+  height,
+  expenses,
+  expensesSum,
+  currency,
+}: Props) => {
+  const data: ExpensesChartEntry[] = getExpensesData(expenses, expensesSum);
 
   const renderCustomizedLabel = ({
     percent,
   }: ExpensesChartEntry & { percent: number }) => {
     return `${((percent ?? 1) * 100).toFixed(2)}%`;
   };
+
   const renderTooltip = ({
     active,
     payload,
