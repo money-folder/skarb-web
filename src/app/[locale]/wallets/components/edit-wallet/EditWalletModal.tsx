@@ -40,11 +40,14 @@ const EditWalletModal = ({ wallet, close }: Props) => {
           <h3 className="text-left text-lg font-bold">
             {d.modals.editWallet.title}
           </h3>
-          <WalletForm
-            methods={methods}
-            onSubmit={onSubmit}
-            disabledFields={{ currency: true }}
-          />
+          <div className="mt-5">
+            <WalletForm
+              methods={methods}
+              onSubmit={onSubmit}
+              close={close}
+              disabledFields={{ currency: true }}
+            />
+          </div>
         </div>
       </Overlay>
     </div>

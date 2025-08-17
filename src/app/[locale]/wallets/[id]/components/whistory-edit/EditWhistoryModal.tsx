@@ -51,12 +51,13 @@ const EditWhistoryModal = ({ whistory, close }: Props) => {
               walletName: "-",
             })}
           </h3>
-
-          <WhistoryForm
-            methods={methods}
-            onSubmit={onSubmit}
-            onCancel={close}
-          />
+          <div className="mt-5">
+            <WhistoryForm
+              methods={methods}
+              onSubmit={onSubmit}
+              onCancel={close}
+            />
+          </div>
         </div>
       </Overlay>
     </div>

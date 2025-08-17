@@ -34,7 +34,9 @@ const CreateWalletModal = ({ close }: Props) => {
           <h3 className="text-left text-lg font-bold">
             {d.modals.createWallet.title}
           </h3>
-          <WalletForm methods={methods} onSubmit={onSubmit} />
+          <div className="mt-5">
+            <WalletForm methods={methods} onSubmit={onSubmit} close={close} />
+          </div>
         </div>
       </Overlay>
     </div>

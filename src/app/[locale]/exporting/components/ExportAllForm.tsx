@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
+import { Button } from "@/components/ui/button";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
 import { ExportAllFormValues } from "../types";
@@ -40,14 +39,10 @@ export const ExportAllForm = ({ methods, onSubmit, onCancel }: Props) => {
         </div>
       </div>
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.exportAllForm.cancelLabel}
-          onClick={onCancel}
-        />
-        <PrimaryButton
-          type="submit"
-          text={d.modals.exportAllForm.submitLabel}
-        />
+        <Button variant="outline" onClick={onCancel}>
+          {d.modals.exportAllForm.cancelLabel}
+        </Button>
+        <Button type="submit">{d.modals.exportAllForm.submitLabel}</Button>
       </div>
     </form>
   );

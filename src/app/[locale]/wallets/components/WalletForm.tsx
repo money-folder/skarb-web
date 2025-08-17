@@ -1,50 +1,57 @@
 import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
-import PrimaryButton from "@/shared/components/buttons/PrimaryButton";
-import SecondaryButton from "@/shared/components/buttons/SecondaryButton";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
+import { Label } from "@/components/ui/label";
 import { WalletFormValues } from "../types";
 
 interface Props {
   methods: UseFormReturn<WalletFormValues>;
   onSubmit: SubmitHandler<WalletFormValues>;
+  close: () => void;
   disabledFields?: Partial<{ [key in keyof WalletFormValues]: true }>;
 }
 
-const WalletForm = ({ methods, onSubmit, disabledFields = {} }: Props) => {
+const WalletForm = ({
+  methods,
+  onSubmit,
+  close,
+  disabledFields = {},
+}: Props) => {
   const { d } = useContext(DictionaryContext);
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
-      <div className="space-y-2">
-        <label className="mt-2 flex w-full flex-col items-start">
-          <span>{d.modals.walletForm.nameLabel}</span>
-          <input
+      <div className="space-y-5">
+        <div className="flex w-full flex-col items-start gap-3">
+          <Label htmlFor="walletName">{d.modals.walletForm.nameLabel}</Label>
+          <Input
             {...methods.register("name", { disabled: disabledFields["name"] })}
-            className="rounded-sm border-[1px] border-black px-2"
+            id="walletName"
             autoFocus
           />
-        </label>
-
-        <label className="mt-2 flex w-full flex-col items-start">
-          <span>{d.modals.walletForm.currencyLabel}</span>
-          <input
+        </div>
+        <div className="flex w-full flex-col items-start gap-3">
+          <Label htmlFor="walletCurrency">
+            {d.modals.walletForm.currencyLabel}
+          </Label>
+          <Input
             {...methods.register("currency", {
               disabled: disabledFields["currency"],
             })}
-            className="rounded-sm border-[1px] border-black px-2 disabled:opacity-25"
+            id="walletCurrency"
+            className="disabled:opacity-25"
           />
-        </label>
+        </div>
       </div>
-
       <div className="mt-10 flex justify-end gap-2">
-        <SecondaryButton
-          text={d.modals.walletForm.cancelLabel}
-          onClick={close}
-        />
-        <PrimaryButton type="submit" text={d.modals.walletForm.submitLabel} />
+        <Button type="button" variant="outline" onClick={close}>
+          {d.modals.walletForm.cancelLabel}
+        </Button>
+        <Button type="submit">{d.modals.walletForm.submitLabel}</Button>
       </div>
     </form>
   );
