@@ -87,3 +87,40 @@ export const getCurrentUserCurrencyWhistory = async (
 
   return { composedWhistory, increasesDecreasesDiff, ...sums };
 };
+
+export const getCurrentUserCurrencyWhistoryExpenses = async (
+  currency: string,
+  params: FetchWhistoryParams,
+) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const whistory = await getUserCurrencyWhistory(session.user.id, currency);
+  const dataByWallets = groupWhistoryByWallets(whistory);
+  if (!Object.keys(dataByWallets).length || !whistory.length) {
+    return {
+      negativeExpensesSum: 0,
+    };
+  }
+
+  const mergedWhistoryGroups = groupWhistoryByDate(
+    params.fromTs ? new Date(params.fromTs) : whistory[0].date,
+    params.toTs ? new Date(params.toTs) : whistory[whistory.length - 1].date,
+    dataByWallets,
+  );
+
+  const composedWhistory = composeWhistoryMoneyAmount(mergedWhistoryGroups);
+  const negativeExpensesSum = Math.abs(
+    +composedWhistory
+      .reduce(
+        (acc, item) =>
+          acc + (item.changesAbs && item.changesAbs < 0 ? item.changesAbs : 0),
+        0,
+      )
+      .toFixed(2),
+  );
+
+  return { negativeExpensesSum };
+};

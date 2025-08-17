@@ -5,6 +5,7 @@ import {
   PIE_CHART_HEIGHT_DEFAULT,
   PIE_CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
+import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
 import { fetchExpenses, fetchTypes } from "../actions";
 import ExpensesTable from "./ExpensesTable";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
@@ -25,6 +26,11 @@ export default async function ExpensesContainer({
 }: Props) {
   const { data: expenses } = await fetchExpenses(currency, { fromTs, toTs });
   const { data: types } = await fetchTypes(currency);
+  const { data: expensesSum } = await fetchCurrencyWhistoryExpenses(currency, {
+    fromTs,
+    toTs,
+  });
+
   const d = await getDictionary(locale, "currencyPage.expensesContainer");
 
   return expenses ? (
@@ -53,6 +59,7 @@ export default async function ExpensesContainer({
             width={PIE_CHART_WIDTH_DEFAULT}
             height={PIE_CHART_HEIGHT_DEFAULT}
             expenses={expenses}
+            expensesSum={expensesSum || 0}
             currency={currency}
           />
         </WithMounted>

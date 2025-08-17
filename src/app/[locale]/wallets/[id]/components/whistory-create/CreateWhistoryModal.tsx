@@ -42,12 +42,13 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
           <h3 className="text-left text-lg font-bold">
             {replacePlaceholders(d.modals.createWhistory.title, { walletName })}
           </h3>
-
-          <WhistoryForm
-            methods={methods}
-            onSubmit={onSubmit}
-            onCancel={close}
-          />
+          <div className="mt-5">
+            <WhistoryForm
+              methods={methods}
+              onSubmit={onSubmit}
+              onCancel={close}
+            />
+          </div>
         </div>
       </Overlay>
     </div>
