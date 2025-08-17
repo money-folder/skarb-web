@@ -13,5 +13,10 @@ export const getUserAppData = (userId: string) =>
           },
         },
       },
+      expenses: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
     },
   });

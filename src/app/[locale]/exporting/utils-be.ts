@@ -121,6 +121,42 @@ export const generateSQLDump = (appData: AppData): string => {
         sqlDump += "\n";
       }
     });
+
+    if (
+      appData.expenses &&
+      Array.isArray(appData.expenses) &&
+      appData.expenses.length > 0
+    ) {
+      sqlDump += `\n-- Expenses data\n`;
+
+      appData.expenses.forEach((expense) => {
+        sqlDump += `INSERT INTO expenses (
+          id,
+          owner_id,
+          date,
+          money_amount,
+          currency,
+          type,
+          comment,
+          created_at,
+          updated_at,
+          deleted_at
+        ) VALUES (
+          ${formatValueForSQL(expense.id)},
+          ${formatValueForSQL(expense.ownerId)},
+          ${formatValueForSQL(expense.date)},
+          ${expense.moneyAmount},
+          ${formatValueForSQL(expense.currency)},
+          ${formatValueForSQL(expense.type)},
+          ${formatValueForSQL(expense.comment)},
+          ${formatValueForSQL(expense.createdAt)},
+          ${formatValueForSQL(expense.updatedAt)},
+          ${formatValueForSQL(expense.deletedAt)}
+        );\n`;
+      });
+
+      sqlDump += "\n";
+    }
   }
 
   return sqlDump;
