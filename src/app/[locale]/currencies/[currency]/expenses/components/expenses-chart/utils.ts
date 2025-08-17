@@ -1,9 +1,11 @@
+import { Dictionary } from "@/dictionaries/locale";
 import { ClientExpenseDto } from "../../types";
 import { ExpensesChartEntry } from "./types";
 
 export function getExpensesData(
   expenses: ClientExpenseDto[],
   expensesSum: number,
+  dictionary: Dictionary,
 ): ExpensesChartEntry[] {
   const map: Map<string, ExpensesChartEntry> = new Map();
 
@@ -31,11 +33,12 @@ export function getExpensesData(
     expensesSum - expenses.reduce((acc, item) => acc + item.moneyAmount, 0);
 
   if (untrackedExpenses > 0) {
-    map.set("Untracked", {
-      name: "Untracked",
+    const untrackedLabel = dictionary.charts.expenses.untracked;
+    map.set(untrackedLabel, {
+      name: untrackedLabel,
       color: "#ccc",
       value: untrackedExpenses,
-      label: "Untracked",
+      label: untrackedLabel,
     });
   }
 

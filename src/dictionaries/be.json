@@ -194,6 +194,10 @@
       "tooltip": {
         "changesLabel": "Змены"
       }
+    },
+
+    "expenses": {
+      "untracked": "Неўлічаныя"
     }
   },
 

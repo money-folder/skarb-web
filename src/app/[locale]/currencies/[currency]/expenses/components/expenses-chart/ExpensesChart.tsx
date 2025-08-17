@@ -1,5 +1,7 @@
 "use client";
 
+import { DictionaryContext } from "@/shared/components/Dictionary";
+import { useContext } from "react";
 import { Cell, Pie, PieChart, Tooltip, TooltipProps } from "recharts";
 import {
   NameType,
@@ -24,7 +26,12 @@ const ExpensesChart = ({
   expensesSum,
   currency,
 }: Props) => {
-  const data: ExpensesChartEntry[] = getExpensesData(expenses, expensesSum);
+  const { d: dictionary } = useContext(DictionaryContext);
+  const data: ExpensesChartEntry[] = getExpensesData(
+    expenses,
+    expensesSum,
+    dictionary,
+  );
 
   const renderCustomizedLabel = ({
     percent,
