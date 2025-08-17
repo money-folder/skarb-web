@@ -1,5 +1,7 @@
 "use client";
 
+import { DictionaryContext } from "@/shared/components/Dictionary";
+import { useContext } from "react";
 import { Cell, Pie, PieChart, Tooltip, TooltipProps } from "recharts";
 import {
   NameType,
@@ -13,17 +15,30 @@ interface Props {
   width: number;
   height: number;
   expenses: ClientExpenseDto[];
+  expensesSum: number;
   currency: string;
 }
 
-const ExpensesChart = ({ width, height, expenses, currency }: Props) => {
-  const data: ExpensesChartEntry[] = getExpensesData(expenses);
+const ExpensesChart = ({
+  width,
+  height,
+  expenses,
+  expensesSum,
+  currency,
+}: Props) => {
+  const { d: dictionary } = useContext(DictionaryContext);
+  const data: ExpensesChartEntry[] = getExpensesData(
+    expenses,
+    expensesSum,
+    dictionary,
+  );
 
   const renderCustomizedLabel = ({
     percent,
   }: ExpensesChartEntry & { percent: number }) => {
     return `${((percent ?? 1) * 100).toFixed(2)}%`;
   };
+
   const renderTooltip = ({
     active,
     payload,

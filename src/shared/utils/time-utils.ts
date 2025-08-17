@@ -171,3 +171,9 @@ export const formatDateDifference = (
 
 export const isValidDate = (d: Date) =>
   d instanceof Date && !isNaN(d.getTime());
+
+export const getMonthStart = (date: Date): Date => {
+  const start = new Date(date.getFullYear(), date.getMonth(), 1);
+  start.setHours(0, 0, 0, 0);
+  return start;
+};
