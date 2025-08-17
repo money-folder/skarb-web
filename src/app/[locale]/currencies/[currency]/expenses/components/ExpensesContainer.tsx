@@ -25,6 +25,7 @@ export default async function ExpensesContainer({
 }: Props) {
   const { data: expenses } = await fetchExpenses(currency, { fromTs, toTs });
   const { data: types } = await fetchTypes(currency);
+
   const d = await getDictionary(locale, "currencyPage.expensesContainer");
 
   return expenses ? (
