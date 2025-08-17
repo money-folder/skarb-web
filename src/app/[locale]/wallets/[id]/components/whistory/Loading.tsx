@@ -1,5 +1,14 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Dictionary } from "@/dictionaries/locale";
-import LoadingRow from "./LoadingRow";
+
+import LoadingCell from "./LoadingCell";
 
 interface Props {
   d: Dictionary["whistoryPage"]["whistoryTable"];
@@ -14,29 +23,38 @@ export default function Loading({ d }: Props) {
       </div>
 
       <div className="col-span-2 row-span-1 w-full max-w-[550px]">
-        <table className="w-full border-collapse animate-pulse">
-          <thead>
-            <tr>
-              <th className="w-2/12 border-2 border-black p-1 text-sm">
-                {d.balance}
-              </th>
-              <th className="w-5/12 border-2 border-black p-1 text-sm">
-                {d.date}
-              </th>
-              <th className="w-4/12 border-2 border-black p-1 text-sm">
-                {d.changes}
-              </th>
-              <th className="w-1/12 border-2 border-black p-1 text-sm">
-                {d.actions}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...Array(16)].map((_, i) => (
-              <LoadingRow key={i} />
-            ))}
-          </tbody>
-        </table>
+        <div className="w-full animate-pulse">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>{d.balance}</TableHead>
+                <TableHead>{d.date}</TableHead>
+                <TableHead>{d.changes}</TableHead>
+                <TableHead>{d.comment}</TableHead>
+                <TableHead>{d.actions}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {[...Array(16)].map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell className="py-3">
+                    <LoadingCell />
+                  </TableCell>
+                  <TableCell className="py-3">
+                    <LoadingCell />
+                  </TableCell>
+                  <TableCell className="py-3">
+                    <LoadingCell />
+                  </TableCell>
+                  <TableCell className="py-3">
+                    <LoadingCell />
+                  </TableCell>
+                  <TableCell className="py-3"></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
       <div className="h-full w-full"></div>
     </div>

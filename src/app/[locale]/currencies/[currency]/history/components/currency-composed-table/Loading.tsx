@@ -11,7 +11,7 @@ import { Dictionary } from "@/dictionaries/locale";
 import LoadingCell from "./LoadingCell";
 
 interface Props {
-  d: Dictionary["walletsPage"]["walletsTable"];
+  d: Dictionary["currencyPage"]["currencyTable"];
 }
 
 export default function Loading({ d }: Props) {
@@ -20,12 +20,10 @@ export default function Loading({ d }: Props) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>{d.name}</TableHead>
-            <TableHead>{d.balance}</TableHead>
-            <TableHead>{d.currency}</TableHead>
+            <TableHead>{d.moneyAmount}</TableHead>
             <TableHead>{d.changes}</TableHead>
-            <TableHead>{d.sinceLastReport}</TableHead>
-            <TableHead>{d.actions}</TableHead>
+            <TableHead>{d.wallets}</TableHead>
+            <TableHead>{d.date}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -43,10 +41,6 @@ export default function Loading({ d }: Props) {
               <TableCell className="py-3">
                 <LoadingCell />
               </TableCell>
-              <TableCell className="py-3">
-                <LoadingCell />
-              </TableCell>
-              <TableCell className="py-3"></TableCell>
             </TableRow>
           ))}
         </TableBody>
