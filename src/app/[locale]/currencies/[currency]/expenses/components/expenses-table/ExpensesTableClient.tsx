@@ -44,7 +44,7 @@ export const ExpensesTableClient = ({
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data: [...expenses].reverse(),
+    data: expenses,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

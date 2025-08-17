@@ -33,6 +33,8 @@ export default async function WalletHistoryContainer({
     toTs,
   });
 
+  console.log(walletHistory?.whistory.length);
+
   return walletHistory ? (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
