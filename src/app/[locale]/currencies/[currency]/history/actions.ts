@@ -3,6 +3,7 @@
 import {
   getCurrentUserCurrencies,
   getCurrentUserCurrencyWhistory,
+  getCurrentUserCurrencyWhistoryExpenses,
 } from "@/app/[locale]/currencies/[currency]/history/service";
 import { FetchWhistoryParams } from "../../../wallets/types";
 
@@ -23,6 +24,20 @@ export const fetchCurrencyWhistory = async (
   try {
     const data = await getCurrentUserCurrencyWhistory(currency, params);
     return { success: true, data };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
+
+export const fetchCurrencyWhistoryExpenses = async (
+  currency: string,
+  params: FetchWhistoryParams,
+) => {
+  try {
+    const { negativeExpensesSum } =
+      await getCurrentUserCurrencyWhistoryExpenses(currency, params);
+    return { success: true, data: negativeExpensesSum };
   } catch (error) {
     console.error(error);
     return { success: false, data: null, error };

@@ -3,8 +3,10 @@ import { ExpensesChartEntry } from "./types";
 
 export function getExpensesData(
   expenses: ClientExpenseDto[],
+  expensesSum: number,
 ): ExpensesChartEntry[] {
   const map: Map<string, ExpensesChartEntry> = new Map();
+
   expenses.forEach((expense: ClientExpenseDto) => {
     const entry = map.get(expense.type);
     if (entry) {
@@ -21,8 +23,22 @@ export function getExpensesData(
         label: expense.type,
       });
     }
+
     return map;
   });
+
+  const untrackedExpenses =
+    expensesSum - expenses.reduce((acc, item) => acc + item.moneyAmount, 0);
+
+  if (untrackedExpenses > 0) {
+    map.set("Untracked", {
+      name: "Untracked",
+      color: "#ccc",
+      value: untrackedExpenses,
+      label: "Untracked",
+    });
+  }
+
   return Array.from(map.values()).sort((a, b) => a.value - b.value);
 }
 
