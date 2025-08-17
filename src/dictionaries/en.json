@@ -8,7 +8,18 @@
       "currency": "Currency",
       "changes": "Changes",
       "sinceLastReport": "Since Last Report",
-      "actions": "Actions"
+      "actions": "Actions",
+      "actionsMenu": {
+        "label": "Actions",
+        "addBalance": "Add Balance",
+        "duplicateLastBalance": "Duplicate Last Balance",
+        "editWallet": "Edit Wallet",
+        "restore": "Restore",
+        "deletePermanently": "Delete Permanently",
+        "delete": "Delete",
+        "confirmDeleteMessage": "Are you sure you want to delete this wallet?",
+        "confirmPermanentDeleteMessage": "Are you sure you want to permanently delete this wallet?"
+      }
     },
 
     "loadingWalletsFailed": "Loading wallets table failed 😢"
