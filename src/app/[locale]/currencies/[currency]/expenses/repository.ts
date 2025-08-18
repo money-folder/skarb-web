@@ -26,6 +26,9 @@ export const findByUserCurrency = async (
         gte: params?.fromTs ? new Date(params.fromTs) : undefined,
       },
     },
+    orderBy: {
+      date: "desc",
+    },
   });
 
   return expenses;
