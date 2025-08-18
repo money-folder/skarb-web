@@ -1,7 +1,7 @@
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import { ClientExpenseDto } from "../types";
-import { ExpensesTableClient } from "./expenses-table/ExpensesTableClient";
+import { GroupedExpensesTableClient } from "./expenses-table/GroupedExpensesTableClient";
 import Loading from "./expenses-table/Loading";
 
 interface Props {
@@ -20,7 +20,7 @@ export default async function ExpensesTable({
   return (
     <div className="h-full w-full">
       {expenses && expenses.length > 0 ? (
-        <ExpensesTableClient
+        <GroupedExpensesTableClient
           dictionary={d}
           expenses={expenses}
           currency={currency}
