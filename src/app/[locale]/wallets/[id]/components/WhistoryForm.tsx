@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getLocalISOString } from "@/shared/utils/utils";
+
 import { WhistoryFormValues } from "../types";
 
 interface Props {
@@ -17,6 +18,15 @@ interface Props {
 
 const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
   const { d } = useContext(DictionaryContext);
+
+  const amountInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // An ugly fix to overwrite the radix dropdown that steals focus
+    setTimeout(() => {
+      amountInputRef.current?.focus();
+    }, 75);
+  }, []);
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -42,6 +52,7 @@ const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
               required: true,
               valueAsNumber: true,
             })}
+            ref={amountInputRef}
             id="whistoryAmount"
             className="rounded-sm border-[1px] border-black px-2"
             type="number"
