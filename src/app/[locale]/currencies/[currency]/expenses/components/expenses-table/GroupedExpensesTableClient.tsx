@@ -61,6 +61,7 @@ export const GroupedExpensesTableClient = ({
           totalAmount={totalAmount}
           currency={currency}
           dictionary={dictionary}
+          initialExpanded
         />
       ))}
     </div>
