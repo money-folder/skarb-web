@@ -28,7 +28,7 @@ export default async function Sidebar({ locale }: Props) {
     <div className="flex h-full w-[225px] flex-col border-r-2 border-r-black p-5">
       <UserProfile locale={locale} />
 
-      <ul className="mt-5 flex-grow">
+      <ul className="mt-5 flex-grow overflow-auto">
         {walletsResponse.data ? (
           <>
             <li className="flex w-full justify-between gap-2 overflow-hidden truncate">
@@ -89,6 +89,32 @@ export default async function Sidebar({ locale }: Props) {
                   >
                     {c}
                   </NavLink>
+                  <ul className="pl-5">
+                    <li>
+                      <NavLink
+                        className="overflow-hidden text-ellipsis"
+                        activeClassName="text-white bg-black"
+                        href={`${
+                          locale !== DEFAULT_LOCALE ? `/${locale}` : ""
+                        }/currencies/${c}/history`}
+                        isNested={true}
+                      >
+                        {d.currencyPage.navbar.history}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className="overflow-hidden text-ellipsis"
+                        activeClassName="text-white bg-black"
+                        href={`${
+                          locale !== DEFAULT_LOCALE ? `/${locale}` : ""
+                        }/currencies/${c}/expenses`}
+                        isNested={true}
+                      >
+                        {d.currencyPage.navbar.expenses}
+                      </NavLink>
+                    </li>
+                  </ul>
                 </li>
               ))}
             </ul>
