@@ -1,5 +1,5 @@
 import Changes from "@/app/[locale]/wallets/components/Changes";
-import Card from "./Card";
+import { Card } from "@/components/ui/card";
 
 interface Props {
   text: string;
@@ -16,7 +16,7 @@ export default function WalletChangesSummaryCard({
   diff,
 }: Props) {
   return (
-    <Card>
+    <Card className="flex h-[100px] w-[180px] items-center justify-center py-2">
       <div className="flex h-full flex-col items-end justify-start">
         <h4 className="mb-1 font-extrabold">{text}</h4>
         <p className="text-xs">

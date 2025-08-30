@@ -9,6 +9,7 @@
       "changes": "Changes",
       "sinceLastReport": "Since Last Report",
       "actions": "Actions",
+      "noResults": "No results.",
       "actionsMenu": {
         "label": "Actions",
         "addBalance": "Add Balance",
@@ -115,7 +116,8 @@
     "expensesContainer": {
       "createButtonLabel": "Create",
       "noExpenses": "No expenses",
-      "loadingFailed": "Loading failed"
+      "loadingFailed": "Loading failed",
+      "totalExpenses": "Total Expenses"
     }
   },
 
@@ -172,6 +174,10 @@
 
     "createExpense": {
       "title": "Create Expense"
+    },
+
+    "editExpense": {
+      "title": "Edit Expense"
     },
 
     "expenseForm": {

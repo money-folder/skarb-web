@@ -99,7 +99,7 @@ export function WalletsTableClient({
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">
-              {"No results."}
+              {dictionary.noResults}
             </TableCell>
           </TableRow>
         )}

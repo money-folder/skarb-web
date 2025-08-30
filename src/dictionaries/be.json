@@ -9,6 +9,7 @@
       "changes": "Змены",
       "sinceLastReport": "З Апошняга Запісу",
       "actions": "Дзеянні",
+      "noResults": "Няма вынікаў.",
       "actionsMenu": {
         "label": "Дзеянні",
         "addBalance": "Дадаць Баланс",
@@ -114,7 +115,8 @@
     "expensesContainer": {
       "createButtonLabel": "Стварыць",
       "noExpenses": "Няма выдаткоў",
-      "loadingFailed": "Загрузка не ўдалася"
+      "loadingFailed": "Загрузка не ўдалася",
+      "totalExpenses": "Агульныя выдаткі"
     }
   },
 
@@ -171,6 +173,10 @@
 
     "createExpense": {
       "title": "Стварыць"
+    },
+
+    "editExpense": {
+      "title": "Рэдагаваць"
     },
 
     "expenseForm": {

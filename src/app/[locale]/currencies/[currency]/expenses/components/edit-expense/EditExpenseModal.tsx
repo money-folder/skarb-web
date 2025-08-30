@@ -5,22 +5,32 @@ import { useForm } from "react-hook-form";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import Overlay from "@/shared/components/overlay/Overlay";
 
-import { createExpense } from "../../actions";
-import { ExpenseFormValues } from "../../types";
+import { getLocalISOString } from "@/shared/utils/utils";
+import { updateExpense } from "../../actions";
+import { ClientExpenseDto, ExpenseFormValues } from "../../types";
 import { expenseFormSchema } from "../../validation";
-import ExpenseForm from "./ExpenseForm";
+import ExpenseForm from "../create-expense/ExpenseForm";
 
 interface Props {
   close: () => void;
+  expense: ClientExpenseDto;
   currency: string;
   types?: string[] | null;
-  defaultDate?: Date;
 }
 
-const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
+const EditExpenseModal = ({ close, expense, currency, types }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  const methods = useForm({ resolver: zodResolver(expenseFormSchema) });
+  const methods = useForm<ExpenseFormValues>({
+    resolver: zodResolver(expenseFormSchema),
+    defaultValues: {
+      moneyAmount: expense.moneyAmount,
+      // @ts-expect-error -- the date should be set as string
+      date: getLocalISOString(expense.date),
+      type: expense.type,
+      comment: expense.comment || "",
+    },
+  });
 
   const onSubmit = async ({
     moneyAmount,
@@ -28,7 +38,8 @@ const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
     type,
     comment,
   }: ExpenseFormValues) => {
-    await createExpense({
+    await updateExpense({
+      id: expense.id,
       moneyAmount,
       currency,
       date,
@@ -46,7 +57,7 @@ const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
           onClick={(e) => e.stopPropagation()}
         >
           <h3 className="text-left text-lg font-bold">
-            {d.modals.createExpense.title}
+            {d.modals.editExpense.title}
           </h3>
           <div className="mt-5">
             <ExpenseForm
@@ -54,7 +65,7 @@ const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
               onSubmit={onSubmit}
               onCancel={close}
               types={types || []}
-              defaultDate={defaultDate}
+              defaultDate={expense.date}
             />
           </div>
         </div>
@@ -63,4 +74,4 @@ const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
   );
 };
 
-export default CreateExpenseModal;
+export default EditExpenseModal;
