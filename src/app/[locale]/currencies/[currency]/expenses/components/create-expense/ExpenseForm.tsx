@@ -59,9 +59,7 @@ const ExpenseForm = ({
         <div className="flex w-full flex-col items-start gap-3">
           <Label htmlFor="expenseType">{d.modals.expenseForm.typeLabel}</Label>
           <Input
-            {...methods.register("type", {
-              required: true,
-            })}
+            {...methods.register("type", { required: true })}
             id="expenseType"
             className="rounded-sm border-[1px] border-black px-2"
             type="text"

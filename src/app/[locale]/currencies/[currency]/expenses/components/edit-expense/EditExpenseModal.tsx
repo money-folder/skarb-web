@@ -21,7 +21,7 @@ interface Props {
 const EditExpenseModal = ({ close, expense, currency, types }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  const methods = useForm<ExpenseFormValues>({
+  const methods = useForm<ExpenseFormValues, unknown, ExpenseFormValues>({
     resolver: zodResolver(expenseFormSchema),
     defaultValues: {
       moneyAmount: expense.moneyAmount,
