@@ -15,6 +15,7 @@ import { Dictionary } from "@/dictionaries/locale";
 
 import { ClientExpenseDto } from "../../types";
 import DestroyButton from "../buttons/DestroyButton";
+import EditButton from "../buttons/EditButton";
 import HeaderCreateExpenseButton from "../create-expense/HeaderCreateExpenseButton";
 
 interface DayExpenseGroupProps {
@@ -23,6 +24,7 @@ interface DayExpenseGroupProps {
   totalAmount: number;
   currency: string;
   dictionary: Dictionary["currencyPage"]["expensesTable"];
+  types?: string[];
   initialExpanded?: boolean;
 }
 
@@ -32,6 +34,7 @@ const DayExpenseGroup = ({
   totalAmount,
   currency,
   dictionary,
+  types,
   initialExpanded = false,
 }: DayExpenseGroupProps) => {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
@@ -111,6 +114,11 @@ const DayExpenseGroup = ({
                 </TableCell>
                 <TableCell className="text-center">
                   <div className="flex justify-center">
+                    <EditButton
+                      expense={expense}
+                      currency={currency}
+                      types={types}
+                    />
                     <DestroyButton id={expense.id} currency={currency} />
                   </div>
                 </TableCell>

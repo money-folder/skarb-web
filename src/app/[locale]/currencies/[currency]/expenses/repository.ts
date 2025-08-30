@@ -1,5 +1,9 @@
 import { prisma } from "@/prisma";
-import { CreateExpenseDto, FetchExpensesParams } from "./types";
+import {
+  CreateExpenseDto,
+  FetchExpensesParams,
+  UpdateExpenseDto,
+} from "./types";
 
 export const getExpensesTypesByUserCurrency = async (
   userId: string,
@@ -37,6 +41,14 @@ export const findByUserCurrency = async (
 export const create = async (dto: CreateExpenseDto) => {
   return prisma.expense.create({
     data: dto,
+  });
+};
+
+export const update = async (dto: UpdateExpenseDto) => {
+  const { id, ...data } = dto;
+  return prisma.expense.update({
+    where: { id },
+    data,
   });
 };
 

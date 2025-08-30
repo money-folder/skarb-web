@@ -6,6 +6,7 @@ import {
   ClientExpenseDto,
   CreateExpenseRequestDto,
   FetchExpensesParams,
+  UpdateExpenseRequestDto,
 } from "./types";
 
 export const getUserCurrencyExpensesTypes = async (
@@ -67,6 +68,23 @@ export const createUserCurrencyExpense = async (
     ownerId: session.user.id,
   });
 
+  return result;
+};
+
+export const updateUserCurrencyExpense = async (
+  dto: UpdateExpenseRequestDto,
+) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const allowedToUpdate = await verifyExpenseOwnership(session.user.id, dto.id);
+  if (!allowedToUpdate) {
+    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+  }
+
+  const result = await expensesRepository.update(dto);
   return result;
 };
 

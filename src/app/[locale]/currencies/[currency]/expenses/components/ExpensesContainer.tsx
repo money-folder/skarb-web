@@ -66,6 +66,7 @@ export default async function ExpensesContainer({
           <ExpensesTable
             locale={locale}
             expenses={expenses}
+            types={types}
             currency={currency}
           />
         ) : (

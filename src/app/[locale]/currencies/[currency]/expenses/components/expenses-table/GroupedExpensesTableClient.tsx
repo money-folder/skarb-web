@@ -11,6 +11,7 @@ interface Props {
   dictionary: Dictionary["currencyPage"]["expensesTable"];
   expenses: ClientExpenseDto[];
   currency: string;
+  types: string[];
 }
 
 // Helper function to group expenses by day
@@ -44,6 +45,7 @@ export const GroupedExpensesTableClient = ({
   dictionary,
   expenses,
   currency,
+  types,
 }: Props) => {
   // Group expenses by day
   const groupedExpenses = useMemo(
@@ -61,6 +63,7 @@ export const GroupedExpensesTableClient = ({
           totalAmount={totalAmount}
           currency={currency}
           dictionary={dictionary}
+          types={types}
           initialExpanded
         />
       ))}
