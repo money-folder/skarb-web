@@ -9,6 +9,7 @@
       "changes": "Змены",
       "sinceLastReport": "З Апошняга Запісу",
       "actions": "Дзеянні",
+      "noResults": "Няма вынікаў.",
       "actionsMenu": {
         "label": "Дзеянні",
         "addBalance": "Дадаць Баланс",

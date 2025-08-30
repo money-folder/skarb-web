@@ -9,6 +9,7 @@
       "changes": "Changes",
       "sinceLastReport": "Since Last Report",
       "actions": "Actions",
+      "noResults": "No results.",
       "actionsMenu": {
         "label": "Actions",
         "addBalance": "Add Balance",
