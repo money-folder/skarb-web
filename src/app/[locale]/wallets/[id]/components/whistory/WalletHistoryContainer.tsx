@@ -33,7 +33,13 @@ export default async function WalletHistoryContainer({
     toTs,
   });
 
-  return walletHistory ? (
+  if (!walletHistory || !walletHistory.whistory) {
+    return <p>{d.loadingWhistoryFailed}</p>;
+  }
+
+  const whistoryReversed = walletHistory.whistory.slice().reverse();
+
+  return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
         <WalletChangesSummaryCard
@@ -59,7 +65,7 @@ export default async function WalletHistoryContainer({
         {walletHistory.whistory.length ? (
           <WalletHistoryTableClient
             dictionary={d.whistoryTable}
-            whistory={walletHistory.whistory.reverse()}
+            whistory={whistoryReversed}
           />
         ) : (
           <p>{d.whistoryEmpty}</p>
@@ -92,7 +98,5 @@ export default async function WalletHistoryContainer({
         </div>
       </div>
     </div>
-  ) : (
-    <p>{d.loadingWhistoryFailed}</p>
   );
 }
