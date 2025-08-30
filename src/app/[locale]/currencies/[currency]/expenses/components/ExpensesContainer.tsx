@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import { WithMounted } from "@/shared/components/WithMounted";
@@ -38,7 +39,7 @@ export default async function ExpensesContainer({
   }
 
   return (
-    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
+    <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
         <CreateExpenseButton
           text={d.createButtonLabel}
@@ -46,6 +47,20 @@ export default async function ExpensesContainer({
           types={types}
         />
       </div>
+
+      <div className="col-span-2 row-span-1">
+        <div className="w-fit">
+          <Card className="px-6 py-4">
+            <CardHeader className="p-0">
+              <CardTitle>{d.totalExpenses}</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-2 p-0">
+              <p className="text-center">{Math.abs(expensesSum).toFixed(2)}</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
       <div className="col-span-1 row-span-1 overflow-auto">
         {expenses.length ? (
           <ExpensesTable
