@@ -116,7 +116,8 @@
     "expensesContainer": {
       "createButtonLabel": "Create",
       "noExpenses": "No expenses",
-      "loadingFailed": "Loading failed"
+      "loadingFailed": "Loading failed",
+      "totalExpenses": "Total Expenses"
     }
   },
 

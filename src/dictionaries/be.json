@@ -115,7 +115,8 @@
     "expensesContainer": {
       "createButtonLabel": "Стварыць",
       "noExpenses": "Няма выдаткоў",
-      "loadingFailed": "Загрузка не ўдалася"
+      "loadingFailed": "Загрузка не ўдалася",
+      "totalExpenses": "Агульныя выдаткі"
     }
   },
 

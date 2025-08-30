@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/card";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import {
@@ -5,8 +6,6 @@ import {
   formatDateDifference,
 } from "@/shared/utils/time-utils";
 import { replacePlaceholders } from "@/shared/utils/utils";
-
-import Card from "./Card";
 
 interface Props {
   locale: Locale;
@@ -28,8 +27,9 @@ export default async function WhistoryEntriesSummaryCard({
   );
 
   const dateDiff = calculateDateDifference(startDate, endDate);
+
   return (
-    <Card>
+    <Card className="flex h-[100px] w-[180px] items-center justify-center py-2">
       <div className="flex h-full flex-col items-center justify-start">
         <h4 className="mb-1 font-extrabold">
           {replacePlaceholders(d.title, { entriesCount: `${entriesCount}` })}
