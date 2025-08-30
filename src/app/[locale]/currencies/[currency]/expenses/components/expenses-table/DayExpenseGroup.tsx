@@ -15,6 +15,7 @@ import { Dictionary } from "@/dictionaries/locale";
 
 import { ClientExpenseDto } from "../../types";
 import DestroyButton from "../buttons/DestroyButton";
+import CreateExpenseButton from "../create-expense/CreateExpenseButton";
 
 interface DayExpenseGroupProps {
   date: string;
@@ -56,6 +57,16 @@ const DayExpenseGroup = ({
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-xs">
             {expenses.length}
           </span>
+          <div onClick={(e) => e.stopPropagation()}>
+            <CreateExpenseButton
+              currency={currency}
+              defaultDate={(() => {
+                const date8am = new Date(date);
+                date8am.setHours(8, 0, 0, 0);
+                return date8am;
+              })()}
+            />
+          </div>
         </div>
       </div>
 

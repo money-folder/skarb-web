@@ -14,9 +14,10 @@ interface Props {
   close: () => void;
   currency: string;
   types?: string[] | null;
+  defaultDate?: Date;
 }
 
-const CreateExpenseModal = ({ close, currency, types }: Props) => {
+const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   const methods = useForm({ resolver: zodResolver(expenseFormSchema) });
@@ -53,6 +54,7 @@ const CreateExpenseModal = ({ close, currency, types }: Props) => {
               onSubmit={onSubmit}
               onCancel={close}
               types={types || []}
+              defaultDate={defaultDate}
             />
           </div>
         </div>

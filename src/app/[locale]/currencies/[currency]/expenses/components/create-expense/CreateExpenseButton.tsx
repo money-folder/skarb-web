@@ -11,12 +11,14 @@ interface Props {
   currency: string;
   text?: string;
   types?: string[] | null;
+  defaultDate?: Date;
 }
 
 export default function CreateExpenseButton({
   types,
   currency,
   text = "",
+  defaultDate,
 }: Props) {
   const { addOverlay } = useContext(OverlayContext);
 
@@ -26,6 +28,7 @@ export default function CreateExpenseButton({
         close={removeSelf}
         currency={currency}
         types={types}
+        defaultDate={defaultDate}
       />
     ));
   };
