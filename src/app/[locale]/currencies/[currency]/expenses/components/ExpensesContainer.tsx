@@ -33,7 +33,11 @@ export default async function ExpensesContainer({
 
   const d = await getDictionary(locale, "currencyPage.expensesContainer");
 
-  return expenses ? (
+  if (!expenses || !types || !expensesSum) {
+    return <p>{d.loadingFailed}</p>;
+  }
+
+  return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
         <CreateExpenseButton
@@ -65,7 +69,5 @@ export default async function ExpensesContainer({
         </WithMounted>
       </div>
     </div>
-  ) : (
-    <p>{d.loadingFailed}</p>
   );
 }

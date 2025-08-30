@@ -15,9 +15,16 @@ interface Props {
   onSubmit: SubmitHandler<ExpenseFormValues>;
   onCancel: () => void;
   types: string[];
+  defaultDate?: Date;
 }
 
-const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
+const ExpenseForm = ({
+  methods,
+  onSubmit,
+  onCancel,
+  types,
+  defaultDate,
+}: Props) => {
   const { d } = useContext(DictionaryContext);
 
   return (
@@ -30,7 +37,7 @@ const ExpenseForm = ({ methods, onSubmit, onCancel, types }: Props) => {
             id="expenseDate"
             className="rounded-sm border-[1px] border-black px-2"
             type="datetime-local"
-            defaultValue={getLocalISOString(new Date())}
+            defaultValue={getLocalISOString(defaultDate || new Date())}
           />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
