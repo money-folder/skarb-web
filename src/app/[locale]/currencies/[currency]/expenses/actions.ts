@@ -6,9 +6,17 @@ import {
   destroySelfExpense,
   getUserCurrencyExpenses,
   getUserCurrencyExpensesTypes,
+  updateUserCurrencyExpense,
 } from "./service";
-import { CreateExpenseRequestDto, FetchExpensesParams } from "./types";
-import { createExpenseRequestSchema } from "./validation";
+import {
+  CreateExpenseRequestDto,
+  FetchExpensesParams,
+  UpdateExpenseRequestDto,
+} from "./types";
+import {
+  createExpenseRequestSchema,
+  updateExpenseRequestSchema,
+} from "./validation";
 
 export const fetchTypes = async (currency: string) => {
   try {
@@ -43,6 +51,19 @@ export async function createExpense(dto: CreateExpenseRequestDto) {
   }
 
   await createUserCurrencyExpense(dto);
+  revalidatePath(`/currencies/${dto.currency}/expenses`);
+}
+
+export async function updateExpense(dto: UpdateExpenseRequestDto) {
+  const validationResult = updateExpenseRequestSchema.safeParse(dto);
+  if (validationResult.error) {
+    throw new Error(
+      "Update expense validation failed!",
+      validationResult.error,
+    );
+  }
+
+  await updateUserCurrencyExpense(dto);
   revalidatePath(`/currencies/${dto.currency}/expenses`);
 }
 

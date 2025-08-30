@@ -175,6 +175,10 @@
       "title": "Стварыць"
     },
 
+    "editExpense": {
+      "title": "Рэдагаваць"
+    },
+
     "expenseForm": {
       "dateLabel": "Дата",
       "amountLabel": "Сума грошай",

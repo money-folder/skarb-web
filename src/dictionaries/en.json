@@ -176,6 +176,10 @@
       "title": "Create Expense"
     },
 
+    "editExpense": {
+      "title": "Edit Expense"
+    },
+
     "expenseForm": {
       "dateLabel": "Timestamp",
       "amountLabel": "Amount",

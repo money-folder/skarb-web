@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createExpenseRequestSchema, expenseFormSchema } from "./validation";
+import {
+  createExpenseRequestSchema,
+  expenseFormSchema,
+  updateExpenseRequestSchema,
+} from "./validation";
 
 export type ExpenseDb = {
   id: string;
@@ -26,8 +30,21 @@ export type CreateExpenseDto = {
   comment?: string;
 };
 
+export type UpdateExpenseDto = {
+  id: string;
+  moneyAmount: number;
+  date: Date;
+  type: string;
+  currency: string;
+  comment?: string;
+};
+
 export type CreateExpenseRequestDto = z.infer<
   typeof createExpenseRequestSchema
+>;
+
+export type UpdateExpenseRequestDto = z.infer<
+  typeof updateExpenseRequestSchema
 >;
 
 export type ExpenseFormValues = z.infer<typeof expenseFormSchema>;
