@@ -19,12 +19,16 @@ interface Props {
 const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
   const { d } = useContext(DictionaryContext);
 
-  const amountInputRef = useRef<HTMLInputElement>(null);
+  const amountInputContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // An ugly fix to overwrite the radix dropdown that steals focus
     setTimeout(() => {
-      amountInputRef.current?.focus();
+      const input =
+        amountInputContainerRef.current?.querySelector("#whistoryAmount");
+      if (input) {
+        (input as HTMLElement).focus();
+      }
     }, 75);
   }, []);
 
@@ -43,7 +47,10 @@ const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
             defaultValue={getLocalISOString(new Date())}
           />
         </div>
-        <div className="flex w-full flex-col items-start gap-3">
+        <div
+          ref={amountInputContainerRef}
+          className="flex w-full flex-col items-start gap-3"
+        >
           <Label htmlFor="whistoryAmount">
             {d.modals.whistoryForm.amountLabel}
           </Label>
@@ -52,7 +59,6 @@ const WhistoryForm = ({ methods, onSubmit, onCancel }: Props) => {
               required: true,
               valueAsNumber: true,
             })}
-            ref={amountInputRef}
             id="whistoryAmount"
             className="rounded-sm border-[1px] border-black px-2"
             type="number"
