@@ -116,7 +116,18 @@
       "createButtonLabel": "Стварыць",
       "noExpenses": "Няма выдаткоў",
       "loadingFailed": "Загрузка не ўдалася",
-      "totalExpenses": "Агульныя выдаткі"
+      "totalExpenses": "Агульныя выдаткі",
+      "calendar": {
+        "days": {
+          "sun": "Нд",
+          "mon": "Пн",
+          "tue": "Аў",
+          "wed": "Ср",
+          "thu": "Чц",
+          "fri": "Пт",
+          "sat": "Сб"
+        }
+      }
     }
   },
 

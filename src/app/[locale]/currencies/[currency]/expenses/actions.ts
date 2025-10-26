@@ -24,7 +24,7 @@ export const fetchTypes = async (currency: string) => {
     return { success: true, data: types };
   } catch (error) {
     console.error(error);
-    return { success: false, data: null, error };
+    return { success: false, data: [], error };
   }
 };
 
@@ -37,7 +37,7 @@ export const fetchExpenses = async (
     return { success: true, data: expenses };
   } catch (error) {
     console.error(error);
-    return { success: false, data: null, error };
+    return { success: false, data: [], error };
   }
 };
 

@@ -1,16 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
-import { WithMounted } from "@/shared/components/WithMounted";
-import {
-  PIE_CHART_HEIGHT_DEFAULT,
-  PIE_CHART_WIDTH_DEFAULT,
-} from "@/shared/constants/charts";
+// import { WithMounted } from "@/shared/components/WithMounted";
+// import {
+//   PIE_CHART_HEIGHT_DEFAULT,
+//   PIE_CHART_WIDTH_DEFAULT,
+// } from "@/shared/constants/charts";
 import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
 import { fetchExpenses, fetchTypes } from "../actions";
 import ExpensesTable from "./ExpensesTable";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
-import ExpensesChart from "./expenses-chart/ExpensesChart";
+import ExpensesCalendar from "./expenses-calendar/ExpensesCalendar";
+// import ExpensesChart from "./expenses-chart/ExpensesChart";
 
 interface Props {
   locale: Locale;
@@ -25,7 +26,10 @@ export default async function ExpensesContainer({
   fromTs,
   toTs,
 }: Props) {
-  const { data: expenses } = await fetchExpenses(currency, { fromTs, toTs });
+  const { data: expenses } = await fetchExpenses(currency, {
+    fromTs,
+    toTs,
+  });
   const { data: types } = await fetchTypes(currency);
   const { data: expensesSum } = await fetchCurrencyWhistoryExpenses(currency, {
     fromTs,
@@ -34,8 +38,14 @@ export default async function ExpensesContainer({
 
   const d = await getDictionary(locale, "currencyPage.expensesContainer");
 
-  if (!expenses || !types || !expensesSum) {
-    return <p>{d.loadingFailed}</p>;
+  if (!expenses?.length || !types?.length || !expensesSum) {
+    console.warn("Either expenses, or types, or expensesSum are empty", {
+      expenses,
+      types,
+      expensesSum,
+      fromTs,
+      toTs,
+    });
   }
 
   return (
@@ -73,8 +83,9 @@ export default async function ExpensesContainer({
           <p>{d.noExpenses}</p>
         )}
       </div>
-      <div className="col-span-1 row-span-1 flex flex-col items-center justify-start overflow-y-auto">
-        <WithMounted>
+      <div className="col-span-1 row-span-1 flex flex-col items-center justify-end gap-4 overflow-y-auto">
+        <ExpensesCalendar expenses={expenses} />
+        {/* <WithMounted>
           <ExpensesChart
             width={PIE_CHART_WIDTH_DEFAULT}
             height={PIE_CHART_HEIGHT_DEFAULT}
@@ -82,7 +93,7 @@ export default async function ExpensesContainer({
             expensesSum={expensesSum || 0}
             currency={currency}
           />
-        </WithMounted>
+        </WithMounted> */}
       </div>
     </div>
   );

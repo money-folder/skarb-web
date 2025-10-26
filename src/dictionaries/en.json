@@ -117,7 +117,18 @@
       "createButtonLabel": "Create",
       "noExpenses": "No expenses",
       "loadingFailed": "Loading failed",
-      "totalExpenses": "Total Expenses"
+      "totalExpenses": "Total Expenses",
+      "calendar": {
+        "days": {
+          "sun": "Sun",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat"
+        }
+      }
     }
   },
 

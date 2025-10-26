@@ -40,6 +40,6 @@ export const fetchCurrencyWhistoryExpenses = async (
     return { success: true, data: negativeExpensesSum };
   } catch (error) {
     console.error(error);
-    return { success: false, data: null, error };
+    return { success: false, data: 0, error };
   }
 };
