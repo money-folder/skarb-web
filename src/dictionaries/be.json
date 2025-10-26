@@ -117,7 +117,8 @@
       "noExpenses": "Няма выдаткоў",
       "loadingFailed": "Загрузка не ўдалася",
       "totalExpenses": "Агульныя выдаткі",
-      "chartTab": "Дыяграма",
+      "trackedExpenses": "Улічаныя выдаткі",
+      "overviewTab": "Агляд",
       "calendarTab": "Каляндар",
       "calendar": {
         "days": {
