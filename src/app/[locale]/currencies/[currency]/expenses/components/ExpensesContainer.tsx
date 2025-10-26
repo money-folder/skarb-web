@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
@@ -59,19 +58,6 @@ export default async function ExpensesContainer({
         />
       </div>
 
-      <div className="col-span-2 row-span-1">
-        <div className="w-fit">
-          <Card className="px-6 py-4">
-            <CardHeader className="p-0">
-              <CardTitle>{d.totalExpenses}</CardTitle>
-            </CardHeader>
-            <CardContent className="mt-2 p-0">
-              <p className="text-center">{Math.abs(expensesSum).toFixed(2)}</p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
       <div className="col-span-1 row-span-1 overflow-auto">
         {expenses.length ? (
           <ExpensesTable
@@ -86,26 +72,32 @@ export default async function ExpensesContainer({
       </div>
       <div className="col-span-1 row-span-1 overflow-y-auto">
         <Tabs
-          defaultValue="chart"
+          defaultValue="overview"
           className="relative flex h-full w-full flex-col"
         >
-          <TabsList className="grid w-2/3 grid-cols-2">
-            <TabsTrigger value="chart">{d.chartTab}</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="overview">{d.overviewTab}</TabsTrigger>
             <TabsTrigger value="calendar">{d.calendarTab}</TabsTrigger>
           </TabsList>
-          <TabsContent
-            value="chart"
-            className="flex flex-col items-center justify-center"
-          >
-            <WithMounted>
-              <ExpensesChart
-                width={PIE_CHART_WIDTH_DEFAULT}
-                height={PIE_CHART_HEIGHT_DEFAULT}
-                expenses={expenses}
-                expensesSum={expensesSum || 0}
-                currency={currency}
-              />
-            </WithMounted>
+          <TabsContent value="overview" className="flex flex-col gap-4 pt-4">
+            <div>
+              <WithMounted>
+                <ExpensesChart
+                  width={PIE_CHART_WIDTH_DEFAULT}
+                  height={PIE_CHART_HEIGHT_DEFAULT}
+                  expenses={expenses}
+                  expensesSum={expensesSum}
+                  currency={currency}
+                  totalExpenses={Math.abs(expensesSum).toFixed(2)}
+                  trackedExpenses={expenses
+                    .reduce(
+                      (sum, expense) => sum + Math.abs(expense.moneyAmount),
+                      0,
+                    )
+                    .toFixed(2)}
+                />
+              </WithMounted>
+            </div>
           </TabsContent>
           <TabsContent
             value="calendar"
