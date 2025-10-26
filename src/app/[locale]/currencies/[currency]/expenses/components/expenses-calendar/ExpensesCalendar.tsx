@@ -97,7 +97,7 @@ export default function ExpensesCalendar({ expenses, currency, types }: Props) {
 
     const days = [];
     let currentWeekTotal = 0;
-    
+
     for (let i = 0; i < startingDay; i++) {
       days.push(<div key={`empty-${i}`} className="h-14 p-0.5" />);
     }
@@ -146,7 +146,7 @@ export default function ExpensesCalendar({ expenses, currency, types }: Props) {
       // Add weekly total on Sundays or last day of month
       const isSunday = currentDate.getDay() === 0;
       const isLastDayOfMonth = day === daysInMonth;
-      
+
       if (isSunday || isLastDayOfMonth) {
         days.push(
           <div key={`week-total-${day}`} className="h-14 bg-gray-50 p-0.5">
@@ -177,7 +177,9 @@ export default function ExpensesCalendar({ expenses, currency, types }: Props) {
           <div>{d.currencyPage.expensesContainer.calendar.days.fri}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.sat}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.sun}</div>
-          <div className="font-medium">{d.currencyPage.expensesContainer.calendar.total}</div>
+          <div className="font-medium">
+            {d.currencyPage.expensesContainer.calendar.total}
+          </div>
         </div>
         <div className="grid grid-cols-8 gap-0.5">{days}</div>
       </Card>
