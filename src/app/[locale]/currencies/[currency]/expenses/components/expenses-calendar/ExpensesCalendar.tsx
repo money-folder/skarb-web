@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { useContext, useEffect, useMemo, useRef } from "react";
+import { useContext, useMemo, useRef } from "react";
 import { ClientExpenseDto } from "../../types";
 import {
   generateMonthsInRange,
@@ -20,15 +20,10 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
   const { d } = useContext(DictionaryContext);
   const { start, end } = useMemo(() => getDateSpan(expenses), [expenses]);
   const monthsInRange = useMemo(
-    () => generateMonthsInRange(start, end),
+    () => generateMonthsInRange(start, end).reverse(),
     [start, end],
   );
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [monthsInRange]);
   const groupedExpenses = useMemo(() => {
     const grouped = groupExpensesByDay(expenses);
     return grouped.reduce<Record<string, (typeof grouped)[0]>>((acc, day) => {
@@ -113,7 +108,7 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
   };
 
   return (
-    <div ref={containerRef} className="space-y-4 overflow-y-auto">
+    <div ref={containerRef} className="h-full space-y-4">
       {monthsInRange.map((monthDate) => renderMonth(monthDate))}
     </div>
   );

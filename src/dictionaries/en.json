@@ -118,6 +118,8 @@
       "noExpenses": "No expenses",
       "loadingFailed": "Loading failed",
       "totalExpenses": "Total Expenses",
+      "chartTab": "Chart",
+      "calendarTab": "Calendar",
       "calendar": {
         "days": {
           "sun": "Sun",

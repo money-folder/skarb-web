@@ -1,17 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
-// import { WithMounted } from "@/shared/components/WithMounted";
-// import {
-//   PIE_CHART_HEIGHT_DEFAULT,
-//   PIE_CHART_WIDTH_DEFAULT,
-// } from "@/shared/constants/charts";
+import { WithMounted } from "@/shared/components/WithMounted";
+import {
+  PIE_CHART_HEIGHT_DEFAULT,
+  PIE_CHART_WIDTH_DEFAULT,
+} from "@/shared/constants/charts";
 import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
 import { fetchExpenses, fetchTypes } from "../actions";
 import ExpensesTable from "./ExpensesTable";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
 import ExpensesCalendar from "./expenses-calendar/ExpensesCalendar";
-// import ExpensesChart from "./expenses-chart/ExpensesChart";
+import ExpensesChart from "./expenses-chart/ExpensesChart";
 
 interface Props {
   locale: Locale;
@@ -83,17 +84,38 @@ export default async function ExpensesContainer({
           <p>{d.noExpenses}</p>
         )}
       </div>
-      <div className="col-span-1 row-span-1 flex flex-col items-center justify-end gap-4 overflow-y-auto">
-        <ExpensesCalendar expenses={expenses} />
-        {/* <WithMounted>
-          <ExpensesChart
-            width={PIE_CHART_WIDTH_DEFAULT}
-            height={PIE_CHART_HEIGHT_DEFAULT}
-            expenses={expenses}
-            expensesSum={expensesSum || 0}
-            currency={currency}
-          />
-        </WithMounted> */}
+      <div className="col-span-1 row-span-1 overflow-y-auto">
+        <Tabs
+          defaultValue="chart"
+          className="relative flex h-full w-full flex-col"
+        >
+          <TabsList className="grid w-2/3 grid-cols-2">
+            <TabsTrigger value="chart">{d.chartTab}</TabsTrigger>
+            <TabsTrigger value="calendar">{d.calendarTab}</TabsTrigger>
+          </TabsList>
+          <TabsContent
+            value="chart"
+            className="flex flex-col items-center justify-center"
+          >
+            <WithMounted>
+              <ExpensesChart
+                width={PIE_CHART_WIDTH_DEFAULT}
+                height={PIE_CHART_HEIGHT_DEFAULT}
+                expenses={expenses}
+                expensesSum={expensesSum || 0}
+                currency={currency}
+              />
+            </WithMounted>
+          </TabsContent>
+          <TabsContent
+            value="calendar"
+            className="flex flex-grow flex-col items-center justify-center overflow-y-auto"
+          >
+            <WithMounted>
+              <ExpensesCalendar expenses={expenses} />
+            </WithMounted>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
