@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { useContext, useEffect, useMemo, useRef } from "react";
+import { useContext, useMemo, useRef } from "react";
 import { ClientExpenseDto } from "../../types";
 import {
   generateMonthsInRange,
@@ -20,15 +20,10 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
   const { d } = useContext(DictionaryContext);
   const { start, end } = useMemo(() => getDateSpan(expenses), [expenses]);
   const monthsInRange = useMemo(
-    () => generateMonthsInRange(start, end),
+    () => generateMonthsInRange(start, end).reverse(),
     [start, end],
   );
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [monthsInRange]);
   const groupedExpenses = useMemo(() => {
     const grouped = groupExpensesByDay(expenses);
     return grouped.reduce<Record<string, (typeof grouped)[0]>>((acc, day) => {
@@ -36,6 +31,45 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
       return acc;
     }, {});
   }, [expenses]);
+
+  const getMonthTotalAndMax = (monthDate: Date) => {
+    const monthStart = new Date(
+      monthDate.getFullYear(),
+      monthDate.getMonth(),
+      1,
+    );
+    const monthEnd = new Date(
+      monthDate.getFullYear(),
+      monthDate.getMonth() + 1,
+      0,
+    );
+
+    let monthTotal = 0;
+    let maxDayAmount = 0;
+
+    for (
+      const date = new Date(monthStart);
+      date <= monthEnd;
+      date.setDate(date.getDate() + 1)
+    ) {
+      const dateKey = new Date(date.getTime()).setHours(0, 0, 0, 0);
+      const dayData = groupedExpenses[new Date(dateKey).toISOString()];
+      if (dayData) {
+        monthTotal += Math.abs(dayData.totalAmount);
+        maxDayAmount = Math.max(maxDayAmount, Math.abs(dayData.totalAmount));
+      }
+    }
+
+    return { monthTotal, maxDayAmount };
+  };
+
+  const getExpenseIntensityColor = (amount: number, maxAmount: number) => {
+    // Convert to percentage (0-1)
+    const intensity = amount / maxAmount;
+
+    // Use a softer red-based color with varying opacity
+    return `rgba(255, 68, 68, ${Math.max(0.1, intensity)})`;
+  };
 
   const renderMonth = (monthDate: Date) => {
     const daysInMonth = new Date(
@@ -50,6 +84,7 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
     );
     const startingDay = firstDayOfMonth.getDay();
     const monthName = monthDate.toLocaleString("default", { month: "long" });
+    const { maxDayAmount } = getMonthTotalAndMax(monthDate);
 
     const days = [];
     for (let i = 0; i < startingDay; i++) {
@@ -81,8 +116,18 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
             }
           }}
         >
-          <div className="h-full rounded border p-0.5">
-            <div className="text-[10px] text-gray-500">{day}</div>
+          <div
+            className="h-full rounded border p-0.5"
+            style={{
+              backgroundColor: hasExpenses
+                ? getExpenseIntensityColor(
+                    Math.abs(dayData.totalAmount),
+                    maxDayAmount,
+                  )
+                : "transparent",
+            }}
+          >
+            <div className="text-[10px] text-gray-900">{day}</div>
             {hasExpenses && (
               <div className="mt-0.5 text-[10px] font-semibold">
                 {Math.abs(dayData.totalAmount).toFixed(2)}
@@ -113,7 +158,7 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
   };
 
   return (
-    <div ref={containerRef} className="space-y-4 overflow-y-auto">
+    <div ref={containerRef} className="h-full space-y-4">
       {monthsInRange.map((monthDate) => renderMonth(monthDate))}
     </div>
   );
