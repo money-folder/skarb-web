@@ -130,6 +130,20 @@
           "thu": "Thu",
           "fri": "Fri",
           "sat": "Sat"
+        },
+        "total": "Total",
+        "weekTotal": "Week Total"
+      },
+      "expenses": {
+        "table": {
+          "type": "Type",
+          "amount": "Amount",
+          "comment": "Comment"
+        },
+        "dayDialog": {
+          "title": "Expenses for",
+          "addNewExpense": "Add New Expense",
+          "submit": "Submit"
         }
       }
     }

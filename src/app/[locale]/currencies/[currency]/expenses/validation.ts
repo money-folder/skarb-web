@@ -8,6 +8,8 @@ export const createExpenseRequestSchema = z.object({
   comment: z.string().optional(),
 });
 
+export const createExpensesRequestSchema = z.array(createExpenseRequestSchema);
+
 export const updateExpenseRequestSchema = z.object({
   id: z.string(),
   moneyAmount: z.number(),
@@ -22,4 +24,14 @@ export const expenseFormSchema = z.object({
   date: z.date(),
   type: z.string().trim().min(1).max(255),
   comment: z.string().optional(),
+});
+
+export const dayExpenseFormSchema = z.object({
+  expenses: z.array(
+    z.object({
+      moneyAmount: z.number().min(0.01, "Amount is required"),
+      type: z.string().trim().min(1, "Type is required").max(255),
+      comment: z.string().optional(),
+    }),
+  ),
 });

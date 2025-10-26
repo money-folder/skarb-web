@@ -129,6 +129,20 @@
           "thu": "Чц",
           "fri": "Пт",
           "sat": "Сб"
+        },
+        "total": "Усяго",
+        "weekTotal": "За тыдзень"
+      },
+      "expenses": {
+        "table": {
+          "type": "Тып",
+          "amount": "Сума",
+          "comment": "Каментар"
+        },
+        "dayDialog": {
+          "title": "Выдаткі за",
+          "addNewExpense": "Дадаць Новы Выдатак",
+          "submit": "Адправіць"
         }
       }
     }
