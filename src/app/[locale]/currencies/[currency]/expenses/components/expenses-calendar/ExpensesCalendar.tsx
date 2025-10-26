@@ -2,8 +2,10 @@
 
 import { Card } from "@/components/ui/card";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { useContext, useMemo, useRef } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import { ClientExpenseDto } from "../../types";
+import { ExpensesContainerDictionary } from "../dictionary";
+import { ExpensesDayDialog } from "./expenses-day-dialog/ExpensesDayDialog";
 import {
   generateMonthsInRange,
   getDateSpan,
@@ -12,12 +14,18 @@ import {
 
 interface Props {
   expenses: ClientExpenseDto[];
-  onDayClick?: (date: Date, dayExpenses: ClientExpenseDto[]) => void;
+  currency: string;
+  types: string[];
 }
 
-export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
+export default function ExpensesCalendar({ expenses, currency, types }: Props) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { d } = useContext(DictionaryContext);
+  const { d: dictionaryContext } = useContext(DictionaryContext);
+  const d = dictionaryContext as {
+    currencyPage: { expensesContainer: ExpensesContainerDictionary };
+  };
   const { start, end } = useMemo(() => getDateSpan(expenses), [expenses]);
   const monthsInRange = useMemo(
     () => generateMonthsInRange(start, end).reverse(),
@@ -82,11 +90,14 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
       monthDate.getMonth(),
       1,
     );
-    const startingDay = firstDayOfMonth.getDay();
+    // Convert Sunday (0) to 6, and other days subtract 1 to make Monday (1) -> 0
+    const startingDay = (firstDayOfMonth.getDay() + 6) % 7;
     const monthName = monthDate.toLocaleString("default", { month: "long" });
     const { maxDayAmount } = getMonthTotalAndMax(monthDate);
 
     const days = [];
+    let currentWeekTotal = 0;
+
     for (let i = 0; i < startingDay; i++) {
       days.push(<div key={`empty-${i}`} className="h-14 p-0.5" />);
     }
@@ -101,41 +112,56 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
       const dateKey = currentDate.toISOString();
       const dayData = groupedExpenses[dateKey];
       const hasExpenses = !!dayData;
+      const dayAmount = hasExpenses ? Math.abs(dayData.totalAmount) : 0;
+      currentWeekTotal += dayAmount;
 
+      // Regular day cell
       days.push(
         <div
           key={dateKey}
-          className={`h-14 p-0.5 ${
-            hasExpenses
-              ? "cursor-pointer transition-colors hover:bg-gray-100"
-              : ""
-          }`}
+          className="h-14 cursor-pointer p-0.5 transition-colors hover:bg-gray-100"
           onClick={() => {
-            if (hasExpenses && onDayClick) {
-              onDayClick(currentDate, dayData.expenses);
-            }
+            setSelectedDate(currentDate);
+            setIsDialogOpen(true);
           }}
         >
           <div
             className="h-full rounded border p-0.5"
             style={{
               backgroundColor: hasExpenses
-                ? getExpenseIntensityColor(
-                    Math.abs(dayData.totalAmount),
-                    maxDayAmount,
-                  )
+                ? getExpenseIntensityColor(dayAmount, maxDayAmount)
                 : "transparent",
             }}
           >
             <div className="text-[10px] text-gray-900">{day}</div>
             {hasExpenses && (
               <div className="mt-0.5 text-[10px] font-semibold">
-                {Math.abs(dayData.totalAmount).toFixed(2)}
+                {dayAmount.toFixed(2)}
               </div>
             )}
           </div>
         </div>,
       );
+
+      // Add weekly total on Sundays or last day of month
+      const isSunday = currentDate.getDay() === 0;
+      const isLastDayOfMonth = day === daysInMonth;
+
+      if (isSunday || isLastDayOfMonth) {
+        days.push(
+          <div key={`week-total-${day}`} className="h-14 bg-gray-50 p-0.5">
+            <div className="flex h-full flex-col justify-center rounded border border-gray-200 p-0.5">
+              <div className="text-center text-[10px] font-medium text-gray-600">
+                {d.currencyPage.expensesContainer.calendar.weekTotal}
+              </div>
+              <div className="text-center text-[10px] font-semibold text-gray-900">
+                {currentWeekTotal.toFixed(2)}
+              </div>
+            </div>
+          </div>,
+        );
+        currentWeekTotal = 0; // Reset for next week
+      }
     }
 
     return (
@@ -143,23 +169,38 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
         <h3 className="mb-1.5 text-base font-semibold">
           {monthName} {monthDate.getFullYear()}
         </h3>
-        <div className="mb-1 grid grid-cols-7 gap-0.5 text-center text-[10px] text-gray-500">
-          <div>{d.currencyPage.expensesContainer.calendar.days.sun}</div>
+        <div className="mb-1 grid grid-cols-8 gap-0.5 text-center text-[10px] text-gray-500">
           <div>{d.currencyPage.expensesContainer.calendar.days.mon}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.tue}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.wed}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.thu}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.fri}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.sat}</div>
+          <div>{d.currencyPage.expensesContainer.calendar.days.sun}</div>
+          <div className="font-medium">
+            {d.currencyPage.expensesContainer.calendar.total}
+          </div>
         </div>
-        <div className="grid grid-cols-7 gap-0.5">{days}</div>
+        <div className="grid grid-cols-8 gap-0.5">{days}</div>
       </Card>
     );
   };
 
   return (
-    <div ref={containerRef} className="h-full space-y-4">
-      {monthsInRange.map((monthDate) => renderMonth(monthDate))}
-    </div>
+    <>
+      <div ref={containerRef} className="h-full space-y-4">
+        {monthsInRange.map((monthDate) => renderMonth(monthDate))}
+      </div>
+      {selectedDate && (
+        <ExpensesDayDialog
+          dictionary={d.currencyPage.expensesContainer.expenses}
+          date={selectedDate}
+          currency={currency}
+          types={types}
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
+      )}
+    </>
   );
 }
