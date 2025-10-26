@@ -90,7 +90,8 @@ export default function ExpensesCalendar({ expenses, currency, types }: Props) {
       monthDate.getMonth(),
       1,
     );
-    const startingDay = firstDayOfMonth.getDay();
+    // Convert Sunday (0) to 6, and other days subtract 1 to make Monday (1) -> 0
+    const startingDay = (firstDayOfMonth.getDay() + 6) % 7;
     const monthName = monthDate.toLocaleString("default", { month: "long" });
     const { maxDayAmount } = getMonthTotalAndMax(monthDate);
 
@@ -147,13 +148,13 @@ export default function ExpensesCalendar({ expenses, currency, types }: Props) {
           {monthName} {monthDate.getFullYear()}
         </h3>
         <div className="mb-1 grid grid-cols-7 gap-0.5 text-center text-[10px] text-gray-500">
-          <div>{d.currencyPage.expensesContainer.calendar.days.sun}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.mon}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.tue}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.wed}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.thu}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.fri}</div>
           <div>{d.currencyPage.expensesContainer.calendar.days.sat}</div>
+          <div>{d.currencyPage.expensesContainer.calendar.days.sun}</div>
         </div>
         <div className="grid grid-cols-7 gap-0.5">{days}</div>
       </Card>
