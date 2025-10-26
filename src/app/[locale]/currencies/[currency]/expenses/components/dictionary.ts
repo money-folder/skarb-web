@@ -18,6 +18,8 @@ export type ExpensesContainerDictionary = {
       fri: string;
       sat: string;
     };
+    total: string;
+    weekTotal: string;
   };
   expenses: ExpensesDictionary;
 };

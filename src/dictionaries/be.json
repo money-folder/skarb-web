@@ -129,7 +129,9 @@
           "thu": "Чц",
           "fri": "Пт",
           "sat": "Сб"
-        }
+        },
+        "total": "Усяго",
+        "weekTotal": "За тыдзень"
       },
       "expenses": {
         "table": {

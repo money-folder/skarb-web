@@ -130,7 +130,9 @@
           "thu": "Thu",
           "fri": "Fri",
           "sat": "Sat"
-        }
+        },
+        "total": "Total",
+        "weekTotal": "Week Total"
       },
       "expenses": {
         "table": {
