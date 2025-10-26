@@ -13,6 +13,8 @@ import CreateExpenseButton from "./create-expense/CreateExpenseButton";
 import ExpensesCalendar from "./expenses-calendar/ExpensesCalendar";
 import ExpensesChart from "./expenses-chart/ExpensesChart";
 
+import { ExpensesContainerDictionary } from "./dictionary";
+
 interface Props {
   locale: Locale;
   currency: string;
@@ -36,7 +38,10 @@ export default async function ExpensesContainer({
     toTs,
   });
 
-  const d = await getDictionary(locale, "currencyPage.expensesContainer");
+  const d = (await getDictionary(
+    locale,
+    "currencyPage.expensesContainer",
+  )) as ExpensesContainerDictionary;
 
   if (!expenses?.length || !types?.length || !expensesSum) {
     console.warn("Either expenses, or types, or expensesSum are empty", {
@@ -104,7 +109,11 @@ export default async function ExpensesContainer({
             className="flex flex-grow flex-col items-center justify-center overflow-y-auto"
           >
             <WithMounted>
-              <ExpensesCalendar expenses={expenses} />
+              <ExpensesCalendar
+                expenses={expenses}
+                currency={currency}
+                types={types}
+              />
             </WithMounted>
           </TabsContent>
         </Tabs>

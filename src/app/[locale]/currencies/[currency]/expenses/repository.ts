@@ -38,9 +38,43 @@ export const findByUserCurrency = async (
   return expenses;
 };
 
+export const findByDate = async (
+  userId: string,
+  currency: string,
+  date: Date,
+) => {
+  const startOfDay = new Date(date);
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const endOfDay = new Date(date);
+  endOfDay.setHours(23, 59, 59, 999);
+
+  const expenses = await prisma.expense.findMany({
+    where: {
+      ownerId: userId,
+      currency,
+      date: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    },
+    orderBy: {
+      date: "desc",
+    },
+  });
+
+  return expenses;
+};
+
 export const create = async (dto: CreateExpenseDto) => {
   return prisma.expense.create({
     data: dto,
+  });
+};
+
+export const createMany = async (dtos: CreateExpenseDto[]) => {
+  return prisma.expense.createMany({
+    data: dtos,
   });
 };
 

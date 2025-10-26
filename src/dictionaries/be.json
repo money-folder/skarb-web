@@ -130,6 +130,18 @@
           "fri": "Пт",
           "sat": "Сб"
         }
+      },
+      "expenses": {
+        "table": {
+          "type": "Тып",
+          "amount": "Сума",
+          "comment": "Каментар"
+        },
+        "dayDialog": {
+          "title": "Выдаткі за",
+          "addNewExpense": "Дадаць Новы Выдатак",
+          "submit": "Адправіць"
+        }
       }
     }
   },

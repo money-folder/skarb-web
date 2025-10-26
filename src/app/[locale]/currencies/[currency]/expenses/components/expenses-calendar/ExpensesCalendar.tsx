@@ -2,8 +2,10 @@
 
 import { Card } from "@/components/ui/card";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { useContext, useMemo, useRef } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import { ClientExpenseDto } from "../../types";
+import { ExpensesContainerDictionary } from "../dictionary";
+import { ExpensesDayDialog } from "./expenses-day-dialog/ExpensesDayDialog";
 import {
   generateMonthsInRange,
   getDateSpan,
@@ -12,12 +14,18 @@ import {
 
 interface Props {
   expenses: ClientExpenseDto[];
-  onDayClick?: (date: Date, dayExpenses: ClientExpenseDto[]) => void;
+  currency: string;
+  types: string[];
 }
 
-export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
+export default function ExpensesCalendar({ expenses, currency, types }: Props) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { d } = useContext(DictionaryContext);
+  const { d: dictionaryContext } = useContext(DictionaryContext);
+  const d = dictionaryContext as {
+    currencyPage: { expensesContainer: ExpensesContainerDictionary };
+  };
   const { start, end } = useMemo(() => getDateSpan(expenses), [expenses]);
   const monthsInRange = useMemo(
     () => generateMonthsInRange(start, end).reverse(),
@@ -105,15 +113,10 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
       days.push(
         <div
           key={dateKey}
-          className={`h-14 p-0.5 ${
-            hasExpenses
-              ? "cursor-pointer transition-colors hover:bg-gray-100"
-              : ""
-          }`}
+          className="h-14 cursor-pointer p-0.5 transition-colors hover:bg-gray-100"
           onClick={() => {
-            if (hasExpenses && onDayClick) {
-              onDayClick(currentDate, dayData.expenses);
-            }
+            setSelectedDate(currentDate);
+            setIsDialogOpen(true);
           }}
         >
           <div
@@ -158,8 +161,20 @@ export default function ExpensesCalendar({ expenses, onDayClick }: Props) {
   };
 
   return (
-    <div ref={containerRef} className="h-full space-y-4">
-      {monthsInRange.map((monthDate) => renderMonth(monthDate))}
-    </div>
+    <>
+      <div ref={containerRef} className="h-full space-y-4">
+        {monthsInRange.map((monthDate) => renderMonth(monthDate))}
+      </div>
+      {selectedDate && (
+        <ExpensesDayDialog
+          dictionary={d.currencyPage.expensesContainer.expenses}
+          date={selectedDate}
+          currency={currency}
+          types={types}
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
+      )}
+    </>
   );
 }

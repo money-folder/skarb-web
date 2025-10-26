@@ -55,6 +55,30 @@ export const getUserCurrencyExpenses = async (
   return expenses;
 };
 
+export const getUserExpensesByDate = async (
+  currency: string,
+  date: Date,
+): Promise<ClientExpenseDto[]> => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const expenses = await expensesRepository.findByDate(
+    session.user.id,
+    currency,
+    date,
+  );
+
+  if (!expenses) {
+    throw new Error(`Expenses for currency ${currency} were not found!`, {
+      cause: ErrorCauses.NOT_FOUND,
+    });
+  }
+
+  return expenses;
+};
+
 export const createUserCurrencyExpense = async (
   dto: CreateExpenseRequestDto,
 ) => {
@@ -67,6 +91,26 @@ export const createUserCurrencyExpense = async (
     ...dto,
     ownerId: session.user.id,
   });
+
+  return result;
+};
+
+export const createUserCurrencyExpenses = async (
+  dtos: CreateExpenseRequestDto[],
+) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const userId = session.user.id;
+
+  const result = await expensesRepository.createMany(
+    dtos.map((dto) => ({
+      ...dto,
+      ownerId: userId,
+    })),
+  );
 
   return result;
 };
