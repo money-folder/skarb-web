@@ -1,10 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import TrashIcon from "@/assets/trash.svg";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -220,7 +222,7 @@ export function ExpensesDayDialog({
                             onClick={() => remove(index)}
                             className="h-8 px-2"
                           >
-                            {"×"}
+                            <Image src={TrashIcon} alt="trash" />
                           </Button>
                         </TableCell>
                       </TableRow>

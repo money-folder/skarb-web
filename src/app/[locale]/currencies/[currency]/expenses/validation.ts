@@ -29,7 +29,7 @@ export const expenseFormSchema = z.object({
 export const dayExpenseFormSchema = z.object({
   expenses: z.array(
     z.object({
-      moneyAmount: z.number().min(0.01, "Amount must be greater than 0"),
+      moneyAmount: z.number().min(0.01, "Amount is required"),
       type: z.string().trim().min(1, "Type is required").max(255),
       comment: z.string().optional(),
     }),
