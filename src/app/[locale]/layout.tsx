@@ -24,15 +24,21 @@ export const metadata: Metadata = {
   description: "A simple budget tracking app",
 };
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: {
-    locale: Locale;
-  };
-}>) {
+export default async function RootLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: Promise<{
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      locale: any;
+    }>;
+  }>,
+) {
+  const params = await props.params;
+
+  const { locale } = params;
+
+  const { children } = props;
+
   const d = await getDictionary(locale);
 
   return (

@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { DEFAULT_LOCALE, i18n } from "./locale";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // remove the default locale from the URL

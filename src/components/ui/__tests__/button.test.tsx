@@ -75,6 +75,7 @@ describe("Button component", () => {
   it("renders as a child component when asChild is true", () => {
     render(
       <Button asChild>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/">{"Link Button"}</a>
       </Button>,
     );

@@ -7,12 +7,18 @@ import Loading from "./components/wallets-table/Loading";
 import WalletsContainer from "./components/wallets-table/WalletsContainer";
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: Locale;
-  };
+  }>;
 }
 
-export default async function Wallets({ params: { locale } }: Props) {
+export default async function Wallets(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const d = await getDictionary(locale, "walletsPage");
 
   return (

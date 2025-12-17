@@ -3,17 +3,22 @@ import ExpensesComposedFilters from "./components/ExpensesComposedFilters";
 import ExpensesContainer from "./components/ExpensesContainer";
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: Locale;
     currency: string;
-  };
-  searchParams: { dateFrom?: string; dateTo?: string };
+  }>;
+  searchParams: Promise<{ dateFrom?: string; dateTo?: string }>;
 }
 
-export default async function ExpensesPage({
-  params: { locale, currency },
-  searchParams,
-}: Props) {
+export default async function ExpensesPage(props: Props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const {
+    locale,
+    currency
+  } = params;
+
   return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-x-5 overflow-hidden">
       <div className="col-span-2 row-span-1 flex w-full items-center justify-start rounded-lg bg-gray-200 p-2">
