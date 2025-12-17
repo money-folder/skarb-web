@@ -2,13 +2,20 @@ import { DEFAULT_LOCALE, Locale } from "@/locale";
 import { redirect } from "next/navigation";
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: Locale;
     currency: string;
-  };
+  }>;
 }
 
-export default function CurrencyPage({ params: { locale, currency } }: Props) {
+export default async function CurrencyPage(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale,
+    currency
+  } = params;
+
   redirect(
     `${locale !== DEFAULT_LOCALE ? `/${locale}` : ""}/currencies/${currency}/history`,
   );

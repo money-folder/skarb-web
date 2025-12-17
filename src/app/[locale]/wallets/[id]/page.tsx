@@ -9,14 +9,19 @@ import Loading from "./components/whistory/Loading";
 import WalletHistoryContainer from "./components/whistory/WalletHistoryContainer";
 
 interface Props {
-  params: { id: string; locale: Locale };
-  searchParams: { whistoryFrom?: string; whistoryTo?: string };
+  params: Promise<{ id: string; locale: Locale }>;
+  searchParams: Promise<{ whistoryFrom?: string; whistoryTo?: string }>;
 }
 
-export default async function WalletHistory({
-  params: { id, locale },
-  searchParams,
-}: Props) {
+export default async function WalletHistory(props: Props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const {
+    id,
+    locale
+  } = params;
+
   const d = await getDictionary(locale);
 
   return (
