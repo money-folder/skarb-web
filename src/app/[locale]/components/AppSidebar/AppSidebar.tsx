@@ -4,6 +4,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
+import Link from "next/link";
 
 import { fetchCurrentUserCurrencies } from "@/app/[locale]/currencies/[currency]/history/actions";
 import CreateWhistoryButton from "@/app/[locale]/wallets/[id]/components/whistory-create/CreateWhistoryButton";
@@ -36,7 +37,7 @@ export const AppSidebar = async ({ locale }: AppSidebarProps) => {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="flex flex-row items-center gap-2">
-        <div className="rounded-lg bg-black p-2">
+        <Link href={`/${locale}`} className="rounded-lg bg-black p-2">
           <Image
             src={LogoIcon}
             alt="Skarb icon"
@@ -44,7 +45,7 @@ export const AppSidebar = async ({ locale }: AppSidebarProps) => {
             height={38}
             className="rounded"
           />
-        </div>
+        </Link>
         <h2 className="text-lg font-bold group-data-[collapsible=icon]:hidden">
           {d.appTitle}
         </h2>
