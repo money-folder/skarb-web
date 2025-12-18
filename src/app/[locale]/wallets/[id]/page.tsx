@@ -17,10 +17,7 @@ export default async function WalletHistory(props: Props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
 
-  const {
-    id,
-    locale
-  } = params;
+  const { id, locale } = params;
 
   const d = await getDictionary(locale);
 

@@ -11,10 +11,7 @@ interface Props {
 export default async function CurrencyPage(props: Props) {
   const params = await props.params;
 
-  const {
-    locale,
-    currency
-  } = params;
+  const { locale, currency } = params;
 
   redirect(
     `${locale !== DEFAULT_LOCALE ? `/${locale}` : ""}/currencies/${currency}/history`,

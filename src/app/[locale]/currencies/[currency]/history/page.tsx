@@ -14,10 +14,7 @@ export default async function HistoryPage(props: Props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
 
-  const {
-    currency,
-    locale
-  } = params;
+  const { currency, locale } = params;
 
   return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-x-5 overflow-hidden">

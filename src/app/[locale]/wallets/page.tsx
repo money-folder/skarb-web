@@ -15,9 +15,7 @@ interface Props {
 export default async function Wallets(props: Props) {
   const params = await props.params;
 
-  const {
-    locale
-  } = params;
+  const { locale } = params;
 
   const d = await getDictionary(locale, "walletsPage");
 

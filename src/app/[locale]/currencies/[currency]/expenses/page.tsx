@@ -14,10 +14,7 @@ export default async function ExpensesPage(props: Props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
 
-  const {
-    locale,
-    currency
-  } = params;
+  const { locale, currency } = params;
 
   return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-x-5 overflow-hidden">
