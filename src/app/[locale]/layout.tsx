@@ -2,19 +2,16 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
 
 import DictionaryProvider from "@/shared/components/Dictionary";
 import OverlayProvider from "@/shared/components/overlay/OverlayProvider";
-import Loading from "@/shared/components/sidebar/Loading";
-import Sidebar from "@/shared/components/sidebar/Sidebar";
 
 import { getDictionary } from "@/dictionaries";
 
-import { Locale } from "@/locale";
-
+import { AppSidebar } from "./components/AppSidebar/AppSidebar";
 import Footer from "./components/Footer";
 
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -43,18 +40,25 @@ export default async function RootLayout(
 
   return (
     <html lang={locale}>
-      <body
-        className={`${inter.className} grid h-screen w-full grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr,_auto] overflow-hidden`}
-      >
+      <body>
         <DictionaryProvider d={d} locale={locale}>
           <OverlayProvider>
-            <div className="col-span-1 row-span-4">
-              <Suspense fallback={<Loading />}>
-                <Sidebar locale={locale} />
-              </Suspense>
-            </div>
-            <div className="col-span-2 row-span-2 p-5">{children}</div>
-            <Footer d={d} />
+            <SidebarProvider>
+              <div
+                className={`${inter.className} grid h-screen w-full grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr,_auto] overflow-hidden`}
+              >
+                <div className="col-span-1 row-span-4">
+                  <AppSidebar locale={locale} />
+                </div>
+                <div className="col-span-2 row-span-2 p-5">
+                  <div className="absolute">
+                    <SidebarTrigger />
+                  </div>
+                  <div>{children}</div>
+                </div>
+                <Footer d={d} />
+              </div>
+            </SidebarProvider>
           </OverlayProvider>
         </DictionaryProvider>
         <Analytics />
