@@ -10,7 +10,7 @@ interface Props {
 
 function Footer({ d }: Props) {
   return (
-    <footer className="col-span-2 row-span-1 flex justify-between bg-black p-1">
+    <footer className="z-10 col-span-2 row-span-1 flex justify-between bg-black p-1">
       <ul className="flex gap-4 px-5 text-xs">
         <li>
           <ExportAll />

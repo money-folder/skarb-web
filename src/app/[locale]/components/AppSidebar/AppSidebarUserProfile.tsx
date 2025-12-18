@@ -37,7 +37,10 @@ export const AppSidebarUserProfile = async () => {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton className="w-full py-5">
+            <SidebarMenuButton
+              className="w-full py-5"
+              tooltip={user.name || "User"}
+            >
               {user.image ? (
                 <Image
                   src={user.image}
@@ -56,7 +59,7 @@ export const AppSidebarUserProfile = async () => {
               <div className="flex flex-col items-start overflow-hidden">
                 <span className="truncate font-medium">{user.name}</span>
               </div>
-              <ChevronsUpDown className="ml-auto" />
+              <ChevronsUpDown className="ml-auto group-data-[collapsible=icon]:hidden" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent

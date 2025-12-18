@@ -16,7 +16,7 @@ import { Locale } from "@/locale";
 import { AppSidebar } from "./components/AppSidebar/AppSidebar";
 import Footer from "./components/Footer";
 
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -55,7 +55,12 @@ export default async function RootLayout(
                 <div className="col-span-1 row-span-4">
                   <AppSidebar locale={locale} />
                 </div>
-                <div className="col-span-2 row-span-2 p-5">{children}</div>
+                <div className="col-span-2 row-span-2 p-5">
+                  <div className="absolute">
+                    <SidebarTrigger />
+                  </div>
+                  <div>{children}</div>
+                </div>
                 <Footer d={d} />
               </div>
             </SidebarProvider>
