@@ -240,5 +240,9 @@
     "exportAll": "Export All",
     "inEnglish": "In English",
     "inBelarusian": "Па Беларуску"
+  },
+
+  "appSidebar": {
+    "appTitle": "Skarb"
   }
 }

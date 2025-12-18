@@ -53,7 +53,7 @@ export default async function RootLayout(
                 className={`${inter.className} grid h-screen w-full grid-cols-[auto,_1fr,_1fr] grid-rows-[1fr,_1fr,_auto] overflow-hidden`}
               >
                 <div className="col-span-1 row-span-4">
-                  <AppSidebar />
+                  <AppSidebar locale={locale} />
                 </div>
                 <div className="col-span-2 row-span-2 p-5">{children}</div>
                 <Footer d={d} />
