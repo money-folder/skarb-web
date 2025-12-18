@@ -2,16 +2,11 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
 
 import DictionaryProvider from "@/shared/components/Dictionary";
 import OverlayProvider from "@/shared/components/overlay/OverlayProvider";
-import Loading from "@/shared/components/sidebar/Loading";
-import Sidebar from "@/shared/components/sidebar/Sidebar";
 
 import { getDictionary } from "@/dictionaries";
-
-import { Locale } from "@/locale";
 
 import { AppSidebar } from "./components/AppSidebar/AppSidebar";
 import Footer from "./components/Footer";
