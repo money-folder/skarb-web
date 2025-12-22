@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { MessageSquare, MoreHorizontal } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +26,7 @@ import Changes from "../../../../wallets/components/Changes";
 import { archive, destroy, duplicate, unarchive } from "../../actions";
 import { ClientWhistoryDto } from "../../types";
 import EditWhistoryModal from "../whistory-edit/EditWhistoryModal";
+import ViewWhistoryDialog from "./ViewWhistoryDialog";
 
 // This component is needed to access the context in the cell render function
 const ActionsCell = ({
@@ -36,8 +37,13 @@ const ActionsCell = ({
   dictionary: Dictionary["whistoryPage"]["whistoryTable"];
 }) => {
   const { addOverlay } = useContext(OverlayContext);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
 
   // Action handlers
+  const handleView = () => {
+    setIsViewDialogOpen(true);
+  };
+
   const handleDuplicate = () => {
     duplicate(whistory.id, whistory.walletId);
   };
@@ -80,6 +86,10 @@ const ActionsCell = ({
           <DropdownMenuLabel>{dictionary.actionsMenu.label}</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
+          <DropdownMenuItem onClick={handleView}>
+            {dictionary.actionsMenu.view}
+          </DropdownMenuItem>
+
           <DropdownMenuItem onClick={handleDuplicate}>
             {dictionary.actionsMenu.duplicate}
           </DropdownMenuItem>
@@ -111,6 +121,13 @@ const ActionsCell = ({
           )}
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <ViewWhistoryDialog
+        whistory={whistory}
+        isOpen={isViewDialogOpen}
+        onClose={setIsViewDialogOpen}
+        dictionary={dictionary}
+      />
     </div>
   );
 };

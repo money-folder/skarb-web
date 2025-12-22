@@ -51,6 +51,7 @@
       "actions": "Actions",
       "actionsMenu": {
         "label": "Actions",
+        "view": "View",
         "edit": "Edit",
         "duplicate": "Duplicate",
         "restore": "Restore",
@@ -58,6 +59,12 @@
         "delete": "Delete",
         "confirmDeleteMessage": "Are you sure you want to delete this balance entry?",
         "confirmPermanentDeleteMessage": "Are you sure you want to permanently delete this balance entry?"
+      },
+      "viewDialog": {
+        "title": "Whistory Details",
+        "absoluteChanges": "Absolute Changes",
+        "relativeChanges": "Relative Changes",
+        "deletedAt": "Deleted At"
       }
     },
 

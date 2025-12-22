@@ -10,7 +10,7 @@ const Changes = ({ text, isPositive }: ChangesProps) => {
 
   return (
     <span
-      className={`${isPositive ? "text-green-600" : "text-red-500"} font-bold`}
+      className={`${isPositive ? "text-green-600" : "text-red-500"} text-sm font-bold`}
     >
       <span>{isPositive ? "▲" : "▼"}</span>
       <span>{text}</span>

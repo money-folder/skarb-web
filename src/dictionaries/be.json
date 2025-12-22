@@ -51,13 +51,20 @@
       "actions": "Дзеянні",
       "actionsMenu": {
         "label": "Дзеянні",
+        "view": "Прагляд",
         "edit": "Рэдагаваць",
         "duplicate": "Дубляваць",
         "restore": "Аднавіць",
         "deletePermanently": "Выдаліць назаўсёды",
         "delete": "Выдаліць",
-        "confirmDeleteMessage": "Вы ўпэўненыя, што хочаце выдаліць гэты запіс баланса?",
-        "confirmPermanentDeleteMessage": "Вы ўпэўненыя, што хочаце выдаліць гэты запіс баланса назаўсёды?"
+        "confirmDeleteMessage": "Вы ўпэўнены, што хочаце выдаліць гэты запіс аб балансе?",
+        "confirmPermanentDeleteMessage": "Вы ўпэўнены, што хочаце навечна выдаліць гэты запіс аб балансе?"
+      },
+      "viewDialog": {
+        "title": "Дэталі гісторыі",
+        "absoluteChanges": "Абсалютныя змены",
+        "relativeChanges": "Адносныя змены",
+        "deletedAt": "Выдалена"
       }
     },
 
