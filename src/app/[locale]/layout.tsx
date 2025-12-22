@@ -54,7 +54,7 @@ export default async function RootLayout(
                   <div className="absolute">
                     <SidebarTrigger />
                   </div>
-                  <div>{children}</div>
+                  {children}
                 </div>
                 <Footer d={d} />
               </div>

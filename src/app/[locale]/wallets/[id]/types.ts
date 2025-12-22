@@ -46,6 +46,12 @@ export type ClientWhistoryDto = WhistoryDb & {
   changesAbs: number | null;
 };
 
+export type ClientChartWhistoryDto = {
+  id: string;
+  date: Date;
+  moneyAmount: number;
+};
+
 export type WhistoryComposed = {
   date: Date;
   whistories: WhistoryDbWithWallet[];

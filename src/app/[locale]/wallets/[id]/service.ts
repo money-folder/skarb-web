@@ -7,7 +7,40 @@ import * as walletsRepository from "@/app/[locale]/wallets/repository";
 import { auth } from "@/auth";
 import { ErrorCauses } from "@/shared/types/errors";
 
-import { FetchWhistoryParams } from "../types";
+import { FetchChartWhistoryParams, FetchWhistoryParams } from "../types";
+
+/**
+ * Evenly samples an array based on detailization percentage (10-100).
+ * 100% keeps all items, 50% keeps half evenly distributed, 10% keeps 10%, etc.
+ * @param array - The array to sample (should be sorted by date)
+ * @param detailization - Percentage of items to keep (10-100)
+ * @returns Sampled array maintaining the trend
+ */
+const applyDetailization = <T>(
+  array: T[],
+  detailization: number = 100,
+): T[] => {
+  if (detailization >= 100 || array.length === 0) {
+    return array;
+  }
+
+  const percentage = Math.max(10, Math.min(100, detailization)) / 100;
+  const targetCount = Math.max(1, Math.round(array.length * percentage));
+
+  if (targetCount >= array.length) {
+    return array;
+  }
+
+  const result: T[] = [];
+  const step = (array.length - 1) / (targetCount - 1);
+
+  for (let i = 0; i < targetCount; i++) {
+    const index = Math.round(i * step);
+    result.push(array[index]);
+  }
+
+  return result;
+};
 
 export const verifyWhistoryOwnership = async (
   userId: string,
@@ -30,11 +63,8 @@ export const getCurrentUserWhistory = async (
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const walletHistory = await whistoryRepository.findUserWallet(
-    session.user.id,
-    walletId,
-    params,
-  );
+  const { data: walletHistory, total } =
+    await whistoryRepository.findUserWallet(session.user.id, walletId, params);
 
   if (!walletHistory) {
     throw new Error("Wallet history was not found!", {
@@ -53,22 +83,36 @@ export const getCurrentUserWhistory = async (
       : null,
   }));
 
-  const sums = whistory.reduce(
-    (acc, item) => {
-      if (item.changesAbs && item.changesAbs < 0) {
-        return { ...acc, decreasesSum: acc.decreasesSum + item.changesAbs };
-      } else if (item.changesAbs) {
-        return { ...acc, increasesSum: acc.increasesSum + item.changesAbs };
-      }
+  return { whistory, total };
+};
 
-      return acc;
-    },
-    { increasesSum: 0, decreasesSum: 0 },
+export const getCurrentUserChartWhistory = async (
+  walletId: string,
+  params?: FetchChartWhistoryParams,
+) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const { data: walletHistory } = await whistoryRepository.findUserChartWallet(
+    session.user.id,
+    walletId,
+    params,
   );
 
-  const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
+  if (!walletHistory) {
+    throw new Error("Wallet history was not found!", {
+      cause: ErrorCauses.NOT_FOUND,
+    });
+  }
 
-  return { whistory, increasesDecreasesDiff, ...sums };
+  const whistory = applyDetailization(
+    walletHistory,
+    params?.detailization ?? 100,
+  );
+
+  return { whistory };
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {

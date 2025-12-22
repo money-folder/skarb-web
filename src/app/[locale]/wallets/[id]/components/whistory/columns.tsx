@@ -1,8 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { useContext } from "react";
+import { MessageSquare, MoreHorizontal } from "lucide-react";
+import { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Dictionary } from "@/dictionaries/locale";
 import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
@@ -20,6 +26,7 @@ import Changes from "../../../../wallets/components/Changes";
 import { archive, destroy, duplicate, unarchive } from "../../actions";
 import { ClientWhistoryDto } from "../../types";
 import EditWhistoryModal from "../whistory-edit/EditWhistoryModal";
+import ViewWhistoryDialog from "./ViewWhistoryDialog";
 
 // This component is needed to access the context in the cell render function
 const ActionsCell = ({
@@ -30,8 +37,13 @@ const ActionsCell = ({
   dictionary: Dictionary["whistoryPage"]["whistoryTable"];
 }) => {
   const { addOverlay } = useContext(OverlayContext);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
 
   // Action handlers
+  const handleView = () => {
+    setIsViewDialogOpen(true);
+  };
+
   const handleDuplicate = () => {
     duplicate(whistory.id, whistory.walletId);
   };
@@ -62,7 +74,7 @@ const ActionsCell = ({
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex w-2/12 justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -73,6 +85,10 @@ const ActionsCell = ({
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{dictionary.actionsMenu.label}</DropdownMenuLabel>
           <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={handleView}>
+            {dictionary.actionsMenu.view}
+          </DropdownMenuItem>
 
           <DropdownMenuItem onClick={handleDuplicate}>
             {dictionary.actionsMenu.duplicate}
@@ -105,6 +121,13 @@ const ActionsCell = ({
           )}
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <ViewWhistoryDialog
+        whistory={whistory}
+        isOpen={isViewDialogOpen}
+        onClose={setIsViewDialogOpen}
+        dictionary={dictionary}
+      />
     </div>
   );
 };
@@ -115,12 +138,14 @@ export const createColumns = (
   return [
     {
       accessorKey: "moneyAmount",
-      header: () => <div className="text-right">{dictionary.balance}</div>,
+      header: () => (
+        <div className="w-3/12 text-right">{dictionary.balance}</div>
+      ),
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`text-right ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`w-3/12 text-right ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
             {whistory.moneyAmount}
           </div>
@@ -129,12 +154,12 @@ export const createColumns = (
     },
     {
       accessorKey: "date",
-      header: () => <div className="text-center">{dictionary.date}</div>,
+      header: () => <div className="w-2/12 text-center">{dictionary.date}</div>,
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`w-2/12 text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
             {whistory.date.toLocaleString().split(", ")[0]}
           </div>
@@ -143,42 +168,62 @@ export const createColumns = (
     },
     {
       accessorKey: "changes",
-      header: () => <div className="text-center">{dictionary.changes}</div>,
+      header: () => (
+        <div className="w-3/12 text-center">{dictionary.changes}</div>
+      ),
       cell: ({ row }) => {
         const whistory = row.original;
-        const changesText = whistory.changes
-          ? `${(whistory.changesAbs || 0).toFixed(2)} (${((whistory.changes || 0) * 100).toFixed(2)}%)`
+        const absoluteChanges = whistory.changesAbs
+          ? `${(whistory.changesAbs || 0).toFixed(2)}`
+          : "";
+        const relativeChanges = whistory.changes
+          ? `${((whistory.changes || 0) * 100).toFixed(2)}%`
           : "";
 
         return (
           <div
-            className={`text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`w-3/12 text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
-            <Changes
-              text={changesText}
-              isPositive={(whistory.changes || 0) >= 0}
-            />
+            <TooltipProvider>
+              <Tooltip delayDuration={100}>
+                <TooltipTrigger asChild>
+                  <Changes
+                    text={absoluteChanges}
+                    isPositive={(whistory.changes || 0) >= 0}
+                  />
+                </TooltipTrigger>
+                {relativeChanges && (
+                  <TooltipContent>
+                    <p>{relativeChanges}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </div>
         );
       },
     },
     {
       accessorKey: "comment",
-      header: () => <div className="text-left">{dictionary.comment}</div>,
+      header: () => (
+        <div className="w-2/12 text-center">{dictionary.comment}</div>
+      ),
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`text-left ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`flex w-2/12 justify-center text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
-            {whistory.comment || "-"}
+            {whistory.comment ? <MessageSquare className="h-4 w-4" /> : "-"}
           </div>
         );
       },
     },
     {
       id: "actions",
-      header: () => <div className="text-center">{dictionary.actions}</div>,
+      header: () => (
+        <div className="w-2/12 text-center">{dictionary.actions}</div>
+      ),
       cell: ({ row }) => (
         <ActionsCell whistory={row.original} dictionary={dictionary} />
       ),

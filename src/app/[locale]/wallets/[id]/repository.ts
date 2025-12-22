@@ -6,7 +6,7 @@ import {
   CreateWhistoryDto,
   UpdateWhistoryRequestDto,
 } from "@/app/[locale]/wallets/[id]/types";
-import { FetchWhistoryParams } from "../types";
+import { FetchChartWhistoryParams, FetchWhistoryParams } from "../types";
 
 export const findByWallet = async (walletId: string) => {
   const where: Prisma.WalletHistoryWhereInput = {
@@ -54,13 +54,56 @@ export const findUserWallet = async (
     });
   }
 
-  return prisma.walletHistory.findMany({
-    where,
+  const skip =
+    params?.page && params?.pageSize
+      ? (params.page - 1) * params.pageSize
+      : undefined;
+  const take = params?.pageSize;
 
+  const [data, total] = await Promise.all([
+    prisma.walletHistory.findMany({
+      where,
+      skip,
+      take,
+      orderBy: {
+        date: "desc",
+      },
+    }),
+    prisma.walletHistory.count({ where }),
+  ]);
+
+  return { data, total };
+};
+
+export const findUserChartWallet = async (
+  userId: string,
+  walletId: string,
+  params?: FetchChartWhistoryParams,
+) => {
+  const where: Prisma.WalletHistoryWhereInput = {
+    AND: [{ walletId }, { wallet: { ownerId: userId } }],
+  };
+
+  if (params?.fromTs) {
+    (where.AND as Prisma.WalletHistoryWhereInput[]).push({
+      date: { gt: new Date(params.fromTs) },
+    });
+  }
+
+  if (params?.toTs) {
+    (where.AND as Prisma.WalletHistoryWhereInput[]).push({
+      date: { lt: new Date(params.toTs) },
+    });
+  }
+
+  const data = await prisma.walletHistory.findMany({
+    where,
     orderBy: {
       date: "asc",
     },
   });
+
+  return { data };
 };
 
 export const findById = async (id: string) => {

@@ -1,8 +1,8 @@
-import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
+import { ClientChartWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 import { generateNumberArray } from "@/shared/utils/utils";
 
 export const getWhistoryMinMaxTimestamps = (
-  whistoryList: ClientWhistoryDto[],
+  whistoryList: ClientChartWhistoryDto[],
 ) => {
   const firstItemTs = new Date(whistoryList[1].date).getTime();
 
@@ -31,7 +31,7 @@ export const getWhistoryMinMaxTimestamps = (
   };
 };
 
-export const getAxisTimestamps = (whistoryList: ClientWhistoryDto[]) => {
+export const getAxisTimestamps = (whistoryList: ClientChartWhistoryDto[]) => {
   const { minDateTs, maxDateTs } = getWhistoryMinMaxTimestamps(whistoryList);
   return generateNumberArray(minDateTs, maxDateTs, (maxDateTs - minDateTs) / 6);
 };

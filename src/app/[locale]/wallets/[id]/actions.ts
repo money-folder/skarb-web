@@ -7,6 +7,7 @@ import {
   createWhistory,
   destroySelfWhistory,
   duplicateWhistory,
+  getCurrentUserChartWhistory,
   getCurrentUserWhistory,
   unarchiveSelfWhistory,
   updateWhistory,
@@ -20,7 +21,7 @@ import {
   updateWhistoryRequstSchema,
 } from "@/app/[locale]/wallets/[id]/validation";
 
-import { FetchWhistoryParams } from "../types";
+import { FetchChartWhistoryParams, FetchWhistoryParams } from "../types";
 
 export const fetchWalletHistory = async (
   walletId: string,
@@ -28,6 +29,19 @@ export const fetchWalletHistory = async (
 ) => {
   try {
     const walletHistory = await getCurrentUserWhistory(walletId, params);
+    return { success: true, data: walletHistory };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: null, error };
+  }
+};
+
+export const fetchWhistoryChartData = async (
+  walletId: string,
+  params?: FetchChartWhistoryParams,
+) => {
+  try {
+    const walletHistory = await getCurrentUserChartWhistory(walletId, params);
     return { success: true, data: walletHistory };
   } catch (error) {
     console.error(error);
