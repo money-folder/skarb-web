@@ -28,6 +28,8 @@ export default async function WhistoryTableContainer({
   const { data: walletHistory } = await fetchWalletHistory(walletId, {
     fromTs,
     toTs,
+    page,
+    pageSize,
   });
 
   if (!walletHistory || !walletHistory.whistory) {
@@ -37,18 +39,15 @@ export default async function WhistoryTableContainer({
   return (
     <div className="flex flex-col gap-4">
       <WhistoryFilters />
-
-      <>
-        <WalletHistoryTableClient
-          dictionary={d.whistoryTable}
-          whistory={walletHistory.whistory}
-        />
-        <WhistoryPagination
-          currentPage={page || 1}
-          totalItems={walletHistory.whistory.length}
-          pageSize={pageSize}
-        />
-      </>
+      <WalletHistoryTableClient
+        dictionary={d.whistoryTable}
+        whistory={walletHistory.whistory}
+      />
+      <WhistoryPagination
+        currentPage={page || 1}
+        totalItems={walletHistory.total}
+        pageSize={pageSize}
+      />
     </div>
   );
 }

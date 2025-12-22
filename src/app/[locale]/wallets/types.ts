@@ -47,6 +47,8 @@ export type WalletsSummary = {
 export type FetchWhistoryParams = {
   fromTs?: number;
   toTs?: number;
+  page?: number;
+  pageSize?: number;
 };
 
 export type WalletFormValues = z.infer<typeof walletFormSchema>;

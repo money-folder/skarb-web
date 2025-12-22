@@ -5,8 +5,8 @@ import { Locale } from "@/locale";
 
 import WalletHistoryTitle from "./components/title/WalletHistoryTitle";
 import WalletHistoryTitleLoading from "./components/title/WalletHistoryTitleLoading";
-import Loading from "./components/whistory/Loading";
 import WalletHistoryContainer from "./components/whistory/WalletHistoryContainer";
+import WhistoryTableContainer from "./components/whistory/WhistoryTableContainer";
 
 interface Props {
   params: Promise<{ id: string; locale: Locale }>;
@@ -28,15 +28,26 @@ export default async function WalletHistory(props: Props) {
       </Suspense>
 
       <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden">
-        <Suspense fallback={<Loading d={d.whistoryPage.whistoryTable} />}>
-          <WalletHistoryContainer
-            locale={locale}
-            walletId={id}
-            fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
-            toTs={searchParams.toTs ? +searchParams.toTs : undefined}
-            page={searchParams.page ? +searchParams.page : undefined}
-          />
-        </Suspense>
+        <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto] gap-5">
+          <div className="col-span-1 row-span-1 flex h-full w-full max-w-[550px] flex-col overflow-auto">
+            <Suspense fallback={<p>Loading...</p>}>
+              <WhistoryTableContainer
+                locale={locale}
+                walletId={id}
+                fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
+                toTs={searchParams.toTs ? +searchParams.toTs : undefined}
+                page={searchParams.page ? +searchParams.page : undefined}
+                pageSize={10}
+              />
+            </Suspense>
+          </div>
+
+          <div className="h-full w-full overflow-y-auto">
+            <div className="col-span-1 row-span-1 flex h-full w-full flex-col justify-between">
+              Charts Here
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );

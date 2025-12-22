@@ -30,11 +30,8 @@ export const getCurrentUserWhistory = async (
     throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
   }
 
-  const walletHistory = await whistoryRepository.findUserWallet(
-    session.user.id,
-    walletId,
-    params,
-  );
+  const { data: walletHistory, total } =
+    await whistoryRepository.findUserWallet(session.user.id, walletId, params);
 
   if (!walletHistory) {
     throw new Error("Wallet history was not found!", {
@@ -68,7 +65,7 @@ export const getCurrentUserWhistory = async (
 
   const increasesDecreasesDiff = sums.increasesSum + sums.decreasesSum;
 
-  return { whistory, increasesDecreasesDiff, ...sums };
+  return { whistory, total, increasesDecreasesDiff, ...sums };
 };
 
 export const createWhistory = async (dto: CreateWhistoryRequestDto) => {

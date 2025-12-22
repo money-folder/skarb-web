@@ -9,7 +9,6 @@ import {
   CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 
-import { WalletHistoryTableClient } from "./WalletHistoryTableClient";
 import WhistoryTableContainer from "./WhistoryTableContainer";
 
 interface WalletHistoryContainerProps {

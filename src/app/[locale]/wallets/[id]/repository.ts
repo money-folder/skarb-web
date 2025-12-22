@@ -54,13 +54,25 @@ export const findUserWallet = async (
     });
   }
 
-  return prisma.walletHistory.findMany({
-    where,
+  const skip =
+    params?.page && params?.pageSize
+      ? (params.page - 1) * params.pageSize
+      : undefined;
+  const take = params?.pageSize;
 
-    orderBy: {
-      date: "asc",
-    },
-  });
+  const [data, total] = await Promise.all([
+    prisma.walletHistory.findMany({
+      where,
+      skip,
+      take,
+      orderBy: {
+        date: "asc",
+      },
+    }),
+    prisma.walletHistory.count({ where }),
+  ]);
+
+  return { data, total };
 };
 
 export const findById = async (id: string) => {
