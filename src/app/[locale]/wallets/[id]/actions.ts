@@ -21,6 +21,7 @@ import {
   updateWhistoryRequstSchema,
 } from "@/app/[locale]/wallets/[id]/validation";
 
+import { delay } from "@/shared/utils/utils";
 import { FetchChartWhistoryParams, FetchWhistoryParams } from "../types";
 
 export const fetchWalletHistory = async (
@@ -28,6 +29,7 @@ export const fetchWalletHistory = async (
   params?: FetchWhistoryParams,
 ) => {
   try {
+    // await delay(1000);
     const walletHistory = await getCurrentUserWhistory(walletId, params);
     return { success: true, data: walletHistory };
   } catch (error) {

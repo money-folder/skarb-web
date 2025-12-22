@@ -52,3 +52,8 @@ export const replacePlaceholders = (
     /{{\s*([\w]+)\s*}}/g,
     (match, p1) => replacements[p1] || match,
   );
+
+export const delay = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });

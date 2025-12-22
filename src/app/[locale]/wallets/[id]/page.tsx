@@ -6,6 +6,7 @@ import WalletHistoryTitle from "./components/title/WalletHistoryTitle";
 import WalletHistoryTitleLoading from "./components/title/WalletHistoryTitleLoading";
 import WhistoryChartContainer from "./components/whistory-chart/WhistoryChartContainer";
 import WhistoryTableContainer from "./components/whistory/WhistoryTableContainer";
+import WhistoryTableLoading from "./components/whistory/WhistoryTableLoading";
 
 interface Props {
   params: Promise<{ id: string; locale: Locale }>;
@@ -32,7 +33,10 @@ export default async function WalletHistory(props: Props) {
       <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden">
         <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto] gap-5 p-1">
           <div className="col-span-1 row-span-1 flex h-full w-full max-w-[550px] flex-col overflow-auto">
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense
+              key={`${searchParams.fromTs}-${searchParams.toTs}-${searchParams.page}`}
+              fallback={<WhistoryTableLoading />}
+            >
               <WhistoryTableContainer
                 locale={locale}
                 walletId={id}

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MessageSquare, MoreHorizontal } from "lucide-react";
 import { useContext } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Dictionary } from "@/dictionaries/locale";
 import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
@@ -146,32 +152,48 @@ export const createColumns = (
       header: () => <div className="text-center">{dictionary.changes}</div>,
       cell: ({ row }) => {
         const whistory = row.original;
-        const changesText = whistory.changes
-          ? `${(whistory.changesAbs || 0).toFixed(2)} (${((whistory.changes || 0) * 100).toFixed(2)}%)`
+        const absoluteChanges = whistory.changesAbs
+          ? `${(whistory.changesAbs || 0).toFixed(2)}`
+          : "";
+        const relativeChanges = whistory.changes
+          ? `${((whistory.changes || 0) * 100).toFixed(2)}%`
           : "";
 
         return (
           <div
             className={`text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
-            <Changes
-              text={changesText}
-              isPositive={(whistory.changes || 0) >= 0}
-            />
+            <TooltipProvider>
+              <Tooltip delayDuration={100}>
+                <TooltipTrigger asChild>
+                  <div>
+                    <Changes
+                      text={absoluteChanges}
+                      isPositive={(whistory.changes || 0) >= 0}
+                    />
+                  </div>
+                </TooltipTrigger>
+                {relativeChanges && (
+                  <TooltipContent>
+                    <p>{relativeChanges}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </div>
         );
       },
     },
     {
       accessorKey: "comment",
-      header: () => <div className="text-left">{dictionary.comment}</div>,
+      header: () => <div className="text-center">{dictionary.comment}</div>,
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`text-left ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`flex justify-center text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
-            {whistory.comment || "-"}
+            {whistory.comment ? <MessageSquare className="h-4 w-4" /> : "-"}
           </div>
         );
       },
