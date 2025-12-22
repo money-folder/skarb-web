@@ -20,13 +20,9 @@ const applyDetailization = <T>(
   array: T[],
   detailization: number = 100,
 ): T[] => {
-  console.log("applyDetailization");
-
   if (detailization >= 100 || array.length === 0) {
     return array;
   }
-
-  console.log("applyDetailization");
 
   const percentage = Math.max(10, Math.min(100, detailization)) / 100;
   const targetCount = Math.max(1, Math.round(array.length * percentage));
@@ -42,8 +38,6 @@ const applyDetailization = <T>(
     const index = Math.round(i * step);
     result.push(array[index]);
   }
-
-  console.log(array.length, result.length);
 
   return result;
 };

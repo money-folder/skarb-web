@@ -45,7 +45,6 @@ const WhistoryLineChart = ({ data }: Props) => {
 
         <ChartTooltip
           labelFormatter={(...ts) => {
-            console.log(ts);
             return new Date(ts[0]).toLocaleString().split(",")[0];
           }}
           formatter={(value) => [value, d.charts.whistory.tooltip.balanceLabel]}
