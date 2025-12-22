@@ -11,31 +11,31 @@ export default function WhistoryTableLoading() {
       {/* Table skeleton */}
       <div className="rounded-md border">
         {/* Table header */}
-        <div className="flex border-b bg-muted/50 p-4">
-          <Skeleton className="h-4 w-[100px]" />
-          <Skeleton className="ml-auto h-4 w-[80px]" />
-          <Skeleton className="ml-4 h-4 w-[100px]" />
-          <Skeleton className="ml-auto h-4 w-[80px]" />
-          <Skeleton className="ml-4 h-4 w-[100px]" />
+        <div className="flex gap-4 border-b bg-muted/50 p-4">
+          <Skeleton className="h-4 w-3/12" />
+          <Skeleton className="h-4 w-2/12" />
+          <Skeleton className="h-4 w-3/12" />
+          <Skeleton className="h-4 w-2/12" />
+          <Skeleton className="h-4 w-2/12" />
         </div>
 
         {/* Table rows */}
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="flex border-b p-4 last:border-0">
-            <Skeleton className="h-4 w-[100px]" />
-            <Skeleton className="ml-auto h-4 w-[80px]" />
-            <Skeleton className="ml-4 h-4 w-[100px]" />
-            <Skeleton className="ml-auto h-4 w-[80px]" />
-            <Skeleton className="ml-4 h-4 w-[100px]" />
+          <div key={i} className="flex gap-4 border-b p-4 last:border-0">
+            <Skeleton className="h-4 w-3/12" />
+            <Skeleton className="h-4 w-2/12" />
+            <Skeleton className="h-4 w-3/12" />
+            <Skeleton className="h-4 w-2/12" />
+            <Skeleton className="h-4 w-2/12" />
           </div>
         ))}
       </div>
 
       {/* Pagination skeleton */}
       <div className="flex w-full items-center justify-center">
-        <div className="flex gap-5">
+        <div className="flex gap-3">
           <Skeleton className="h-8 w-24" />
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <Skeleton className="h-8 w-8" />
             <Skeleton className="h-8 w-8" />
             <Skeleton className="h-8 w-8" />

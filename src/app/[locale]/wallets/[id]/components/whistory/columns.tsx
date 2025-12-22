@@ -74,7 +74,7 @@ const ActionsCell = ({
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex w-2/12 justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -138,12 +138,14 @@ export const createColumns = (
   return [
     {
       accessorKey: "moneyAmount",
-      header: () => <div className="text-right">{dictionary.balance}</div>,
+      header: () => (
+        <div className="w-3/12 text-right">{dictionary.balance}</div>
+      ),
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`text-right ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`w-3/12 text-right ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
             {whistory.moneyAmount}
           </div>
@@ -152,12 +154,12 @@ export const createColumns = (
     },
     {
       accessorKey: "date",
-      header: () => <div className="text-center">{dictionary.date}</div>,
+      header: () => <div className="w-2/12 text-center">{dictionary.date}</div>,
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`w-2/12 text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
             {whistory.date.toLocaleString().split(", ")[0]}
           </div>
@@ -166,7 +168,9 @@ export const createColumns = (
     },
     {
       accessorKey: "changes",
-      header: () => <div className="text-center">{dictionary.changes}</div>,
+      header: () => (
+        <div className="w-3/12 text-center">{dictionary.changes}</div>
+      ),
       cell: ({ row }) => {
         const whistory = row.original;
         const absoluteChanges = whistory.changesAbs
@@ -178,7 +182,7 @@ export const createColumns = (
 
         return (
           <div
-            className={`text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`w-3/12 text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
             <TooltipProvider>
               <Tooltip delayDuration={100}>
@@ -201,12 +205,14 @@ export const createColumns = (
     },
     {
       accessorKey: "comment",
-      header: () => <div className="text-center">{dictionary.comment}</div>,
+      header: () => (
+        <div className="w-2/12 text-center">{dictionary.comment}</div>
+      ),
       cell: ({ row }) => {
         const whistory = row.original;
         return (
           <div
-            className={`flex justify-center text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
+            className={`flex w-2/12 justify-center text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
             {whistory.comment ? <MessageSquare className="h-4 w-4" /> : "-"}
           </div>
@@ -215,7 +221,9 @@ export const createColumns = (
     },
     {
       id: "actions",
-      header: () => <div className="text-center">{dictionary.actions}</div>,
+      header: () => (
+        <div className="w-2/12 text-center">{dictionary.actions}</div>
+      ),
       cell: ({ row }) => (
         <ActionsCell whistory={row.original} dictionary={dictionary} />
       ),
