@@ -5,6 +5,7 @@ import { Locale } from "@/locale";
 import WalletHistoryTitle from "./components/title/WalletHistoryTitle";
 import WalletHistoryTitleLoading from "./components/title/WalletHistoryTitleLoading";
 import WhistoryChartContainer from "./components/whistory-chart/WhistoryChartContainer";
+import WhistoryChartLoading from "./components/whistory-chart/WhistoryChartLoading";
 import WhistoryTableContainer from "./components/whistory/WhistoryTableContainer";
 import WhistoryTableLoading from "./components/whistory/WhistoryTableLoading";
 
@@ -50,17 +51,24 @@ export default async function WalletHistory(props: Props) {
 
           <div className="h-full w-full overflow-y-auto p-1">
             <div className="col-span-1 row-span-1 flex h-full w-full flex-col justify-between">
-              <WhistoryChartContainer
-                locale={locale}
-                walletId={id}
-                fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
-                toTs={searchParams.toTs ? +searchParams.toTs : undefined}
-                detailization={
-                  searchParams.detailization
-                    ? +searchParams.detailization
-                    : undefined
-                }
-              />
+              <Suspense
+                key={`${searchParams.fromTs}-${searchParams.toTs}-${searchParams.detailization}`}
+                fallback={<WhistoryChartLoading />}
+              >
+                <WhistoryChartContainer
+                  locale={locale}
+                  walletId={id}
+                  fromTs={
+                    searchParams.fromTs ? +searchParams.fromTs : undefined
+                  }
+                  toTs={searchParams.toTs ? +searchParams.toTs : undefined}
+                  detailization={
+                    searchParams.detailization
+                      ? +searchParams.detailization
+                      : undefined
+                  }
+                />
+              </Suspense>
             </div>
           </div>
         </div>
