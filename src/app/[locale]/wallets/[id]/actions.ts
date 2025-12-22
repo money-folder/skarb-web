@@ -29,7 +29,7 @@ export const fetchWalletHistory = async (
   params?: FetchWhistoryParams,
 ) => {
   try {
-    // await delay(1000);
+    await delay(1000);
     const walletHistory = await getCurrentUserWhistory(walletId, params);
     return { success: true, data: walletHistory };
   } catch (error) {

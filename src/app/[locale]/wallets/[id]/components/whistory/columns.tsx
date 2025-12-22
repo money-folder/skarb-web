@@ -183,12 +183,10 @@ export const createColumns = (
             <TooltipProvider>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
-                  <div>
-                    <Changes
-                      text={absoluteChanges}
-                      isPositive={(whistory.changes || 0) >= 0}
-                    />
-                  </div>
+                  <Changes
+                    text={absoluteChanges}
+                    isPositive={(whistory.changes || 0) >= 0}
+                  />
                 </TooltipTrigger>
                 {relativeChanges && (
                   <TooltipContent>

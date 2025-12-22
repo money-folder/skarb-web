@@ -71,12 +71,10 @@ export default function WhistoryFilters() {
       <div className="flex items-center gap-2">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <div className="mt-1">
-              <Button variant="outline">
-                <Filter className="mr-2 h-4 w-4" />
-                {d.whistoryPage.filters.filtersButton}
-              </Button>
-            </div>
+            <Button variant="outline">
+              <Filter className="mr-2 mt-1 h-4 w-4" />
+              {d.whistoryPage.filters.filtersButton}
+            </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <div className="flex flex-col gap-4 p-4">
