@@ -30,6 +30,12 @@
     "title": "Гісторыя {{walletName}}",
 
     "filters": {
+      "filtersButton": "Фільтры",
+      "fromDate": "Дата ад",
+      "toDate": "Дата да",
+      "pickADate": "Абярыце дату",
+      "from": "Ад:",
+      "to": "Да:",
       "form": {
         "fromLabel": "Ад: ",
         "toLabel": "Да: ",
@@ -221,7 +227,8 @@
     "whistory": {
       "tooltip": {
         "balanceLabel": "Баланс"
-      }
+      },
+      "detailizationLabel": "Дэталізацыя графіка"
     },
 
     "whistoryChanges": {

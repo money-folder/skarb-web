@@ -1,5 +1,9 @@
 "use client";
 
+import { CalendarIcon, Filter, X } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useContext, useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -9,12 +13,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { DictionaryContext } from "@/shared/components/Dictionary";
 import { format } from "date-fns";
-import { CalendarIcon, Filter, X } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 export default function WhistoryFilters() {
+  const { d } = useContext(DictionaryContext);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -68,15 +71,19 @@ export default function WhistoryFilters() {
       <div className="flex items-center gap-2">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm">
-              <Filter className="mr-2 h-4 w-4" />
-              Filters
-            </Button>
+            <div className="mt-1">
+              <Button variant="outline">
+                <Filter className="mr-2 h-4 w-4" />
+                {d.whistoryPage.filters.filtersButton}
+              </Button>
+            </div>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <div className="flex flex-col gap-4 p-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">From Date</label>
+                <label className="text-sm font-medium">
+                  {d.whistoryPage.filters.fromDate}
+                </label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -87,7 +94,9 @@ export default function WhistoryFilters() {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {fromDate ? format(fromDate, "PPP") : "Pick a date"}
+                      {fromDate
+                        ? format(fromDate, "PPP")
+                        : d.whistoryPage.filters.pickADate}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -102,7 +111,9 @@ export default function WhistoryFilters() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">To Date</label>
+                <label className="text-sm font-medium">
+                  {d.whistoryPage.filters.toDate}
+                </label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -113,7 +124,9 @@ export default function WhistoryFilters() {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {toDate ? format(toDate, "PPP") : "Pick a date"}
+                      {toDate
+                        ? format(toDate, "PPP")
+                        : d.whistoryPage.filters.pickADate}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -136,7 +149,9 @@ export default function WhistoryFilters() {
             variant="secondary"
             className="flex items-center gap-1 px-3 py-1"
           >
-            <span className="text-xs">From: {format(fromDate, "PP")}</span>
+            <span className="text-xs">
+              {d.whistoryPage.filters.from} {format(fromDate, "PP")}
+            </span>
             <button
               onClick={clearFromDate}
               className="ml-1 hover:text-destructive"
@@ -152,7 +167,9 @@ export default function WhistoryFilters() {
             variant="secondary"
             className="flex items-center gap-1 px-3 py-1"
           >
-            <span className="text-xs">To: {format(toDate, "PP")}</span>
+            <span className="text-xs">
+              {d.whistoryPage.filters.to} {format(toDate, "PP")}
+            </span>
             <button
               onClick={clearToDate}
               className="ml-1 hover:text-destructive"

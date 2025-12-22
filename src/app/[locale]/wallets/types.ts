@@ -51,4 +51,12 @@ export type FetchWhistoryParams = {
   pageSize?: number;
 };
 
+export type FetchChartWhistoryParams = {
+  fromTs?: number;
+  toTs?: number;
+  page?: number;
+  pageSize?: number;
+  detailization?: number;
+};
+
 export type WalletFormValues = z.infer<typeof walletFormSchema>;

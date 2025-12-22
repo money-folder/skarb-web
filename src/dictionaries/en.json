@@ -30,6 +30,12 @@
     "title": "{{walletName}} History",
 
     "filters": {
+      "filtersButton": "Filters",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "pickADate": "Pick a date",
+      "from": "From:",
+      "to": "To:",
       "form": {
         "fromLabel": "From: ",
         "toLabel": "To: ",
@@ -222,7 +228,8 @@
     "whistory": {
       "tooltip": {
         "balanceLabel": "Balance"
-      }
+      },
+      "detailizationLabel": "Chart Detalization"
     },
 
     "whistoryChanges": {
