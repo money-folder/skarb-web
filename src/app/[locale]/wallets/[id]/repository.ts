@@ -66,7 +66,7 @@ export const findUserWallet = async (
       skip,
       take,
       orderBy: {
-        date: "asc",
+        date: "desc",
       },
     }),
     prisma.walletHistory.count({ where }),

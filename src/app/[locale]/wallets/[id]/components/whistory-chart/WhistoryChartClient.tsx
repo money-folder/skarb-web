@@ -4,10 +4,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 
 import { ClientChartWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
-import {
-  CHART_HEIGHT_DEFAULT,
-  CHART_WIDTH_DEFAULT,
-} from "@/shared/constants/charts";
 
 import WhistoryChart from "./WhistoryChart";
 
@@ -49,8 +45,6 @@ const WhistoryChartClient = ({
 
   return (
     <WhistoryChart
-      width={CHART_WIDTH_DEFAULT}
-      height={CHART_HEIGHT_DEFAULT}
       data={initialData}
       walletId={walletId}
       fromTs={fromTs}
