@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import { ExpensesContainerDictionary } from "./dictionary";
 import ExpensesCalendarContainer from "./ExpensesCalendarContainer";
 import ExpensesChartContainer from "./ExpensesChartContainer";
+import ExpensesEmptyState from "./ExpensesEmptyState";
 import ExpensesFilters from "./ExpensesFilters";
 import ExpensesTableContainer from "./ExpensesTableContainer";
 
@@ -55,57 +56,75 @@ export default async function ExpensesContainer({
         <ExpensesFilters types={types} />
       </div>
 
-      <div className="col-span-1 row-span-1 overflow-auto">
-        <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-          <ExpensesTableContainer
+      {expenses?.length ? (
+        <>
+          <div className="col-span-1 row-span-1 overflow-auto">
+            <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+              <ExpensesTableContainer
+                locale={locale}
+                currency={currency}
+                fromTs={fromTs}
+                toTs={toTs}
+                types={selectedTypes}
+                comment={comment}
+                expenses={expenses}
+                allTypes={types}
+              />
+            </Suspense>
+          </div>
+          <div className="col-span-1 row-span-1 overflow-y-auto">
+            <Tabs
+              defaultValue="overview"
+              className="relative flex h-full w-full flex-col"
+            >
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="overview">{d.overviewTab}</TabsTrigger>
+                <TabsTrigger value="calendar">{d.calendarTab}</TabsTrigger>
+              </TabsList>
+              <TabsContent
+                value="overview"
+                className="flex flex-col gap-4 pt-4"
+              >
+                <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+                  <ExpensesChartContainer
+                    currency={currency}
+                    fromTs={fromTs}
+                    toTs={toTs}
+                    types={selectedTypes}
+                    expenses={expenses}
+                  />
+                </Suspense>
+              </TabsContent>
+              <TabsContent
+                value="calendar"
+                className="flex flex-grow flex-col items-center justify-center overflow-y-auto"
+              >
+                <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+                  <ExpensesCalendarContainer
+                    currency={currency}
+                    fromTs={fromTs}
+                    toTs={toTs}
+                    types={selectedTypes}
+                    expenses={expenses}
+                    allTypes={types}
+                  />
+                </Suspense>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </>
+      ) : (
+        <div className="col-span-2 row-span-1 overflow-auto">
+          <ExpensesEmptyState
             locale={locale}
             currency={currency}
             fromTs={fromTs}
             toTs={toTs}
             types={selectedTypes}
             comment={comment}
-            expenses={expenses}
-            allTypes={types}
           />
-        </Suspense>
-      </div>
-      <div className="col-span-1 row-span-1 overflow-y-auto">
-        <Tabs
-          defaultValue="overview"
-          className="relative flex h-full w-full flex-col"
-        >
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="overview">{d.overviewTab}</TabsTrigger>
-            <TabsTrigger value="calendar">{d.calendarTab}</TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="flex flex-col gap-4 pt-4">
-            <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-              <ExpensesChartContainer
-                currency={currency}
-                fromTs={fromTs}
-                toTs={toTs}
-                types={selectedTypes}
-                expenses={expenses}
-              />
-            </Suspense>
-          </TabsContent>
-          <TabsContent
-            value="calendar"
-            className="flex flex-grow flex-col items-center justify-center overflow-y-auto"
-          >
-            <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
-              <ExpensesCalendarContainer
-                currency={currency}
-                fromTs={fromTs}
-                toTs={toTs}
-                types={selectedTypes}
-                expenses={expenses}
-                allTypes={types}
-              />
-            </Suspense>
-          </TabsContent>
-        </Tabs>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

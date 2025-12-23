@@ -40,17 +40,6 @@ export default async function ExpensesTableContainer({
       fromTs,
       toTs,
     });
-
-    return (
-      <ExpensesEmptyState
-        locale={locale}
-        currency={currency}
-        fromTs={fromTs}
-        toTs={toTs}
-        types={types}
-        comment={comment}
-      />
-    );
   }
 
   return (

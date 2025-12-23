@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 
@@ -25,7 +24,10 @@ export default async function ExpensesEmptyState({
   );
 
   const formatDate = (timestamp?: number) => {
-    if (!timestamp) return d.notSet;
+    if (!timestamp) {
+      return d.notSet;
+    }
+
     return new Date(timestamp).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
@@ -34,8 +36,8 @@ export default async function ExpensesEmptyState({
   };
 
   return (
-    <div className="flex min-h-[400px] items-center justify-center">
-      <Card className="w-full max-w-md space-y-6 p-8 text-center">
+    <div className="flex min-h-[400px] items-start justify-center">
+      <div className="w-full max-w-md space-y-6 px-2 text-center">
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">{d.title}</h2>
           <p className="text-muted-foreground">{d.description}</p>
@@ -94,7 +96,7 @@ export default async function ExpensesEmptyState({
             </div>
           )}
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

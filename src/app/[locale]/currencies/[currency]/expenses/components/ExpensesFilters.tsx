@@ -1,5 +1,6 @@
 "use client";
 
+import { format } from "date-fns";
 import { CalendarIcon, Filter, Tag, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -23,7 +24,6 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { format } from "date-fns";
 
 interface Props {
   types: string[];
@@ -64,17 +64,6 @@ export default function ExpensesFilters({ types }: Props) {
     setLocalComment(commentFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromTsParam, toTsParam, typesParam, commentParam]);
-
-  // Set fromTs to start of current month on first render if not already set
-  useEffect(() => {
-    if (!fromTsParam) {
-      const startOfMonth = new Date();
-      startOfMonth.setDate(1);
-      startOfMonth.setHours(0, 0, 0, 0);
-      updateQueryParams("fromTs", startOfMonth.getTime().toString());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const updateQueryParams = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
