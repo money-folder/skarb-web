@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import Overlay from "@/shared/components/overlay/Overlay";
 
 import { createExpense } from "../../actions";
 import { ExpenseFormValues } from "../../types";
@@ -39,27 +39,20 @@ const CreateExpenseModal = ({ close, currency, types, defaultDate }: Props) => {
   };
 
   return (
-    <div onClick={close}>
-      <Overlay>
-        <div
-          className="w-96 rounded-xl bg-white p-5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left text-lg font-bold">
-            {d.modals.createExpense.title}
-          </h3>
-          <div className="mt-5">
-            <ExpenseForm
-              methods={methods}
-              onSubmit={onSubmit}
-              onCancel={close}
-              types={types || []}
-              defaultDate={defaultDate}
-            />
-          </div>
-        </div>
-      </Overlay>
-    </div>
+    <>
+      <DialogHeader>
+        <DialogTitle>{d.modals.createExpense.title}</DialogTitle>
+      </DialogHeader>
+      <div className="mt-5">
+        <ExpenseForm
+          methods={methods}
+          onSubmit={onSubmit}
+          onCancel={close}
+          types={types || []}
+          defaultDate={defaultDate}
+        />
+      </div>
+    </>
   );
 };
 

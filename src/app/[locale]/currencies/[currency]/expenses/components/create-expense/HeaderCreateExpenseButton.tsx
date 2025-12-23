@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { useContext } from "react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 
-import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 import CreateExpenseModal from "./CreateExpenseModal";
-
-import PlusIcon from "@/assets/plus.svg";
 
 interface Props {
   currency: string;
@@ -24,26 +22,25 @@ export default function HeaderCreateExpenseButton({
   defaultDate,
   className = "",
 }: Props) {
-  const { addOverlay } = useContext(OverlayContext);
-
-  const onClick = () => {
-    addOverlay(({ removeSelf }) => (
-      <CreateExpenseModal
-        close={removeSelf}
-        currency={currency}
-        types={types}
-        defaultDate={defaultDate}
-      />
-    ));
-  };
+  const [open, setOpen] = useState(false);
 
   return (
-    <button
-      className={`inline-flex cursor-pointer items-center space-x-2 rounded-md font-medium transition-colors hover:bg-gray-300/60 ${className}`}
-      onClick={onClick}
-    >
-      <Image src={PlusIcon} width={16} height={16} alt="plus" />
-      {text ? <span>{text}</span> : null}
-    </button>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <button
+        className={`inline-flex cursor-pointer items-center space-x-2 rounded-md font-medium transition-colors hover:bg-gray-300/60 ${className}`}
+        onClick={() => setOpen(true)}
+      >
+        <Plus className="h-4 w-4" />
+        {text ? <span>{text}</span> : null}
+      </button>
+      <DialogContent>
+        <CreateExpenseModal
+          close={() => setOpen(false)}
+          currency={currency}
+          types={types}
+          defaultDate={defaultDate}
+        />
+      </DialogContent>
+    </Dialog>
   );
 }

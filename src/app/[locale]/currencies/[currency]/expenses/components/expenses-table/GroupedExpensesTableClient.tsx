@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Dictionary } from "@/dictionaries/locale";
 
 import { ClientExpenseDto } from "../../types";
+import { groupExpensesByDay } from "../../utils";
 import DayExpenseGroup from "./DayExpenseGroup";
 
 interface Props {
@@ -13,33 +14,6 @@ interface Props {
   currency: string;
   types: string[];
 }
-
-// Helper function to group expenses by day
-const groupExpensesByDay = (expenses: ClientExpenseDto[]) => {
-  const groupedExpenses: Record<string, ClientExpenseDto[]> = {};
-
-  expenses.forEach((expense) => {
-    const dateStr = expense.date.toLocaleDateString();
-    if (!groupedExpenses[dateStr]) {
-      groupedExpenses[dateStr] = [];
-    }
-    groupedExpenses[dateStr].push(expense);
-  });
-
-  // Sort dates in descending order (newest first)
-  return Object.entries(groupedExpenses)
-    .sort(([dateA], [dateB]) => {
-      return new Date(dateB).getTime() - new Date(dateA).getTime();
-    })
-    .map(([date, expenses]) => ({
-      date,
-      expenses,
-      totalAmount: expenses.reduce(
-        (sum, expense) => sum + expense.moneyAmount,
-        0,
-      ),
-    }));
-};
 
 export const GroupedExpensesTableClient = ({
   dictionary,
