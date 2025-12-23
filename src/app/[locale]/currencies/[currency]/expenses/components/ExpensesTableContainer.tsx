@@ -9,6 +9,7 @@ interface Props {
   currency: string;
   fromTs?: number;
   toTs?: number;
+  types?: string[];
 }
 
 export default async function ExpensesTableContainer({
@@ -16,11 +17,13 @@ export default async function ExpensesTableContainer({
   currency,
   fromTs,
   toTs,
+  types,
 }: Props) {
-  const [{ data: expenses }, { data: types }] = await Promise.all([
+  const [{ data: expenses }, { data: allTypes }] = await Promise.all([
     fetchExpenses(currency, {
       fromTs,
       toTs,
+      types,
     }),
     fetchTypes(currency),
   ]);
@@ -30,10 +33,10 @@ export default async function ExpensesTableContainer({
     "currencyPage.expensesContainer",
   )) as ExpensesContainerDictionary;
 
-  if (!expenses?.length || !types?.length) {
+  if (!expenses?.length || !allTypes?.length) {
     console.warn("Either expenses or types are empty", {
       expenses,
-      types,
+      types: allTypes,
       fromTs,
       toTs,
     });
@@ -44,7 +47,7 @@ export default async function ExpensesTableContainer({
     <ExpensesTable
       locale={locale}
       expenses={expenses}
-      types={types}
+      types={allTypes}
       currency={currency}
     />
   );

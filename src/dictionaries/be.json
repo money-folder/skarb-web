@@ -36,6 +36,8 @@
       "pickADate": "Абярыце дату",
       "from": "Ад:",
       "to": "Да:",
+      "types": "Тыпы",
+      "selectTypes": "Абярыце тыпы",
       "form": {
         "fromLabel": "Ад: ",
         "toLabel": "Да: ",

@@ -1,12 +1,20 @@
 "use client";
 
-import { CalendarIcon, Filter, X } from "lucide-react";
+import { CalendarIcon, Filter, Tag, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Popover,
   PopoverContent,
@@ -16,7 +24,11 @@ import { cn } from "@/lib/utils";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { format } from "date-fns";
 
-export default function ExpensesFilters() {
+interface Props {
+  types: string[];
+}
+
+export default function ExpensesFilters({ types }: Props) {
   const { d } = useContext(DictionaryContext);
   const router = useRouter();
   const pathname = usePathname();
@@ -26,9 +38,11 @@ export default function ExpensesFilters() {
 
   const fromTsParam = searchParams.get("fromTs");
   const toTsParam = searchParams.get("toTs");
+  const typesParam = searchParams.get("types");
 
   const fromDate = fromTsParam ? new Date(Number(fromTsParam)) : undefined;
   const toDate = toTsParam ? new Date(Number(toTsParam)) : undefined;
+  const selectedTypes = typesParam ? typesParam.split(",") : [];
 
   // Set fromTs to start of current month on first render if not already set
   useEffect(() => {
@@ -75,6 +89,22 @@ export default function ExpensesFilters() {
 
   const clearToDate = () => {
     updateQueryParams("toTs", null);
+  };
+
+  const toggleType = (type: string) => {
+    const newSelectedTypes = selectedTypes.includes(type)
+      ? selectedTypes.filter((t) => t !== type)
+      : [...selectedTypes, type];
+
+    if (newSelectedTypes.length === 0) {
+      updateQueryParams("types", null);
+    } else {
+      updateQueryParams("types", newSelectedTypes.join(","));
+    }
+  };
+
+  const clearTypes = () => {
+    updateQueryParams("types", null);
   };
 
   return (
@@ -148,6 +178,42 @@ export default function ExpensesFilters() {
                   </PopoverContent>
                 </Popover>
               </div>
+
+              {types.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium">
+                    {d.whistoryPage.filters.types}
+                  </label>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-[240px] justify-start text-left font-normal"
+                      >
+                        <Tag className="mr-2 h-4 w-4" />
+                        {selectedTypes.length > 0
+                          ? `${selectedTypes.length} selected`
+                          : d.whistoryPage.filters.selectTypes}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-[240px]">
+                      <DropdownMenuLabel>
+                        {d.whistoryPage.filters.selectTypes}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {types.map((type) => (
+                        <DropdownMenuCheckboxItem
+                          key={type}
+                          checked={selectedTypes.includes(type)}
+                          onCheckedChange={() => toggleType(type)}
+                        >
+                          {type}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              )}
             </div>
           </PopoverContent>
         </Popover>
@@ -181,6 +247,26 @@ export default function ExpensesFilters() {
             </span>
             <button
               onClick={clearToDate}
+              className="ml-1 hover:text-destructive"
+              type="button"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        )}
+
+        {selectedTypes.length > 0 && (
+          <Badge
+            variant="secondary"
+            className="flex items-center gap-1 px-3 py-1"
+          >
+            <span className="text-xs">
+              {d.whistoryPage.filters.types}
+              {": "}
+              {selectedTypes.length}
+            </span>
+            <button
+              onClick={clearTypes}
               className="ml-1 hover:text-destructive"
               type="button"
             >

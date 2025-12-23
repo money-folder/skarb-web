@@ -36,6 +36,8 @@
       "pickADate": "Pick a date",
       "from": "From:",
       "to": "To:",
+      "types": "Types",
+      "selectTypes": "Select types",
       "form": {
         "fromLabel": "From: ",
         "toLabel": "To: ",

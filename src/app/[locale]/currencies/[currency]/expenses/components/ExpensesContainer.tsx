@@ -17,6 +17,7 @@ interface Props {
   currency: string;
   fromTs?: number;
   toTs?: number;
+  types?: string[];
 }
 
 export default async function ExpensesContainer({
@@ -24,6 +25,7 @@ export default async function ExpensesContainer({
   currency,
   fromTs,
   toTs,
+  types: selectedTypes,
 }: Props) {
   const { data: types } = await fetchTypes(currency);
 
@@ -40,7 +42,7 @@ export default async function ExpensesContainer({
           currency={currency}
           types={types}
         />
-        <ExpensesFilters />
+        <ExpensesFilters types={types} />
       </div>
 
       <div className="col-span-1 row-span-1 overflow-auto">
@@ -50,6 +52,7 @@ export default async function ExpensesContainer({
             currency={currency}
             fromTs={fromTs}
             toTs={toTs}
+            types={selectedTypes}
           />
         </Suspense>
       </div>
@@ -68,6 +71,7 @@ export default async function ExpensesContainer({
                 currency={currency}
                 fromTs={fromTs}
                 toTs={toTs}
+                types={selectedTypes}
               />
             </Suspense>
           </TabsContent>
@@ -80,6 +84,7 @@ export default async function ExpensesContainer({
                 currency={currency}
                 fromTs={fromTs}
                 toTs={toTs}
+                types={selectedTypes}
               />
             </Suspense>
           </TabsContent>

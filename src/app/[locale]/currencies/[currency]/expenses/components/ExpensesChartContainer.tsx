@@ -11,17 +11,20 @@ interface Props {
   currency: string;
   fromTs?: number;
   toTs?: number;
+  types?: string[];
 }
 
 export default async function ExpensesChartContainer({
   currency,
   fromTs,
   toTs,
+  types,
 }: Props) {
   const [{ data: expenses }, { data: expensesSum }] = await Promise.all([
     fetchExpenses(currency, {
       fromTs,
       toTs,
+      types,
     }),
     fetchCurrencyWhistoryExpenses(currency, {
       fromTs,
