@@ -38,6 +38,7 @@
       "to": "To:",
       "types": "Types",
       "selectTypes": "Select types",
+      "applyFilters": "Apply Filters",
       "form": {
         "fromLabel": "From: ",
         "toLabel": "To: ",

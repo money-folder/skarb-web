@@ -38,6 +38,7 @@
       "to": "Да:",
       "types": "Тыпы",
       "selectTypes": "Абярыце тыпы",
+      "applyFilters": "Прымяніць фільтры",
       "form": {
         "fromLabel": "Ад: ",
         "toLabel": "Да: ",

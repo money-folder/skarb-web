@@ -44,6 +44,22 @@ export default function ExpensesFilters({ types }: Props) {
   const toDate = toTsParam ? new Date(Number(toTsParam)) : undefined;
   const selectedTypes = typesParam ? typesParam.split(",") : [];
 
+  // Local state for pending filter changes
+  const [localFromDate, setLocalFromDate] = useState<Date | undefined>(
+    fromDate,
+  );
+  const [localToDate, setLocalToDate] = useState<Date | undefined>(toDate);
+  const [localSelectedTypes, setLocalSelectedTypes] =
+    useState<string[]>(selectedTypes);
+
+  // Sync local state with URL params when they change
+  useEffect(() => {
+    setLocalFromDate(fromDate);
+    setLocalToDate(toDate);
+    setLocalSelectedTypes(selectedTypes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fromTsParam, toTsParam, typesParam]);
+
   // Set fromTs to start of current month on first render if not already set
   useEffect(() => {
     if (!fromTsParam) {
@@ -68,19 +84,11 @@ export default function ExpensesFilters({ types }: Props) {
   };
 
   const handleFromDateSelect = (date: Date | undefined) => {
-    if (date) {
-      updateQueryParams("fromTs", date.getTime().toString());
-    } else {
-      updateQueryParams("fromTs", null);
-    }
+    setLocalFromDate(date);
   };
 
   const handleToDateSelect = (date: Date | undefined) => {
-    if (date) {
-      updateQueryParams("toTs", date.getTime().toString());
-    } else {
-      updateQueryParams("toTs", null);
-    }
+    setLocalToDate(date);
   };
 
   const clearFromDate = () => {
@@ -92,15 +100,36 @@ export default function ExpensesFilters({ types }: Props) {
   };
 
   const toggleType = (type: string) => {
-    const newSelectedTypes = selectedTypes.includes(type)
-      ? selectedTypes.filter((t) => t !== type)
-      : [...selectedTypes, type];
+    const newSelectedTypes = localSelectedTypes.includes(type)
+      ? localSelectedTypes.filter((t) => t !== type)
+      : [...localSelectedTypes, type];
 
-    if (newSelectedTypes.length === 0) {
-      updateQueryParams("types", null);
+    setLocalSelectedTypes(newSelectedTypes);
+  };
+
+  const applyFilters = () => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (localFromDate) {
+      params.set("fromTs", localFromDate.getTime().toString());
     } else {
-      updateQueryParams("types", newSelectedTypes.join(","));
+      params.delete("fromTs");
     }
+
+    if (localToDate) {
+      params.set("toTs", localToDate.getTime().toString());
+    } else {
+      params.delete("toTs");
+    }
+
+    if (localSelectedTypes.length === 0) {
+      params.delete("types");
+    } else {
+      params.set("types", localSelectedTypes.join(","));
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+    setOpen(false);
   };
 
   const clearTypes = () => {
@@ -129,19 +158,19 @@ export default function ExpensesFilters({ types }: Props) {
                       variant="outline"
                       className={cn(
                         "w-[240px] justify-start text-left font-normal",
-                        !fromDate && "text-muted-foreground",
+                        !localFromDate && "text-muted-foreground",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {fromDate
-                        ? format(fromDate, "PPP")
+                      {localFromDate
+                        ? format(localFromDate, "PPP")
                         : d.whistoryPage.filters.pickADate}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={fromDate}
+                      selected={localFromDate}
                       onSelect={handleFromDateSelect}
                       initialFocus
                     />
@@ -159,19 +188,19 @@ export default function ExpensesFilters({ types }: Props) {
                       variant="outline"
                       className={cn(
                         "w-[240px] justify-start text-left font-normal",
-                        !toDate && "text-muted-foreground",
+                        !localToDate && "text-muted-foreground",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {toDate
-                        ? format(toDate, "PPP")
+                      {localToDate
+                        ? format(localToDate, "PPP")
                         : d.whistoryPage.filters.pickADate}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={toDate}
+                      selected={localToDate}
                       onSelect={handleToDateSelect}
                       initialFocus
                     />
@@ -191,8 +220,8 @@ export default function ExpensesFilters({ types }: Props) {
                         className="w-[240px] justify-start text-left font-normal"
                       >
                         <Tag className="mr-2 h-4 w-4" />
-                        {selectedTypes.length > 0
-                          ? `${selectedTypes.length} selected`
+                        {localSelectedTypes.length > 0
+                          ? `${localSelectedTypes.length} selected`
                           : d.whistoryPage.filters.selectTypes}
                       </Button>
                     </DropdownMenuTrigger>
@@ -204,8 +233,9 @@ export default function ExpensesFilters({ types }: Props) {
                       {types.map((type) => (
                         <DropdownMenuCheckboxItem
                           key={type}
-                          checked={selectedTypes.includes(type)}
+                          checked={localSelectedTypes.includes(type)}
                           onCheckedChange={() => toggleType(type)}
+                          onSelect={(e) => e.preventDefault()}
                         >
                           {type}
                         </DropdownMenuCheckboxItem>
@@ -214,6 +244,10 @@ export default function ExpensesFilters({ types }: Props) {
                   </DropdownMenu>
                 </div>
               )}
+
+              <Button onClick={applyFilters} className="w-full">
+                {d.whistoryPage.filters.applyFilters}
+              </Button>
             </div>
           </PopoverContent>
         </Popover>
