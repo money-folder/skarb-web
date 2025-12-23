@@ -3,7 +3,6 @@ import { Locale } from "@/locale";
 
 import { ClientExpenseDto } from "../types";
 import { GroupedExpensesTableClient } from "./expenses-table/GroupedExpensesTableClient";
-import Loading from "./expenses-table/Loading";
 
 interface Props {
   locale: Locale;
@@ -14,7 +13,7 @@ interface Props {
 
 export default async function ExpensesTable({
   locale,
-  expenses,
+  expenses = [],
   currency,
   types = [],
 }: Props) {
@@ -22,16 +21,12 @@ export default async function ExpensesTable({
 
   return (
     <div className="h-full w-full">
-      {expenses && expenses.length > 0 ? (
-        <GroupedExpensesTableClient
-          dictionary={d}
-          expenses={expenses}
-          currency={currency}
-          types={types}
-        />
-      ) : (
-        <Loading d={d} />
-      )}
+      <GroupedExpensesTableClient
+        dictionary={d}
+        expenses={expenses}
+        currency={currency}
+        types={types}
+      />
     </div>
   );
 }

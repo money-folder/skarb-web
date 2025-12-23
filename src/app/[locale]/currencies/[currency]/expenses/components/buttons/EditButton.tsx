@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useContext } from "react";
+import { useState } from "react";
 
 import EditIcon from "@/assets/edit.svg";
-import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 import EditExpenseModal from "../../components/edit-expense/EditExpenseModal";
 import { ClientExpenseDto } from "../../types";
@@ -16,26 +17,28 @@ interface EditButtonProps {
 }
 
 const EditButton = ({ expense, currency, types }: EditButtonProps) => {
-  const { addOverlay } = useContext(OverlayContext);
-
-  const onClick = () => {
-    addOverlay(({ removeSelf }) => (
-      <EditExpenseModal
-        close={removeSelf}
-        expense={expense}
-        currency={currency}
-        types={types}
-      />
-    ));
-  };
+  const [open, setOpen] = useState(false);
 
   return (
-    <button
-      className="mr-3 h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
-      onClick={onClick}
-    >
-      <Image src={EditIcon} alt="edit" />
-    </button>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="mr-3 h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
+        onClick={() => setOpen(true)}
+      >
+        <Image src={EditIcon} alt="edit" />
+      </Button>
+
+      <DialogContent>
+        <EditExpenseModal
+          close={() => setOpen(false)}
+          expense={expense}
+          currency={currency}
+          types={types}
+        />
+      </DialogContent>
+    </Dialog>
   );
 };
 
