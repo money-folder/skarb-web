@@ -82,7 +82,7 @@ export default function ExpensesFilters() {
       <div className="flex items-center gap-2">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline">
+            <Button size="sm" variant="outline">
               <Filter className="mr-2 mt-1 h-4 w-4" />
               {d.whistoryPage.filters.filtersButton}
             </Button>

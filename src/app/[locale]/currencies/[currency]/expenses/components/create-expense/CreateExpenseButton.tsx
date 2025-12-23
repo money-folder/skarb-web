@@ -30,7 +30,7 @@ export default function CreateExpenseButton({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button variant="outline" onClick={() => setOpen(true)} asChild>
+      <Button variant="outline" size="sm" onClick={() => setOpen(true)} asChild>
         <div>
           <Plus className="h-4 w-4" />
           <span>{text}</span>
