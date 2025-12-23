@@ -4,7 +4,7 @@ import {
   PIE_CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
-import { fetchExpenses } from "../actions";
+import type { Expense } from "../actions";
 import ExpensesChart from "./expenses-chart/ExpensesChart";
 
 interface Props {
@@ -12,25 +12,19 @@ interface Props {
   fromTs?: number;
   toTs?: number;
   types?: string[];
+  expenses: Expense[];
 }
 
 export default async function ExpensesChartContainer({
   currency,
   fromTs,
   toTs,
-  types,
+  expenses,
 }: Props) {
-  const [{ data: expenses }, { data: expensesSum }] = await Promise.all([
-    fetchExpenses(currency, {
-      fromTs,
-      toTs,
-      types,
-    }),
-    fetchCurrencyWhistoryExpenses(currency, {
-      fromTs,
-      toTs,
-    }),
-  ]);
+  const { data: expensesSum } = await fetchCurrencyWhistoryExpenses(currency, {
+    fromTs,
+    toTs,
+  });
 
   return (
     <WithMounted>

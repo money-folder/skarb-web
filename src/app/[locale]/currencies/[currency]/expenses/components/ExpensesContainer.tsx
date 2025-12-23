@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
-import { fetchTypes } from "../actions";
+import { fetchExpenses, fetchTypes } from "../actions";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -29,7 +29,15 @@ export default async function ExpensesContainer({
   types: selectedTypes,
   comment,
 }: Props) {
-  const { data: types } = await fetchTypes(currency);
+  const [{ data: types }, { data: expenses }] = await Promise.all([
+    fetchTypes(currency),
+    fetchExpenses(currency, {
+      fromTs,
+      toTs,
+      types: selectedTypes,
+      comment,
+    }),
+  ]);
 
   const d = (await getDictionary(
     locale,
@@ -56,6 +64,8 @@ export default async function ExpensesContainer({
             toTs={toTs}
             types={selectedTypes}
             comment={comment}
+            expenses={expenses}
+            allTypes={types}
           />
         </Suspense>
       </div>
@@ -75,6 +85,7 @@ export default async function ExpensesContainer({
                 fromTs={fromTs}
                 toTs={toTs}
                 types={selectedTypes}
+                expenses={expenses}
               />
             </Suspense>
           </TabsContent>
@@ -88,6 +99,8 @@ export default async function ExpensesContainer({
                 fromTs={fromTs}
                 toTs={toTs}
                 types={selectedTypes}
+                expenses={expenses}
+                allTypes={types}
               />
             </Suspense>
           </TabsContent>

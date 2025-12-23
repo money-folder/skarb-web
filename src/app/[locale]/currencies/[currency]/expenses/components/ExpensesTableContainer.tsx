@@ -1,7 +1,5 @@
-import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
-import { fetchExpenses, fetchTypes } from "../actions";
-import { ExpensesContainerDictionary } from "./dictionary";
+import type { Expense, ExpenseType } from "../actions";
 import ExpensesEmptyState from "./ExpensesEmptyState";
 import ExpensesTable from "./ExpensesTable";
 
@@ -12,6 +10,8 @@ interface Props {
   toTs?: number;
   types?: string[];
   comment?: string;
+  expenses: Expense[];
+  allTypes: ExpenseType[];
 }
 
 export default async function ExpensesTableContainer({
@@ -21,22 +21,9 @@ export default async function ExpensesTableContainer({
   toTs,
   types,
   comment,
+  expenses,
+  allTypes,
 }: Props) {
-  const [{ data: expenses }, { data: allTypes }] = await Promise.all([
-    fetchExpenses(currency, {
-      fromTs,
-      toTs,
-      types,
-      comment,
-    }),
-    fetchTypes(currency),
-  ]);
-
-  const d = (await getDictionary(
-    locale,
-    "currencyPage.expensesContainer",
-  )) as ExpensesContainerDictionary;
-
   if (!types?.length) {
     console.warn("Types are empty", {
       expenses,
