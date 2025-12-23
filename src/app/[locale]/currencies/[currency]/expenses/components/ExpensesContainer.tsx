@@ -18,6 +18,7 @@ interface Props {
   fromTs?: number;
   toTs?: number;
   types?: string[];
+  comment?: string;
 }
 
 export default async function ExpensesContainer({
@@ -26,6 +27,7 @@ export default async function ExpensesContainer({
   fromTs,
   toTs,
   types: selectedTypes,
+  comment,
 }: Props) {
   const { data: types } = await fetchTypes(currency);
 
@@ -53,6 +55,7 @@ export default async function ExpensesContainer({
             fromTs={fromTs}
             toTs={toTs}
             types={selectedTypes}
+            comment={comment}
           />
         </Suspense>
       </div>

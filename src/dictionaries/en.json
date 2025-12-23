@@ -38,6 +38,8 @@
       "to": "To:",
       "types": "Types",
       "selectTypes": "Select types",
+      "comment": "Comment",
+      "commentPlaceholder": "Search in comments...",
       "applyFilters": "Apply Filters",
       "form": {
         "fromLabel": "From: ",

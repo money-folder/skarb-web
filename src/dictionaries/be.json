@@ -38,6 +38,8 @@
       "to": "Да:",
       "types": "Тыпы",
       "selectTypes": "Абярыце тыпы",
+      "comment": "Каментар",
+      "commentPlaceholder": "Пошук у каментарах...",
       "applyFilters": "Прымяніць фільтры",
       "form": {
         "fromLabel": "Ад: ",

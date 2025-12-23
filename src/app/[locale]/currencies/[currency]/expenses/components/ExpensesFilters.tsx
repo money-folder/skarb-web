@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -39,10 +40,12 @@ export default function ExpensesFilters({ types }: Props) {
   const fromTsParam = searchParams.get("fromTs");
   const toTsParam = searchParams.get("toTs");
   const typesParam = searchParams.get("types");
+  const commentParam = searchParams.get("comment");
 
   const fromDate = fromTsParam ? new Date(Number(fromTsParam)) : undefined;
   const toDate = toTsParam ? new Date(Number(toTsParam)) : undefined;
   const selectedTypes = typesParam ? typesParam.split(",") : [];
+  const commentFilter = commentParam || "";
 
   // Local state for pending filter changes
   const [localFromDate, setLocalFromDate] = useState<Date | undefined>(
@@ -51,14 +54,16 @@ export default function ExpensesFilters({ types }: Props) {
   const [localToDate, setLocalToDate] = useState<Date | undefined>(toDate);
   const [localSelectedTypes, setLocalSelectedTypes] =
     useState<string[]>(selectedTypes);
+  const [localComment, setLocalComment] = useState<string>(commentFilter);
 
   // Sync local state with URL params when they change
   useEffect(() => {
     setLocalFromDate(fromDate);
     setLocalToDate(toDate);
     setLocalSelectedTypes(selectedTypes);
+    setLocalComment(commentFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fromTsParam, toTsParam, typesParam]);
+  }, [fromTsParam, toTsParam, typesParam, commentParam]);
 
   // Set fromTs to start of current month on first render if not already set
   useEffect(() => {
@@ -128,12 +133,22 @@ export default function ExpensesFilters({ types }: Props) {
       params.set("types", localSelectedTypes.join(","));
     }
 
+    if (localComment.trim()) {
+      params.set("comment", localComment.trim());
+    } else {
+      params.delete("comment");
+    }
+
     router.push(`${pathname}?${params.toString()}`);
     setOpen(false);
   };
 
   const clearTypes = () => {
     updateQueryParams("types", null);
+  };
+
+  const clearComment = () => {
+    updateQueryParams("comment", null);
   };
 
   return (
@@ -245,6 +260,22 @@ export default function ExpensesFilters({ types }: Props) {
                 </div>
               )}
 
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">
+                  {d.whistoryPage.filters.comment || "Comment"}
+                </label>
+                <Input
+                  type="text"
+                  placeholder={
+                    d.whistoryPage.filters.commentPlaceholder ||
+                    "Search in comments..."
+                  }
+                  value={localComment}
+                  onChange={(e) => setLocalComment(e.target.value)}
+                  className="w-[240px]"
+                />
+              </div>
+
               <Button onClick={applyFilters} className="w-full">
                 {d.whistoryPage.filters.applyFilters}
               </Button>
@@ -301,6 +332,24 @@ export default function ExpensesFilters({ types }: Props) {
             </span>
             <button
               onClick={clearTypes}
+              className="ml-1 hover:text-destructive"
+              type="button"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        )}
+
+        {commentFilter && (
+          <Badge
+            variant="secondary"
+            className="flex items-center gap-1 px-3 py-1"
+          >
+            <span className="text-xs">
+              {`${d.whistoryPage.filters.comment}: ${commentFilter}`}
+            </span>
+            <button
+              onClick={clearComment}
               className="ml-1 hover:text-destructive"
               type="button"
             >

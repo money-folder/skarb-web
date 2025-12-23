@@ -53,4 +53,5 @@ export type FetchExpensesParams = {
   fromTs?: number;
   toTs?: number;
   types?: string[];
+  comment?: string;
 };

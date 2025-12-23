@@ -7,7 +7,12 @@ interface Props {
     locale: Locale;
     currency: string;
   }>;
-  searchParams: Promise<{ fromTs?: string; toTs?: string; types?: string }>;
+  searchParams: Promise<{
+    fromTs?: string;
+    toTs?: string;
+    types?: string;
+    comment?: string;
+  }>;
 }
 
 export default async function ExpensesPage(props: Props) {
@@ -25,6 +30,7 @@ export default async function ExpensesPage(props: Props) {
           fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
           toTs={searchParams.toTs ? +searchParams.toTs : undefined}
           types={searchParams.types ? searchParams.types.split(",") : undefined}
+          comment={searchParams.comment}
         />
       </div>
     </div>

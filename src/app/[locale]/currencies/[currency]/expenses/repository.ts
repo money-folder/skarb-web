@@ -35,6 +35,12 @@ export const findByUserCurrency = async (
               in: params.types,
             }
           : undefined,
+      comment: params?.comment
+        ? {
+            contains: params.comment,
+            mode: "insensitive",
+          }
+        : undefined,
     },
     orderBy: {
       date: "desc",
