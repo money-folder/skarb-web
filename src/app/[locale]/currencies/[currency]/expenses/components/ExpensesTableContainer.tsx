@@ -2,6 +2,7 @@ import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import { fetchExpenses, fetchTypes } from "../actions";
 import { ExpensesContainerDictionary } from "./dictionary";
+import ExpensesEmptyState from "./ExpensesEmptyState";
 import ExpensesTable from "./ExpensesTable";
 
 interface Props {
@@ -36,14 +37,33 @@ export default async function ExpensesTableContainer({
     "currencyPage.expensesContainer",
   )) as ExpensesContainerDictionary;
 
-  if (!expenses?.length || !allTypes?.length) {
-    console.warn("Either expenses or types are empty", {
+  if (!types?.length) {
+    console.warn("Types are empty", {
       expenses,
       types: allTypes,
       fromTs,
       toTs,
     });
-    return <p>{d.noExpenses}</p>;
+  }
+
+  if (!expenses?.length) {
+    console.warn("Expenses are empty", {
+      expenses,
+      types: allTypes,
+      fromTs,
+      toTs,
+    });
+
+    return (
+      <ExpensesEmptyState
+        locale={locale}
+        currency={currency}
+        fromTs={fromTs}
+        toTs={toTs}
+        types={types}
+        comment={comment}
+      />
+    );
   }
 
   return (
