@@ -1,20 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
-import { WithMounted } from "@/shared/components/WithMounted";
-import {
-  PIE_CHART_HEIGHT_DEFAULT,
-  PIE_CHART_WIDTH_DEFAULT,
-} from "@/shared/constants/charts";
-import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
-import { fetchExpenses, fetchTypes } from "../actions";
+import { fetchTypes } from "../actions";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
-import ExpensesCalendar from "./expenses-calendar/ExpensesCalendar";
-import ExpensesChart from "./expenses-chart/ExpensesChart";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 import { ExpensesContainerDictionary } from "./dictionary";
+import ExpensesCalendarContainer from "./ExpensesCalendarContainer";
+import ExpensesChartContainer from "./ExpensesChartContainer";
 import ExpensesFilters from "./ExpensesFilters";
 import ExpensesTableContainer from "./ExpensesTableContainer";
 
@@ -31,15 +25,7 @@ export default async function ExpensesContainer({
   fromTs,
   toTs,
 }: Props) {
-  const { data: expenses } = await fetchExpenses(currency, {
-    fromTs,
-    toTs,
-  });
   const { data: types } = await fetchTypes(currency);
-  const { data: expensesSum } = await fetchCurrencyWhistoryExpenses(currency, {
-    fromTs,
-    toTs,
-  });
 
   const d = (await getDictionary(
     locale,
@@ -77,36 +63,25 @@ export default async function ExpensesContainer({
             <TabsTrigger value="calendar">{d.calendarTab}</TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="flex flex-col gap-4 pt-4">
-            <div>
-              <WithMounted>
-                <ExpensesChart
-                  width={PIE_CHART_WIDTH_DEFAULT}
-                  height={PIE_CHART_HEIGHT_DEFAULT}
-                  expenses={expenses}
-                  expensesSum={expensesSum}
-                  currency={currency}
-                  totalExpenses={Math.abs(expensesSum).toFixed(2)}
-                  trackedExpenses={expenses
-                    .reduce(
-                      (sum, expense) => sum + Math.abs(expense.moneyAmount),
-                      0,
-                    )
-                    .toFixed(2)}
-                />
-              </WithMounted>
-            </div>
+            <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+              <ExpensesChartContainer
+                currency={currency}
+                fromTs={fromTs}
+                toTs={toTs}
+              />
+            </Suspense>
           </TabsContent>
           <TabsContent
             value="calendar"
             className="flex flex-grow flex-col items-center justify-center overflow-y-auto"
           >
-            <WithMounted>
-              <ExpensesCalendar
-                expenses={expenses}
+            <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+              <ExpensesCalendarContainer
                 currency={currency}
-                types={types}
+                fromTs={fromTs}
+                toTs={toTs}
               />
-            </WithMounted>
+            </Suspense>
           </TabsContent>
         </Tabs>
       </div>
