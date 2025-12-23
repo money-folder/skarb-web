@@ -8,12 +8,14 @@ import {
 } from "@/shared/constants/charts";
 import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
 import { fetchExpenses, fetchTypes } from "../actions";
-import ExpensesTable from "./ExpensesTable";
 import CreateExpenseButton from "./create-expense/CreateExpenseButton";
 import ExpensesCalendar from "./expenses-calendar/ExpensesCalendar";
 import ExpensesChart from "./expenses-chart/ExpensesChart";
 
+import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
 import { ExpensesContainerDictionary } from "./dictionary";
+import ExpensesTableContainer from "./ExpensesTableContainer";
 
 interface Props {
   locale: Locale;
@@ -43,16 +45,6 @@ export default async function ExpensesContainer({
     "currencyPage.expensesContainer",
   )) as ExpensesContainerDictionary;
 
-  if (!expenses?.length || !types?.length || !expensesSum) {
-    console.warn("Either expenses, or types, or expensesSum are empty", {
-      expenses,
-      types,
-      expensesSum,
-      fromTs,
-      toTs,
-    });
-  }
-
   return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-5">
       <div className="col-span-2 row-span-1 flex gap-5">
@@ -64,16 +56,14 @@ export default async function ExpensesContainer({
       </div>
 
       <div className="col-span-1 row-span-1 overflow-auto">
-        {expenses.length ? (
-          <ExpensesTable
+        <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+          <ExpensesTableContainer
             locale={locale}
-            expenses={expenses}
-            types={types}
             currency={currency}
+            fromTs={fromTs}
+            toTs={toTs}
           />
-        ) : (
-          <p>{d.noExpenses}</p>
-        )}
+        </Suspense>
       </div>
       <div className="col-span-1 row-span-1 overflow-y-auto">
         <Tabs
