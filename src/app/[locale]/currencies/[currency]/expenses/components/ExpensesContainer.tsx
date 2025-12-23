@@ -15,6 +15,7 @@ import ExpensesChart from "./expenses-chart/ExpensesChart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 import { ExpensesContainerDictionary } from "./dictionary";
+import ExpensesFilters from "./ExpensesFilters";
 import ExpensesTableContainer from "./ExpensesTableContainer";
 
 interface Props {
@@ -53,6 +54,7 @@ export default async function ExpensesContainer({
           currency={currency}
           types={types}
         />
+        <ExpensesFilters />
       </div>
 
       <div className="col-span-1 row-span-1 overflow-auto">

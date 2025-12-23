@@ -7,7 +7,7 @@ interface Props {
     locale: Locale;
     currency: string;
   }>;
-  searchParams: Promise<{ dateFrom?: string; dateTo?: string }>;
+  searchParams: Promise<{ fromTs?: string; toTs?: string }>;
 }
 
 export default async function ExpensesPage(props: Props) {
@@ -22,8 +22,8 @@ export default async function ExpensesPage(props: Props) {
         <ExpensesContainer
           locale={locale}
           currency={currency}
-          fromTs={searchParams.dateFrom ? +searchParams.dateFrom : undefined}
-          toTs={searchParams.dateTo ? +searchParams.dateTo : undefined}
+          fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
+          toTs={searchParams.toTs ? +searchParams.toTs : undefined}
         />
       </div>
     </div>
