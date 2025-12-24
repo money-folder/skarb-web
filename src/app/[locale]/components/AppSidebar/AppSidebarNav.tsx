@@ -29,6 +29,7 @@ interface AppSidebarNavProps {
     currenciesTitle: string;
     history: string;
     expenses: string;
+    earnings: string;
   };
   CreateWalletButton: React.ComponentType;
   CreateWhistoryButton: React.ComponentType<{
@@ -163,6 +164,26 @@ export const AppSidebarNav = ({
                         >
                           <span className="truncate">
                             {dictionary.expenses}
+                          </span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton
+                        asChild
+                        size="sm"
+                        isActive={isActive(
+                          getHref(`/currencies/${currency}/earnings`),
+                          true,
+                        )}
+                      >
+                        <Link
+                          href={getHref(
+                            `/currencies/${currency}/earnings?fromTs=${getMonthStartTs(new Date())}`,
+                          )}
+                        >
+                          <span className="truncate">
+                            {dictionary.earnings}
                           </span>
                         </Link>
                       </SidebarMenuButton>

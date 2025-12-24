@@ -120,7 +120,8 @@
 
     "navbar": {
       "history": "History",
-      "expenses": "Expenses"
+      "expenses": "Expenses",
+      "earnings": "Earnings"
     },
 
     "expensesTable": {

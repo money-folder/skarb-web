@@ -60,6 +60,7 @@ export const AppSidebar = async ({ locale }: AppSidebarProps) => {
             currenciesTitle: dNav.currenciesTitle,
             history: dCurrency.navbar.history,
             expenses: dCurrency.navbar.expenses,
+            earnings: dCurrency.navbar.earnings,
           }}
           CreateWalletButton={CreateWalletButton}
           CreateWhistoryButton={CreateWhistoryButton}
