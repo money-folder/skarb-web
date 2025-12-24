@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Dictionary } from "@/dictionaries/locale";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { ClientEarningDto } from "../../types";
@@ -24,6 +25,7 @@ interface Props {
   earnings: ClientEarningDto[];
   currency: string;
   total: number;
+  dictionary: Dictionary["currencyPage"]["earningsTable"];
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -32,6 +34,7 @@ export const GroupedEarningsTableClient = ({
   earnings,
   currency,
   total,
+  dictionary,
 }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -91,10 +94,10 @@ export const GroupedEarningsTableClient = ({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-left">Type</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-center">Date</TableHead>
-              <TableHead className="text-left">Comment</TableHead>
+              <TableHead className="text-left">{dictionary.type}</TableHead>
+              <TableHead className="text-right">{dictionary.amount}</TableHead>
+              <TableHead className="text-center">{dictionary.date}</TableHead>
+              <TableHead className="text-left">{dictionary.comment}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -155,7 +158,7 @@ export const GroupedEarningsTableClient = ({
                   <div key={page} className="flex items-center">
                     {showEllipsis && (
                       <PaginationItem>
-                        <span className="px-2">...</span>
+                        <span className="px-2">{"..."}</span>
                       </PaginationItem>
                     )}
                     <PaginationItem>

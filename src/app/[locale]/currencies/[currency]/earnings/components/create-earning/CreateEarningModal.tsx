@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dictionary } from "@/dictionaries/locale";
 
 import { createEarning } from "../../actions";
 import { EarningFormValues } from "../../types";
@@ -13,9 +14,19 @@ interface Props {
   currency: string;
   types?: string[] | null;
   defaultDate?: Date;
+  dictionary: {
+    title: string;
+    form: Dictionary["modals"]["earningForm"];
+  };
 }
 
-const CreateEarningModal = ({ close, currency, types, defaultDate }: Props) => {
+const CreateEarningModal = ({
+  close,
+  currency,
+  types,
+  defaultDate,
+  dictionary,
+}: Props) => {
   const methods = useForm({ resolver: zodResolver(earningFormSchema) });
 
   const onSubmit = async ({
@@ -37,7 +48,7 @@ const CreateEarningModal = ({ close, currency, types, defaultDate }: Props) => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Create Earning</DialogTitle>
+        <DialogTitle>{dictionary.title}</DialogTitle>
       </DialogHeader>
       <div className="mt-5">
         <EarningForm
@@ -46,6 +57,7 @@ const CreateEarningModal = ({ close, currency, types, defaultDate }: Props) => {
           onCancel={close}
           types={types || []}
           defaultDate={defaultDate}
+          dictionary={dictionary.form}
         />
       </div>
     </>

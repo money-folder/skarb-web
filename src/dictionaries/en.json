@@ -132,6 +132,13 @@
       "actions": "Actions"
     },
 
+    "earningsTable": {
+      "type": "Type",
+      "amount": "Amount",
+      "date": "Date",
+      "comment": "Comment"
+    },
+
     "expensesContainer": {
       "createButtonLabel": "Create",
       "noExpenses": "No expenses",
@@ -178,6 +185,7 @@
     },
 
     "earningsContainer": {
+      "createButtonLabel": "Create",
       "earnings": {
         "emptyState": {
           "title": "No data",
@@ -189,6 +197,21 @@
           "comment": "Comment:",
           "notSet": "Not set"
         }
+      },
+      "earningsFilters": {
+        "filtersButton": "Filters",
+        "fromDate": "From Date",
+        "toDate": "To Date",
+        "pickADate": "Pick a date",
+        "types": "Types",
+        "selectTypes": "Select types",
+        "comment": "Comment",
+        "commentPlaceholder": "Search in comments...",
+        "applyFilters": "Apply Filters",
+        "from": "From",
+        "to": "To",
+        "typesLabel": "Types:",
+        "commentLabel": "Comment:"
       }
     }
   },
@@ -259,6 +282,19 @@
       "commentLabel": "Comment",
       "cancelLabel": "Cancel",
       "submitLabel": "Submit"
+    },
+
+    "createEarning": {
+      "title": "Create Earning"
+    },
+
+    "earningForm": {
+      "dateLabel": "Date",
+      "amountLabel": "Amount",
+      "typeLabel": "Type",
+      "commentLabel": "Comment",
+      "cancelLabel": "Cancel",
+      "submitLabel": "Create"
     }
   },
 

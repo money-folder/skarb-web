@@ -1,3 +1,4 @@
+import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 import { fetchEarnings, fetchTypes } from "../actions";
 import CreateEarningButton from "./create-earning/CreateEarningButton";
@@ -26,7 +27,7 @@ export default async function EarningsContainer({
   page,
   pageSize,
 }: Props) {
-  const [{ data: types }, earningsResult] = await Promise.all([
+  const [{ data: types }, earningsResult, d] = await Promise.all([
     fetchTypes(currency),
     fetchEarnings(currency, {
       fromTs,
@@ -36,6 +37,7 @@ export default async function EarningsContainer({
       page,
       pageSize,
     }),
+    getDictionary(locale, "currencyPage.earningsContainer"),
   ]);
 
   const { data: earnings, total } = earningsResult;
@@ -43,8 +45,16 @@ export default async function EarningsContainer({
   return (
     <div className="flex h-full w-full flex-col gap-5">
       <div className="flex gap-5">
-        <CreateEarningButton text="Create" currency={currency} types={types} />
-        <EarningsFilters types={types} />
+        <CreateEarningButton
+          text={d.createButtonLabel}
+          currency={currency}
+          types={types}
+          dictionary={{
+            title: (await getDictionary(locale, "modals.createEarning")).title,
+            form: await getDictionary(locale, "modals.earningForm"),
+          }}
+        />
+        <EarningsFilters types={types} dictionary={d.earningsFilters} />
       </div>
       <div className="flex-1 overflow-auto">
         {earnings?.length ? (

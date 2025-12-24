@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Dictionary } from "@/dictionaries/locale";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getLocalISOString } from "@/shared/utils/utils";
 
@@ -16,6 +17,7 @@ interface Props {
   onCancel: () => void;
   types: string[];
   defaultDate?: Date;
+  dictionary: Dictionary["modals"]["earningForm"];
 }
 
 const EarningForm = ({
@@ -24,6 +26,7 @@ const EarningForm = ({
   onCancel,
   types,
   defaultDate,
+  dictionary,
 }: Props) => {
   const { d } = useContext(DictionaryContext);
 
@@ -31,7 +34,7 @@ const EarningForm = ({
     <form onSubmit={methods.handleSubmit(onSubmit)}>
       <div className="space-y-5">
         <div className="flex w-full flex-col items-start gap-3">
-          <Label htmlFor="earningDate">Date</Label>
+          <Label htmlFor="earningDate">{dictionary.dateLabel}</Label>
           <Input
             {...methods.register("date", { required: true, valueAsDate: true })}
             id="earningDate"
@@ -41,7 +44,7 @@ const EarningForm = ({
           />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
-          <Label htmlFor="earningAmount">Amount</Label>
+          <Label htmlFor="earningAmount">{dictionary.amountLabel}</Label>
           <Input
             {...methods.register("moneyAmount", {
               required: true,
@@ -55,7 +58,7 @@ const EarningForm = ({
           />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
-          <Label htmlFor="earningType">Type</Label>
+          <Label htmlFor="earningType">{dictionary.typeLabel}</Label>
           <Input
             {...methods.register("type", { required: true })}
             id="earningType"
@@ -76,7 +79,7 @@ const EarningForm = ({
           </datalist>
         </div>
         <div className="flex w-full flex-col items-start gap-3">
-          <Label htmlFor="earningComment">Comment</Label>
+          <Label htmlFor="earningComment">{dictionary.commentLabel}</Label>
           <Textarea
             {...methods.register("comment", { required: false })}
             id="earningComment"
@@ -87,9 +90,9 @@ const EarningForm = ({
       </div>
       <div className="mt-10 flex justify-end gap-2">
         <Button variant="outline" onClick={onCancel}>
-          Cancel
+          {dictionary.cancelLabel}
         </Button>
-        <Button type="submit">Create</Button>
+        <Button type="submit">{dictionary.submitLabel}</Button>
       </div>
     </form>
   );

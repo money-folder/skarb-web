@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dictionary } from "@/dictionaries/locale";
 
 import CreateEarningModal from "./CreateEarningModal";
 
@@ -13,6 +14,10 @@ interface Props {
   text: string;
   types?: string[] | null;
   defaultDate?: Date;
+  dictionary: {
+    title: string;
+    form: Dictionary["modals"]["earningForm"];
+  };
 }
 
 export default function CreateEarningButton({
@@ -20,6 +25,7 @@ export default function CreateEarningButton({
   currency,
   text,
   defaultDate,
+  dictionary,
 }: Props) {
   const [open, setOpen] = useState(false);
 
@@ -37,6 +43,7 @@ export default function CreateEarningButton({
           currency={currency}
           types={types}
           defaultDate={defaultDate}
+          dictionary={dictionary}
         />
       </DialogContent>
     </Dialog>

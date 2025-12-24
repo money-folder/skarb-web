@@ -131,6 +131,13 @@
       "actions": "Дзеянні"
     },
 
+    "earningsTable": {
+      "type": "Тып",
+      "amount": "Сума",
+      "date": "Дата",
+      "comment": "Каментар"
+    },
+
     "expensesContainer": {
       "createButtonLabel": "Стварыць",
       "noExpenses": "Няма выдаткоў",
@@ -177,6 +184,7 @@
     },
 
     "earningsContainer": {
+      "createButtonLabel": "Стварыць",
       "earnings": {
         "emptyState": {
           "title": "Няма даных",
@@ -188,6 +196,21 @@
           "comment": "Каментар:",
           "notSet": "Не ўстаноўлена"
         }
+      },
+      "earningsFilters": {
+        "filtersButton": "Фільтры",
+        "fromDate": "Ад даты",
+        "toDate": "Да даты",
+        "pickADate": "Абраць дату",
+        "types": "Тыпы",
+        "selectTypes": "Абярыце тыпы",
+        "comment": "Каментар",
+        "commentPlaceholder": "Пошук у каментарах...",
+        "applyFilters": "Прымяніць фільтры",
+        "from": "Ад",
+        "to": "Да",
+        "typesLabel": "Тыпы:",
+        "commentLabel": "Каментар:"
       }
     }
   },
@@ -258,6 +281,19 @@
       "commentLabel": "Каментар",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
+    },
+
+    "createEarning": {
+      "title": "Стварыць Прыбытак"
+    },
+
+    "earningForm": {
+      "dateLabel": "Дата",
+      "amountLabel": "Сума",
+      "typeLabel": "Тып",
+      "commentLabel": "Каментар",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Стварыць"
     }
   },
 

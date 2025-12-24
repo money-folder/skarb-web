@@ -22,13 +22,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Dictionary } from "@/dictionaries/locale";
 import { cn } from "@/lib/utils";
 
 interface Props {
   types: string[];
+  dictionary: Dictionary["currencyPage"]["earningsContainer"]["earningsFilters"];
 }
 
-export default function EarningsFilters({ types }: Props) {
+export default function EarningsFilters({ types, dictionary }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -145,13 +147,15 @@ export default function EarningsFilters({ types }: Props) {
           <PopoverTrigger asChild>
             <Button size="sm" variant="outline">
               <Filter className="mr-2 mt-1 h-4 w-4" />
-              Filters
+              {dictionary.filtersButton}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <div className="flex flex-col gap-4 p-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">From Date</label>
+                <label className="text-sm font-medium">
+                  {dictionary.fromDate}
+                </label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -164,7 +168,7 @@ export default function EarningsFilters({ types }: Props) {
                       <CalendarIcon className="mr-2 h-4 w-4" />
                       {localFromDate
                         ? format(localFromDate, "PPP")
-                        : "Pick a date"}
+                        : dictionary.pickADate}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -179,7 +183,9 @@ export default function EarningsFilters({ types }: Props) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">To Date</label>
+                <label className="text-sm font-medium">
+                  {dictionary.toDate}
+                </label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -190,7 +196,9 @@ export default function EarningsFilters({ types }: Props) {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {localToDate ? format(localToDate, "PPP") : "Pick a date"}
+                      {localToDate
+                        ? format(localToDate, "PPP")
+                        : dictionary.pickADate}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -206,7 +214,9 @@ export default function EarningsFilters({ types }: Props) {
 
               {types.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-medium">Types</label>
+                  <label className="text-sm font-medium">
+                    {dictionary.types}
+                  </label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
@@ -216,11 +226,13 @@ export default function EarningsFilters({ types }: Props) {
                         <Tag className="mr-2 h-4 w-4" />
                         {localSelectedTypes.length > 0
                           ? `${localSelectedTypes.length} selected`
-                          : "Select types"}
+                          : dictionary.selectTypes}
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-[240px]">
-                      <DropdownMenuLabel>Select Types</DropdownMenuLabel>
+                      <DropdownMenuLabel>
+                        {dictionary.selectTypes}
+                      </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       {types.map((type) => (
                         <DropdownMenuCheckboxItem
@@ -238,10 +250,12 @@ export default function EarningsFilters({ types }: Props) {
               )}
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Comment</label>
+                <label className="text-sm font-medium">
+                  {dictionary.comment}
+                </label>
                 <Input
                   type="text"
-                  placeholder="Search in comments..."
+                  placeholder={dictionary.commentPlaceholder}
                   value={localComment}
                   onChange={(e) => setLocalComment(e.target.value)}
                   className="w-[240px]"
@@ -249,7 +263,7 @@ export default function EarningsFilters({ types }: Props) {
               </div>
 
               <Button onClick={applyFilters} className="w-full">
-                Apply Filters
+                {dictionary.applyFilters}
               </Button>
             </div>
           </PopoverContent>
@@ -261,7 +275,9 @@ export default function EarningsFilters({ types }: Props) {
             variant="secondary"
             className="flex items-center gap-1 px-3 py-1"
           >
-            <span className="text-xs">From {format(fromDate, "PP")}</span>
+            <span className="text-xs">
+              {dictionary.from} {format(fromDate, "PP")}
+            </span>
             <button
               onClick={clearFromDate}
               className="ml-1 hover:text-destructive"
@@ -277,7 +293,9 @@ export default function EarningsFilters({ types }: Props) {
             variant="secondary"
             className="flex items-center gap-1 px-3 py-1"
           >
-            <span className="text-xs">To {format(toDate, "PP")}</span>
+            <span className="text-xs">
+              {dictionary.to} {format(toDate, "PP")}
+            </span>
             <button
               onClick={clearToDate}
               className="ml-1 hover:text-destructive"
@@ -293,7 +311,9 @@ export default function EarningsFilters({ types }: Props) {
             variant="secondary"
             className="flex items-center gap-1 px-3 py-1"
           >
-            <span className="text-xs">Types: {selectedTypes.length}</span>
+            <span className="text-xs">
+              {dictionary.typesLabel} {selectedTypes.length}
+            </span>
             <button
               onClick={clearTypes}
               className="ml-1 hover:text-destructive"
@@ -309,7 +329,9 @@ export default function EarningsFilters({ types }: Props) {
             variant="secondary"
             className="flex items-center gap-1 px-3 py-1"
           >
-            <span className="text-xs">Comment: {commentFilter}</span>
+            <span className="text-xs">
+              {dictionary.commentLabel} {commentFilter}
+            </span>
             <button
               onClick={clearComment}
               className="ml-1 hover:text-destructive"
