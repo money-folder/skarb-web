@@ -174,6 +174,21 @@
           "notSet": "Не ўстаноўлена"
         }
       }
+    },
+
+    "earningsContainer": {
+      "earnings": {
+        "emptyState": {
+          "title": "Няма даных",
+          "description": "Прыбыткі не знойдзены для наступнага запыту",
+          "currency": "Валюта:",
+          "from": "З:",
+          "to": "Да:",
+          "types": "Тыпы:",
+          "comment": "Каментар:",
+          "notSet": "Не ўстаноўлена"
+        }
+      }
     }
   },
 

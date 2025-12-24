@@ -1,6 +1,7 @@
 import { Locale } from "@/locale";
 import { fetchEarnings, fetchTypes } from "../actions";
 import CreateEarningButton from "./create-earning/CreateEarningButton";
+import EarningsEmptyState from "./EarningsEmptyState";
 import EarningsFilters from "./EarningsFilters";
 import EarningsTable from "./EarningsTable";
 
@@ -54,9 +55,14 @@ export default async function EarningsContainer({
             total={total}
           />
         ) : (
-          <div className="flex h-full items-center justify-center">
-            <p className="text-muted-foreground">No earnings found</p>
-          </div>
+          <EarningsEmptyState
+            locale={locale}
+            currency={currency}
+            fromTs={fromTs}
+            toTs={toTs}
+            types={selectedTypes}
+            comment={comment}
+          />
         )}
       </div>
     </div>

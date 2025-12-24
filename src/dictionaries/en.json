@@ -175,6 +175,21 @@
           "notSet": "Not set"
         }
       }
+    },
+
+    "earningsContainer": {
+      "earnings": {
+        "emptyState": {
+          "title": "No data",
+          "description": "No earnings found for the following query",
+          "currency": "Currency:",
+          "from": "From:",
+          "to": "To:",
+          "types": "Types:",
+          "comment": "Comment:",
+          "notSet": "Not set"
+        }
+      }
     }
   },
 
