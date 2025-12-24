@@ -287,6 +287,10 @@
       "title": "Стварыць Прыбытак"
     },
 
+    "editEarning": {
+      "title": "Рэдагаваць Прыбытак"
+    },
+
     "earningForm": {
       "dateLabel": "Дата",
       "amountLabel": "Сума",

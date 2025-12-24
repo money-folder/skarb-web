@@ -1,5 +1,9 @@
 import { prisma } from "@/prisma";
-import { CreateEarningDto, FetchEarningsParams } from "./types";
+import {
+  CreateEarningDto,
+  FetchEarningsParams,
+  UpdateEarningDto,
+} from "./types";
 
 export const getEarningsTypesByUserCurrency = async (
   userId: string,
@@ -63,4 +67,28 @@ export const create = async (dto: CreateEarningDto) => {
   return prisma.earning.create({
     data: dto,
   });
+};
+
+export const update = async (dto: UpdateEarningDto) => {
+  const { id, ...data } = dto;
+  return prisma.earning.update({
+    where: { id },
+    data,
+  });
+};
+
+export const findEarning = async (id: string) => {
+  const earning = await prisma.earning.findUnique({
+    where: { id },
+  });
+
+  if (!earning) {
+    return null;
+  }
+
+  return earning;
+};
+
+export const destroyEarning = async (id: string) => {
+  return prisma.earning.delete({ where: { id } });
 };

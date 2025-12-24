@@ -5,6 +5,7 @@ import {
   ClientEarningDto,
   CreateEarningRequestDto,
   FetchEarningsParams,
+  UpdateEarningRequestDto,
 } from "./types";
 
 export const getUserCurrencyEarningsTypes = async (
@@ -67,4 +68,40 @@ export const createUserCurrencyEarning = async (
   });
 
   return result;
+};
+
+export const updateUserCurrencyEarning = async (
+  dto: UpdateEarningRequestDto,
+) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const allowedToUpdate = await verifyEarningOwnership(session.user.id, dto.id);
+  if (!allowedToUpdate) {
+    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+  }
+
+  const result = await earningsRepository.update(dto);
+  return result;
+};
+
+export const verifyEarningOwnership = async (userId: string, id: string) => {
+  const earning = await earningsRepository.findEarning(id);
+  return !!earning && earning.ownerId === userId;
+};
+
+export const destroySelfEarning = async (id: string) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const allowedToDelete = await verifyEarningOwnership(session.user.id, id);
+  if (!allowedToDelete) {
+    throw new Error("Forbidden!", { cause: ErrorCauses.FORBIDDEN });
+  }
+
+  return earningsRepository.destroyEarning(id);
 };

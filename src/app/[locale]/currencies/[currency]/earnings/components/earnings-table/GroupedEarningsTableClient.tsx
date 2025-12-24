@@ -1,5 +1,13 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Pagination,
   PaginationContent,
@@ -18,14 +26,18 @@ import {
 } from "@/components/ui/table";
 import { Dictionary } from "@/dictionaries/locale";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
+import { destroyEarning } from "../../actions";
 import { ClientEarningDto } from "../../types";
+import EditEarningModal from "../edit-earning/EditEarningModal";
 
 interface Props {
   earnings: ClientEarningDto[];
   currency: string;
   total: number;
   dictionary: Dictionary["currencyPage"]["earningsTable"];
+  types?: string[] | null;
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -35,10 +47,15 @@ export const GroupedEarningsTableClient = ({
   currency,
   total,
   dictionary,
+  types,
 }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
+
+  const [editingEarning, setEditingEarning] = useState<ClientEarningDto | null>(
+    null,
+  );
 
   // Calculate pagination
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
@@ -48,6 +65,15 @@ export const GroupedEarningsTableClient = ({
       const params = new URLSearchParams(searchParams.toString());
       params.set("page", page.toString());
       router.push(`?${params.toString()}`);
+    }
+  };
+
+  const handleDelete = async (earning: ClientEarningDto) => {
+    if (confirm(`Are you sure you want to delete this earning?`)) {
+      const result = await destroyEarning(earning.id, currency);
+      if (result.success) {
+        router.refresh();
+      }
     }
   };
 
@@ -98,6 +124,7 @@ export const GroupedEarningsTableClient = ({
               <TableHead className="text-right">{dictionary.amount}</TableHead>
               <TableHead className="text-center">{dictionary.date}</TableHead>
               <TableHead className="text-left">{dictionary.comment}</TableHead>
+              <TableHead className="text-center">{"Actions"}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -128,6 +155,25 @@ export const GroupedEarningsTableClient = ({
                   className={`text-left ${earning.deletedAt ? "opacity-30" : ""}`}
                 >
                   {earning.comment || "-"}
+                </TableCell>
+                <TableCell className="text-center">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="p-0" asChild>
+                      <Button variant="ghost" size="sm">
+                        {"..."}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onClick={() => setEditingEarning(earning)}
+                      >
+                        {"Edit"}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleDelete(earning)}>
+                        {"Delete"}
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))}
@@ -188,6 +234,25 @@ export const GroupedEarningsTableClient = ({
           </Pagination>
         </div>
       )}
+
+      <Dialog
+        open={!!editingEarning}
+        onOpenChange={() => setEditingEarning(null)}
+      >
+        <DialogContent>
+          {editingEarning && (
+            <EditEarningModal
+              close={() => {
+                setEditingEarning(null);
+                router.refresh();
+              }}
+              earning={editingEarning}
+              currency={currency}
+              types={types}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createEarningRequestSchema, earningFormSchema } from "./validation";
+import {
+  createEarningRequestSchema,
+  earningFormSchema,
+  updateEarningRequestSchema,
+} from "./validation";
 
 export type EarningDb = {
   id: string;
@@ -26,8 +30,21 @@ export type CreateEarningDto = {
   comment?: string;
 };
 
+export type UpdateEarningDto = {
+  id: string;
+  moneyAmount: number;
+  date: Date;
+  type: string;
+  currency: string;
+  comment?: string;
+};
+
 export type CreateEarningRequestDto = z.infer<
   typeof createEarningRequestSchema
+>;
+
+export type UpdateEarningRequestDto = z.infer<
+  typeof updateEarningRequestSchema
 >;
 
 export type EarningFormValues = z.infer<typeof earningFormSchema>;

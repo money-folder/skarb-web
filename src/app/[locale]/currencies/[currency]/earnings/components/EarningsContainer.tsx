@@ -63,6 +63,7 @@ export default async function EarningsContainer({
             earnings={earnings}
             currency={currency}
             total={total}
+            types={types}
           />
         ) : (
           <EarningsEmptyState

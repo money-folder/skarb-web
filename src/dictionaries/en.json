@@ -288,6 +288,10 @@
       "title": "Create Earning"
     },
 
+    "editEarning": {
+      "title": "Edit Earning"
+    },
+
     "earningForm": {
       "dateLabel": "Date",
       "amountLabel": "Amount",

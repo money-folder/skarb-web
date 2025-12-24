@@ -3,15 +3,21 @@
 import { revalidatePath } from "next/cache";
 import {
   createUserCurrencyEarning,
+  destroySelfEarning,
   getUserCurrencyEarnings,
   getUserCurrencyEarningsTypes,
+  updateUserCurrencyEarning,
 } from "./service";
 import {
   ClientEarningDto,
   CreateEarningRequestDto,
   FetchEarningsParams,
+  UpdateEarningRequestDto,
 } from "./types";
-import { createEarningRequestSchema } from "./validation";
+import {
+  createEarningRequestSchema,
+  updateEarningRequestSchema,
+} from "./validation";
 
 export type Earning = ClientEarningDto;
 export type EarningType = string;
@@ -51,3 +57,27 @@ export async function createEarning(dto: CreateEarningRequestDto) {
   await createUserCurrencyEarning(dto);
   revalidatePath(`/currencies/${dto.currency}/earnings`);
 }
+
+export async function updateEarning(dto: UpdateEarningRequestDto) {
+  const validationResult = updateEarningRequestSchema.safeParse(dto);
+  if (validationResult.error) {
+    throw new Error(
+      "Update earning validation failed!",
+      validationResult.error,
+    );
+  }
+
+  await updateUserCurrencyEarning(dto);
+  revalidatePath(`/currencies/${dto.currency}/earnings`);
+}
+
+export const destroyEarning = async (id: string, currency: string) => {
+  try {
+    await destroySelfEarning(id);
+    revalidatePath(`/currencies/${currency}/earnings`);
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error };
+  }
+};

@@ -8,6 +8,7 @@ interface Props {
   earnings: ClientEarningDto[];
   currency: string;
   total: number;
+  types?: string[];
 }
 
 export default async function EarningsTable({
@@ -15,6 +16,7 @@ export default async function EarningsTable({
   earnings = [],
   currency,
   total,
+  types,
 }: Props) {
   const d = await getDictionary(locale, "currencyPage.earningsTable");
 
@@ -25,6 +27,7 @@ export default async function EarningsTable({
         currency={currency}
         total={total}
         dictionary={d}
+        types={types}
       />
     </div>
   );
