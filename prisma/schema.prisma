@@ -28,6 +28,7 @@ model User {
   accounts Account[]
   sessions Session[]
   expenses Expense[]
+  earnings Earning[]
 
   @@map("users")
 }
@@ -121,4 +122,21 @@ model Expense {
   owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
   @@map("expenses")
+}
+
+model Earning {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date        DateTime  @default(now()) @db.Timestamp(6)
+  moneyAmount Float     @map("money_amount")
+  currency    String    @db.VarChar(255)
+  type        String    @db.VarChar(255)
+  comment     String?   @db.VarChar(255)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)
+
+  ownerId String @map("owner_id") @db.Uuid
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@map("earnings")
 }
