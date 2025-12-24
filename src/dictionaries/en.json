@@ -36,6 +36,11 @@
       "pickADate": "Pick a date",
       "from": "From:",
       "to": "To:",
+      "types": "Types",
+      "selectTypes": "Select types",
+      "comment": "Comment",
+      "commentPlaceholder": "Search in comments...",
+      "applyFilters": "Apply Filters",
       "form": {
         "fromLabel": "From: ",
         "toLabel": "To: ",
@@ -157,6 +162,16 @@
           "title": "Expenses for",
           "addNewExpense": "Add New Expense",
           "submit": "Submit"
+        },
+        "emptyState": {
+          "title": "No data",
+          "description": "No expenses found for the following query",
+          "currency": "Currency:",
+          "from": "From:",
+          "to": "To:",
+          "types": "Types:",
+          "comment": "Comment:",
+          "notSet": "Not set"
         }
       }
     }

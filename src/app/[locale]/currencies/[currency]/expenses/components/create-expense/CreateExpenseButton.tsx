@@ -1,15 +1,16 @@
 "use client";
 
-import { useContext } from "react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 
-import CreateButton from "@/shared/components/buttons/CreateButton";
-import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 import CreateExpenseModal from "./CreateExpenseModal";
 
 interface Props {
   currency: string;
-  text?: string;
+  text: string;
   types?: string[] | null;
   defaultDate?: Date;
 }
@@ -17,21 +18,27 @@ interface Props {
 export default function CreateExpenseButton({
   types,
   currency,
-  text = "",
+  text,
   defaultDate,
 }: Props) {
-  const { addOverlay } = useContext(OverlayContext);
+  const [open, setOpen] = useState(false);
 
-  const onClick = () => {
-    addOverlay(({ removeSelf }) => (
-      <CreateExpenseModal
-        close={removeSelf}
-        currency={currency}
-        types={types}
-        defaultDate={defaultDate}
-      />
-    ));
-  };
-
-  return <CreateButton text={text} onClick={onClick} />;
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Button variant="outline" size="sm" onClick={() => setOpen(true)} asChild>
+        <div>
+          <Plus className="h-4 w-4" />
+          <span>{text}</span>
+        </div>
+      </Button>
+      <DialogContent>
+        <CreateExpenseModal
+          close={() => setOpen(false)}
+          currency={currency}
+          types={types}
+          defaultDate={defaultDate}
+        />
+      </DialogContent>
+    </Dialog>
+  );
 }

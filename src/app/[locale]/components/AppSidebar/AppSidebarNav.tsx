@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { DEFAULT_LOCALE, Locale } from "@/locale";
+import { getMonthStartTs } from "@/shared/utils/time-utils";
 
 interface Wallet {
   id: string;
@@ -156,7 +157,9 @@ export const AppSidebarNav = ({
                         )}
                       >
                         <Link
-                          href={getHref(`/currencies/${currency}/expenses`)}
+                          href={getHref(
+                            `/currencies/${currency}/expenses?fromTs=${getMonthStartTs(new Date())}`,
+                          )}
                         >
                           <span className="truncate">
                             {dictionary.expenses}

@@ -11,6 +11,7 @@ import {
   updateUserCurrencyExpense,
 } from "./service";
 import {
+  ClientExpenseDto,
   CreateExpenseRequestDto,
   FetchExpensesParams,
   UpdateExpenseRequestDto,
@@ -20,6 +21,10 @@ import {
   createExpensesRequestSchema,
   updateExpenseRequestSchema,
 } from "./validation";
+
+// Export types for use in components
+export type Expense = ClientExpenseDto;
+export type ExpenseType = string;
 
 export const fetchTypes = async (currency: string) => {
   try {

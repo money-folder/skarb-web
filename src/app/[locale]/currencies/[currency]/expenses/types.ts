@@ -52,4 +52,6 @@ export type ExpenseFormValues = z.infer<typeof expenseFormSchema>;
 export type FetchExpensesParams = {
   fromTs?: number;
   toTs?: number;
+  types?: string[];
+  comment?: string;
 };

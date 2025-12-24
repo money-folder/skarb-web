@@ -2,10 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import Overlay from "@/shared/components/overlay/Overlay";
-
 import { getLocalISOString } from "@/shared/utils/utils";
+
 import { updateExpense } from "../../actions";
 import { ClientExpenseDto, ExpenseFormValues } from "../../types";
 import { expenseFormSchema } from "../../validation";
@@ -50,27 +50,20 @@ const EditExpenseModal = ({ close, expense, currency, types }: Props) => {
   };
 
   return (
-    <div onClick={close}>
-      <Overlay>
-        <div
-          className="w-96 rounded-xl bg-white p-5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left text-lg font-bold">
-            {d.modals.editExpense.title}
-          </h3>
-          <div className="mt-5">
-            <ExpenseForm
-              methods={methods}
-              onSubmit={onSubmit}
-              onCancel={close}
-              types={types || []}
-              defaultDate={expense.date}
-            />
-          </div>
-        </div>
-      </Overlay>
-    </div>
+    <>
+      <DialogHeader>
+        <DialogTitle>{d.modals.editExpense.title}</DialogTitle>
+      </DialogHeader>
+      <div className="mt-5">
+        <ExpenseForm
+          methods={methods}
+          onSubmit={onSubmit}
+          onCancel={close}
+          types={types || []}
+          defaultDate={expense.date}
+        />
+      </div>
+    </>
   );
 };
 

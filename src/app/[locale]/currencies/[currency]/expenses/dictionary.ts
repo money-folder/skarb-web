@@ -9,4 +9,14 @@ export type ExpensesDictionary = {
     addNewExpense: string;
     submit: string;
   };
+  emptyState: {
+    title: string;
+    description: string;
+    currency: string;
+    from: string;
+    to: string;
+    types: string;
+    comment: string;
+    notSet: string;
+  };
 };

@@ -29,6 +29,18 @@ export const findByUserCurrency = async (
         lte: params?.toTs ? new Date(params.toTs) : undefined,
         gte: params?.fromTs ? new Date(params.fromTs) : undefined,
       },
+      type:
+        params?.types && params.types.length > 0
+          ? {
+              in: params.types,
+            }
+          : undefined,
+      comment: params?.comment
+        ? {
+            contains: params.comment,
+            mode: "insensitive",
+          }
+        : undefined,
     },
     orderBy: {
       date: "desc",

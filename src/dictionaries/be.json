@@ -36,6 +36,11 @@
       "pickADate": "Абярыце дату",
       "from": "Ад:",
       "to": "Да:",
+      "types": "Тыпы",
+      "selectTypes": "Абярыце тыпы",
+      "comment": "Каментар",
+      "commentPlaceholder": "Пошук у каментарах...",
+      "applyFilters": "Прымяніць фільтры",
       "form": {
         "fromLabel": "Ад: ",
         "toLabel": "Да: ",
@@ -156,6 +161,16 @@
           "title": "Выдаткі за",
           "addNewExpense": "Дадаць Новы Выдатак",
           "submit": "Адправіць"
+        },
+        "emptyState": {
+          "title": "Няма даных",
+          "description": "Выдаткі не знойдзены для наступнага запыту",
+          "currency": "Валюта:",
+          "from": "З:",
+          "to": "Да:",
+          "types": "Тыпы:",
+          "comment": "Каментар:",
+          "notSet": "Не ўстаноўлена"
         }
       }
     }

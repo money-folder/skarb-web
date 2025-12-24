@@ -177,3 +177,8 @@ export const getMonthStart = (date: Date): Date => {
   start.setHours(0, 0, 0, 0);
   return start;
 };
+
+export const getMonthStartTs = (date: Date): number => {
+  const start = getMonthStart(date);
+  return start.getTime();
+};
