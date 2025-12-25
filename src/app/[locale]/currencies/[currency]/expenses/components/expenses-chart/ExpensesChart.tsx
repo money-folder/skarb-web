@@ -17,7 +17,6 @@ interface Props {
   expenses: ClientExpenseDto[];
   expensesSum: number;
   currency: string;
-  totalExpenses: string;
   trackedExpenses: string;
 }
 

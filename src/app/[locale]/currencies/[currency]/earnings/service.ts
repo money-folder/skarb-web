@@ -5,6 +5,7 @@ import {
   ClientEarningDto,
   CreateEarningRequestDto,
   FetchEarningsParams,
+  FetchEarningsSumParams,
   UpdateEarningRequestDto,
 } from "./types";
 
@@ -90,6 +91,24 @@ export const updateUserCurrencyEarning = async (
 export const verifyEarningOwnership = async (userId: string, id: string) => {
   const earning = await earningsRepository.findEarning(id);
   return !!earning && earning.ownerId === userId;
+};
+
+export const getUserCurrencyEarningsSum = async (
+  currency: string,
+  params?: FetchEarningsSumParams,
+): Promise<number> => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const sum = await earningsRepository.getSumByUserCurrency(
+    session.user.id,
+    currency,
+    params,
+  );
+
+  return sum;
 };
 
 export const destroySelfEarning = async (id: string) => {

@@ -57,3 +57,8 @@ export type FetchEarningsParams = {
   page?: number;
   pageSize?: number;
 };
+
+export type FetchEarningsSumParams = {
+  fromTs?: number;
+  toTs?: number;
+};

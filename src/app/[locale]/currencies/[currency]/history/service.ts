@@ -124,3 +124,25 @@ export const getCurrentUserCurrencyWhistoryExpenses = async (
 
   return { negativeExpensesSum };
 };
+
+export const getCurrencyAtTimestamp = async (
+  currency: string,
+  timestamp: number,
+) => {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const wallets = await walletsRepository.findByUserCurrency(userId, currency);
+  const whPromises = wallets.map(async (w) =>
+    whistoryRepository.findByWalletAtTimestamp(w.id, new Date(timestamp)),
+  );
+
+  const whistories = await Promise.all(whPromises);
+
+  return whistories
+    .filter((item) => !!item)
+    .reduce((acc, item) => acc + item.moneyAmount, 0);
+};
