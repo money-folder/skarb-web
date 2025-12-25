@@ -1,9 +1,14 @@
 "use client";
 
 import { useContext } from "react";
-import { Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+} from "@/components/ui/chart";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
 interface Props {
@@ -12,42 +17,53 @@ interface Props {
   data: WhistoryComposed[];
 }
 
-const WhistoryComposedChart = ({ width, height, data }: Props) => {
+const chartConfig = {
+  moneyAmount: {
+    label: "Balance",
+  },
+  date: {
+    label: "Date",
+  },
+} satisfies ChartConfig;
+
+const WhistoryComposedChart = ({ data }: Props) => {
   const { d } = useContext(DictionaryContext);
 
   return (
-    <LineChart width={width} height={height}>
-      <XAxis
-        padding={{ left: 20, right: 20 }}
-        style={{ fontSize: "10px", stroke: "black", strokeWidth: "0.5" }}
-        dataKey="date"
-        scale="linear"
-        tickFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
-      />
+    <ChartContainer className="w-full" config={chartConfig}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <Line
+          isAnimationActive={false}
+          type="linear"
+          dataKey="moneyAmount"
+          stroke="hsl(var(--foreground))"
+          strokeWidth={1}
+        />
 
-      <YAxis
-        padding={{ top: 20, bottom: 20 }}
-        style={{ fontSize: "10px", stroke: "black", strokeWidth: "0.5" }}
-        scale="linear"
-        tickMargin={5}
-        dataKey="moneyAmount"
-      />
+        <ChartTooltip
+          labelFormatter={(ts) => {
+            return new Date(ts).toLocaleString().split(",")[0];
+          }}
+          formatter={(value) => [value, d.charts.whistory.tooltip.balanceLabel]}
+        />
 
-      <Tooltip
-        separator=": "
-        contentStyle={{ fontSize: "10px", padding: "5px" }}
-        labelFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
-        formatter={(value) => [value, d.charts.whistory.tooltip.balanceLabel]}
-      />
-
-      <Line
-        isAnimationActive={false}
-        type="linear"
-        dataKey="moneyAmount"
-        data={data}
-        stroke="black"
-      />
-    </LineChart>
+        <XAxis
+          padding={{ left: 20, right: 20 }}
+          style={{ fontSize: "12px" }}
+          dataKey="date"
+          scale="linear"
+          tickFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
+        />
+        <YAxis
+          padding={{ top: 20, bottom: 20 }}
+          style={{ fontSize: "12px" }}
+          scale="linear"
+          tickMargin={5}
+          dataKey="moneyAmount"
+        />
+      </LineChart>
+    </ChartContainer>
   );
 };
 
