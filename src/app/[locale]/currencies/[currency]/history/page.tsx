@@ -1,13 +1,14 @@
 import { Suspense } from "react";
 
+import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
 
-import CurrencyComposedFilters from "./components/CurrencyComposedFilters";
 import CurrencyContainer from "./components/CurrencyContainer";
+import HistoryFilters from "./components/HistoryFilters";
 
 interface Props {
   params: Promise<{ currency: string; locale: Locale }>;
-  searchParams: Promise<{ dateFrom?: string; dateTo?: string }>;
+  searchParams: Promise<{ fromTs?: string; toTs?: string; dayStep?: string }>;
 }
 
 export default async function HistoryPage(props: Props) {
@@ -16,19 +17,22 @@ export default async function HistoryPage(props: Props) {
 
   const { currency, locale } = params;
 
+  const dHistoryFilters = await getDictionary(
+    locale,
+    "currencyPage.historyFilters",
+  );
+
   return (
     <div className="grid h-full w-full grid-cols-[1fr,_1fr] grid-rows-[auto,_auto,_1fr] gap-x-5 overflow-hidden">
-      <div className="col-span-2 row-span-1 flex w-full items-center justify-start rounded-lg bg-gray-200 p-2">
-        <CurrencyComposedFilters />
-      </div>
-
-      <div className="col-span-2 row-span-1 flex h-full gap-5 overflow-hidden pt-5">
+      <div className="col-span-2 row-span-1 flex h-full flex-col gap-5 overflow-hidden px-5 pt-5">
+        <HistoryFilters dictionary={dHistoryFilters} />
         <Suspense fallback={null}>
           <CurrencyContainer
             locale={locale}
             currency={currency}
-            fromTs={searchParams.dateFrom ? +searchParams.dateFrom : undefined}
-            toTs={searchParams.dateTo ? +searchParams.dateTo : undefined}
+            fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
+            toTs={searchParams.toTs ? +searchParams.toTs : undefined}
+            dayStep={searchParams.dayStep ? +searchParams.dayStep : undefined}
           />
         </Suspense>
       </div>

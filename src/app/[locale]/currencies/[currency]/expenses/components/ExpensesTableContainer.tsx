@@ -1,6 +1,5 @@
 import { Locale } from "@/locale";
 import type { Expense, ExpenseType } from "../actions";
-import ExpensesEmptyState from "./ExpensesEmptyState";
 import ExpensesTable from "./ExpensesTable";
 
 interface Props {
@@ -9,7 +8,6 @@ interface Props {
   fromTs?: number;
   toTs?: number;
   types?: string[];
-  comment?: string;
   expenses: Expense[];
   allTypes: ExpenseType[];
 }
@@ -20,7 +18,6 @@ export default async function ExpensesTableContainer({
   fromTs,
   toTs,
   types,
-  comment,
   expenses,
   allTypes,
 }: Props) {

@@ -148,3 +148,20 @@ export const unarchive = async (id: string) => {
 export const destroy = async (id: string) => {
   return prisma.walletHistory.delete({ where: { id } });
 };
+
+export const findByWalletAtTimestamp = async (
+  walletId: string,
+  timestamp: Date,
+) => {
+  return prisma.walletHistory.findFirst({
+    where: {
+      walletId,
+      date: {
+        lte: timestamp,
+      },
+    },
+    orderBy: {
+      date: "desc",
+    },
+  });
+};

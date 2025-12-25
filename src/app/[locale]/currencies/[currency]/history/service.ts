@@ -63,6 +63,7 @@ export const getCurrentUserCurrencyWhistory = async (
     params.fromTs ? new Date(params.fromTs) : whistory[0].date,
     params.toTs ? new Date(params.toTs) : whistory[whistory.length - 1].date,
     dataByWallets,
+    params.dayStep || 1,
   );
 
   const composedWhistory = composeWhistoryMoneyAmount(mergedWhistoryGroups);
@@ -109,6 +110,7 @@ export const getCurrentUserCurrencyWhistoryExpenses = async (
     params.fromTs ? new Date(params.fromTs) : whistory[0].date,
     params.toTs ? new Date(params.toTs) : whistory[whistory.length - 1].date,
     dataByWallets,
+    params.dayStep || 1,
   );
 
   const composedWhistory = composeWhistoryMoneyAmount(mergedWhistoryGroups);
@@ -123,4 +125,26 @@ export const getCurrentUserCurrencyWhistoryExpenses = async (
   );
 
   return { negativeExpensesSum };
+};
+
+export const getCurrencyAtTimestamp = async (
+  currency: string,
+  timestamp: number,
+) => {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) {
+    throw new Error("Unauthorized!", { cause: ErrorCauses.UNAUTHORIZED });
+  }
+
+  const wallets = await walletsRepository.findByUserCurrency(userId, currency);
+  const whPromises = wallets.map(async (w) =>
+    whistoryRepository.findByWalletAtTimestamp(w.id, new Date(timestamp)),
+  );
+
+  const whistories = await Promise.all(whPromises);
+
+  return whistories
+    .filter((item) => !!item)
+    .reduce((acc, item) => acc + item.moneyAmount, 0);
 };

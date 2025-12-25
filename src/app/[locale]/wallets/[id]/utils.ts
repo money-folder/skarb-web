@@ -24,6 +24,7 @@ export const groupWhistoryByDate = (
   start: Date,
   end: Date,
   dataByWallets: WhistoryByWallets,
+  dayStep: number = 1,
 ): WhistoryByDate => {
   let touchedIntervalEnd = false;
   let currentDate = new Date(start);
@@ -57,12 +58,12 @@ export const groupWhistoryByDate = (
     });
 
     const nextDate = new Date(currentDate);
-    nextDate.setDate(currentDate.getDate() + 1);
+    nextDate.setDate(currentDate.getDate() + dayStep);
     if (currentDate < end && nextDate >= end && !touchedIntervalEnd) {
       currentDate = new Date(end);
       touchedIntervalEnd = true;
     } else {
-      currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.setDate(currentDate.getDate() + dayStep);
     }
   }
 

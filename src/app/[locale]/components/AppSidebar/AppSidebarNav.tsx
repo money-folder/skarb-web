@@ -143,7 +143,11 @@ export const AppSidebarNav = ({
                           true,
                         )}
                       >
-                        <Link href={getHref(`/currencies/${currency}/history`)}>
+                        <Link
+                          href={getHref(
+                            `/currencies/${currency}/history?dayStep=30`,
+                          )}
+                        >
                           <span className="truncate">{dictionary.history}</span>
                         </Link>
                       </SidebarMenuButton>

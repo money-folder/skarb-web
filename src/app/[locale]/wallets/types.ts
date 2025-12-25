@@ -49,6 +49,7 @@ export type FetchWhistoryParams = {
   toTs?: number;
   page?: number;
   pageSize?: number;
+  dayStep?: number;
 };
 
 export type FetchChartWhistoryParams = {
@@ -57,6 +58,11 @@ export type FetchChartWhistoryParams = {
   page?: number;
   pageSize?: number;
   detailization?: number;
+};
+
+export type FetchCurrencyIntervalTotalDiffParams = {
+  fromTs?: number;
+  toTs?: number;
 };
 
 export type WalletFormValues = z.infer<typeof walletFormSchema>;

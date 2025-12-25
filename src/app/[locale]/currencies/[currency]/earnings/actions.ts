@@ -5,6 +5,7 @@ import {
   createUserCurrencyEarning,
   destroySelfEarning,
   getUserCurrencyEarnings,
+  getUserCurrencyEarningsSum,
   getUserCurrencyEarningsTypes,
   updateUserCurrencyEarning,
 } from "./service";
@@ -12,6 +13,7 @@ import {
   ClientEarningDto,
   CreateEarningRequestDto,
   FetchEarningsParams,
+  FetchEarningsSumParams,
   UpdateEarningRequestDto,
 } from "./types";
 import {
@@ -42,6 +44,19 @@ export const fetchEarnings = async (
   } catch (error) {
     console.error(error);
     return { success: false, data: [], total: 0, error };
+  }
+};
+
+export const fetchEarningsSum = async (
+  currency: string,
+  params: FetchEarningsSumParams,
+) => {
+  try {
+    const sum = await getUserCurrencyEarningsSum(currency, params);
+    return { success: true, data: sum };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: 0, error };
   }
 };
 

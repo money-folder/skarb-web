@@ -3,7 +3,11 @@ import {
   PIE_CHART_HEIGHT_DEFAULT,
   PIE_CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
-import { fetchCurrencyWhistoryExpenses } from "../../history/actions";
+import { fetchEarningsSum } from "../../earnings/actions";
+import {
+  fetchCurrencyIntervalTotalDiff,
+  fetchCurrencyWhistoryExpenses,
+} from "../../history/actions";
 import type { Expense } from "../actions";
 import ExpensesChart from "./expenses-chart/ExpensesChart";
 
@@ -21,10 +25,16 @@ export default async function ExpensesChartContainer({
   toTs,
   expenses,
 }: Props) {
-  const { data: expensesSum } = await fetchCurrencyWhistoryExpenses(currency, {
-    fromTs,
-    toTs,
-  });
+  const [{ data: intervalDiff }, { data: earningsSum }] = await Promise.all([
+    fetchCurrencyIntervalTotalDiff(currency, {
+      fromTs,
+      toTs,
+    }),
+    fetchEarningsSum(currency, {
+      fromTs,
+      toTs,
+    }),
+  ]);
 
   return (
     <WithMounted>
@@ -32,9 +42,8 @@ export default async function ExpensesChartContainer({
         width={PIE_CHART_WIDTH_DEFAULT}
         height={PIE_CHART_HEIGHT_DEFAULT}
         expenses={expenses}
-        expensesSum={expensesSum}
+        expensesSum={earningsSum - intervalDiff}
         currency={currency}
-        totalExpenses={Math.abs(expensesSum).toFixed(2)}
         trackedExpenses={expenses
           .reduce((sum, expense) => sum + Math.abs(expense.moneyAmount), 0)
           .toFixed(2)}

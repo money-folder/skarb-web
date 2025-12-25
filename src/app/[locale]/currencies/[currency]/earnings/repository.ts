@@ -2,6 +2,7 @@ import { prisma } from "@/prisma";
 import {
   CreateEarningDto,
   FetchEarningsParams,
+  FetchEarningsSumParams,
   UpdateEarningDto,
 } from "./types";
 
@@ -91,4 +92,26 @@ export const findEarning = async (id: string) => {
 
 export const destroyEarning = async (id: string) => {
   return prisma.earning.delete({ where: { id } });
+};
+
+export const getSumByUserCurrency = async (
+  userId: string,
+  currency: string,
+  params?: FetchEarningsSumParams,
+) => {
+  const result = await prisma.earning.aggregate({
+    _sum: {
+      moneyAmount: true,
+    },
+    where: {
+      ownerId: userId,
+      currency,
+      date: {
+        lte: params?.toTs ? new Date(params.toTs) : undefined,
+        gte: params?.fromTs ? new Date(params.fromTs) : undefined,
+      },
+    },
+  });
+
+  return result._sum.moneyAmount ?? 0;
 };

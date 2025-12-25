@@ -66,7 +66,6 @@ export default async function ExpensesContainer({
                 fromTs={fromTs}
                 toTs={toTs}
                 types={selectedTypes}
-                comment={comment}
                 expenses={expenses}
                 allTypes={types}
               />
