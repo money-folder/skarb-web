@@ -8,6 +8,7 @@ import {
 
 import { fetchCurrencyWhistory } from "../actions";
 import CurrencyComposedTable from "./currency-composed-table/CurrencyComposedTable";
+import HistoryEmptyState from "./HistoryEmptyState";
 
 interface Props {
   locale: Locale;
@@ -24,7 +25,14 @@ export default async function CurrencyContainer({
 }: Props) {
   const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
   if (!response.data || !response.data.composedWhistory.length) {
-    return null;
+    return (
+      <HistoryEmptyState
+        locale={locale}
+        currency={currency}
+        fromTs={fromTs}
+        toTs={toTs}
+      />
+    );
   }
 
   return (
