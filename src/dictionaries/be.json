@@ -119,7 +119,8 @@
 
     "navbar": {
       "history": "Гісторыя",
-      "expenses": "Выдаткі"
+      "expenses": "Выдаткі",
+      "earnings": "Прыбыткі"
     },
 
     "expensesTable": {
@@ -128,6 +129,13 @@
       "type": "Тып выдатку",
       "comment": "Каментар",
       "actions": "Дзеянні"
+    },
+
+    "earningsTable": {
+      "type": "Тып",
+      "amount": "Сума",
+      "date": "Дата",
+      "comment": "Каментар"
     },
 
     "expensesContainer": {
@@ -172,6 +180,37 @@
           "comment": "Каментар:",
           "notSet": "Не ўстаноўлена"
         }
+      }
+    },
+
+    "earningsContainer": {
+      "createButtonLabel": "Стварыць",
+      "earnings": {
+        "emptyState": {
+          "title": "Няма даных",
+          "description": "Прыбыткі не знойдзены для наступнага запыту",
+          "currency": "Валюта:",
+          "from": "З:",
+          "to": "Да:",
+          "types": "Тыпы:",
+          "comment": "Каментар:",
+          "notSet": "Не ўстаноўлена"
+        }
+      },
+      "earningsFilters": {
+        "filtersButton": "Фільтры",
+        "fromDate": "Ад даты",
+        "toDate": "Да даты",
+        "pickADate": "Абраць дату",
+        "types": "Тыпы",
+        "selectTypes": "Абярыце тыпы",
+        "comment": "Каментар",
+        "commentPlaceholder": "Пошук у каментарах...",
+        "applyFilters": "Прымяніць фільтры",
+        "from": "Ад",
+        "to": "Да",
+        "typesLabel": "Тыпы:",
+        "commentLabel": "Каментар:"
       }
     }
   },
@@ -242,6 +281,23 @@
       "commentLabel": "Каментар",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Адправіць"
+    },
+
+    "createEarning": {
+      "title": "Стварыць Прыбытак"
+    },
+
+    "editEarning": {
+      "title": "Рэдагаваць Прыбытак"
+    },
+
+    "earningForm": {
+      "dateLabel": "Дата",
+      "amountLabel": "Сума",
+      "typeLabel": "Тып",
+      "commentLabel": "Каментар",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Стварыць"
     }
   },
 
