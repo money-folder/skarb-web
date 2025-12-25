@@ -213,6 +213,16 @@
         "typesLabel": "Types:",
         "commentLabel": "Comment:"
       }
+    },
+
+    "historyFilters": {
+      "filtersButton": "Filters",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "pickADate": "Pick a date",
+      "applyFilters": "Apply Filters",
+      "from": "From",
+      "to": "To"
     }
   },
 
