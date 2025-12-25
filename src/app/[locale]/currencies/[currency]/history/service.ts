@@ -63,6 +63,7 @@ export const getCurrentUserCurrencyWhistory = async (
     params.fromTs ? new Date(params.fromTs) : whistory[0].date,
     params.toTs ? new Date(params.toTs) : whistory[whistory.length - 1].date,
     dataByWallets,
+    params.dayStep || 1,
   );
 
   const composedWhistory = composeWhistoryMoneyAmount(mergedWhistoryGroups);
@@ -109,6 +110,7 @@ export const getCurrentUserCurrencyWhistoryExpenses = async (
     params.fromTs ? new Date(params.fromTs) : whistory[0].date,
     params.toTs ? new Date(params.toTs) : whistory[whistory.length - 1].date,
     dataByWallets,
+    params.dayStep || 1,
   );
 
   const composedWhistory = composeWhistoryMoneyAmount(mergedWhistoryGroups);

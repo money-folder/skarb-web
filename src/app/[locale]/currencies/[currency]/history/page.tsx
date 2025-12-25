@@ -8,7 +8,7 @@ import HistoryFilters from "./components/HistoryFilters";
 
 interface Props {
   params: Promise<{ currency: string; locale: Locale }>;
-  searchParams: Promise<{ fromTs?: string; toTs?: string }>;
+  searchParams: Promise<{ fromTs?: string; toTs?: string; dayStep?: string }>;
 }
 
 export default async function HistoryPage(props: Props) {
@@ -32,6 +32,7 @@ export default async function HistoryPage(props: Props) {
             currency={currency}
             fromTs={searchParams.fromTs ? +searchParams.fromTs : undefined}
             toTs={searchParams.toTs ? +searchParams.toTs : undefined}
+            dayStep={searchParams.dayStep ? +searchParams.dayStep : undefined}
           />
         </Suspense>
       </div>

@@ -10,7 +10,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
 import {
@@ -34,7 +34,12 @@ export const CurrencyComposedTableClient = ({
   dictionary,
   walletHistory,
 }: Props) => {
-  const columns = createColumns(dictionary);
+  const columns = useMemo(() => createColumns(dictionary), [dictionary]);
+
+  const reversedData = useMemo(
+    () => [...walletHistory].reverse(),
+    [walletHistory],
+  );
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -42,7 +47,7 @@ export const CurrencyComposedTableClient = ({
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data: [...walletHistory].reverse(),
+    data: reversedData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

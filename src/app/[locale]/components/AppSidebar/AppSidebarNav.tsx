@@ -145,7 +145,7 @@ export const AppSidebarNav = ({
                       >
                         <Link
                           href={getHref(
-                            `/currencies/${currency}/history?fromTs=${getMonthStartTs(new Date())}`,
+                            `/currencies/${currency}/history?dayStep=30`,
                           )}
                         >
                           <span className="truncate">{dictionary.history}</span>

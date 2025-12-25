@@ -15,6 +15,7 @@ interface Props {
   currency: string;
   fromTs?: number;
   toTs?: number;
+  dayStep?: number;
 }
 
 export default async function CurrencyContainer({
@@ -22,8 +23,13 @@ export default async function CurrencyContainer({
   currency,
   fromTs,
   toTs,
+  dayStep,
 }: Props) {
-  const response = await fetchCurrencyWhistory(currency, { fromTs, toTs });
+  const response = await fetchCurrencyWhistory(currency, {
+    fromTs,
+    toTs,
+    dayStep,
+  });
   if (!response.data || !response.data.composedWhistory.length) {
     return (
       <HistoryEmptyState

@@ -223,6 +223,10 @@
       "applyFilters": "Apply Filters",
       "from": "From",
       "to": "To",
+      "dayInterval": "Day Interval",
+      "selectInterval": "Select interval",
+      "days": "{{count}} day",
+      "days_plural": "{{count}} days",
       "emptyState": {
         "title": "No data",
         "description": "No history found for the following query",

@@ -13,8 +13,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Dictionary } from "@/dictionaries/locale";
 import { cn } from "@/lib/utils";
+import { replacePlaceholders } from "@/shared/utils/utils";
 
 interface Props {
   dictionary: Dictionary["currencyPage"]["historyFilters"];
@@ -29,22 +37,26 @@ export default function HistoryFilters({ dictionary }: Props) {
 
   const fromTsParam = searchParams.get("fromTs");
   const toTsParam = searchParams.get("toTs");
+  const dayStepParam = searchParams.get("dayStep");
 
   const fromDate = fromTsParam ? new Date(Number(fromTsParam)) : undefined;
   const toDate = toTsParam ? new Date(Number(toTsParam)) : undefined;
+  const dayStep = dayStepParam ? Number(dayStepParam) : 1;
 
   // Local state for pending filter changes
   const [localFromDate, setLocalFromDate] = useState<Date | undefined>(
     fromDate,
   );
   const [localToDate, setLocalToDate] = useState<Date | undefined>(toDate);
+  const [localDayStep, setLocalDayStep] = useState<number>(dayStep);
 
   // Sync local state with URL params when they change
   useEffect(() => {
     setLocalFromDate(fromDate);
     setLocalToDate(toDate);
+    setLocalDayStep(dayStep);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fromTsParam, toTsParam]);
+  }, [fromTsParam, toTsParam, dayStepParam]);
 
   const updateQueryParams = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -66,12 +78,20 @@ export default function HistoryFilters({ dictionary }: Props) {
     setLocalToDate(date);
   };
 
+  const handleDayStepChange = (value: string) => {
+    setLocalDayStep(Number(value));
+  };
+
   const clearFromDate = () => {
     updateQueryParams("fromTs", null);
   };
 
   const clearToDate = () => {
     updateQueryParams("toTs", null);
+  };
+
+  const clearDayStep = () => {
+    updateQueryParams("dayStep", null);
   };
 
   const applyFilters = () => {
@@ -87,6 +107,12 @@ export default function HistoryFilters({ dictionary }: Props) {
       params.set("toTs", localToDate.getTime().toString());
     } else {
       params.delete("toTs");
+    }
+
+    if (localDayStep !== 1) {
+      params.set("dayStep", localDayStep.toString());
+    } else {
+      params.delete("dayStep");
     }
 
     router.push(`${pathname}?${params.toString()}`);
@@ -165,6 +191,42 @@ export default function HistoryFilters({ dictionary }: Props) {
                 </Popover>
               </div>
 
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">
+                  {dictionary.dayInterval}
+                </label>
+                <Select
+                  value={localDayStep.toString()}
+                  onValueChange={handleDayStepChange}
+                >
+                  <SelectTrigger className="w-[240px]">
+                    <SelectValue placeholder={dictionary.selectInterval} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">
+                      {replacePlaceholders(dictionary.days, {
+                        count: "1",
+                      })}
+                    </SelectItem>
+                    <SelectItem value="7">
+                      {replacePlaceholders(dictionary.days_plural, {
+                        count: "7",
+                      })}
+                    </SelectItem>
+                    <SelectItem value="14">
+                      {replacePlaceholders(dictionary.days_plural, {
+                        count: "14",
+                      })}
+                    </SelectItem>
+                    <SelectItem value="30">
+                      {replacePlaceholders(dictionary.days_plural, {
+                        count: "30",
+                      })}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <Button onClick={applyFilters} className="w-full">
                 {dictionary.applyFilters}
               </Button>
@@ -208,6 +270,26 @@ export default function HistoryFilters({ dictionary }: Props) {
             </button>
           </Badge>
         )}
+
+        {dayStep !== 1 ? (
+          <Badge
+            variant="secondary"
+            className="flex items-center gap-1 px-3 py-1"
+          >
+            <span className="text-xs">
+              {replacePlaceholders(dictionary.days_plural, {
+                count: `${dayStep}`,
+              })}
+            </span>
+            <button
+              onClick={clearDayStep}
+              className="ml-1 hover:text-destructive"
+              type="button"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        ) : null}
       </div>
     </div>
   );

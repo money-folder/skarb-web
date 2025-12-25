@@ -222,6 +222,10 @@
       "applyFilters": "Прымяніць фільтры",
       "from": "Ад",
       "to": "Да",
+      "dayInterval": "Інтэрвал дзён",
+      "selectInterval": "Абраць інтэрвал",
+      "days": "{{count}} дзень",
+      "days_plural": "{{count}} дзён",
       "emptyState": {
         "title": "Няма даных",
         "description": "Гісторыя не знойдзена для наступнага запыту",

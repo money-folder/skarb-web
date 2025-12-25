@@ -49,6 +49,7 @@ export type FetchWhistoryParams = {
   toTs?: number;
   page?: number;
   pageSize?: number;
+  dayStep?: number;
 };
 
 export type FetchChartWhistoryParams = {
