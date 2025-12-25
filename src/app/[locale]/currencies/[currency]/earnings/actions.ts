@@ -22,7 +22,7 @@ import {
 export type Earning = ClientEarningDto;
 export type EarningType = string;
 
-export const fetchTypes = async (currency: string) => {
+export const fetchEarningTypes = async (currency: string) => {
   try {
     const types = await getUserCurrencyEarningsTypes(currency);
     return { success: true, data: types };

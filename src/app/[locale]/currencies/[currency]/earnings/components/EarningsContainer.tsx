@@ -1,6 +1,6 @@
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/locale";
-import { fetchEarnings, fetchTypes } from "../actions";
+import { fetchEarnings, fetchEarningTypes } from "../actions";
 import CreateEarningButton from "./create-earning/CreateEarningButton";
 import EarningsEmptyState from "./EarningsEmptyState";
 import EarningsFilters from "./EarningsFilters";
@@ -27,8 +27,13 @@ export default async function EarningsContainer({
   page,
   pageSize,
 }: Props) {
-  const [{ data: types }, earningsResult, d] = await Promise.all([
-    fetchTypes(currency),
+  const [dEarningsContainer, dModals] = await Promise.all([
+    getDictionary(locale, "currencyPage.earningsContainer"),
+    getDictionary(locale, "modals"),
+  ]);
+
+  const [{ data: types }, { data: earnings, total }] = await Promise.all([
+    fetchEarningTypes(currency),
     fetchEarnings(currency, {
       fromTs,
       toTs,
@@ -37,24 +42,24 @@ export default async function EarningsContainer({
       page,
       pageSize,
     }),
-    getDictionary(locale, "currencyPage.earningsContainer"),
   ]);
-
-  const { data: earnings, total } = earningsResult;
 
   return (
     <div className="flex h-full w-full flex-col gap-5">
       <div className="flex gap-5">
         <CreateEarningButton
-          text={d.createButtonLabel}
+          text={dEarningsContainer.createButtonLabel}
           currency={currency}
           types={types}
           dictionary={{
-            title: (await getDictionary(locale, "modals.createEarning")).title,
-            form: await getDictionary(locale, "modals.earningForm"),
+            title: dModals.createEarning.title,
+            form: dModals.earningForm,
           }}
         />
-        <EarningsFilters types={types} dictionary={d.earningsFilters} />
+        <EarningsFilters
+          types={types}
+          dictionary={dEarningsContainer.earningsFilters}
+        />
       </div>
       <div className="flex-1 overflow-auto">
         {earnings?.length ? (
