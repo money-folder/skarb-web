@@ -28,6 +28,7 @@ import { Dictionary } from "@/dictionaries/locale";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+import { MoreHorizontal } from "lucide-react";
 import { destroyEarning } from "../../actions";
 import { ClientEarningDto } from "../../types";
 import EditEarningModal from "../edit-earning/EditEarningModal";
@@ -124,7 +125,9 @@ export const GroupedEarningsTableClient = ({
               <TableHead className="text-right">{dictionary.amount}</TableHead>
               <TableHead className="text-center">{dictionary.date}</TableHead>
               <TableHead className="text-left">{dictionary.comment}</TableHead>
-              <TableHead className="text-center">{"Actions"}</TableHead>
+              <TableHead className="text-center">
+                {dictionary.actions}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -159,8 +162,9 @@ export const GroupedEarningsTableClient = ({
                 <TableCell className="text-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="p-0" asChild>
-                      <Button variant="ghost" size="sm">
-                        {"..."}
+                      <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">{dictionary.actions}</span>
+                        <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">

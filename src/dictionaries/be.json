@@ -135,7 +135,8 @@
       "type": "Тып",
       "amount": "Сума",
       "date": "Дата",
-      "comment": "Каментар"
+      "comment": "Каментар",
+      "actions": "Дзеянні"
     },
 
     "expensesContainer": {

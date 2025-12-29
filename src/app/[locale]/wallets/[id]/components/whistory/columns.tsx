@@ -74,7 +74,7 @@ const ActionsCell = ({
   };
 
   return (
-    <div className="flex w-2/12 justify-center">
+    <div className="flex justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
