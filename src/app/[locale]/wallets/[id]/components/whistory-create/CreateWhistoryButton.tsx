@@ -1,9 +1,9 @@
 "use client";
 
-import { useContext } from "react";
+import { useState } from "react";
 
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import CreateItemButton from "@/shared/components/buttons/CreateButton";
-import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
 import AddWhistoryModal from "./CreateWhistoryModal";
 
@@ -18,19 +18,22 @@ const CreateWhistoryButton = ({
   walletName,
   text = "",
 }: CreateWhistoryButtonProps) => {
-  const { addOverlay } = useContext(OverlayContext);
+  const [open, setOpen] = useState(false);
 
-  const onClick = () => {
-    addOverlay(({ removeSelf }) => (
-      <AddWhistoryModal
-        walletId={walletId}
-        walletName={walletName}
-        close={removeSelf}
-      />
-    ));
-  };
-
-  return <CreateItemButton text={text} onClick={onClick} />;
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <CreateItemButton text={text} onClick={() => setOpen(true)} />
+      </DialogTrigger>
+      <DialogContent>
+        <AddWhistoryModal
+          walletId={walletId}
+          walletName={walletName}
+          close={() => setOpen(false)}
+        />
+      </DialogContent>
+    </Dialog>
+  );
 };
 
 export default CreateWhistoryButton;

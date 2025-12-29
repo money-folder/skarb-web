@@ -136,7 +136,8 @@
       "type": "Type",
       "amount": "Amount",
       "date": "Date",
-      "comment": "Comment"
+      "comment": "Comment",
+      "actions": "Actions"
     },
 
     "expensesContainer": {
