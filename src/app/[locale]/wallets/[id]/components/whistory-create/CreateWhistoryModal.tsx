@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 import { create } from "@/app/[locale]/wallets/[id]/actions";
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import Overlay from "@/shared/components/overlay/Overlay";
 import { replacePlaceholders } from "@/shared/utils/utils";
 
 import { WhistoryFormValues } from "../../types";
@@ -33,25 +33,14 @@ const CreateWhistoryModal = ({ walletId, walletName, close }: Props) => {
   };
 
   return (
-    <div onClick={close}>
-      <Overlay>
-        <div
-          className="w-96 rounded-xl bg-white p-5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left text-lg font-bold">
-            {replacePlaceholders(d.modals.createWhistory.title, { walletName })}
-          </h3>
-          <div className="mt-5">
-            <WhistoryForm
-              methods={methods}
-              onSubmit={onSubmit}
-              onCancel={close}
-            />
-          </div>
-        </div>
-      </Overlay>
-    </div>
+    <>
+      <DialogHeader>
+        <DialogTitle>
+          {replacePlaceholders(d.modals.createWhistory.title, { walletName })}
+        </DialogTitle>
+      </DialogHeader>
+      <WhistoryForm methods={methods} onSubmit={onSubmit} onCancel={close} />
+    </>
   );
 };
 
