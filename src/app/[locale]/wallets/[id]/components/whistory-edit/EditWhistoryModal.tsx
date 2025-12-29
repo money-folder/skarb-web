@@ -3,9 +3,9 @@ import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import Overlay from "@/shared/components/overlay/Overlay";
 import { getLocalISOString, replacePlaceholders } from "@/shared/utils/utils";
 
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { update } from "../../actions";
 import { ClientWhistoryDto, WhistoryFormValues } from "../../types";
 import { whistoryFormSchema } from "../../validation";
@@ -40,27 +40,18 @@ const EditWhistoryModal = ({ whistory, close }: Props) => {
   };
 
   return (
-    <div onClick={close}>
-      <Overlay>
-        <div
-          className="w-96 rounded-xl bg-white p-5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left text-lg font-bold">
-            {replacePlaceholders(d.modals.editWhistory.title, {
-              walletName: "-",
-            })}
-          </h3>
-          <div className="mt-5">
-            <WhistoryForm
-              methods={methods}
-              onSubmit={onSubmit}
-              onCancel={close}
-            />
-          </div>
-        </div>
-      </Overlay>
-    </div>
+    <>
+      <DialogHeader>
+        <DialogTitle className="text-left text-lg font-bold">
+          {replacePlaceholders(d.modals.editWhistory.title, {
+            walletName: "-",
+          })}
+        </DialogTitle>
+      </DialogHeader>
+      <div className="mt-5">
+        <WhistoryForm methods={methods} onSubmit={onSubmit} onCancel={close} />
+      </div>
+    </>
   );
 };
 

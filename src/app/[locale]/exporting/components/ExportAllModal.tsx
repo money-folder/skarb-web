@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import Overlay from "@/shared/components/overlay/Overlay";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { exportAll } from "../actions";
@@ -29,26 +29,16 @@ export const ExportAllModal = ({ close }: Props) => {
     const { data } = await exportAll(params);
     if (data) {
       downloadFile(data.filename, data.b64);
+      close();
     }
   };
 
   return (
-    <div onClick={close}>
-      <Overlay>
-        <div
-          className="w-96 rounded-xl bg-white p-5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h3 className="text-left text-lg font-bold">
-            {d.modals.createWallet.title}
-          </h3>
-          <ExportAllForm
-            methods={methods}
-            onSubmit={onSubmit}
-            onCancel={close}
-          />
-        </div>
-      </Overlay>
-    </div>
+    <>
+      <DialogHeader>
+        <DialogTitle>{d.modals.createWallet.title}</DialogTitle>
+      </DialogHeader>
+      <ExportAllForm methods={methods} onSubmit={onSubmit} onCancel={close} />
+    </>
   );
 };

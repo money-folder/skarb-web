@@ -1,9 +1,9 @@
 "use client";
 
-import { useContext } from "react";
+import { useState } from "react";
 
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import CreateButton from "@/shared/components/buttons/CreateButton";
-import { OverlayContext } from "@/shared/components/overlay/OverlayProvider";
 
 import CreateWalletModal from "./CreateWalletModal";
 
@@ -14,11 +14,16 @@ interface CreateWalletButtonProps {
 export default function CreateWalletButton({
   text = "",
 }: CreateWalletButtonProps) {
-  const { addOverlay } = useContext(OverlayContext);
+  const [open, setOpen] = useState(false);
 
-  const onClick = () => {
-    addOverlay(({ removeSelf }) => <CreateWalletModal close={removeSelf} />);
-  };
-
-  return <CreateButton text={text} onClick={onClick} />;
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <CreateButton text={text} onClick={() => setOpen(true)} />
+      </DialogTrigger>
+      <DialogContent>
+        <CreateWalletModal close={() => setOpen(false)} />
+      </DialogContent>
+    </Dialog>
+  );
 }
