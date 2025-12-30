@@ -140,5 +140,6 @@ model Earning {
   ownerId String @map("owner_id") @db.Uuid
   owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
+  @@index([date])
   @@map("earnings")
 }
