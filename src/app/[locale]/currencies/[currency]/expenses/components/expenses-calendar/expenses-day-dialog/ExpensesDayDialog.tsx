@@ -24,14 +24,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import { Dictionary } from "@/dictionaries/locale";
+import { formatDateOnly } from "@/shared/utils/time-utils";
 
 import { createBatchExpenses, fetchExpensesByDate } from "../../../actions";
-import { ExpensesDictionary } from "../../../dictionary";
 import { ClientExpenseDto } from "../../../types";
 import { dayExpenseFormSchema } from "../../../validation";
 
 interface Props {
-  dictionary: ExpensesDictionary;
+  dictionary: Dictionary["currencyPage"]["expensesContainer"]["expenses"];
   currency: string;
   date: Date;
   open: boolean;
@@ -119,6 +120,7 @@ export function ExpensesDayDialog({
                       {dictionary.table.amount}
                     </TableHead>
                     <TableHead>{dictionary.table.comment}</TableHead>
+                    <TableHead>{dictionary.table.date}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -129,6 +131,7 @@ export function ExpensesDayDialog({
                         {expense.moneyAmount}
                       </TableCell>
                       <TableCell>{expense.comment}</TableCell>
+                      <TableCell>{formatDateOnly(expense.date)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

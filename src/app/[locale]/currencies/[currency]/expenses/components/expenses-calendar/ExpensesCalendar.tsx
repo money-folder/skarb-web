@@ -1,10 +1,11 @@
 "use client";
 
+import { useContext, useMemo, useRef, useState } from "react";
+
 import { Card } from "@/components/ui/card";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { useContext, useMemo, useRef, useState } from "react";
+
 import { ClientExpenseDto } from "../../types";
-import { ExpensesContainerDictionary } from "../dictionary";
 import { ExpensesDayDialog } from "./expenses-day-dialog/ExpensesDayDialog";
 import {
   generateMonthsInRange,
@@ -22,10 +23,7 @@ export default function ExpensesCalendar({ expenses, currency, types }: Props) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { d: dictionaryContext } = useContext(DictionaryContext);
-  const d = dictionaryContext as {
-    currencyPage: { expensesContainer: ExpensesContainerDictionary };
-  };
+  const { d } = useContext(DictionaryContext);
   const { start, end } = useMemo(() => getDateSpan(expenses), [expenses]);
   const monthsInRange = useMemo(
     () => generateMonthsInRange(start, end).reverse(),
