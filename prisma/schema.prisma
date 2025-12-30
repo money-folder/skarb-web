@@ -104,6 +104,7 @@ model WalletHistory {
 
   wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
 
+  @@index([date])
   @@map("wallets_history")
 }
 
@@ -121,6 +122,7 @@ model Expense {
   ownerId String @map("owner_id") @db.Uuid
   owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
+  @@index([date])
   @@map("expenses")
 }
 
@@ -138,5 +140,6 @@ model Earning {
   ownerId String @map("owner_id") @db.Uuid
   owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
+  @@index([date])
   @@map("earnings")
 }
