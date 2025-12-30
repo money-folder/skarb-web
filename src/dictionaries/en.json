@@ -115,7 +115,15 @@
       "moneyAmount": "Money Amount",
       "changes": "Changes",
       "wallets": "Wallets",
-      "date": "Date"
+      "date": "Date",
+      "actions": "Actions",
+      "actionsMenu": {
+        "label": "Actions",
+        "view": "View"
+      },
+      "viewDialog": {
+        "title": "Entry Details"
+      }
     },
 
     "navbar": {

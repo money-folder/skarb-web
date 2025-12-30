@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Dictionary } from "@/dictionaries/locale";
+import { formatDateOnly } from "@/shared/utils/time-utils";
 
 import { ClientExpenseDto } from "../../types";
 import DestroyButton from "../buttons/DestroyButton";
@@ -105,7 +106,7 @@ const DayExpenseGroup = ({
                 <TableCell
                   className={`text-center ${expense.deletedAt ? "opacity-30" : ""}`}
                 >
-                  {expense.date.toLocaleString().split(", ")[0]}
+                  {formatDateOnly(expense.date)}
                 </TableCell>
                 <TableCell
                   className={`text-left ${expense.deletedAt ? "opacity-30" : ""}`}

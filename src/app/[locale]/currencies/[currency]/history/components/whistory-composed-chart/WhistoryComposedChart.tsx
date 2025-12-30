@@ -10,6 +10,7 @@ import {
   ChartTooltip,
 } from "@/components/ui/chart";
 import { DictionaryContext } from "@/shared/components/Dictionary";
+import { formatDateOnly } from "@/shared/utils/time-utils";
 
 interface Props {
   width: number;
@@ -43,7 +44,7 @@ const WhistoryComposedChart = ({ data }: Props) => {
 
         <ChartTooltip
           labelFormatter={(ts) => {
-            return new Date(ts).toLocaleString().split(",")[0];
+            return formatDateOnly(new Date(ts));
           }}
           formatter={(value) => [value, d.charts.whistory.tooltip.balanceLabel]}
         />
@@ -53,7 +54,7 @@ const WhistoryComposedChart = ({ data }: Props) => {
           style={{ fontSize: "12px" }}
           dataKey="date"
           scale="linear"
-          tickFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
+          tickFormatter={(ts) => formatDateOnly(new Date(ts))}
         />
         <YAxis
           padding={{ top: 20, bottom: 20 }}
