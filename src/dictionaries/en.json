@@ -173,7 +173,8 @@
         "table": {
           "type": "Type",
           "amount": "Amount",
-          "comment": "Comment"
+          "comment": "Comment",
+          "date": "Date"
         },
         "dayDialog": {
           "title": "Expenses for",

@@ -172,7 +172,8 @@
         "table": {
           "type": "Тып",
           "amount": "Сума",
-          "comment": "Каментар"
+          "comment": "Каментар",
+          "date": "Дата"
         },
         "dayDialog": {
           "title": "Выдаткі за",
