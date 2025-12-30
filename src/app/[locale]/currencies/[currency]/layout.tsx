@@ -1,5 +1,3 @@
-import { Locale } from "@/locale";
-
 interface Props {
   children: React.ReactNode;
   params: Promise<{

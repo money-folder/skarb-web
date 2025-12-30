@@ -4,10 +4,7 @@ import {
   PIE_CHART_WIDTH_DEFAULT,
 } from "@/shared/constants/charts";
 import { fetchEarningsSum } from "../../earnings/actions";
-import {
-  fetchCurrencyIntervalTotalDiff,
-  fetchCurrencyWhistoryExpenses,
-} from "../../history/actions";
+import { fetchCurrencyIntervalTotalDiff } from "../../history/actions";
 import type { Expense } from "../actions";
 import ExpensesChart from "./expenses-chart/ExpensesChart";
 

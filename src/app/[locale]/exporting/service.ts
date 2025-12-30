@@ -5,7 +5,6 @@ import * as exportingRepository from "./repository";
 import { ExportAllParams } from "./types";
 import { generateSQLDump } from "./utils-be";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCurrentUserAppData = async (params: ExportAllParams) => {
   const session = await auth();
   if (!session?.user?.id) {

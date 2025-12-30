@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dictionary } from "@/dictionaries/locale";
-import { DictionaryContext } from "@/shared/components/Dictionary";
 import { getLocalISOString } from "@/shared/utils/time-utils";
 
 import { EarningFormValues } from "../../types";
@@ -28,8 +26,6 @@ const EarningForm = ({
   defaultDate,
   dictionary,
 }: Props) => {
-  const { d } = useContext(DictionaryContext);
-
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
       <div className="space-y-5">
