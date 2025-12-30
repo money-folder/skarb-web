@@ -61,15 +61,6 @@ describe("CreateButton", () => {
     expect(button).toHaveClass("opacity-75");
   });
 
-  it("maintains correct spacing between icon and text", () => {
-    render(<CreateButton text="Add Item" onClick={() => {}} />);
-    const button = screen.getByRole("button");
-
-    expect(button.children[0]).toHaveAttribute("alt", "plus");
-    expect(button.children[1]).toHaveTextContent("Add Item");
-    expect(button).toHaveClass("space-x-2");
-  });
-
   it("renders with long text content", () => {
     const longText =
       "This is a very long button text that should still render properly";

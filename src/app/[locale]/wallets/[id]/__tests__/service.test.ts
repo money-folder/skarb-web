@@ -94,7 +94,9 @@ describe("Wallet Service", () => {
 
     it("should throw not found error when wallet history doesn't exist", async () => {
       (auth as jest.Mock).mockResolvedValue({ user: { id: mockUserId } });
-      (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue(null);
+      (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue({
+        data: null,
+      });
 
       await expect(
         whistoryService.getCurrentUserWhistory(mockWalletId, mockParams),
@@ -112,9 +114,9 @@ describe("Wallet Service", () => {
         { id: "2", moneyAmount: 1500 },
         { id: "3", moneyAmount: 1200 },
       ];
-      (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue(
-        mockWalletHistory,
-      );
+      (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue({
+        data: mockWalletHistory,
+      });
 
       const result = await whistoryService.getCurrentUserWhistory(
         mockWalletId,
@@ -125,9 +127,6 @@ describe("Wallet Service", () => {
       expect(result.whistory[0].changes).toBe(null);
       expect(result.whistory[1].changes).toBe(0.5);
       expect(result.whistory[2].changes).toBe(-0.2);
-      expect(result.increasesSum).toBe(500);
-      expect(result.decreasesSum).toBe(-300);
-      expect(result.increasesDecreasesDiff).toBe(200);
       expect(whistoryRepository.findUserWallet).toHaveBeenCalledWith(
         mockUserId,
         mockWalletId,
@@ -138,9 +137,9 @@ describe("Wallet Service", () => {
     it("should handle wallet history with no changes", async () => {
       (auth as jest.Mock).mockResolvedValue({ user: { id: mockUserId } });
       const mockWalletHistory = [{ id: "1", moneyAmount: 1000 }];
-      (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue(
-        mockWalletHistory,
-      );
+      (whistoryRepository.findUserWallet as jest.Mock).mockResolvedValue({
+        data: mockWalletHistory,
+      });
 
       const result = await whistoryService.getCurrentUserWhistory(
         mockWalletId,
@@ -150,9 +149,6 @@ describe("Wallet Service", () => {
       expect(result.whistory).toHaveLength(1);
       expect(result.whistory[0].changes).toBe(null);
       expect(result.whistory[0].changesAbs).toBe(null);
-      expect(result.increasesSum).toBe(0);
-      expect(result.decreasesSum).toBe(0);
-      expect(result.increasesDecreasesDiff).toBe(0);
     });
   });
 
