@@ -12,6 +12,8 @@ import {
 
 import { ClientWhistoryDto } from "@/app/[locale]/wallets/[id]/types";
 import { DictionaryContext } from "@/shared/components/Dictionary";
+import { formatDateOnly } from "@/shared/utils/time-utils";
+
 import { getAxisTimestamps } from "./utils";
 
 interface Props {
@@ -39,7 +41,7 @@ const WalletHistoryChart = ({ width, height, data }: Props) => {
       <Tooltip
         separator=": "
         contentStyle={{ fontSize: "12px" }}
-        labelFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
+        labelFormatter={(ts) => formatDateOnly(new Date(ts))}
         formatter={(value) => [value, d.charts.whistory.tooltip.balanceLabel]}
       />
 
@@ -48,7 +50,7 @@ const WalletHistoryChart = ({ width, height, data }: Props) => {
         style={{ fontSize: "12px" }}
         dataKey="dateTs"
         scale="linear"
-        tickFormatter={(ts) => new Date(ts).toLocaleString().split(",")[0]}
+        tickFormatter={(ts) => formatDateOnly(new Date(ts))}
         ticks={timestamps}
       />
       <YAxis

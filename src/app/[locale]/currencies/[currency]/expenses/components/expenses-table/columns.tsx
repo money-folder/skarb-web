@@ -1,7 +1,10 @@
 "use client";
 
-import { Dictionary } from "@/dictionaries/locale";
 import { ColumnDef } from "@tanstack/react-table";
+
+import { Dictionary } from "@/dictionaries/locale";
+import { formatDateOnly } from "@/shared/utils/time-utils";
+
 import { ClientExpenseDto } from "../../types";
 import DestroyButton from "../buttons/DestroyButton";
 
@@ -45,7 +48,7 @@ export const createColumns = (
           <div
             className={`text-center ${expense.deletedAt ? "opacity-30" : ""}`}
           >
-            {expense.date.toLocaleString().split(", ")[0]}
+            {formatDateOnly(expense.date)}
           </div>
         );
       },

@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dictionary } from "@/dictionaries/locale";
+import { formatDateOnly } from "@/shared/utils/time-utils";
 
 import Changes from "../../../../wallets/components/Changes";
 import { ClientWhistoryDto } from "../../types";
@@ -44,7 +45,7 @@ export const createColumns = (
           <div
             className={`w-2/12 text-center ${whistory.deletedAt ? "opacity-30" : ""}`}
           >
-            {whistory.date.toLocaleString().split(", ")[0]}
+            {formatDateOnly(whistory.date)}
           </div>
         );
       },

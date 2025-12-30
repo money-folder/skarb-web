@@ -5,6 +5,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { WhistoryComposed } from "@/app/[locale]/wallets/[id]/types";
 import Changes from "@/app/[locale]/wallets/components/Changes";
 import { Dictionary } from "@/dictionaries/locale";
+import { formatDateOnly } from "@/shared/utils/time-utils";
+
+import { ActionsCell } from "./ActionsCell";
 
 export const createColumns = (
   dictionary: Dictionary["currencyPage"]["currencyTable"],
@@ -35,29 +38,19 @@ export const createColumns = (
       },
     },
     {
-      accessorKey: "wallets",
-      header: () => <div className="text-left">{dictionary.wallets}</div>,
-      cell: ({ row }) => {
-        const wh = row.original;
-        return (
-          <div className="text-left">
-            <ul className="list-disc pl-5">
-              {wh.whistories.map((wh2) => (
-                <li
-                  key={wh2.id}
-                >{`${wh2.wallet.name} (${wh2.moneyAmount})`}</li>
-              ))}
-            </ul>
-          </div>
-        );
-      },
-    },
-    {
       accessorKey: "date",
       header: () => <div className="text-center">{dictionary.date}</div>,
       cell: ({ row }) => {
         const wh = row.original;
-        return <div className="text-center">{wh.date.toLocaleString()}</div>;
+        return <div className="text-center">{formatDateOnly(wh.date)}</div>;
+      },
+    },
+    {
+      id: "actions",
+      header: () => <div className="text-center">{dictionary.actions}</div>,
+      cell: ({ row }) => {
+        const entry = row.original;
+        return <ActionsCell entry={entry} dictionary={dictionary} />;
       },
     },
   ];

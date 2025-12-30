@@ -114,7 +114,15 @@
       "moneyAmount": "Сума грошай",
       "changes": "Змены",
       "wallets": "Кашалькі",
-      "date": "Дата"
+      "date": "Дата",
+      "actions": "Дзеянні",
+      "actionsMenu": {
+        "label": "Дзеянні",
+        "view": "Прагляд"
+      },
+      "viewDialog": {
+        "title": "Дэталі запісу"
+      }
     },
 
     "navbar": {

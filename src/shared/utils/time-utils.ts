@@ -182,3 +182,13 @@ export const getMonthStartTs = (date: Date): number => {
   const start = getMonthStart(date);
   return start.getTime();
 };
+
+/**
+ * Formats a date to show only the date part (without time) using locale string format.
+ * @param date - The date to format
+ * @returns The date string without the time component
+ * @example formatDateOnly(new Date()) // "12/30/2025"
+ */
+export const formatDateOnly = (date: Date): string => {
+  return date.toLocaleString().split(",")[0];
+};
