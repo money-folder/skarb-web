@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { getLocalISOString } from "@/shared/utils/utils";
+import { getLocalISOString } from "@/shared/utils/time-utils";
 
 import { updateExpense } from "../../actions";
 import { ClientExpenseDto, ExpenseFormValues } from "../../types";

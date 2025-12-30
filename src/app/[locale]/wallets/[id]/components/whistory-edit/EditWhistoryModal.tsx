@@ -3,7 +3,8 @@ import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { getLocalISOString, replacePlaceholders } from "@/shared/utils/utils";
+import { getLocalISOString } from "@/shared/utils/time-utils";
+import { replacePlaceholders } from "@/shared/utils/utils";
 
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { update } from "../../actions";

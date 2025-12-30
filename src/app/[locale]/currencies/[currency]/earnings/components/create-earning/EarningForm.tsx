@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dictionary } from "@/dictionaries/locale";
 import { DictionaryContext } from "@/shared/components/Dictionary";
-import { getLocalISOString } from "@/shared/utils/utils";
+import { getLocalISOString } from "@/shared/utils/time-utils";
 
 import { EarningFormValues } from "../../types";
 

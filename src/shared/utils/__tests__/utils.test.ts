@@ -1,18 +1,5 @@
-import {
-  generateNumberArray,
-  generatePseudoUUID,
-  getLocalISOString,
-  replacePlaceholders,
-} from "../utils";
-
-describe("generatePseudoUUID", () => {
-  it("should generate a UUID in the correct format", () => {
-    const uuid = generatePseudoUUID();
-    expect(uuid).toMatch(
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-    );
-  });
-});
+import { getLocalISOString } from "../time-utils";
+import { generateNumberArray, replacePlaceholders } from "../utils";
 
 describe("getLocalISOString", () => {
   it("should format date correctly", () => {
