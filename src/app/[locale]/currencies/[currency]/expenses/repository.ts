@@ -1,6 +1,7 @@
 import { prisma } from "@/prisma";
 import {
   CreateExpenseDto,
+  CreateExpenseGoalDto,
   FetchExpensesParams,
   UpdateExpenseDto,
 } from "./types";
@@ -112,4 +113,71 @@ export const findExpense = async (id: string) => {
 
 export const destroyExpense = async (id: string) => {
   return prisma.expense.delete({ where: { id } });
+};
+
+export const createGoal = async (dto: CreateExpenseGoalDto) => {
+  return prisma.expenseGoal.create({
+    data: dto,
+  });
+};
+
+export const findExpenseGoal = async (id: string) => {
+  const expenseGoal = await prisma.expenseGoal.findUnique({
+    where: { id },
+  });
+
+  if (!expenseGoal) {
+    return null;
+  }
+
+  return expenseGoal;
+};
+
+export const findGoalsByUserCurrency = async (
+  userId: string,
+  currency: string,
+  fromTs?: number,
+) => {
+  const expenseGoals = await prisma.$transaction(async (tx) => {
+    const goals = await tx.expenseGoal.findMany({
+      where: {
+        ownerId: userId,
+        currency,
+        endDate: {
+          gte: fromTs ? new Date(fromTs) : undefined,
+        },
+      },
+      orderBy: {
+        startDate: "desc",
+      },
+    });
+    const goalsWithExpenses = await Promise.all(
+      goals.map(async (goal) => {
+        const expenses = await tx.expense.findMany({
+          where: {
+            ownerId: userId,
+            currency,
+            date: {
+              gte: goal.startDate,
+              lte: goal.endDate,
+            },
+            type: goal.type,
+          },
+        });
+        const total = expenses.reduce(
+          (acc, { moneyAmount }) => acc + moneyAmount,
+          0,
+        );
+        return { ...goal, total };
+      }),
+    );
+
+    return goalsWithExpenses;
+  });
+
+  return expenseGoals;
+};
+
+export const destroyExpenseGoal = async (id: string) => {
+  return prisma.expenseGoal.delete({ where: { id } });
 };

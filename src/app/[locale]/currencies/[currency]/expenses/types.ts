@@ -1,8 +1,10 @@
 import { z } from "zod";
 
 import {
+  createExpenseGoalRequestSchema,
   createExpenseRequestSchema,
   expenseFormSchema,
+  expenseGoalFormSchema,
   updateExpenseRequestSchema,
 } from "./validation";
 
@@ -55,3 +57,34 @@ export type FetchExpensesParams = {
   types?: string[];
   comment?: string;
 };
+
+export type ExpenseGoalFormValues = z.infer<typeof expenseGoalFormSchema>;
+
+export type CreateExpenseGoalRequestDto = z.infer<
+  typeof createExpenseGoalRequestSchema
+>;
+
+export type CreateExpenseGoalDto = {
+  moneyAmount: number;
+  startDate: Date;
+  endDate: Date;
+  type: string;
+  ownerId: string;
+  currency: string;
+};
+
+export type ExpenseGoalDb = {
+  id: string;
+  startDate: Date;
+  endDate: Date;
+  moneyAmount: number;
+  currency: string;
+  type: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  ownerId: string;
+  total: number;
+};
+
+export type ClientExpenseGoalDto = ExpenseGoalDb;

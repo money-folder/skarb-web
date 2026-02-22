@@ -156,6 +156,7 @@
       "trackedExpenses": "Tracked Expenses",
       "overviewTab": "Overview",
       "calendarTab": "Calendar",
+      "goalsTab": "Goals",
       "calendar": {
         "days": {
           "sun": "Sun",
@@ -331,6 +332,18 @@
       "commentLabel": "Comment",
       "cancelLabel": "Cancel",
       "submitLabel": "Create"
+    },
+
+    "createExpenseGoal": {
+      "title": "Create Expense Goal"
+    },
+
+    "expenseGoalForm": {
+      "dateRange": "Select date range",
+      "amountLabel": "Amount",
+      "typeLabel": "Type",
+      "cancelLabel": "Cancel",
+      "submitLabel": "Submit"
     }
   },
 

@@ -35,3 +35,18 @@ export const dayExpenseFormSchema = z.object({
     }),
   ),
 });
+
+export const expenseGoalFormSchema = z.object({
+  moneyAmount: z.number(),
+  startDate: z.date(),
+  endDate: z.date(),
+  type: z.string(),
+});
+
+export const createExpenseGoalRequestSchema = z.object({
+  moneyAmount: z.number(),
+  startDate: z.date(),
+  endDate: z.date(),
+  type: z.string(),
+  currency: z.string(),
+});

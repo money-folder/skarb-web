@@ -8,6 +8,7 @@ export type ExpensesContainerDictionary = {
   trackedExpenses: string;
   overviewTab: string;
   calendarTab: string;
+  goalsTab: string;
   calendar: {
     days: {
       sun: string;
