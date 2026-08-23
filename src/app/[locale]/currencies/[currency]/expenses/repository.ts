@@ -138,44 +138,51 @@ export const findGoalsByUserCurrency = async (
   currency: string,
   fromTs?: number,
 ) => {
-  const expenseGoals = await prisma.$transaction(async (tx) => {
-    const goals = await tx.expenseGoal.findMany({
-      where: {
-        ownerId: userId,
-        currency,
-        endDate: {
-          gte: fromTs ? new Date(fromTs) : undefined,
-        },
+  const goals = await prisma.expenseGoal.findMany({
+    where: {
+      ownerId: userId,
+      currency,
+      endDate: {
+        gte: fromTs ? new Date(fromTs) : undefined,
       },
-      orderBy: {
-        startDate: "desc",
-      },
-    });
-    const goalsWithExpenses = await Promise.all(
-      goals.map(async (goal) => {
-        const expenses = await tx.expense.findMany({
-          where: {
-            ownerId: userId,
-            currency,
-            date: {
-              gte: goal.startDate,
-              lte: goal.endDate,
-            },
-            type: goal.type,
-          },
-        });
-        const total = expenses.reduce(
-          (acc, { moneyAmount }) => acc + moneyAmount,
-          0,
-        );
-        return { ...goal, total };
-      }),
-    );
-
-    return goalsWithExpenses;
+    },
+    orderBy: {
+      startDate: "desc",
+    },
   });
 
-  return expenseGoals;
+  if (goals.length === 0) return [];
+
+  const minStartDate = goals.reduce(
+    (min, g) => (g.startDate < min ? g.startDate : min),
+    goals[0].startDate,
+  );
+  const maxEndDate = goals.reduce(
+    (max, g) => (g.endDate > max ? g.endDate : max),
+    goals[0].endDate,
+  );
+
+  const expenses = await prisma.expense.findMany({
+    where: {
+      ownerId: userId,
+      currency,
+      date: { gte: minStartDate, lte: maxEndDate },
+    },
+    select: { moneyAmount: true, date: true, type: true },
+  });
+
+  return goals.map((goal) => {
+    const total = expenses
+      .filter(
+        (e) =>
+          e.type === goal.type &&
+          e.date >= goal.startDate &&
+          e.date <= goal.endDate,
+      )
+      .reduce((acc, { moneyAmount }) => acc + moneyAmount, 0);
+
+    return { ...goal, total };
+  });
 };
 
 export const destroyExpenseGoal = async (id: string) => {
