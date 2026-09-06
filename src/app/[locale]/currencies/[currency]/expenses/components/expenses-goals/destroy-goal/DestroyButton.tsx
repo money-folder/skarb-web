@@ -13,10 +13,12 @@ interface DestroyButtonProps {
 const DestroyButton = ({ id, currency }: DestroyButtonProps) => {
   return (
     <button
+      type="button"
+      aria-label="Delete expense goal"
       className="h-4 w-4 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => destroyExpenseGoal(id, currency)}
     >
-      <Image src={TrashIcon} alt="trash" />
+      <Image src={TrashIcon} alt="" />
     </button>
   );
 };
