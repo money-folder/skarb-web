@@ -18,7 +18,7 @@ model User {
   deletedAt     DateTime?     @map("deleted_at") @db.Timestamp(6)
   accounts      Account[]
   earnings      Earning[]
-  expense_goals ExpenseGoal[]
+  expenseGoals  ExpenseGoal[]
   expenses      Expense[]
   sessions      Session[]
   wallets       Wallet[]

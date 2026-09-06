@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
-import { ExpenseGoal } from "../../actions";
+import { ExpenseGoal } from "../actions";
 import CreateExpenseGoalButton from "./create-goal/CreateExpenseGoalButton";
 import ExpensesGoalProgress from "./goal-progress/ExpenseGoalProgress";
 

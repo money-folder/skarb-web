@@ -6,12 +6,12 @@ import CreateExpenseButton from "./create-expense/CreateExpenseButton";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import ExpensesGoalsContainer from "../../expense-goals/components/ExpensesGoalsContainer";
 import { ExpensesContainerDictionary } from "./dictionary";
 import ExpensesCalendarContainer from "./ExpensesCalendarContainer";
 import ExpensesChartContainer from "./ExpensesChartContainer";
 import ExpensesEmptyState from "./ExpensesEmptyState";
 import ExpensesFilters from "./ExpensesFilters";
-import ExpensesGoalsContainer from "./ExpensesGoalsContainer";
 import ExpensesTableContainer from "./ExpensesTableContainer";
 
 interface Props {

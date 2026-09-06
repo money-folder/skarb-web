@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { ExpenseGoalFormValues } from "../../../types";
+import { ExpenseGoalFormValues } from "../../types";
 
 interface Props {
   form: UseFormReturn<ExpenseGoalFormValues>;

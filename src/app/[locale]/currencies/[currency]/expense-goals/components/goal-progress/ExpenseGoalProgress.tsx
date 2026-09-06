@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -13,8 +13,9 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
-import { ExpenseGoal } from "../../../actions";
-import { GoalStatus } from "../../../types";
+import { DictionaryContext } from "@/shared/components/Dictionary";
+import { ExpenseGoal } from "../../actions";
+import { GoalStatus } from "../../types";
 import DestroyButton from "../destroy-goal/DestroyButton";
 
 interface Props {
@@ -22,6 +23,8 @@ interface Props {
 }
 
 export default function ExpensesGoalProgress({ expensesGoal }: Props) {
+  const { locale } = useContext(DictionaryContext);
+
   const value = useMemo(() => {
     return (expensesGoal.total * 100) / expensesGoal.moneyAmount;
   }, [expensesGoal]);
@@ -38,6 +41,7 @@ export default function ExpensesGoalProgress({ expensesGoal }: Props) {
         ? { text: "Goal met ✅", style: "default" }
         : { text: "Failed 😞", style: "destructive" };
     }
+
     return expensesGoal.total <= expensesGoal.moneyAmount
       ? { text: "In progress ⌛", style: "secondary" }
       : { text: "Failed 😞", style: "destructive" };
@@ -49,13 +53,13 @@ export default function ExpensesGoalProgress({ expensesGoal }: Props) {
         <CardTitle>{expensesGoal.type}</CardTitle>
         <CardDescription>
           <p>
-            {expensesGoal.startDate.toLocaleDateString("pl", {
+            {expensesGoal.startDate.toLocaleDateString(locale, {
               day: "2-digit",
               month: "2-digit",
               year: "2-digit",
             }) +
               " - " +
-              expensesGoal.endDate.toLocaleDateString("pl", {
+              expensesGoal.endDate.toLocaleDateString(locale, {
                 day: "2-digit",
                 month: "2-digit",
                 year: "2-digit",

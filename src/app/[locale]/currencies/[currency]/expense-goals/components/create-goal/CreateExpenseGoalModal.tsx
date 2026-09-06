@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DictionaryContext } from "@/shared/components/Dictionary";
 
-import { createExpenseGoal } from "../../../actions";
-import { ExpenseGoalFormValues } from "../../../types";
-import { expenseGoalFormSchema } from "../../../validation";
+import { createExpenseGoal } from "../../actions";
+import { ExpenseGoalFormValues } from "../../types";
+import { expenseGoalFormSchema } from "../../validation";
 import ExpenseGoalForm from "./ExpenseGoalForm";
 
 interface Props {

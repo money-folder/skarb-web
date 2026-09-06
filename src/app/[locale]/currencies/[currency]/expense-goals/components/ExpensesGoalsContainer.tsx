@@ -1,10 +1,11 @@
 import { WithMounted } from "@/shared/components/WithMounted";
-import { fetchExpenseGoals, type ExpenseType } from "../actions";
-import ExpensesGoals from "./expenses-goals/ExpensesGoals";
+
+import { fetchExpenseGoals } from "../actions";
+import ExpensesGoals from "./ExpensesGoals";
 
 interface Props {
   currency: string;
-  allTypes: ExpenseType[];
+  allTypes: string[];
   fromTs?: number;
 }
 
