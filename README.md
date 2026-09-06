@@ -11,7 +11,7 @@ npm install
 Run compose Postgres and migrate local tables:
 
 ```bash
-npm db:migrate:local
+npm run db:migrate:local
 ```
 
 Run the development server:
