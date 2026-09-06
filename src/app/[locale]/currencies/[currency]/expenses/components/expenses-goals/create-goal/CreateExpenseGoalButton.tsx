@@ -25,11 +25,9 @@ export default function CreateExpenseGoalButton({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button variant="outline" size="sm" onClick={() => setOpen(true)} asChild>
-        <div>
-          <Plus className="h-4 w-4" />
-          <span>{text}</span>
-        </div>
+      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+        <Plus className="h-4 w-4" />
+        <span>{text}</span>
       </Button>
       <DialogContent>
         <CreateExpenseGoalModal
