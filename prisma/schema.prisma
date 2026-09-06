@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,43 +8,39 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String    @db.VarChar(255)
-  email         String    @unique
-  emailVerified DateTime? @map("email_verified")
+  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String        @db.VarChar(255)
+  email         String        @unique
+  emailVerified DateTime?     @map("email_verified")
   image         String?
-
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(6)
-  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
-
-  wallets  Wallet[]
-  accounts Account[]
-  sessions Session[]
-  expenses Expense[]
+  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt     DateTime      @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt     DateTime?     @map("deleted_at") @db.Timestamp(6)
+  accounts      Account[]
+  earnings      Earning[]
   expense_goals ExpenseGoal[]
-  earnings Earning[]
+  expenses      Expense[]
+  sessions      Session[]
+  wallets       Wallet[]
 
   @@map("users")
 }
 
 model Account {
-  userId            String  @map("user_id") @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
   type              String
   provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  providerAccountId String   @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
   id_token          String?
   session_state     String?
-
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
   @@map("accounts")
@@ -60,11 +50,9 @@ model Session {
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id") @db.Uuid
   expires      DateTime
-
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
@@ -79,16 +67,15 @@ model VerificationToken {
 }
 
 model Wallet {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String    @db.VarChar(255)
-  ownerId   String    @map("owner_id") @db.Uuid
-  currency  String    @db.VarChar(255)
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
-  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
-
-  owner   User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  history WalletHistory[]
+  id        String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String          @db.VarChar(255)
+  ownerId   String          @map("owner_id") @db.Uuid
+  currency  String          @db.VarChar(255)
+  createdAt DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt DateTime?       @map("deleted_at") @db.Timestamp(6)
+  owner     User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  history   WalletHistory[]
 
   @@map("wallets")
 }
@@ -98,12 +85,11 @@ model WalletHistory {
   walletId    String    @map("wallet_id") @db.Uuid
   moneyAmount Float     @map("money_amount")
   date        DateTime  @default(now()) @db.Timestamp(6)
-  comment     String?   @db.VarChar(255)
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
   deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)
-
-  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  comment     String?   @db.VarChar(255)
+  wallet      Wallet    @relation(fields: [walletId], references: [id], onDelete: Cascade)
 
   @@index([date])
   @@map("wallets_history")
@@ -119,9 +105,8 @@ model Expense {
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
   deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)
-
-  ownerId String @map("owner_id") @db.Uuid
-  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     String    @map("owner_id") @db.Uuid
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
   @@index([date])
   @@map("expenses")
@@ -129,17 +114,16 @@ model Expense {
 
 model ExpenseGoal {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  startDate   DateTime  @default(now()) @db.Timestamp(6) @map("start_date")
-  endDate     DateTime  @default(now()) @db.Timestamp(6) @map("end_date")
+  startDate   DateTime  @default(now()) @map("start_date") @db.Timestamp(6)
+  endDate     DateTime  @default(now()) @map("end_date") @db.Timestamp(6)
   moneyAmount Float     @map("money_amount")
   currency    String    @db.VarChar(255)
   type        String    @db.VarChar(255)
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
   deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)
-
-  ownerId String @map("owner_id") @db.Uuid
-  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     String    @map("owner_id") @db.Uuid
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
   @@map("expense_goals")
 }
@@ -154,9 +138,8 @@ model Earning {
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
   deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)
-
-  ownerId String @map("owner_id") @db.Uuid
-  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     String    @map("owner_id") @db.Uuid
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
   @@index([date])
   @@map("earnings")

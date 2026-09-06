@@ -1,4 +1,7 @@
+import type { VariantProps } from "class-variance-authority";
 import { z } from "zod";
+
+import { badgeVariants } from "@/components/ui/badge";
 
 import {
   createExpenseGoalRequestSchema,
@@ -88,3 +91,8 @@ export type ExpenseGoalDb = {
 };
 
 export type ClientExpenseGoalDto = ExpenseGoalDb;
+
+export interface GoalStatus {
+  text: string;
+  style: VariantProps<typeof badgeVariants>["variant"];
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -11,8 +13,8 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
-import { useMemo } from "react";
 import { ExpenseGoal } from "../../../actions";
+import { GoalStatus } from "../../../types";
 import DestroyButton from "../destroy-goal/DestroyButton";
 
 interface Props {
@@ -30,7 +32,7 @@ export default function ExpensesGoalProgress({ expensesGoal }: Props) {
     return expired;
   }, [expensesGoal]);
 
-  const status = useMemo(() => {
+  const status = useMemo((): GoalStatus => {
     if (expired) {
       return expensesGoal.total <= expensesGoal.moneyAmount
         ? { text: "Goal met ✅", style: "default" }
