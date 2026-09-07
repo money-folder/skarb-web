@@ -66,7 +66,7 @@ export const AppSidebar = async ({ locale }: AppSidebarProps) => {
           CreateWhistoryButton={CreateWhistoryButton}
         />
       </SidebarContent>
-      <AppSidebarFooter />
+      <AppSidebarFooter locale={locale} />
     </Sidebar>
   );
 };
