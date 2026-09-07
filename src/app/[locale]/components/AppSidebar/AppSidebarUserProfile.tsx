@@ -1,6 +1,9 @@
-import { ChevronsUpDown } from "lucide-react";
-import Image from "next/image";
+import { ChevronsUpDown, LogIn, LogOut } from "lucide-react";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
+import { logout } from "@/app/[locale]/auth/actions";
+import { AuthRefresher } from "@/app/[locale]/auth/components/AuthRefresher";
 import { auth } from "@/auth";
 import {
   DropdownMenu,
@@ -13,21 +16,36 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { SignIn } from "@/shared/components/SignIn";
-import { SignOut } from "@/shared/components/SignOut";
+import { getDictionary } from "@/dictionaries";
+import { REFRESH_TOKEN_COOKIE } from "@/lib/auth/consts";
+import { Locale } from "@/locale";
 
-export const AppSidebarUserProfile = async () => {
+interface Props {
+  locale: Locale;
+}
+
+export const AppSidebarUserProfile = async ({ locale }: Props) => {
+  const d = await getDictionary(locale, "sidebar");
   const session = await auth();
   const user = session?.user;
 
   if (!user) {
+    const hasRefreshToken = (await cookies()).has(REFRESH_TOKEN_COOKIE);
+
     return (
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton className="w-full" asChild>
-            <SignIn text="Sign In" />
+            <Link
+              href={`/${locale}/auth`}
+              className="flex w-full items-center gap-2 text-sm"
+            >
+              <LogIn className="h-4 w-4" />
+              {d.signinLabel}
+            </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
+        {hasRefreshToken && <AuthRefresher />}
       </SidebarMenu>
     );
   }
@@ -37,27 +55,14 @@ export const AppSidebarUserProfile = async () => {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              className="w-full py-5"
-              tooltip={user.name || "User"}
-            >
-              {user.image ? (
-                <Image
-                  src={user.image}
-                  alt={user.name || "User"}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-              ) : (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
-                  <span className="text-xs font-medium">
-                    {user.name?.charAt(0).toUpperCase() || "U"}
-                  </span>
-                </div>
-              )}
+            <SidebarMenuButton className="w-full py-5" tooltip={user.username}>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                <span className="text-xs font-medium">
+                  {user.username.charAt(0).toUpperCase()}
+                </span>
+              </div>
               <div className="flex flex-col items-start overflow-hidden">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{user.username}</span>
               </div>
               <ChevronsUpDown className="ml-auto group-data-[collapsible=icon]:hidden" />
             </SidebarMenuButton>
@@ -68,7 +73,15 @@ export const AppSidebarUserProfile = async () => {
             className="w-[--radix-dropdown-menu-trigger-width]"
           >
             <DropdownMenuItem asChild>
-              <SignOut text="Logout" />
+              <form action={logout} className="w-full">
+                <button
+                  type="submit"
+                  className="flex w-full items-center gap-2 text-sm"
+                >
+                  <LogOut className="h-4 w-4" />
+                  {d.signoutLabel}
+                </button>
+              </form>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

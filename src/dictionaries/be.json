@@ -251,8 +251,22 @@
   "sidebar": {
     "walletsTitle": "Кашалькі",
     "currenciesTitle": "Валюты",
-    "githubSigninLabel": "Увайсці праз Github",
+    "signinLabel": "Увайсці",
     "signoutLabel": "Выйсці"
+  },
+
+  "authPage": {
+    "title": "Увайдзіце або стварыце акаўнт",
+    "usernameLabel": "Імя карыстальніка",
+    "passwordLabel": "Пароль",
+    "signinButton": "Увайсці",
+    "registerButton": "Зарэгістравацца",
+    "invalidCredentials": "Няправільнае імя карыстальніка або пароль",
+    "usernameTaken": "Гэтае імя ўжо занята",
+    "registered": "Акаўнт створаны. Вы зможаце ўвайсці пасля пацверджання адміністратарам.",
+    "usernameInvalid": "3–32 сімвалы: літары, лічбы, кропка, падкрэсліванне, дэфіс",
+    "passwordInvalid": "12–128 сімвалаў",
+    "unknownError": "Нешта пайшло не так, паспрабуйце яшчэ раз"
   },
 
   "modals": {
