@@ -8,62 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String        @db.VarChar(255)
-  email         String        @unique
-  emailVerified DateTime?     @map("email_verified")
-  image         String?
-  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt     DateTime      @updatedAt @map("updated_at") @db.Timestamp(6)
-  deletedAt     DateTime?     @map("deleted_at") @db.Timestamp(6)
-  accounts      Account[]
-  earnings      Earning[]
-  expenseGoals  ExpenseGoal[]
-  expenses      Expense[]
-  sessions      Session[]
-  wallets       Wallet[]
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username     String        @unique @db.VarChar(255)
+  passwordHash String        @map("password_hash")
+  isVerified   Boolean       @default(false) @map("is_verified")
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt    DateTime?     @map("deleted_at") @db.Timestamp(6)
+  earnings     Earning[]
+  expenseGoals ExpenseGoal[]
+  expenses     Expense[]
+  wallets      Wallet[]
 
   @@map("users")
-}
-
-model Account {
-  userId            String   @map("user_id") @db.Uuid
-  type              String
-  provider          String
-  providerAccountId String   @map("provider_account_id")
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([provider, providerAccountId])
-  @@map("accounts")
-}
-
-model Session {
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id") @db.Uuid
-  expires      DateTime
-  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("sessions")
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@id([identifier, token])
-  @@map("verificationtokens")
 }
 
 model Wallet {

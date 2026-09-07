@@ -252,8 +252,22 @@
   "sidebar": {
     "walletsTitle": "Wallets",
     "currenciesTitle": "Currencies",
-    "githubSigninLabel": "Sign In with Github",
+    "signinLabel": "Sign In",
     "signoutLabel": "Sign Out"
+  },
+
+  "authPage": {
+    "title": "Sign in or create an account",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "signinButton": "Sign In",
+    "registerButton": "Register",
+    "invalidCredentials": "Invalid username or password",
+    "usernameTaken": "This username is already taken",
+    "registered": "Account created. You can sign in once an administrator verifies it.",
+    "usernameInvalid": "3–32 characters: letters, digits, dot, underscore, dash",
+    "passwordInvalid": "12–128 characters",
+    "unknownError": "Something went wrong, please try again"
   },
 
   "modals": {

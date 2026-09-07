@@ -1,3 +1,5 @@
+import { Locale } from "@/locale";
+
 import {
   calculateDateDifference,
   DateDifference,
@@ -170,7 +172,7 @@ describe("formatDateDifference", () => {
   });
 
   it("should default to English for unknown locales", () => {
-    const result = formatDateDifference(diff, "unknown");
+    const result = formatDateDifference(diff, "unknown" as unknown as Locale);
     expect(result).toBe("1 year, 2 months, 3 days, 4 hours, 5 mins, 6 seconds");
   });
 });

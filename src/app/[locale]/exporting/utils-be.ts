@@ -49,19 +49,15 @@ export const generateSQLDump = (appData: AppData): string => {
   sqlDump += `-- User data\n`;
   sqlDump += `INSERT INTO users (
     id,
-    name,
-    email,
-    email_verified,
-    image,
+    username,
+    is_verified,
     created_at,
     updated_at,
     deleted_at
   ) VALUES (
     ${formatValueForSQL(appData.id)},
-    ${formatValueForSQL(appData.name)},
-    ${formatValueForSQL(appData.email)},
-    ${formatValueForSQL(appData.emailVerified)},
-    ${formatValueForSQL(appData.image)},
+    ${formatValueForSQL(appData.username)},
+    ${formatValueForSQL(appData.isVerified)},
     ${formatValueForSQL(appData.createdAt)},
     ${formatValueForSQL(appData.updatedAt)},
     ${formatValueForSQL(appData.deletedAt)}
