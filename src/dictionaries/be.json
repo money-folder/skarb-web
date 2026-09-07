@@ -155,6 +155,7 @@
       "trackedExpenses": "Улічаныя выдаткі",
       "overviewTab": "Агляд",
       "calendarTab": "Каляндар",
+      "goalsTab": " Mэты",
       "calendar": {
         "days": {
           "sun": "Нд",
@@ -250,8 +251,22 @@
   "sidebar": {
     "walletsTitle": "Кашалькі",
     "currenciesTitle": "Валюты",
-    "githubSigninLabel": "Увайсці праз Github",
+    "signinLabel": "Увайсці",
     "signoutLabel": "Выйсці"
+  },
+
+  "authPage": {
+    "title": "Увайдзіце або стварыце акаўнт",
+    "usernameLabel": "Імя карыстальніка",
+    "passwordLabel": "Пароль",
+    "signinButton": "Увайсці",
+    "registerButton": "Зарэгістравацца",
+    "invalidCredentials": "Няправільнае імя карыстальніка або пароль",
+    "usernameTaken": "Гэтае імя ўжо занята",
+    "registered": "Акаўнт створаны. Вы зможаце ўвайсці пасля пацверджання адміністратарам.",
+    "usernameInvalid": "3–32 сімвалы: літары, лічбы, кропка, падкрэсліванне, дэфіс",
+    "passwordInvalid": "12–128 сімвалаў",
+    "unknownError": "Нешта пайшло не так, паспрабуйце яшчэ раз"
   },
 
   "modals": {
@@ -330,6 +345,18 @@
       "commentLabel": "Каментар",
       "cancelLabel": "Скасаваць",
       "submitLabel": "Стварыць"
+    },
+
+    "createExpenseGoal": {
+      "title": "Стварыць мэту па выдатках"
+    },
+
+    "expenseGoalForm": {
+      "dateRange": "Дыяпазон дат",
+      "amountLabel": "Сума грошай",
+      "typeLabel": "Tып",
+      "cancelLabel": "Скасаваць",
+      "submitLabel": "Адправіць"
     }
   },
 

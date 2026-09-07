@@ -62,10 +62,9 @@ export const fetchExpenses = async (
 export async function createExpense(dto: CreateExpenseRequestDto) {
   const validationResult = createExpenseRequestSchema.safeParse(dto);
   if (validationResult.error) {
-    throw new Error(
-      "Create expense validation failed!",
-      validationResult.error,
-    );
+    throw new Error("Create expense validation failed!", {
+      cause: validationResult.error,
+    });
   }
 
   await createUserCurrencyExpense(dto);
@@ -75,10 +74,9 @@ export async function createExpense(dto: CreateExpenseRequestDto) {
 export async function createBatchExpenses(dtos: CreateExpenseRequestDto[]) {
   const validationResult = createExpensesRequestSchema.safeParse(dtos);
   if (validationResult.error) {
-    throw new Error(
-      "Create expenses validation failed!",
-      validationResult.error,
-    );
+    throw new Error("Create expenses validation failed!", {
+      cause: validationResult.error,
+    });
   }
 
   await createUserCurrencyExpenses(dtos);
@@ -91,10 +89,9 @@ export async function createBatchExpenses(dtos: CreateExpenseRequestDto[]) {
 export async function updateExpense(dto: UpdateExpenseRequestDto) {
   const validationResult = updateExpenseRequestSchema.safeParse(dto);
   if (validationResult.error) {
-    throw new Error(
-      "Update expense validation failed!",
-      validationResult.error,
-    );
+    throw new Error("Update expense validation failed!", {
+      cause: validationResult.error,
+    });
   }
 
   await updateUserCurrencyExpense(dto);
